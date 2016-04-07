@@ -1,0 +1,6 @@
+vn\com\hiringviet\MemberController.class
+vn\com\hiringviet\dao\MemberDAOImpl.class
+vn\com\hiringviet\service\MemberService.class
+vn\com\hiringviet\dao\MemberDAO.class
+vn\com\hiringviet\service\MemberServiceImpl.class
+vn\com\hiringviet\model\Member.class
