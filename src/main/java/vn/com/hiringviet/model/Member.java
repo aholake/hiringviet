@@ -1,34 +1,61 @@
 package vn.com.hiringviet.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "member", catalog = "hiringviet")
-public class Member {
+@Table(name = "MEMBER", catalog = "hiringviet")
+public class Member implements Serializable {
+
+	private static final long serialVersionUID = -4371044009879481708L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "member_id")
-	private long id;
+	@Column(name = "MEMBER_ID", unique = true, nullable = false, length = 11)
+	private Integer id;
 
-	@Column(name = "email")
+	@Column(name = "EMAIL", unique = true, nullable = false, length = 100)
 	private String email;
 
-	@Column(name = "password")
+	@Column(name = "PASSWORD", nullable = true, length = 100)
 	private String password;
-	
-	@Column(name = "group")
-	private int group;
 
-	public long getId() {
+	@Column(name = "ROLE_ID", nullable = false, length = 1)
+	private Integer roleID;
+
+	@Column(name = "STATUS", nullable = false, length = 1)
+	private Integer status;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATE_AT", nullable = false)
+	private Date createAt;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "UPDATE_AT", nullable = false)
+	private Date updateAt;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "DELETE_AT", nullable = true)
+	private Date deleteAt;
+
+	public Member() {
+		super();
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -48,11 +75,44 @@ public class Member {
 		this.password = password;
 	}
 
-	public int getGroup() {
-		return group;
+	public Integer getRoleID() {
+		return roleID;
 	}
 
-	public void setGroup(int group) {
-		this.group = group;
+	public void setRoleID(Integer roleID) {
+		this.roleID = roleID;
 	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Date getCreateAt() {
+		return createAt;
+	}
+
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
+	}
+
+	public Date getUpdateAt() {
+		return updateAt;
+	}
+
+	public void setUpdateAt(Date updateAt) {
+		this.updateAt = updateAt;
+	}
+
+	public Date getDeleteAt() {
+		return deleteAt;
+	}
+
+	public void setDeleteAt(Date deleteAt) {
+		this.deleteAt = deleteAt;
+	}
+
 }
