@@ -1,48 +1,29 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "DISTRICT", catalog = "hiringviet")
-public class District implements Serializable {
+public class DistrictDTO implements Serializable {
 
 	private static final long serialVersionUID = 4567651847477356613L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "district_ID", nullable = false)
 	private Integer districtID;
 
-	@Column(name = "DISTRICT_CODE", nullable = false)
 	private String districtCode;
 
-	@Column(name = "DISPLAY_NAME", nullable = false)
 	private String displayName;
 
-	@Column(name = "PROVINCE_ID", nullable = false)
 	private Integer provinceID;
 
-	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATE_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATE_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETE_AT")
 	private Date deletedAt;
 
-	public District() {
+	public DistrictDTO() {
 		super();
 	}
 

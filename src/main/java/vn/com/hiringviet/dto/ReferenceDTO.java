@@ -1,54 +1,33 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "REFERENCE", catalog = "hiringviet")
-public class Reference implements Serializable {
+public class ReferenceDTO implements Serializable {
 
 	private static final long serialVersionUID = 805152781488065733L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "REFERENCE_ID", nullable = false, length = 11)
 	private Integer referenceID;
 
-	@Column(name = "RESUME_ID", nullable = false, length = 11)
 	private Integer resumeID;
 
-	@Column(name = "COMPANY_ID", nullable = false, length = 11)
 	private Integer companyID;
 
-	@Column(name = "POSITION_ID", nullable = false, length = 11)
 	private Integer positionID;
 
-	@Column(name = "EMAIL")
 	private String email;
 
-	@Column(name = "PHONE_NUMBER")
 	private String phoneNumber;
 
-	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATE_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATE_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETE_AT")
 	private Date deletedAt;
 
-	public Reference() {
+	public ReferenceDTO() {
 		super();
 	}
 

@@ -28,7 +28,7 @@
 	<context:property-placeholder location="/WEB-INF/spring/jdbc.properties" />
 
 	<!-- Load Hibernate related configuration -->
-	<import resource="/hibernate/hibernate-context.xml" />
+	<import resource="hibernate/hibernate-context.xml" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

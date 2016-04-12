@@ -11,24 +11,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "DISTRICT", catalog = "hiringviet")
-public class District implements Serializable {
+@Table(name = "JOB_CATEGORY", catalog = "hiringviet")
+public class JobCategory implements Serializable {
 
-	private static final long serialVersionUID = 4567651847477356613L;
+	private static final long serialVersionUID = -7098623801141057102L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "district_ID", nullable = false)
-	private Integer districtID;
+	@Column(name = "JOB_CATEGORY_ID", nullable = false, length = 11)
+	private Integer jobCategoryID;
 
-	@Column(name = "DISTRICT_CODE", nullable = false)
-	private String districtCode;
-
-	@Column(name = "DISPLAY_NAME", nullable = false)
-	private String displayName;
-
-	@Column(name = "PROVINCE_ID", nullable = false)
-	private Integer provinceID;
+	@Column(name = "CATEGORY_NAME", nullable = false, length = 11)
+	private Integer categoryNAME;
 
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
@@ -42,40 +36,24 @@ public class District implements Serializable {
 	@Column(name = "DELETE_AT")
 	private Date deletedAt;
 
-	public District() {
+	public JobCategory() {
 		super();
 	}
 
-	public Integer getDistrictID() {
-		return districtID;
+	public Integer getJobCategoryID() {
+		return jobCategoryID;
 	}
 
-	public void setDistrictID(Integer districtID) {
-		this.districtID = districtID;
+	public void setJobCategoryID(Integer jobCategoryID) {
+		this.jobCategoryID = jobCategoryID;
 	}
 
-	public String getDistrictCode() {
-		return districtCode;
+	public Integer getCategoryNAME() {
+		return categoryNAME;
 	}
 
-	public void setDistrictCode(String districtCode) {
-		this.districtCode = districtCode;
-	}
-
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
-
-	public Integer getProvinceID() {
-		return provinceID;
-	}
-
-	public void setProvinceID(Integer provinceID) {
-		this.provinceID = provinceID;
+	public void setCategoryNAME(Integer categoryNAME) {
+		this.categoryNAME = categoryNAME;
 	}
 
 	public Integer getStatus() {
