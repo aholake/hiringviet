@@ -14,7 +14,7 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<hibernate-version>4.2.2.Final</hibernate-version>
 
-		<app.id>your-app-id</app.id>
+		<app.id>hiringviet</app.id>
 		<app.version>1</app.version>
 		<appengine.version>1.9.25</appengine.version>
 		<gcloud.plugin.version>2.0.9.74.v20150814</gcloud.plugin.version>
