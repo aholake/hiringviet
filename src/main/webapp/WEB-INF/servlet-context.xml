@@ -14,14 +14,15 @@
 	<!-- declare datasource bean -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="driverClassName" value="com.mysql.jdbc.GoogleDriver" />
+		<!-- 
 		<property name="url" value="jdbc:mysql://localhost:3306/hiringviet" />
 
 		<property name="username" value="root" />
-		<property name="password" value="" />
-		
-		<!-- <property name="url" value="jdbc:google:mysql://hiringviet:gae-project/javatraining?user=root" 
-			/> -->
+		<property name="password" value="11221122" />
+		 -->
+		<!-- For connecting DB on localhost -->
+		<property name="url" value="jdbc:google:mysql://hiringviet:gae-project/javatraining?user=root" />
 	</bean>
 
 	<!-- Hibernate Session Factory -->
