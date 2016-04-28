@@ -1,0 +1,331 @@
+* {
+	margin: 0;
+	padding: 0;
+	color: #8a8a8a;
+}
+
+body {
+	background:#F0F0F0;
+}
+
+.logo {
+	margin-bottom: 70px;
+}
+
+.bg-first-page {
+	background: url("../images/big_bg.jpg") no-repeat;
+}
+
+span {
+	font-size: 16px;
+}
+
+header {
+	background: #FFF;
+	width: 100%;
+	height: 110px;
+	border-bottom: 1px solid #c2c2c2;
+}
+
+header #topnav {
+	width: 1060px;
+	height: 100%;
+	margin: auto;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+.capitalize {
+	text-transform: capitalize;
+}
+.display-block {
+	display: block;
+}
+
+.margin-right-5 {
+	margin-right: 5px;
+}
+
+
+.margin-top-5 {
+	margin-top: 5px;
+}
+
+.margin-bottom-0 {
+	margin-bottom: 0 !important;
+}
+
+.prefix-icon {
+	vertical-align: bottom !important;
+	margin-right: 5px;
+}
+
+hr.fancy-hr {  
+	border: 0; 
+	height: 5px;
+	background: linear-gradient(to right, red, yellow, green);
+	margin: 8px 0;
+}
+
+.circle-btn {
+	width: 60px;
+	height: 60px;
+	margin: 0 5px;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 30px;
+	font-size: 33px;
+	padding-left: 9px;
+	padding-top: 7px;
+	display: inline-block;
+	cursor: pointer;
+	float: right;
+}
+.circle-btn>i.material-icons {
+	font-size: 45px;
+}
+
+.bold-text {
+	font-weight: bolder;
+}
+
+.higher-line {
+	line-height: 28px;
+}
+
+/*--------------------------NAV BAR---------------*/
+#search-bar {
+	margin-top:25px;
+	width: 500px;
+}
+
+#search-input {
+	width: 355px;
+	position: relative;
+}
+
+#suggestion-box {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 300px;
+	background: #FFF;
+	top: 49px;
+	overflow: auto;
+	z-index: 4;
+}
+#suggestion-box ul {
+	display: none;
+}
+
+#suggestion-box li {
+	height: 40px;
+	line-height: 40px;
+	p
+	adding: 0 5px;
+}
+#suggestion-box li:hover {
+	background: #c2c2c2;
+}
+
+#suggestion-box>.search-progress {
+	display: -webkit-box;
+	display: -moz-inline-box;
+	display: -webkit-inline-box;
+	display: inline-box;
+}
+
+#suggestion-box>.search-progress>img {
+	width: 30px;
+	height: 30px;
+	margin: 5px 10px; 
+}
+
+#suggestion-box>.search-progress>p {
+	width: 200px;
+	font-size: 16px;
+	line-height: 40px;
+	font-weight: bold;
+}
+
+.search-hint {
+	font-size: 13px;
+}
+
+.noselect {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none;   /* Chrome/Safari/Opera */
+	-khtml-user-select: none;    /* Konqueror */
+	-moz-user-select: none;      /* Firefox */
+	-ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+  not supported by any browser */
+}
+
+.menu-group {
+	display: inline-block;
+	position: relative;
+}
+
+#dropdown-menu {
+	position: absolute;
+	width: 300px;
+	top: 64px;
+	left: -245px;
+	min-height: 50px;
+	margin: 8px 5px;
+	clear: both;
+	background: #FFF;
+	display: none;
+	z-index: 9999;
+}
+#profile {
+	text-align: center;
+	padding-top: 8px;
+}
+#profile .profile-photo {
+	height: 150px;
+	width: 150px;
+}
+
+.menu-item a{
+	color: #8a8a8a;
+}
+
+.menu-item-header {
+	line-height: 40px;
+	border-bottom: #c2c2c2 1px solid;
+	position: relative;
+}
+
+.menu-item-header a {
+	display: block;
+	width: 100%;
+}
+
+.item-icon {
+	padding-top: 6px;
+}
+
+.menu-item-header .noti-count {
+	position: absolute;
+	right: 5px;
+	top: 4px;
+}
+.menu-item-header:hover {
+	background: #64B5F6;
+}
+
+.menu-item-body {
+	display: none;
+}
+
+.menu-item-body ul{
+	background: #d6d6d6;
+}
+
+.menu-item-body ul li {
+	padding-left: 30px;
+}
+.menu-item-body ul li {
+	line-height: 35px;
+}
+.menu-item-body ul li:hover {
+	background: #c2c2c2;
+}
+
+
+.menu-item-body {
+	background: #FFF;
+}
+/*------------- JOB LIST -------------*/
+.salary {
+	display: block;
+	color: #F7941D;
+	font-size: 18px;
+}
+
+.card-panel .row {
+	margin-bottom: 0 !important;
+}
+
+.job-title {
+	margin: 0;
+}
+
+.logo-box {
+	width: 150px;
+	height: 80px;
+	padding: 3px;
+	border: solid 1px #c2c2c2;
+	margin: auto;
+}
+
+.publish-date, .view-count {
+	background-position: left center;
+	background-repeat: no-repeat !important;
+	padding-left: 27px;
+}
+
+.publish-date {
+	background: url(../images/ic_date_range.png);
+	
+}
+.view-count {
+	background: url(../images/ic_remove_red_eye.png);
+}
+
+.company-logo {
+	width: 100px;
+	margin-bottom: 20px;
+}
+
+/*JOB INFO*/
+.job-detail .title {
+	font-size: 25px;
+	color: #22a2f7;
+	text-transform: capitalize;
+	line-height: 30px;
+}
+
+.job-detail .job-box-1 {
+	line-height: 28px;
+}
+
+
+.favourite-btn {
+	margin-bottom: 8px;
+}
+
+.date-and-view {
+	text-align: right;
+	font-style: italic;
+	font-weight: normal;
+	padding-right: 23px;
+}
+.date-and-view span {
+	font-size: 13px;
+}
+
+
+/*----------COMPANY BASIC INFO------------------------------*/
+.company-box img.company-logo {
+	width: 80%;
+}
+
+.company-box h6 {
+	font-size: 22px !important;
+}
+
+.company-box .company-location {
+	margin: 5px 0;
+}
+
+/*--------------------------*/
+#company-suggestion-box {
+	height: 150px;
+	width: 100%;
+	overflow: auto;
+	background: #c2c2c2;
+}
