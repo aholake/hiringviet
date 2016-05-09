@@ -2,7 +2,7 @@ package vn.com.hiringviet.common;
 
 public enum MemberRoleEnum {
 
-	ADMIN(2), USER(0), COMPANY(1);
+	ADMIN(0), USER(1), COMPANY(2);
 
 	private int value;
 
