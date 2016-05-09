@@ -1,0 +1,105 @@
+* {
+	margin: 0;
+	padding: 0;
+	color: #333333;
+}
+
+body {
+	background:#F0F0F0;
+}
+
+header {
+	background: #FFF;
+	width: 100%;
+	height: 110px;
+	border-bottom: 1px solid #c2c2c2;
+}
+
+header #topnav {
+	width: 1060px;
+	height: 100%;
+	margin: auto;
+}
+
+.none-padding-left {
+	padding-left: 0 !important;
+}
+
+.none-margin-bottom {
+	margin-bottom: 0 !important;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+.capitalize {
+	text-transform: capitalize;
+}
+.display-block {
+	display: block;
+}
+
+.margin-right-5 {
+	margin-right: 5px;
+}
+
+.margin-top-5 {
+	margin-top: 5px;
+}
+
+.margin-top-10 {
+	margin-top: 10px;
+}
+
+.prefix-icon {
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+hr.fancy-hr {  
+	border: 0; 
+	height: 5px;
+	background: linear-gradient(to right, red, yellow, green);
+	margin: 8px 0;
+}
+
+.circle-btn {
+	width: 60px;
+	height: 60px;
+	margin: 0 5px;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 30px;
+	font-size: 33px;
+	padding-left: 9px;
+	padding-top: 7px;
+	display: inline-block;
+	cursor: pointer;
+	float: right;
+}
+.circle-btn>i.material-icons {
+	font-size: 45px;
+}
+
+.bold-text {
+	font-weight: bolder;
+}
+
+.higher-line {
+	line-height: 28px;
+}
+
+
+h1.title {
+	font-size: 24px;
+	text-transform: capitalize;
+	margin: 0;
+	margin-bottom: 3px;
+}
+
+.info {
+	color: #02A8F3;
+}
+.warning {
+	color: #e5760d;
+}

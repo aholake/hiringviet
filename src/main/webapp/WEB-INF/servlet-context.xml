@@ -8,20 +8,18 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
-	<context:component-scan base-package="vn.com.hiringviet">
-	</context:component-scan>
+
+	<context:component-scan base-package="vn.com.hiringviet"></context:component-scan>
 
 	<!-- declare datasource bean -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/hiringviet" />
-
+		<property name="url" value="jdbc:mysql://localhost:3306/hiringviet?characterEncoding=UTF-8" />
 		<property name="username" value="root" />
 		<property name="password" value="" />
 		
-		<!-- <property name="url" value="jdbc:google:mysql://hiringviet:gae-project/javatraining?user=root" 
-			/> -->
+		<!-- <property name="url" value="jdbc:google:mysql://hiringviet:gae-project/javatraining?user=root" /> -->
 	</bean>
 
 	<!-- Hibernate Session Factory -->
@@ -54,6 +52,26 @@
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 	<mvc:resources location="/resources/" mapping="/resources/**" />
+
+	<!-- Register the welcome.properties -->
+	<bean class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
+		id="messageSource">
+		<property name="basename" value="classpath:messages" />
+		<property name="defaultEncoding" value="UTF-8"/>
+	</bean>
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="vi" />
+		<property name="cookieName" value="myAppLocaleCookie"></property>
+		<property name="cookieMaxAge" value="3600"></property>
+	</bean>
+
+	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="locale" />
+		</bean>
+	</mvc:interceptors>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
