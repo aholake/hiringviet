@@ -1,0 +1,84 @@
+.job-box {
+	min-height: 50px;
+	width: 100%;
+	padding-top: 5px;
+	border-bottom: 1px dotted #c2c2c2;
+	position: relative;
+	margin-bottom: 30px;
+}
+
+.job-box .company-logo {
+	width: 120px;
+	height: 120px;
+	border: 1px solid #c2c2c2;
+	padding:10px;
+}
+
+a.company-name {
+	color: #02A8F3;
+	font-weight: bold;
+}
+
+.job-box .job-info {
+	font-size: 13px;
+}
+
+.location-sticky {
+	background: #02A8F3;
+	color: #FFF;
+	font-size: 16px;
+	position: absolute;
+	right: 0;
+	height: 45px;
+	line-height: 45px;
+	padding: 0 5px;
+}
+.location-sticky:after {
+	position: absolute;
+	content: '';
+	width: 0;
+	height: 0;
+	border-top: 22px solid transparent;
+	border-right: 25px solid #02A8F3;
+	border-bottom: 22px solid transparent;
+	right: 100%;
+}
+
+.company-box {
+	border-bottom: 1px dotted #c2c2c2;
+	min-height: 30px;
+	position: relative;
+	margin-bottom: 10px;
+	margin-bottom: 30px;
+}
+
+.company-box h1.title {
+	font-size: 20px;
+}
+
+.small-text {
+	font-size: 13px;
+}
+
+.follow-sticky {
+	background: #02A8F3;
+	color: #FFF;
+	font-size: 16px;
+	position: absolute;
+	right: 0;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 5px;
+	top: 120px;
+}
+.follow-sticky:after {
+	position: absolute;
+	content: '';
+	width: 0;
+	height: 0;
+	border-top: 20px solid transparent;
+	border-right: 25px solid #02A8F3;
+	border-bottom: 20px solid transparent;
+	right: 100%;
+	top: 0;
+}
