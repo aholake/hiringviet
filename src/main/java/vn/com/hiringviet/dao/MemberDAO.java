@@ -9,5 +9,9 @@ import vn.com.hiringviet.model.Member;
 @Transactional
 public interface MemberDAO {
 
+	public boolean addMember(Member member);
+
 	public Member checkLogin(String email, String password);
+
+	public boolean activeAccount(Integer memberID);
 }

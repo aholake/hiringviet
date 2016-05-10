@@ -41,4 +41,39 @@ public class MemberDAOImpl implements MemberDAO {
 		Member result = (Member) query.uniqueResult();
 		return result;
 	}
+
+	@Override
+	public boolean addMember(Member member) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		Integer result = (Integer) session.save(member);
+
+		if (result > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean activeAccount(Integer memberID) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		StringBuilder hql = new StringBuilder();
+		hql.append("UPDATE Member ");
+		hql.append(" SET status = :status ");
+		hql.append(" WHERE memberID = :memberID ");
+
+		Query query = session.createQuery(hql.toString());
+		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
+		query.setParameter("memberID", memberID);
+
+		Integer result = (Integer) query.uniqueResult();
+
+		if (result > 0) {
+			return true;
+		}
+		return false;
+	}
 }
