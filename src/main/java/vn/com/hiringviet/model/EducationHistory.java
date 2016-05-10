@@ -24,33 +24,35 @@ public class EducationHistory implements Serializable {
 	@Column(name = "RESUME_ID", nullable = false, length = 11)
 	private Integer resumeID;
 
+	@Column(name = "DEGREE_ID", nullable = false, length = 11)
+	private Integer degreeID;
+
 	@Column(name = "UNIVERSITY_NAME", nullable = false, length = 200)
 	private String universityName;
 
+	@Column(name = "MAJOR_NAME", nullable = false, length = 200)
+	private String majorName;
+
 	@Column(name = "BEGIN_YEAR", nullable = false, length = 4)
-	private int beginYear;
+	private Integer beginYear;
 
 	@Column(name = "END_YEAR", nullable = false, length = 4)
-	private int endYear;
+	private Integer endYear;
 
-	@Column(name = "MAJOR", nullable = false, length = 200)
-	private String major;
+	@Column(name = "ACTIVITY_AND_SOCUETIES", nullable = true)
+	private String activityAndSocueties;
 
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATE_AT", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATE_AT", nullable = false)
+	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETE_AT")
+	@Column(name = "DELETED_AT", nullable = true)
 	private Date deletedAt;
-
-	public EducationHistory() {
-		super();
-	}
 
 	public Integer getEduHistoryID() {
 		return eduHistoryID;
@@ -68,6 +70,14 @@ public class EducationHistory implements Serializable {
 		this.resumeID = resumeID;
 	}
 
+	public Integer getDegreeID() {
+		return degreeID;
+	}
+
+	public void setDegreeID(Integer degreeID) {
+		this.degreeID = degreeID;
+	}
+
 	public String getUniversityName() {
 		return universityName;
 	}
@@ -76,28 +86,36 @@ public class EducationHistory implements Serializable {
 		this.universityName = universityName;
 	}
 
-	public int getBeginYear() {
+	public String getMajorName() {
+		return majorName;
+	}
+
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
+
+	public Integer getBeginYear() {
 		return beginYear;
 	}
 
-	public void setBeginYear(int beginYear) {
+	public void setBeginYear(Integer beginYear) {
 		this.beginYear = beginYear;
 	}
 
-	public int getEndYear() {
+	public Integer getEndYear() {
 		return endYear;
 	}
 
-	public void setEndYear(int endYear) {
+	public void setEndYear(Integer endYear) {
 		this.endYear = endYear;
 	}
 
-	public String getMajor() {
-		return major;
+	public String getActivityAndSocueties() {
+		return activityAndSocueties;
 	}
 
-	public void setMajor(String major) {
-		this.major = major;
+	public void setActivityAndSocueties(String activityAndSocueties) {
+		this.activityAndSocueties = activityAndSocueties;
 	}
 
 	public Integer getStatus() {

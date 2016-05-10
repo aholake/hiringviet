@@ -13,21 +13,21 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "APPLY", catalog = "hiringviet")
-public class Apply implements Serializable {
+@Table(name = "FOLLOW", catalog = "hiringviet")
+public class Follow implements Serializable {
 
-	private static final long serialVersionUID = 8790898850284130257L;
+	private static final long serialVersionUID = -4464300694714420831L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "APPLY_ID", unique = true, nullable = false, length = 11)
-	private Integer applyID;
+	@Column(name = "FOLLOW_ID", unique = true, nullable = false, length = 11)
+	private Integer followID;
 
-	@Column(name = "MEMBER_ID", unique = true, nullable = false, length = 11)
-	private Integer memberID;
+	@Column(name = "FROM_MEMBER_ID", unique = true, nullable = false, length = 11)
+	private Integer fromMemberID;
 
-	@Column(name = "JOB_ID", unique = true, nullable = false, length = 11)
-	private Integer jobID;
+	@Column(name = "TO_MEMBER_ID", unique = true, nullable = false, length = 11)
+	private Integer toMemberID;
 
 	@Column(name = "STATUS", nullable = false, length = 1)
 	private Integer status;
@@ -44,28 +44,28 @@ public class Apply implements Serializable {
 	@Column(name = "DELETED_AT", nullable = true)
 	private Date deleteAt;
 
-	public Integer getApplyID() {
-		return applyID;
+	public Integer getFollowID() {
+		return followID;
 	}
 
-	public void setApplyID(Integer applyID) {
-		this.applyID = applyID;
+	public void setFollowID(Integer followID) {
+		this.followID = followID;
 	}
 
-	public Integer getMemberID() {
-		return memberID;
+	public Integer getFromMemberID() {
+		return fromMemberID;
 	}
 
-	public void setMemberID(Integer memberID) {
-		this.memberID = memberID;
+	public void setFromMemberID(Integer fromMemberID) {
+		this.fromMemberID = fromMemberID;
 	}
 
-	public Integer getJobID() {
-		return jobID;
+	public Integer getToMemberID() {
+		return toMemberID;
 	}
 
-	public void setJobID(Integer jobID) {
-		this.jobID = jobID;
+	public void setToMemberID(Integer toMemberID) {
+		this.toMemberID = toMemberID;
 	}
 
 	public Integer getStatus() {

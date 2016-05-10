@@ -9,36 +9,26 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "EMPLOYMENT_HISTORY", catalog = "hiringviet")
-public class EmploymentHistory implements Serializable {
+@Table(name = "COMPANY_PHOTO", catalog = "hiringviet")
+public class CompanyPhoto implements Serializable {
 
-	private static final long serialVersionUID = 4962308394934505729L;
+	private static final long serialVersionUID = -6886420826151394119L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "EMP_HISTORY_ID", nullable = false, length = 11)
-	private Integer empHistoryID;
-
-	@Column(name = "RESUME_ID", nullable = false, length = 11)
-	private Integer resumeID;
+	@Column(name = "COMPANY_PHOTO_ID", nullable = false, length = 11)
+	private Integer companyPhotoID;
 
 	@Column(name = "COMPANY_ID", nullable = false, length = 11)
 	private Integer companyID;
 
-	@Column(name = "POSITION_ID", nullable = false, length = 11)
-	private Integer positionID;
+	@Column(name = "PHOTO", nullable = false)
+	private byte[] photo;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "FROM_DATE")
-	private Date fromDate;
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "TO_DATE")
-	private Date toDate;
+	@Column(name = "TITLE", nullable = true)
+	private String title;
 
 	@Column(name = "DESCRIPTION", nullable = true)
 	private String description;
@@ -52,23 +42,15 @@ public class EmploymentHistory implements Serializable {
 	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT", nullable = true)
+	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
-	public Integer getEmpHistoryID() {
-		return empHistoryID;
+	public Integer getCompanyPhotoID() {
+		return companyPhotoID;
 	}
 
-	public void setEmpHistoryID(Integer empHistoryID) {
-		this.empHistoryID = empHistoryID;
-	}
-
-	public Integer getResumeID() {
-		return resumeID;
-	}
-
-	public void setResumeID(Integer resumeID) {
-		this.resumeID = resumeID;
+	public void setCompanyPhotoID(Integer companyPhotoID) {
+		this.companyPhotoID = companyPhotoID;
 	}
 
 	public Integer getCompanyID() {
@@ -79,28 +61,20 @@ public class EmploymentHistory implements Serializable {
 		this.companyID = companyID;
 	}
 
-	public Integer getPositionID() {
-		return positionID;
+	public byte[] getPhoto() {
+		return photo;
 	}
 
-	public void setPositionID(Integer positionID) {
-		this.positionID = positionID;
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 
-	public Date getFromDate() {
-		return fromDate;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setFromDate(Date fromDate) {
-		this.fromDate = fromDate;
-	}
-
-	public Date getToDate() {
-		return toDate;
-	}
-
-	public void setToDate(Date toDate) {
-		this.toDate = toDate;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {

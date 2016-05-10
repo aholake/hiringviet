@@ -48,10 +48,6 @@ public class Reference implements Serializable {
 	@Column(name = "DELETE_AT")
 	private Date deletedAt;
 
-	public Reference() {
-		super();
-	}
-
 	public Integer getReferenceID() {
 		return referenceID;
 	}

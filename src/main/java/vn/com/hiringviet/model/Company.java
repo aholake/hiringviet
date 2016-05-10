@@ -26,57 +26,56 @@ public class Company implements Serializable {
 	@Column(name = "MEMBER_ID", unique = true, nullable = false, length = 11)
 	private Integer memberID;
 
-	@Column(name = "COMPANY_NAME", unique = true, nullable = false, length = 200)
-	private String companyName;
-
-	@Column(name = "TITLE")
-	private String title;
-
-	@Column(name = "DESCRIPTION")
-	private String description;
-
-	@Column(name = "AVATAR")
-	private byte[] avatar;
-
-	@Column(name = "BACKGROUND_IMAGE")
-	private byte[] backgroundImage;
-
-	@Column(name = "COMPANY_SIZE", nullable = false)
-	private String companySize;
-
-	@Column(name = "FOUNDED", nullable = false)
-	private Integer founded;
-
-	@Column(name = "WEBSITE", nullable = false, length = 100)
-	private String website;
-
-	@Column(name = "COMPANY_ADDRESS", unique = true, nullable = false, length = 200)
-	private String companyAddress;
-
 	@Column(name = "DISTRICT_ID", nullable = false, length = 11)
 	private Integer districtID;
 
 	@Column(name = "COUNTRY_ID", nullable = false, length = 11)
 	private Integer countryID;
 
+	@Column(name = "DISPLAY_NAME", unique = true, nullable = false, length = 300)
+	private String displayName;
+
+	@Column(name = "COMPANY_SIZE", nullable = true)
+	private Integer companySize;
+
+	@Column(name = "COMPANY_ADDRESS", nullable = false, length = 300)
+	private String companyAddress;
+
+	@Column(name = "TITLE", nullable = true)
+	private String title;
+
+	@Column(name = "DESCRIPTION", nullable = true)
+	private String description;
+
+	@Column(name = "FOUNDED_YEAR", nullable = true)
+	private Integer foundedYear;
+
+	@Column(name = "AVATAR", nullable = true)
+	private byte[] avatar;
+
+	@Column(name = "COVER_IMAGE", nullable = true)
+	private byte[] coverImage;
+
+	@Column(name = "WEBSITE", nullable = true)
+	private String website;
+
+	@Column(name = "LOCATION", nullable = true)
+	private String location;
+
 	@Column(name = "STATUS", nullable = false, length = 1)
 	private Integer status;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATE_AT", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false)
 	private Date createAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATE_AT", nullable = false)
+	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updateAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELETE_AT", nullable = true)
+	@Column(name = "DELETED_AT", nullable = true)
 	private Date deleteAt;
-
-	public Company() {
-		super();
-	}
 
 	public Integer getCompanyID() {
 		return companyID;
@@ -94,12 +93,44 @@ public class Company implements Serializable {
 		this.memberID = memberID;
 	}
 
-	public String getCompanyName() {
-		return companyName;
+	public Integer getDistrictID() {
+		return districtID;
 	}
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
+	public void setDistrictID(Integer districtID) {
+		this.districtID = districtID;
+	}
+
+	public Integer getCountryID() {
+		return countryID;
+	}
+
+	public void setCountryID(Integer countryID) {
+		this.countryID = countryID;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public Integer getCompanySize() {
+		return companySize;
+	}
+
+	public void setCompanySize(Integer companySize) {
+		this.companySize = companySize;
+	}
+
+	public String getCompanyAddress() {
+		return companyAddress;
+	}
+
+	public void setCompanyAddress(String companyAddress) {
+		this.companyAddress = companyAddress;
 	}
 
 	public String getTitle() {
@@ -118,6 +149,14 @@ public class Company implements Serializable {
 		this.description = description;
 	}
 
+	public Integer getFoundedYear() {
+		return foundedYear;
+	}
+
+	public void setFoundedYear(Integer foundedYear) {
+		this.foundedYear = foundedYear;
+	}
+
 	public byte[] getAvatar() {
 		return avatar;
 	}
@@ -126,28 +165,12 @@ public class Company implements Serializable {
 		this.avatar = avatar;
 	}
 
-	public byte[] getBackgroundImage() {
-		return backgroundImage;
+	public byte[] getCoverImage() {
+		return coverImage;
 	}
 
-	public void setBackgroundImage(byte[] backgroundImage) {
-		this.backgroundImage = backgroundImage;
-	}
-
-	public String getCompanySize() {
-		return companySize;
-	}
-
-	public void setCompanySize(String companySize) {
-		this.companySize = companySize;
-	}
-
-	public Integer getFounded() {
-		return founded;
-	}
-
-	public void setFounded(Integer founded) {
-		this.founded = founded;
+	public void setCoverImage(byte[] coverImage) {
+		this.coverImage = coverImage;
 	}
 
 	public String getWebsite() {
@@ -158,28 +181,12 @@ public class Company implements Serializable {
 		this.website = website;
 	}
 
-	public String getCompanyAddress() {
-		return companyAddress;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setCompanyAddress(String companyAddress) {
-		this.companyAddress = companyAddress;
-	}
-
-	public Integer getDistrictID() {
-		return districtID;
-	}
-
-	public void setDistrictID(Integer districtID) {
-		this.districtID = districtID;
-	}
-
-	public Integer getCountryID() {
-		return countryID;
-	}
-
-	public void setCountryID(Integer countryID) {
-		this.countryID = countryID;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public Integer getStatus() {

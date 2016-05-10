@@ -29,27 +29,23 @@ public class Member implements Serializable {
 	@Column(name = "PASSWORD", nullable = true, length = 100)
 	private String password;
 
-	@Column(name = "ROLE_ID", nullable = false, length = 1)
+	@Column(name = "ROLE_ID", nullable = false)
 	private Integer roleID;
 
-	@Column(name = "STATUS", nullable = false, length = 1)
+	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATE_AT", nullable = false)
-	private Date createAt;
+	@Column(name = "CREATED_AT", nullable = false)
+	private Date createdAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATE_AT", nullable = false)
-	private Date updateAt;
+	@Column(name = "UPDATED_AT", nullable = false)
+	private Date updatedAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELETE_AT", nullable = true)
-	private Date deleteAt;
-
-	public Member() {
-		super();
-	}
+	@Column(name = "DELETED_AT", nullable = true)
+	private Date deletedAt;
 
 	public Integer getId() {
 		return id;
@@ -91,28 +87,28 @@ public class Member implements Serializable {
 		this.status = status;
 	}
 
-	public Date getCreateAt() {
-		return createAt;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
 
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 
-	public Date getUpdateAt() {
-		return updateAt;
+	public Date getUpdatedAt() {
+		return updatedAt;
 	}
 
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 
-	public Date getDeleteAt() {
-		return deleteAt;
+	public Date getDeletedAt() {
+		return deletedAt;
 	}
 
-	public void setDeleteAt(Date deleteAt) {
-		this.deleteAt = deleteAt;
+	public void setDeletedAt(Date deletedAt) {
+		this.deletedAt = deletedAt;
 	}
 
 }

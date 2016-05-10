@@ -21,24 +21,20 @@ public class Skill implements Serializable {
 	@Column(name = "SKILL_ID", nullable = false, length = 11)
 	private Integer skillID;
 
-	@Column(name = "SKILL_NAME", nullable = false, length = 200)
-	private String skillName;
+	@Column(name = "DISPLAY_NAME", nullable = false, length = 200)
+	private String displayName;
 
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATE_AT", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATE_AT", nullable = false)
+	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETE_AT")
+	@Column(name = "DELETED_AT", nullable = true)
 	private Date deletedAt;
-
-	public Skill() {
-		super();
-	}
 
 	public Integer getSkillID() {
 		return skillID;
@@ -48,12 +44,12 @@ public class Skill implements Serializable {
 		this.skillID = skillID;
 	}
 
-	public String getSkillName() {
-		return skillName;
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setSkillName(String skillName) {
-		this.skillName = skillName;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public Integer getStatus() {

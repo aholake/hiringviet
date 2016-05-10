@@ -1,18 +1,44 @@
 package vn.com.hiringviet.dao.impl;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.MemberDAO;
+import vn.com.hiringviet.model.Member;
 
 @Repository
 @Transactional
 public class MemberDAOImpl implements MemberDAO {
 
+	@Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public Member checkLogin(String email, String password) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		StringBuilder hql = new StringBuilder();
+		hql.append("FROM Member ");
+		hql.append(" WHERE status = :status ");
+		hql.append(" AND email = :email ");
+		hql.append(" AND password = :password ");
+
+		Query query = session.createQuery(hql.toString());
+		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
+		query.setParameter("email", email);
+		query.setParameter("password", password);
+
+		Member result = (Member) query.uniqueResult();
+		return result;
 	}
 }

@@ -18,33 +18,26 @@ public class District implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "district_ID", nullable = false)
+	@Column(name = "DISTRICT_ID", nullable = false, length = 11)
 	private Integer districtID;
 
-	@Column(name = "DISTRICT_CODE", nullable = false)
-	private String districtCode;
+	@Column(name = "PROVINCE_ID", nullable = false, length = 11)
+	private Integer provinceID;
 
 	@Column(name = "DISPLAY_NAME", nullable = false)
 	private String displayName;
 
-	@Column(name = "PROVINCE_ID", nullable = false)
-	private Integer provinceID;
-
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATE_AT", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATE_AT", nullable = false)
+	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETE_AT")
+	@Column(name = "DELETED_AT", nullable = true)
 	private Date deletedAt;
-
-	public District() {
-		super();
-	}
 
 	public Integer getDistrictID() {
 		return districtID;
@@ -54,12 +47,12 @@ public class District implements Serializable {
 		this.districtID = districtID;
 	}
 
-	public String getDistrictCode() {
-		return districtCode;
+	public Integer getProvinceID() {
+		return provinceID;
 	}
 
-	public void setDistrictCode(String districtCode) {
-		this.districtCode = districtCode;
+	public void setProvinceID(Integer provinceID) {
+		this.provinceID = provinceID;
 	}
 
 	public String getDisplayName() {
@@ -68,14 +61,6 @@ public class District implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
-	}
-
-	public Integer getProvinceID() {
-		return provinceID;
-	}
-
-	public void setProvinceID(Integer provinceID) {
-		this.provinceID = provinceID;
 	}
 
 	public Integer getStatus() {

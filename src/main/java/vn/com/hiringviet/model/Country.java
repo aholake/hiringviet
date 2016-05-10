@@ -18,7 +18,7 @@ public class Country implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "COUNTRY_ID", nullable = false)
+	@Column(name = "COUNTRY_ID", nullable = false, length = 11)
 	private Integer countryID;
 
 	@Column(name = "COUNTRY_CODE", nullable = false, length = 100)
@@ -30,18 +30,14 @@ public class Country implements Serializable {
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATE_AT", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATE_AT", nullable = false)
+	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETE_AT")
+	@Column(name = "DELETED_AT")
 	private Date deletedAt;
-
-	public Country() {
-		super();
-	}
 
 	public Integer getCountryID() {
 		return countryID;

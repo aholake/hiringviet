@@ -24,39 +24,41 @@ public class Resume implements Serializable {
 	@Column(name = "MEMBER_ID", nullable = false, length = 11)
 	private Integer memberID;
 
-	@Column(name = "FULL_NAME", nullable = false, length = 100)
-	private String fullName;
-
-	@Column(name = "SEX", nullable = false)
-	private boolean sex;
-
-	@Column(name = "NOTIONALITY", nullable = false)
-	private String notionality;
-
-	@Column(name = "ADDRESS", nullable = false)
-	private String address;
-
 	@Column(name = "DISTRICT_ID", nullable = false, length = 11)
 	private Integer districtID;
+
+	@Column(name = "FULL_NAME", nullable = false, length = 100)
+	private String fullName;
 
 	@Column(name = "PHONE_NUMBER", nullable = false, length = 15)
 	private String phoneNumber;
 
+	@Column(name = "SEX", nullable = false)
+	private boolean sex;
+
+	@Column(name = "ADDRESS", nullable = false)
+	private String address;
+
+	@Column(name = "NOTIONALITY", nullable = false)
+	private String notionality;
+
+	@Column(name = "AVATAR_IMAGE", nullable = true)
+	private byte[] avatarImage;
+
+	@Column(name = "COVER_IMAGE", nullable = true)
+	private byte[] coverImage;
+
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATE_AT", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATE_AT", nullable = false)
+	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETE_AT")
+	@Column(name = "DELETED_AT", nullable = true)
 	private Date deletedAt;
-
-	public Resume() {
-		super();
-	}
 
 	public Integer getResumeID() {
 		return resumeID;
@@ -74,12 +76,28 @@ public class Resume implements Serializable {
 		this.memberID = memberID;
 	}
 
+	public Integer getDistrictID() {
+		return districtID;
+	}
+
+	public void setDistrictID(Integer districtID) {
+		this.districtID = districtID;
+	}
+
 	public String getFullName() {
 		return fullName;
 	}
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public boolean isSex() {
@@ -90,14 +108,6 @@ public class Resume implements Serializable {
 		this.sex = sex;
 	}
 
-	public String getNotionality() {
-		return notionality;
-	}
-
-	public void setNotionality(String notionality) {
-		this.notionality = notionality;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -106,20 +116,28 @@ public class Resume implements Serializable {
 		this.address = address;
 	}
 
-	public Integer getDistrictID() {
-		return districtID;
+	public String getNotionality() {
+		return notionality;
 	}
 
-	public void setDistrictID(Integer districtID) {
-		this.districtID = districtID;
+	public void setNotionality(String notionality) {
+		this.notionality = notionality;
 	}
 
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public byte[] getAvatarImage() {
+		return avatarImage;
 	}
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setAvatarImage(byte[] avatarImage) {
+		this.avatarImage = avatarImage;
+	}
+
+	public byte[] getCoverImage() {
+		return coverImage;
+	}
+
+	public void setCoverImage(byte[] coverImage) {
+		this.coverImage = coverImage;
 	}
 
 	public Integer getStatus() {

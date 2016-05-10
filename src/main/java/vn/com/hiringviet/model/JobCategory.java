@@ -27,18 +27,14 @@ public class JobCategory implements Serializable {
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATE_AT", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATE_AT", nullable = false)
+	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETE_AT")
+	@Column(name = "DELETED_AT")
 	private Date deletedAt;
-
-	public JobCategory() {
-		super();
-	}
 
 	public Integer getJobCategoryID() {
 		return jobCategoryID;

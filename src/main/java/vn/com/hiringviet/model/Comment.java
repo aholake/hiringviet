@@ -13,21 +13,21 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "APPLY", catalog = "hiringviet")
-public class Apply implements Serializable {
+@Table(name = "COMMENT", catalog = "hiringviet")
+public class Comment implements Serializable {
 
-	private static final long serialVersionUID = 8790898850284130257L;
+	private static final long serialVersionUID = 9219480321037261930L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "APPLY_ID", unique = true, nullable = false, length = 11)
-	private Integer applyID;
-
-	@Column(name = "MEMBER_ID", unique = true, nullable = false, length = 11)
-	private Integer memberID;
+	@Column(name = "COMMENT_ID", unique = true, nullable = false, length = 11)
+	private Integer commentID;
 
 	@Column(name = "JOB_ID", unique = true, nullable = false, length = 11)
 	private Integer jobID;
+
+	@Column(name = "COMMENT", nullable = false, length = 300)
+	private String comment;
 
 	@Column(name = "STATUS", nullable = false, length = 1)
 	private Integer status;
@@ -44,20 +44,12 @@ public class Apply implements Serializable {
 	@Column(name = "DELETED_AT", nullable = true)
 	private Date deleteAt;
 
-	public Integer getApplyID() {
-		return applyID;
+	public Integer getCommentID() {
+		return commentID;
 	}
 
-	public void setApplyID(Integer applyID) {
-		this.applyID = applyID;
-	}
-
-	public Integer getMemberID() {
-		return memberID;
-	}
-
-	public void setMemberID(Integer memberID) {
-		this.memberID = memberID;
+	public void setCommentID(Integer commentID) {
+		this.commentID = commentID;
 	}
 
 	public Integer getJobID() {
@@ -66,6 +58,14 @@ public class Apply implements Serializable {
 
 	public void setJobID(Integer jobID) {
 		this.jobID = jobID;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public Integer getStatus() {

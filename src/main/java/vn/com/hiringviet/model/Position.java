@@ -11,21 +11,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PROVINCE", catalog = "hiringviet")
-public class Province implements Serializable {
+@Table(name = "POSITION", catalog = "hiringviet")
+public class Position implements Serializable {
 
-	private static final long serialVersionUID = 808142982176659911L;
+	private static final long serialVersionUID = -45982404463146068L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PROVINCE_ID", nullable = false, length = 11)
-	private Integer provinceID;
+	@Column(name = "POSITION_ID", nullable = false, length = 11)
+	private Integer positionID;
 
-	@Column(name = "DISPLAY_NAME", nullable = false)
+	@Column(name = "DISPLAY_NAME", nullable = false, length = 200)
 	private String displayName;
-
-	@Column(name = "PROVINCE_CODE", nullable = false)
-	private String provinceCode;
 
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
@@ -36,15 +33,12 @@ public class Province implements Serializable {
 	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT", nullable = true)
-	private Date deletedAt;
-
-	public Integer getProvinceID() {
-		return provinceID;
+	public Integer getPositionID() {
+		return positionID;
 	}
 
-	public void setProvinceID(Integer provinceID) {
-		this.provinceID = provinceID;
+	public void setPositionID(Integer positionID) {
+		this.positionID = positionID;
 	}
 
 	public String getDisplayName() {
@@ -53,14 +47,6 @@ public class Province implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
-	}
-
-	public String getProvinceCode() {
-		return provinceCode;
-	}
-
-	public void setProvinceCode(String provinceCode) {
-		this.provinceCode = provinceCode;
 	}
 
 	public Integer getStatus() {
@@ -85,14 +71,6 @@ public class Province implements Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	public Date getDeletedAt() {
-		return deletedAt;
-	}
-
-	public void setDeletedAt(Date deletedAt) {
-		this.deletedAt = deletedAt;
 	}
 
 }

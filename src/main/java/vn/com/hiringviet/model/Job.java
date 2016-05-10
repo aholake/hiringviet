@@ -29,11 +29,8 @@ public class Job implements Serializable {
 	@Column(name = "COMPANY_ID", nullable = false, length = 11)
 	private Integer companyID;
 
-	@Column(name = "MIN_SALARY", nullable = false)
-	private Double minSalary;
-
-	@Column(name = "MAX_SALARY", nullable = false)
-	private Double maxSalary;
+	@Column(name = "DISTRICT_ID", nullable = false, length = 11)
+	private Integer districtID;
 
 	@Column(name = "TITLE", nullable = false)
 	private String title;
@@ -41,31 +38,30 @@ public class Job implements Serializable {
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
 
-	@Column(name = "REQUIREMENT", nullable = false)
-	private String requirement;
+	@Column(name = "MIN_SALARY", nullable = false)
+	private Double minSalary;
+
+	@Column(name = "MAX_SALARY", nullable = false)
+	private Double maxSalary;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "POST_DATE", nullable = false)
 	private Date postDate;
 
-	@Column(name = "DISTRICT_ID", nullable = false, length = 11)
-	private Integer districtID;
+	@Column(name = "REQUIREMENT", nullable = false)
+	private String requirement;
 
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATE_AT", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATE_AT", nullable = false)
+	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETE_AT")
+	@Column(name = "DELETED_AT")
 	private Date deletedAt;
-
-	public Job() {
-		super();
-	}
 
 	public Integer getJobID() {
 		return jobID;
@@ -91,20 +87,12 @@ public class Job implements Serializable {
 		this.companyID = companyID;
 	}
 
-	public Double getMinSalary() {
-		return minSalary;
+	public Integer getDistrictID() {
+		return districtID;
 	}
 
-	public void setMinSalary(Double minSalary) {
-		this.minSalary = minSalary;
-	}
-
-	public Double getMaxSalary() {
-		return maxSalary;
-	}
-
-	public void setMaxSalary(Double maxSalary) {
-		this.maxSalary = maxSalary;
+	public void setDistrictID(Integer districtID) {
+		this.districtID = districtID;
 	}
 
 	public String getTitle() {
@@ -123,12 +111,20 @@ public class Job implements Serializable {
 		this.description = description;
 	}
 
-	public String getRequirement() {
-		return requirement;
+	public Double getMinSalary() {
+		return minSalary;
 	}
 
-	public void setRequirement(String requirement) {
-		this.requirement = requirement;
+	public void setMinSalary(Double minSalary) {
+		this.minSalary = minSalary;
+	}
+
+	public Double getMaxSalary() {
+		return maxSalary;
+	}
+
+	public void setMaxSalary(Double maxSalary) {
+		this.maxSalary = maxSalary;
 	}
 
 	public Date getPostDate() {
@@ -139,12 +135,12 @@ public class Job implements Serializable {
 		this.postDate = postDate;
 	}
 
-	public Integer getDistrictID() {
-		return districtID;
+	public String getRequirement() {
+		return requirement;
 	}
 
-	public void setDistrictID(Integer districtID) {
-		this.districtID = districtID;
+	public void setRequirement(String requirement) {
+		this.requirement = requirement;
 	}
 
 	public Integer getStatus() {
