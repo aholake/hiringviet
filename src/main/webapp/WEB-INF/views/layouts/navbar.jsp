@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <!--Import materialize.css-->
-<link type="text/css" rel="stylesheet" href="/resources/css/materialize.min.css"
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/common/css/materialize.min.css'/>"
 	media="screen,projection" />
 
 <!--Let browser know website is optimized for mobile-->
@@ -23,15 +23,15 @@
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="/resources/js/materialize.min.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/common/js/materialize.min.js'/>"></script>
 
 <!--Common Style-->
-<link rel="stylesheet" type="text/css" href="/resources/css/style.css">
-<link rel="stylesheet" type="text/css" href="/resources/css/navbar.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/common/css/style.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/home/css/navbar.css'/>">
 
 <!--common js-->
-<script type="text/javascript" src="/resources/js/common.js"></script>
-<script type="text/javascript" src="/resources/js/search.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/common.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/search.js'/>"></script>
 </head>
 <body>
 	<header>

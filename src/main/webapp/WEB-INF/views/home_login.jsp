@@ -8,7 +8,7 @@
 <head>
 	<title>Home</title>
 <!-- Local style -->
-<link rel="stylesheet" type="text/css" href="/resources/css/home.css">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
 </head>
 <body>
 	<jsp:include page="/layouts/navbar"></jsp:include>
@@ -29,7 +29,7 @@
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
 								<div class="col s3 center">
-									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
 									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
@@ -80,7 +80,7 @@
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
 								<div class="col s3 center">
-									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
 									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
@@ -131,7 +131,7 @@
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
 								<div class="col s3 center">
-									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
 									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
@@ -182,7 +182,7 @@
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
 								<div class="col s3 center">
-									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
 									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
