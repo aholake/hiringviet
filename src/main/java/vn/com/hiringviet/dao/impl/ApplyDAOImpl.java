@@ -33,11 +33,10 @@ public class ApplyDAOImpl implements ApplyDAO {
 	}
 
 	@Override
-	public boolean addApply(Apply apply) {
+	public void addApply(Apply apply) {
 
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(apply);
-		return false;
 	}
 
 	@SuppressWarnings("unchecked")

@@ -36,7 +36,7 @@ public class ApplyServiceImpl implements ApplyService {
 	}
 
 	@Override
-	public boolean addApply(ApplyDTO applyDTO) {
+	public void addApply(ApplyDTO applyDTO) {
 
 		Apply apply = new Apply();
 		try {
@@ -46,7 +46,7 @@ public class ApplyServiceImpl implements ApplyService {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		return applyDAO.addApply(apply);
+		applyDAO.addApply(apply);
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public interface ApplyDAO {
 
 	public Apply getApplyByID(Integer applyID);
 
-	public boolean addApply(Apply apply);
+	public void addApply(Apply apply);
 
 	public List<ApplyDTO> getAll();
 }

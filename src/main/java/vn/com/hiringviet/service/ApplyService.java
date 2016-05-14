@@ -11,7 +11,7 @@ public interface ApplyService {
 
 	public ApplyDTO getApplyByID(Integer applyID);
 
-	public boolean addApply(ApplyDTO applyDTO);
+	public void addApply(ApplyDTO applyDTO);
 
 	public List<ApplyDTO> getAll();
 }

@@ -31,6 +31,12 @@ public class Country implements Serializable {
 	@Column(name = "DISPLAY_NAME", nullable = false, length = 100)
 	private String displayName;
 
+	@Column(name = "LANGUAGE", nullable = false, length = 100)
+	private String lenguage;
+
+	@Column(name = "FLAG")
+	private String flag;
+
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
@@ -108,6 +114,22 @@ public class Country implements Serializable {
 
 	public void setCompanySet(Set<Company> companySet) {
 		this.companySet = companySet;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
+	public String getLenguage() {
+		return lenguage;
+	}
+
+	public void setLenguage(String lenguage) {
+		this.lenguage = lenguage;
 	}
 
 }

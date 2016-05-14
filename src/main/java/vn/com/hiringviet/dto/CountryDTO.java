@@ -16,6 +16,10 @@ public class CountryDTO implements Serializable {
 
 	private String displayName;
 
+	private String lenguage;
+
+	private String flag;
+
 	private Integer status;
 
 	private Date createdAt;
@@ -48,6 +52,22 @@ public class CountryDTO implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	public String getLenguage() {
+		return lenguage;
+	}
+
+	public void setLenguage(String lenguage) {
+		this.lenguage = lenguage;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 
 	public Integer getStatus() {
