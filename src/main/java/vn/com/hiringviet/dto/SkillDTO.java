@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import vn.com.hiringviet.model.Endorse;
 import vn.com.hiringviet.model.Job;
 
 public class SkillDTO implements Serializable {
@@ -25,6 +26,8 @@ public class SkillDTO implements Serializable {
 	private Set<ResumeDTO> resumeSet;
 
 	private Set<Job> jobSet;
+
+	private Set<Endorse> endorseSet;
 
 	public Integer getSkillID() {
 		return skillID;
@@ -88,6 +91,14 @@ public class SkillDTO implements Serializable {
 
 	public void setJobSet(Set<Job> jobSet) {
 		this.jobSet = jobSet;
+	}
+
+	public Set<Endorse> getEndorseSet() {
+		return endorseSet;
+	}
+
+	public void setEndorseSet(Set<Endorse> endorseSet) {
+		this.endorseSet = endorseSet;
 	}
 
 }

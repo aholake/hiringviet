@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -44,6 +46,9 @@ public class Skill implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "skillSet")
 	private Set<Job> jobSet;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "skill")
+	private Set<Endorse> endorseSet;
 
 	public Integer getSkillID() {
 		return skillID;
@@ -107,6 +112,14 @@ public class Skill implements Serializable {
 
 	public void setJobSet(Set<Job> jobSet) {
 		this.jobSet = jobSet;
+	}
+
+	public Set<Endorse> getEndorseSet() {
+		return endorseSet;
+	}
+
+	public void setEndorseSet(Set<Endorse> endorseSet) {
+		this.endorseSet = endorseSet;
 	}
 
 }

@@ -26,7 +26,7 @@ public class Member implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MEMBER_ID", unique = true, nullable = false, length = 11)
-	private Integer id;
+	private Integer memberID;
 
 	@Column(name = "EMAIL", unique = true, nullable = false, length = 100)
 	private String email;
@@ -76,12 +76,24 @@ public class Member implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
 	private Set<Mailbox> mailboxToSet;
 
-	public Integer getId() {
-		return id;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
+	private Set<RequestEndorse> requestEndorseFromSet;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
+	private Set<RequestEndorse> requestEndorseToSet;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
+	private Set<Endorse> endorseFromSet;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
+	private Set<Endorse> endorseToSet;
+
+	public Integer getMemberID() {
+		return memberID;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setMemberID(Integer memberID) {
+		this.memberID = memberID;
 	}
 
 	public String getEmail() {
@@ -202,6 +214,23 @@ public class Member implements Serializable {
 
 	public void setMailboxToSet(Set<Mailbox> mailboxToSet) {
 		this.mailboxToSet = mailboxToSet;
+	}
+
+	public Set<RequestEndorse> getRequestEndorseFromSet() {
+		return requestEndorseFromSet;
+	}
+
+	public void setRequestEndorseFromSet(
+			Set<RequestEndorse> requestEndorseFromSet) {
+		this.requestEndorseFromSet = requestEndorseFromSet;
+	}
+
+	public Set<RequestEndorse> getRequestEndorseToSet() {
+		return requestEndorseToSet;
+	}
+
+	public void setRequestEndorseToSet(Set<RequestEndorse> requestEndorseToSet) {
+		this.requestEndorseToSet = requestEndorseToSet;
 	}
 
 }

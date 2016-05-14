@@ -6,15 +6,17 @@ import java.util.Set;
 
 import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Endorse;
 import vn.com.hiringviet.model.Follow;
 import vn.com.hiringviet.model.Mailbox;
+import vn.com.hiringviet.model.RequestEndorse;
 import vn.com.hiringviet.model.Resume;
 
 public class MemberDTO implements Serializable {
 
 	private static final long serialVersionUID = -4371044009879481708L;
 
-	private Integer id;
+	private Integer memberID;
 
 	private String email;
 
@@ -46,12 +48,20 @@ public class MemberDTO implements Serializable {
 
 	private Set<Mailbox> mailboxToSet;
 
-	public Integer getId() {
-		return id;
+	private Set<RequestEndorse> requestEndorseFromSet;
+
+	private Set<RequestEndorse> requestEndorseToSet;
+
+	private Set<Endorse> endorseFromSet;
+
+	private Set<Endorse> endorseToSet;
+
+	public Integer getMemberID() {
+		return memberID;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setMemberID(Integer memberID) {
+		this.memberID = memberID;
 	}
 
 	public String getEmail() {
@@ -172,6 +182,39 @@ public class MemberDTO implements Serializable {
 
 	public void setMailboxToSet(Set<Mailbox> mailboxToSet) {
 		this.mailboxToSet = mailboxToSet;
+	}
+
+	public Set<RequestEndorse> getRequestEndorseFromSet() {
+		return requestEndorseFromSet;
+	}
+
+	public void setRequestEndorseFromSet(
+			Set<RequestEndorse> requestEndorseFromSet) {
+		this.requestEndorseFromSet = requestEndorseFromSet;
+	}
+
+	public Set<RequestEndorse> getRequestEndorseToSet() {
+		return requestEndorseToSet;
+	}
+
+	public void setRequestEndorseToSet(Set<RequestEndorse> requestEndorseToSet) {
+		this.requestEndorseToSet = requestEndorseToSet;
+	}
+
+	public Set<Endorse> getEndorseFromSet() {
+		return endorseFromSet;
+	}
+
+	public void setEndorseFromSet(Set<Endorse> endorseFromSet) {
+		this.endorseFromSet = endorseFromSet;
+	}
+
+	public Set<Endorse> getEndorseToSet() {
+		return endorseToSet;
+	}
+
+	public void setEndorseToSet(Set<Endorse> endorseToSet) {
+		this.endorseToSet = endorseToSet;
 	}
 
 }
