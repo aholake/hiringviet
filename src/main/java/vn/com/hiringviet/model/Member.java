@@ -2,12 +2,17 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,7 +31,7 @@ public class Member implements Serializable {
 	@Column(name = "EMAIL", unique = true, nullable = false, length = 100)
 	private String email;
 
-	@Column(name = "PASSWORD", nullable = true, length = 100)
+	@Column(name = "PASSWORD", nullable = false, length = 100)
 	private String password;
 
 	@Column(name = "ROLE_ID", nullable = false)
@@ -34,6 +39,9 @@ public class Member implements Serializable {
 
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
+
+	@Column(name = "LOCALE", nullable = false)
+	private String locale;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CREATED_AT", nullable = false)
@@ -44,8 +52,29 @@ public class Member implements Serializable {
 	private Date updatedAt;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELETED_AT", nullable = true)
+	@Column(name = "DELETED_AT")
 	private Date deletedAt;
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	private Resume resume;
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	private Company company;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
+	private Set<Apply> applySet;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
+	private Set<Follow> followFromSet;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
+	private Set<Follow> followToSet;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
+	private Set<Mailbox> mailboxFromSet;
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
+	private Set<Mailbox> mailboxToSet;
 
 	public Integer getId() {
 		return id;
@@ -87,6 +116,14 @@ public class Member implements Serializable {
 		this.status = status;
 	}
 
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -109,6 +146,62 @@ public class Member implements Serializable {
 
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
+	}
+
+	public Resume getResume() {
+		return resume;
+	}
+
+	public void setResume(Resume resume) {
+		this.resume = resume;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public Set<Apply> getApplySet() {
+		return applySet;
+	}
+
+	public void setApplySet(Set<Apply> applySet) {
+		this.applySet = applySet;
+	}
+
+	public Set<Follow> getFollowFromSet() {
+		return followFromSet;
+	}
+
+	public void setFollowFromSet(Set<Follow> followFromSet) {
+		this.followFromSet = followFromSet;
+	}
+
+	public Set<Follow> getFollowToSet() {
+		return followToSet;
+	}
+
+	public void setFollowToSet(Set<Follow> followToSet) {
+		this.followToSet = followToSet;
+	}
+
+	public Set<Mailbox> getMailboxFromSet() {
+		return mailboxFromSet;
+	}
+
+	public void setMailboxFromSet(Set<Mailbox> mailboxFromSet) {
+		this.mailboxFromSet = mailboxFromSet;
+	}
+
+	public Set<Mailbox> getMailboxToSet() {
+		return mailboxToSet;
+	}
+
+	public void setMailboxToSet(Set<Mailbox> mailboxToSet) {
+		this.mailboxToSet = mailboxToSet;
 	}
 
 }

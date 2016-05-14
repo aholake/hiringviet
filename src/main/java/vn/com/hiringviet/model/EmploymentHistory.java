@@ -5,9 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,14 +26,16 @@ public class EmploymentHistory implements Serializable {
 	@Column(name = "EMP_HISTORY_ID", nullable = false, length = 11)
 	private Integer empHistoryID;
 
-	@Column(name = "RESUME_ID", nullable = false, length = 11)
-	private Integer resumeID;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "RESUME_ID", nullable = false)
+	private Resume resume;
 
-	@Column(name = "COMPANY_ID", nullable = false, length = 11)
-	private Integer companyID;
+	@Column(name = "COMPANY_NAME", nullable = false)
+	private String companyNAME;
 
-	@Column(name = "POSITION_ID", nullable = false, length = 11)
-	private Integer positionID;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "POSITION_ID", nullable = false)
+	private Position position;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "FROM_DATE")
@@ -52,7 +57,7 @@ public class EmploymentHistory implements Serializable {
 	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT", nullable = true)
+	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
 	public Integer getEmpHistoryID() {
@@ -63,28 +68,28 @@ public class EmploymentHistory implements Serializable {
 		this.empHistoryID = empHistoryID;
 	}
 
-	public Integer getResumeID() {
-		return resumeID;
+	public Resume getResume() {
+		return resume;
 	}
 
-	public void setResumeID(Integer resumeID) {
-		this.resumeID = resumeID;
+	public void setResume(Resume resume) {
+		this.resume = resume;
 	}
 
-	public Integer getCompanyID() {
-		return companyID;
+	public String getCompanyNAME() {
+		return companyNAME;
 	}
 
-	public void setCompanyID(Integer companyID) {
-		this.companyID = companyID;
+	public void setCompanyNAME(String companyNAME) {
+		this.companyNAME = companyNAME;
 	}
 
-	public Integer getPositionID() {
-		return positionID;
+	public Position getPosition() {
+		return position;
 	}
 
-	public void setPositionID(Integer positionID) {
-		this.positionID = positionID;
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 	public Date getFromDate() {

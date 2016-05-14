@@ -76,4 +76,13 @@ public class MemberDAOImpl implements MemberDAO {
 		}
 		return false;
 	}
+
+	@Override
+	public Member getMemberByteID(Integer memberID) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		Member member = (Member) session.get(Member.class, memberID);
+		return member;
+	}
 }

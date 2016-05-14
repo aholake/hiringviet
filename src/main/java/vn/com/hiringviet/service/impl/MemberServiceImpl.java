@@ -60,4 +60,19 @@ public class MemberServiceImpl implements MemberService {
 
 		return memberDAO.activeAccount(memberID);
 	}
+
+	@Override
+	public MemberDTO getMemberByteID(Integer memberID) {
+
+		Member member = memberDAO.getMemberByteID(memberID);
+		MemberDTO memberDTO = new MemberDTO();
+		try {
+			BeanUtils.copyProperties(memberDTO, member);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return memberDTO;
+	}
 }

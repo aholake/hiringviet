@@ -1,55 +1,32 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import vn.com.hiringviet.model.Company;
 
-@Entity
-@Table(name = "COMPANY_PHOTO", catalog = "hiringviet")
-public class CompanyPhoto implements Serializable {
+public class CompanyPhotoDTO implements Serializable {
 
 	private static final long serialVersionUID = -6886420826151394119L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "COMPANY_PHOTO_ID", nullable = false, length = 11)
 	private Integer companyPhotoID;
 
-	@Column(name = "COMPANY_ID", nullable = false, length = 11)
 	private Integer companyID;
 
-	@Column(name = "PHOTO", nullable = false)
 	private byte[] photo;
 
-	@Column(name = "TITLE", nullable = true, length = 200)
 	private String title;
 
-	@Column(name = "DESCRIPTION", nullable = true, length = 200)
 	private String description;
 
-	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COMPANY_ID", nullable = false, insertable = false, updatable = false)
 	private Company company;
 
 	public Integer getCompanyPhotoID() {

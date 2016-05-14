@@ -1,54 +1,26 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import vn.com.hiringviet.model.Comment;
 
-import org.hibernate.annotations.Type;
-
-@Entity
-@Table(name = "REPLY_COMMENT", catalog = "hiringviet")
-public class ReplyComment implements Serializable {
+public class ReplyCommentDTO implements Serializable {
 
 	private static final long serialVersionUID = -7323150243345284504L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "REPLY_COMMENT_ID", unique = true, nullable = false, length = 11)
 	private Integer replyCommentID;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COMMENT_ID", nullable = false)
 	private Comment comment;
 
-	@Column(name = "REPLY_COMMENT", nullable = false)
-	@Type(type = "text")
 	private String replyComment;
 
-	@Column(name = "STATUS", nullable = false, length = 1)
 	private Integer status;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
 	public Integer getReplyCommentID() {

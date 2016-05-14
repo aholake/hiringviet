@@ -1,49 +1,29 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import vn.com.hiringviet.model.District;
 
-@Entity
-@Table(name = "PROVINCE", catalog = "hiringviet")
-public class Province implements Serializable {
+public class ProvinceDTO implements Serializable {
 
 	private static final long serialVersionUID = 808142982176659911L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PROVINCE_ID", nullable = false, length = 11)
 	private Integer provinceID;
 
-	@Column(name = "DISPLAY_NAME", nullable = false)
 	private String displayName;
 
-	@Column(name = "PROVINCE_CODE", nullable = false)
 	private String provinceCode;
 
-	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "province")
 	private Set<District> districtSet;
 
 	public Integer getProvinceID() {

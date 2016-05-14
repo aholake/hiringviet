@@ -2,12 +2,17 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,8 +26,9 @@ public class District implements Serializable {
 	@Column(name = "DISTRICT_ID", nullable = false, length = 11)
 	private Integer districtID;
 
-	@Column(name = "PROVINCE_ID", nullable = false, length = 11)
-	private Integer provinceID;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PROVINCE_ID", nullable = false)
+	private Province province;
 
 	@Column(name = "DISPLAY_NAME", nullable = false)
 	private String displayName;
@@ -36,8 +42,17 @@ public class District implements Serializable {
 	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT", nullable = true)
+	@Column(name = "DELETED_AT")
 	private Date deletedAt;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
+	private Set<Resume> resumeSet;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
+	private Set<Company> companySet;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
+	private Set<Job> jobSet;
 
 	public Integer getDistrictID() {
 		return districtID;
@@ -47,12 +62,12 @@ public class District implements Serializable {
 		this.districtID = districtID;
 	}
 
-	public Integer getProvinceID() {
-		return provinceID;
+	public Province getProvince() {
+		return province;
 	}
 
-	public void setProvinceID(Integer provinceID) {
-		this.provinceID = provinceID;
+	public void setProvince(Province province) {
+		this.province = province;
 	}
 
 	public String getDisplayName() {
@@ -93,6 +108,30 @@ public class District implements Serializable {
 
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
+	}
+
+	public Set<Resume> getResumeSet() {
+		return resumeSet;
+	}
+
+	public void setResumeSet(Set<Resume> resumeSet) {
+		this.resumeSet = resumeSet;
+	}
+
+	public Set<Company> getCompanySet() {
+		return companySet;
+	}
+
+	public void setCompanySet(Set<Company> companySet) {
+		this.companySet = companySet;
+	}
+
+	public Set<Job> getJobSet() {
+		return jobSet;
+	}
+
+	public void setJobSet(Set<Job> jobSet) {
+		this.jobSet = jobSet;
 	}
 
 }

@@ -1,60 +1,30 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.ReplyComment;
 
-import org.hibernate.annotations.Type;
-
-@Entity
-@Table(name = "COMMENT", catalog = "hiringviet")
-public class Comment implements Serializable {
+public class CommentDTO implements Serializable {
 
 	private static final long serialVersionUID = 9219480321037261930L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "COMMENT_ID", unique = true, nullable = false, length = 11)
 	private Integer commentID;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOB_ID", nullable = false)
 	private Job job;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "comment")
 	private Set<ReplyComment> replyCommentSet;
 
-	@Type(type = "text")
-	@Column(name = "COMMENT", nullable = false, length = 300)
 	private String comment;
 
-	@Column(name = "STATUS", nullable = false, length = 1)
 	private Integer status;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createAt;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updateAt;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELETED_AT")
 	private Date deleteAt;
 
 	public Integer getCommentID() {

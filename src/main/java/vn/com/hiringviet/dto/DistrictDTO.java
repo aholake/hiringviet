@@ -1,56 +1,52 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.Province;
+import vn.com.hiringviet.model.Resume;
 
-@Entity
-@Table(name = "SKILL", catalog = "hiringviet")
-public class Skill implements Serializable {
+public class DistrictDTO implements Serializable {
 
-	private static final long serialVersionUID = -5381027238277880906L;
+	private static final long serialVersionUID = 4567651847477356613L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "SKILL_ID", nullable = false, length = 11)
-	private Integer skillID;
+	private Integer districtID;
 
-	@Column(name = "DISPLAY_NAME", nullable = false, length = 200)
+	private Province province;
+
 	private String displayName;
 
-	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT", nullable = true)
 	private Date deletedAt;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "skillSet")
 	private Set<Resume> resumeSet;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "skillSet")
+	private Set<Company> companySet;
+
 	private Set<Job> jobSet;
 
-	public Integer getSkillID() {
-		return skillID;
+	public Integer getDistrictID() {
+		return districtID;
 	}
 
-	public void setSkillID(Integer skillID) {
-		this.skillID = skillID;
+	public void setDistrictID(Integer districtID) {
+		this.districtID = districtID;
+	}
+
+	public Province getProvince() {
+		return province;
+	}
+
+	public void setProvince(Province province) {
+		this.province = province;
 	}
 
 	public String getDisplayName() {
@@ -99,6 +95,14 @@ public class Skill implements Serializable {
 
 	public void setResumeSet(Set<Resume> resumeSet) {
 		this.resumeSet = resumeSet;
+	}
+
+	public Set<Company> getCompanySet() {
+		return companySet;
+	}
+
+	public void setCompanySet(Set<Company> companySet) {
+		this.companySet = companySet;
 	}
 
 	public Set<Job> getJobSet() {

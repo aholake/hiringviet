@@ -1,91 +1,51 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import vn.com.hiringviet.model.Apply;
+import vn.com.hiringviet.model.Comment;
+import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.District;
+import vn.com.hiringviet.model.JobCategory;
+import vn.com.hiringviet.model.Skill;
 
-import org.hibernate.annotations.Type;
-
-@Entity
-@Table(name = "JOB", catalog = "hiringviet")
-public class Job implements Serializable {
+public class JobDTO implements Serializable {
 
 	private static final long serialVersionUID = -3278815174799070361L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "JOB_ID", nullable = false, length = 11)
 	private Integer jobID;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOB_CATEGORY_ID", nullable = false)
 	private JobCategory jobCategory;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COMPANY_ID", nullable = false)
 	private Company company;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DISTRICT_ID", nullable = false)
 	private District district;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "JOB_SKILL", catalog = "hiringviet", joinColumns = { @JoinColumn(name = "JOB_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "SKILL_ID", nullable = false, updatable = false) })
 	private Set<Skill> skillSet;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "job")
 	private Set<Comment> commentSet;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "job")
 	private Set<Apply> applySet;
 
-	@Column(name = "TITLE", nullable = false)
-	@Type(type = "text")
 	private String title;
 
-	@Column(name = "DESCRIPTION", nullable = false)
-	@Type(type = "text")
 	private String description;
 
-	@Column(name = "MIN_SALARY", nullable = false)
 	private Double minSalary;
 
-	@Column(name = "MAX_SALARY", nullable = false)
 	private Double maxSalary;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "POST_DATE", nullable = false)
 	private Date postDate;
 
-	@Column(name = "REQUIREMENT", nullable = false)
 	private String requirement;
 
-	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
 	public Integer getJobID() {

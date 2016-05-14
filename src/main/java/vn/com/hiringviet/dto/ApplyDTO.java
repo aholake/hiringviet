@@ -1,55 +1,29 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.Member;
 
-@Entity
-@Table(name = "APPLY", catalog = "hiringviet")
-public class Apply implements Serializable {
+public class ApplyDTO implements Serializable {
 
 	private static final long serialVersionUID = 8790898850284130257L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "APPLY_ID", unique = true, nullable = false, length = 11)
 	private Integer applyID;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MEMBER_ID", nullable = false)
 	private Member member;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOB_ID", nullable = false, insertable = false, updatable = false)
 	private Job job;
 
-	@Column(name = "JOB_ID", unique = true, nullable = false, length = 11)
 	private Integer jobID;
 
-	@Column(name = "STATUS", nullable = false, length = 1)
 	private Integer status;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createAt;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updateAt;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELETED_AT")
 	private Date deleteAt;
 
 	public Integer getApplyID() {

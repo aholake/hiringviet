@@ -10,6 +10,11 @@ public class CommonController {
 	public String home() {
 		return "home";
 	}
+
+	@RequestMapping(value = "/homeLogin")
+	public String homeLogin() {
+		return "homeLogin";
+	}
 	
 	@RequestMapping(value = "/layouts/navbar")
 	public String navbar() {

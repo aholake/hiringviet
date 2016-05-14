@@ -1,101 +1,57 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import vn.com.hiringviet.model.CompanyPhoto;
+import vn.com.hiringviet.model.Country;
+import vn.com.hiringviet.model.District;
+import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.Member;
 
-import org.hibernate.annotations.Type;
-
-@Entity
-@Table(name = "COMPANY", catalog = "hiringviet")
-public class Company implements Serializable {
+public class CompanyDTO implements Serializable {
 
 	private static final long serialVersionUID = 7621411313072097608L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "COMPANY_ID", unique = true, nullable = false, length = 11)
 	private Integer companyID;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
 	private Member member;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "DISTRICT_ID", nullable = false)
 	private District district;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "COUNTRY_ID", nullable = false)
 	private Country country;
 
-	@Column(name = "DISPLAY_NAME", unique = true, nullable = false, length = 300)
 	private String displayName;
 
-	@Column(name = "COMPANY_SIZE")
 	private Integer companySize;
 
-	@Column(name = "COMPANY_ADDRESS", nullable = false, length = 300)
 	private String companyAddress;
 
-	@Column(name = "TITLE")
-	@Type(type = "text")
 	private String title;
 
-	@Column(name = "DESCRIPTION")
-	@Type(type = "text")
 	private String description;
 
-	@Column(name = "FOUNDED_YEAR")
 	private Integer foundedYear;
 
-	@Column(name = "AVATAR")
 	private byte[] avatar;
 
-	@Column(name = "COVER_IMAGE")
 	private byte[] coverImage;
 
-	@Column(name = "WEBSITE")
 	private String website;
 
-	@Column(name = "LOCATION")
 	private String location;
 
-	@Column(name = "STATUS", nullable = false, length = 1)
 	private Integer status;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createAt;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updateAt;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELETED_AT")
 	private Date deleteAt;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
 	private Set<CompanyPhoto> companyPhotoSet;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
 	private Set<Job> jobSet;
 
 	public Integer getCompanyID() {

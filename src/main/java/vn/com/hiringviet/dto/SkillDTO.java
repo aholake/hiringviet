@@ -1,48 +1,29 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import vn.com.hiringviet.model.Job;
 
-@Entity
-@Table(name = "SKILL", catalog = "hiringviet")
-public class Skill implements Serializable {
+public class SkillDTO implements Serializable {
 
 	private static final long serialVersionUID = -5381027238277880906L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "SKILL_ID", nullable = false, length = 11)
 	private Integer skillID;
 
-	@Column(name = "DISPLAY_NAME", nullable = false, length = 200)
 	private String displayName;
 
-	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT", nullable = true)
 	private Date deletedAt;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "skillSet")
-	private Set<Resume> resumeSet;
+	private Set<ResumeDTO> resumeSet;
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "skillSet")
 	private Set<Job> jobSet;
 
 	public Integer getSkillID() {
@@ -93,11 +74,11 @@ public class Skill implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<Resume> getResumeSet() {
+	public Set<ResumeDTO> getResumeSet() {
 		return resumeSet;
 	}
 
-	public void setResumeSet(Set<Resume> resumeSet) {
+	public void setResumeSet(Set<ResumeDTO> resumeSet) {
 		this.resumeSet = resumeSet;
 	}
 

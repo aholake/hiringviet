@@ -12,4 +12,6 @@ public interface MemberService {
 	public MemberDTO checkLogin(String email, String password);
 
 	public boolean activeAccount(Integer memberID);
+
+	public MemberDTO getMemberByteID(Integer memberID);
 }

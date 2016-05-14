@@ -1,49 +1,29 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import vn.com.hiringviet.model.Company;
 
-@Entity
-@Table(name = "COUNTRY", catalog = "hiringviet")
-public class Country implements Serializable {
+public class CountryDTO implements Serializable {
 
 	private static final long serialVersionUID = 7933643571717816198L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "COUNTRY_ID", nullable = false, length = 11)
 	private Integer countryID;
 
-	@Column(name = "COUNTRY_CODE", nullable = false, length = 100)
 	private String countryCode;
 
-	@Column(name = "DISPLAY_NAME", nullable = false, length = 100)
 	private String displayName;
 
-	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
-	@Column(name = "CREATED_AT", nullable = false)
 	private Date createdAt;
 
-	@Column(name = "UPDATED_AT", nullable = false)
 	private Date updatedAt;
 
-	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "country")
 	private Set<Company> companySet;
 
 	public Integer getCountryID() {

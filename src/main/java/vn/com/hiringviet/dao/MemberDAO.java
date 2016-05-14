@@ -14,4 +14,6 @@ public interface MemberDAO {
 	public Member checkLogin(String email, String password);
 
 	public boolean activeAccount(Integer memberID);
+
+	public Member getMemberByteID(Integer memberID);
 }
