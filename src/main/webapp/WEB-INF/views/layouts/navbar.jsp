@@ -34,10 +34,21 @@
 <script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/search.js'/>"></script>
 </head>
 <body>
+	<nav>
+		<ul id="slide-out" class="side-nav">
+			<li class="mobile-search center">
+				<input type="text" placeholder="Tìm kiếm công việc, công ty, người dùng,...">
+				<a href="#" class="btn">Tìm kiếm</a>
+			</li>
+			<li><a href="#!">Đăng nhập</a></li>
+			<li><a href="#!">Đăng ký</a></li>
+		</ul>
+		<a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons white-text">menu</i></a>
+	</nav>
 	<header>
 		<div id="topnav">
 			<a href="#" class="navbar-logo left">
-				<img class="navbar-logo-img responsive-img" src="/resources/images/small_logo.png">
+				<img class="navbar-logo-img responsive-img" src="/resources/common/images/small_logo.png">
 			</a>
 			<div class="right">
 				<div id="search-bar">

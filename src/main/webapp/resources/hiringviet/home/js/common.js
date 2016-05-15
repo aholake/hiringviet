@@ -37,6 +37,9 @@ $(function() {
 		selectMonths: true,
 		selectYears: 15
 	});
+
+	// Initialize collapse button
+	$(".button-collapse").sideNav();
 })
 
 function addCLickListener() {

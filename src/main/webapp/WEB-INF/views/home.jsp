@@ -9,6 +9,11 @@
 <title>Home</title>
 <!-- Local style -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
+
+<!-- CSS media query on a link element -->
+<link rel="stylesheet" href="/resources/hiringviet/home/css/smart-home.css" />
+
+
 </head>
 <body>
 	<jsp:include page="/layouts/navbar"></jsp:include>
@@ -17,55 +22,59 @@
 
 	<div id="main-container">
 		<div class="row">
-			<div class="col m8">
+			<div class="col m8 no-padding-on-med-and-down">
 				<div class="card-panel">
-					<div class="panel-title">Công việc nổi bật</div>
+					<div class="panel-title">
+						Công việc nổi bật
+					</div>
 
 					<div class="panel-content">
 						<div class="job-box">
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
-								<div class="col s3 center">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="responsive-img company-logo"> <a href="#"
-										class="btn wave-effect wave-light">Follow</a>
+								<div class="col m3 center hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Tuyển 5 .NET Developer</h1>
-									<a href="#" class="company-name">Công ty cổ phần HP
-										Computer</a>
+									<a href="#" class="company-name">Công ty cổ phần HP Computer</a>
+									<p class="work-location"><a href="#">Hồ Chí Minh</a></p>
 
 									<div class="job-info">
 										<div class="row">
 											<div class="col m6 none-padding-left">
-												<p>
-													Lương: <span class="info">Thỏa thuận</span>
+												<p>Lương: 
+													<span class="info">Thỏa thuận</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Ngày đăng: <span class="info">20/12/2016</span>
+												<span class="right">Ngày đăng: 
+													<span class="info">20/12/2016</span>
 												</span>
 											</div>
 											<div class="col m6 none-padding-left">
-												<p>
-													Chức vụ: <span class="info">Developer</span>
+												<p>Chức vụ: 
+													<span class="info">Developer</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Số lượng: <span class="info">5
-														người</span>
+												<span class="right">Số lượng: 
+													<span class="info">5 người</span>
 												</span>
 											</div>
 										</div>
 										<div class="row">
-											<p class="col m12 none-padding-left">Xây dựng các ứng
-												dụng trên Android cho các hệ thống tài chính, Ngân
-												hàng.Nghiên cứu, tìm kiếm giải pháp...</p>
+											<p class="col m12 none-padding-left">
+												Xây dựng các ứng dụng trên Android cho các hệ thống tài chính, Ngân hàng.Nghiên cứu, tìm kiếm giải pháp...
+											</p>
 											<div class="col m12 none-padding-left">
-												<a class="chip">Java</a> <a class="chip">ASP.NET</a> <a
-													class="chip">SQL</a> <a class="chip">English</a> <a
-													class="chip">University</a>
+												<a class="chip">Java</a>
+												<a class="chip">ASP.NET</a>
+												<a class="chip">SQL</a>
+												<a class="chip">English</a>
+												<a class="chip">University</a>
 											</div>
 										</div>
 									</div>
@@ -75,47 +84,49 @@
 						<div class="job-box">
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
-								<div class="col s3 center">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="responsive-img company-logo"> <a href="#"
-										class="btn wave-effect wave-light">Follow</a>
+								<div class="col m3 center hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Tuyển 5 .NET Developer</h1>
-									<a href="#" class="company-name">Công ty cổ phần HP
-										Computer</a>
+									<a href="#" class="company-name">Công ty cổ phần HP Computer</a>
+									<p class="work-location"><a href="#">Hồ Chí Minh</a></p>
 
 									<div class="job-info">
 										<div class="row">
 											<div class="col m6 none-padding-left">
-												<p>
-													Lương: <span class="info">Thỏa thuận</span>
+												<p>Lương: 
+													<span class="info">Thỏa thuận</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Ngày đăng: <span class="info">20/12/2016</span>
+												<span class="right">Ngày đăng: 
+													<span class="info">20/12/2016</span>
 												</span>
 											</div>
 											<div class="col m6 none-padding-left">
-												<p>
-													Chức vụ: <span class="info">Developer</span>
+												<p>Chức vụ: 
+													<span class="info">Developer</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Số lượng: <span class="info">5
-														người</span>
+												<span class="right">Số lượng: 
+													<span class="info">5 người</span>
 												</span>
 											</div>
 										</div>
 										<div class="row">
-											<p class="col m12 none-padding-left">Xây dựng các ứng
-												dụng trên Android cho các hệ thống tài chính, Ngân
-												hàng.Nghiên cứu, tìm kiếm giải pháp...</p>
+											<p class="col m12 none-padding-left">
+												Xây dựng các ứng dụng trên Android cho các hệ thống tài chính, Ngân hàng.Nghiên cứu, tìm kiếm giải pháp...
+											</p>
 											<div class="col m12 none-padding-left">
-												<a class="chip">Java</a> <a class="chip">ASP.NET</a> <a
-													class="chip">SQL</a> <a class="chip">English</a> <a
-													class="chip">University</a>
+												<a class="chip">Java</a>
+												<a class="chip">ASP.NET</a>
+												<a class="chip">SQL</a>
+												<a class="chip">English</a>
+												<a class="chip">University</a>
 											</div>
 										</div>
 									</div>
@@ -125,47 +136,49 @@
 						<div class="job-box">
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
-								<div class="col s3 center">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="responsive-img company-logo"> <a href="#"
-										class="btn wave-effect wave-light">Follow</a>
+								<div class="col m3 center hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Tuyển 5 .NET Developer</h1>
-									<a href="#" class="company-name">Công ty cổ phần HP
-										Computer</a>
+									<a href="#" class="company-name">Công ty cổ phần HP Computer</a>
+									<p class="work-location"><a href="#">Hồ Chí Minh</a></p>
 
 									<div class="job-info">
 										<div class="row">
 											<div class="col m6 none-padding-left">
-												<p>
-													Lương: <span class="info">Thỏa thuận</span>
+												<p>Lương: 
+													<span class="info">Thỏa thuận</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Ngày đăng: <span class="info">20/12/2016</span>
+												<span class="right">Ngày đăng: 
+													<span class="info">20/12/2016</span>
 												</span>
 											</div>
 											<div class="col m6 none-padding-left">
-												<p>
-													Chức vụ: <span class="info">Developer</span>
+												<p>Chức vụ: 
+													<span class="info">Developer</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Số lượng: <span class="info">5
-														người</span>
+												<span class="right">Số lượng: 
+													<span class="info">5 người</span>
 												</span>
 											</div>
 										</div>
 										<div class="row">
-											<p class="col m12 none-padding-left">Xây dựng các ứng
-												dụng trên Android cho các hệ thống tài chính, Ngân
-												hàng.Nghiên cứu, tìm kiếm giải pháp...</p>
+											<p class="col m12 none-padding-left">
+												Xây dựng các ứng dụng trên Android cho các hệ thống tài chính, Ngân hàng.Nghiên cứu, tìm kiếm giải pháp...
+											</p>
 											<div class="col m12 none-padding-left">
-												<a class="chip">Java</a> <a class="chip">ASP.NET</a> <a
-													class="chip">SQL</a> <a class="chip">English</a> <a
-													class="chip">University</a>
+												<a class="chip">Java</a>
+												<a class="chip">ASP.NET</a>
+												<a class="chip">SQL</a>
+												<a class="chip">English</a>
+												<a class="chip">University</a>
 											</div>
 										</div>
 									</div>
@@ -175,47 +188,49 @@
 						<div class="job-box">
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
-								<div class="col s3 center">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="responsive-img company-logo"> <a href="#"
-										class="btn wave-effect wave-light">Follow</a>
+								<div class="col m3 center hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Tuyển 5 .NET Developer</h1>
-									<a href="#" class="company-name">Công ty cổ phần HP
-										Computer</a>
+									<a href="#" class="company-name">Công ty cổ phần HP Computer</a>
+									<p class="work-location"><a href="#">Hồ Chí Minh</a></p>
 
 									<div class="job-info">
 										<div class="row">
 											<div class="col m6 none-padding-left">
-												<p>
-													Lương: <span class="info">Thỏa thuận</span>
+												<p>Lương: 
+													<span class="info">Thỏa thuận</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Ngày đăng: <span class="info">20/12/2016</span>
+												<span class="right">Ngày đăng: 
+													<span class="info">20/12/2016</span>
 												</span>
 											</div>
 											<div class="col m6 none-padding-left">
-												<p>
-													Chức vụ: <span class="info">Developer</span>
+												<p>Chức vụ: 
+													<span class="info">Developer</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Số lượng: <span class="info">5
-														người</span>
+												<span class="right">Số lượng: 
+													<span class="info">5 người</span>
 												</span>
 											</div>
 										</div>
 										<div class="row">
-											<p class="col m12 none-padding-left">Xây dựng các ứng
-												dụng trên Android cho các hệ thống tài chính, Ngân
-												hàng.Nghiên cứu, tìm kiếm giải pháp...</p>
+											<p class="col m12 none-padding-left">
+												Xây dựng các ứng dụng trên Android cho các hệ thống tài chính, Ngân hàng.Nghiên cứu, tìm kiếm giải pháp...
+											</p>
 											<div class="col m12 none-padding-left">
-												<a class="chip">Java</a> <a class="chip">ASP.NET</a> <a
-													class="chip">SQL</a> <a class="chip">English</a> <a
-													class="chip">University</a>
+												<a class="chip">Java</a>
+												<a class="chip">ASP.NET</a>
+												<a class="chip">SQL</a>
+												<a class="chip">English</a>
+												<a class="chip">University</a>
 											</div>
 										</div>
 									</div>
@@ -225,47 +240,49 @@
 						<div class="job-box">
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
-								<div class="col s3 center">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="responsive-img company-logo"> <a href="#"
-										class="btn wave-effect wave-light">Follow</a>
+								<div class="col m3 center hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Tuyển 5 .NET Developer</h1>
-									<a href="#" class="company-name">Công ty cổ phần HP
-										Computer</a>
+									<a href="#" class="company-name">Công ty cổ phần HP Computer</a>
+									<p class="work-location"><a href="#">Hồ Chí Minh</a></p>
 
 									<div class="job-info">
 										<div class="row">
 											<div class="col m6 none-padding-left">
-												<p>
-													Lương: <span class="info">Thỏa thuận</span>
+												<p>Lương: 
+													<span class="info">Thỏa thuận</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Ngày đăng: <span class="info">20/12/2016</span>
+												<span class="right">Ngày đăng: 
+													<span class="info">20/12/2016</span>
 												</span>
 											</div>
 											<div class="col m6 none-padding-left">
-												<p>
-													Chức vụ: <span class="info">Developer</span>
+												<p>Chức vụ: 
+													<span class="info">Developer</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Số lượng: <span class="info">5
-														người</span>
+												<span class="right">Số lượng: 
+													<span class="info">5 người</span>
 												</span>
 											</div>
 										</div>
 										<div class="row">
-											<p class="col m12 none-padding-left">Xây dựng các ứng
-												dụng trên Android cho các hệ thống tài chính, Ngân
-												hàng.Nghiên cứu, tìm kiếm giải pháp...</p>
+											<p class="col m12 none-padding-left">
+												Xây dựng các ứng dụng trên Android cho các hệ thống tài chính, Ngân hàng.Nghiên cứu, tìm kiếm giải pháp...
+											</p>
 											<div class="col m12 none-padding-left">
-												<a class="chip">Java</a> <a class="chip">ASP.NET</a> <a
-													class="chip">SQL</a> <a class="chip">English</a> <a
-													class="chip">University</a>
+												<a class="chip">Java</a>
+												<a class="chip">ASP.NET</a>
+												<a class="chip">SQL</a>
+												<a class="chip">English</a>
+												<a class="chip">University</a>
 											</div>
 										</div>
 									</div>
@@ -275,47 +292,49 @@
 						<div class="job-box">
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
-								<div class="col s3 center">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="responsive-img company-logo"> <a href="#"
-										class="btn wave-effect wave-light">Follow</a>
+								<div class="col m3 center hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Tuyển 5 .NET Developer</h1>
-									<a href="#" class="company-name">Công ty cổ phần HP
-										Computer</a>
+									<a href="#" class="company-name">Công ty cổ phần HP Computer</a>
+									<p class="work-location"><a href="#">Hồ Chí Minh</a></p>
 
 									<div class="job-info">
 										<div class="row">
 											<div class="col m6 none-padding-left">
-												<p>
-													Lương: <span class="info">Thỏa thuận</span>
+												<p>Lương: 
+													<span class="info">Thỏa thuận</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Ngày đăng: <span class="info">20/12/2016</span>
+												<span class="right">Ngày đăng: 
+													<span class="info">20/12/2016</span>
 												</span>
 											</div>
 											<div class="col m6 none-padding-left">
-												<p>
-													Chức vụ: <span class="info">Developer</span>
+												<p>Chức vụ: 
+													<span class="info">Developer</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Số lượng: <span class="info">5
-														người</span>
+												<span class="right">Số lượng: 
+													<span class="info">5 người</span>
 												</span>
 											</div>
 										</div>
 										<div class="row">
-											<p class="col m12 none-padding-left">Xây dựng các ứng
-												dụng trên Android cho các hệ thống tài chính, Ngân
-												hàng.Nghiên cứu, tìm kiếm giải pháp...</p>
+											<p class="col m12 none-padding-left">
+												Xây dựng các ứng dụng trên Android cho các hệ thống tài chính, Ngân hàng.Nghiên cứu, tìm kiếm giải pháp...
+											</p>
 											<div class="col m12 none-padding-left">
-												<a class="chip">Java</a> <a class="chip">ASP.NET</a> <a
-													class="chip">SQL</a> <a class="chip">English</a> <a
-													class="chip">University</a>
+												<a class="chip">Java</a>
+												<a class="chip">ASP.NET</a>
+												<a class="chip">SQL</a>
+												<a class="chip">English</a>
+												<a class="chip">University</a>
 											</div>
 										</div>
 									</div>
@@ -325,47 +344,49 @@
 						<div class="job-box">
 							<div class="location-sticky">Hồ Chí Minh</div>
 							<div class="row none-margin-bottom">
-								<div class="col s3 center">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="responsive-img company-logo"> <a href="#"
-										class="btn wave-effect wave-light">Follow</a>
+								<div class="col m3 center hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
+									<a href="#" class="btn wave-effect wave-light">Follow</a>
 								</div>
 
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Tuyển 5 .NET Developer</h1>
-									<a href="#" class="company-name">Công ty cổ phần HP
-										Computer</a>
+									<a href="#" class="company-name">Công ty cổ phần HP Computer</a>
+									<p class="work-location"><a href="#">Hồ Chí Minh</a></p>
 
 									<div class="job-info">
 										<div class="row">
 											<div class="col m6 none-padding-left">
-												<p>
-													Lương: <span class="info">Thỏa thuận</span>
+												<p>Lương: 
+													<span class="info">Thỏa thuận</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Ngày đăng: <span class="info">20/12/2016</span>
+												<span class="right">Ngày đăng: 
+													<span class="info">20/12/2016</span>
 												</span>
 											</div>
 											<div class="col m6 none-padding-left">
-												<p>
-													Chức vụ: <span class="info">Developer</span>
+												<p>Chức vụ: 
+													<span class="info">Developer</span>
 												</p>
 											</div>
 											<div class="col m6 none-padding-left">
-												<span class="right">Số lượng: <span class="info">5
-														người</span>
+												<span class="right">Số lượng: 
+													<span class="info">5 người</span>
 												</span>
 											</div>
 										</div>
 										<div class="row">
-											<p class="col m12 none-padding-left">Xây dựng các ứng
-												dụng trên Android cho các hệ thống tài chính, Ngân
-												hàng.Nghiên cứu, tìm kiếm giải pháp...</p>
+											<p class="col m12 none-padding-left">
+												Xây dựng các ứng dụng trên Android cho các hệ thống tài chính, Ngân hàng.Nghiên cứu, tìm kiếm giải pháp...
+											</p>
 											<div class="col m12 none-padding-left">
-												<a class="chip">Java</a> <a class="chip">ASP.NET</a> <a
-													class="chip">SQL</a> <a class="chip">English</a> <a
-													class="chip">University</a>
+												<a class="chip">Java</a>
+												<a class="chip">ASP.NET</a>
+												<a class="chip">SQL</a>
+												<a class="chip">English</a>
+												<a class="chip">University</a>
 											</div>
 										</div>
 									</div>
@@ -377,197 +398,199 @@
 			</div>
 			<div class="col m4">
 				<div class="card-panel">
-					<div class="panel-title">Công ty nổi bật</div>
+					<div class="panel-title">
+						Công ty nổi bật
+					</div>
 					<div class="panel-content">
 						<div class="company-box">
-							<a href="#" class="follow-sticky"> Theo dõi </a>
+							<a href="#" class="follow-sticky">
+								Theo dõi
+							</a>
 							<div class="row">
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Công ty Tân Hiệp phát</h1>
 									<div class="small-text">
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">flag</i>Quốc gia: <span
-												class="info">Mỹ</span>
+											<i class="material-icons prefix-icon">flag</i>Quốc gia: 
+											<span class="info">Mỹ</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">equalizer</i>Quy mô: <span
-												class="info">200-500 người</span>
+											<i class="material-icons prefix-icon">equalizer</i>Quy mô: 
+											<span class="info">200-500 người</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">web</i>Website: <span
-												class="info">www.materialize.com</span>
+											<i class="material-icons prefix-icon">web</i>Website: 
+											<span class="info">www.materialize.com</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">location_on</i>Địa chỉ:
-											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình,
-												TP.HCM</span>
+											<i class="material-icons prefix-icon">location_on</i>Địa chỉ: 
+											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình, TP.HCM</span>
 										</p>
 									</div>
 								</div>
-								<div class="col s3">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="right responsive-img">
+								<div class="col m3 hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="right responsive-img">
 								</div>
 							</div>
 						</div>
 						<div class="company-box">
-							<a href="#" class="follow-sticky"> Theo dõi </a>
+							<a href="#" class="follow-sticky">
+								Theo dõi
+							</a>
 							<div class="row">
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Công ty Tân Hiệp phát</h1>
 									<div class="small-text">
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">flag</i>Quốc gia: <span
-												class="info">Mỹ</span>
+											<i class="material-icons prefix-icon">flag</i>Quốc gia: 
+											<span class="info">Mỹ</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">equalizer</i>Quy mô: <span
-												class="info">200-500 người</span>
+											<i class="material-icons prefix-icon">equalizer</i>Quy mô: 
+											<span class="info">200-500 người</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">web</i>Website: <span
-												class="info">www.materialize.com</span>
+											<i class="material-icons prefix-icon">web</i>Website: 
+											<span class="info">www.materialize.com</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">location_on</i>Địa chỉ:
-											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình,
-												TP.HCM</span>
+											<i class="material-icons prefix-icon">location_on</i>Địa chỉ: 
+											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình, TP.HCM</span>
 										</p>
 									</div>
 								</div>
-								<div class="col s3">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="right responsive-img">
+								<div class="col m3 hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="right responsive-img">
 								</div>
 							</div>
 						</div>
 						<div class="company-box">
-							<a href="#" class="follow-sticky"> Theo dõi </a>
+							<a href="#" class="follow-sticky">
+								Theo dõi
+							</a>
 							<div class="row">
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Công ty Tân Hiệp phát</h1>
 									<div class="small-text">
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">flag</i>Quốc gia: <span
-												class="info">Mỹ</span>
+											<i class="material-icons prefix-icon">flag</i>Quốc gia: 
+											<span class="info">Mỹ</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">equalizer</i>Quy mô: <span
-												class="info">200-500 người</span>
+											<i class="material-icons prefix-icon">equalizer</i>Quy mô: 
+											<span class="info">200-500 người</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">web</i>Website: <span
-												class="info">www.materialize.com</span>
+											<i class="material-icons prefix-icon">web</i>Website: 
+											<span class="info">www.materialize.com</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">location_on</i>Địa chỉ:
-											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình,
-												TP.HCM</span>
+											<i class="material-icons prefix-icon">location_on</i>Địa chỉ: 
+											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình, TP.HCM</span>
 										</p>
 									</div>
 								</div>
-								<div class="col s3">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="right responsive-img">
+								<div class="col m3 hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="right responsive-img">
 								</div>
 							</div>
 						</div>
 						<div class="company-box">
-							<a href="#" class="follow-sticky"> Theo dõi </a>
+							<a href="#" class="follow-sticky">
+								Theo dõi
+							</a>
 							<div class="row">
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Công ty Tân Hiệp phát</h1>
 									<div class="small-text">
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">flag</i>Quốc gia: <span
-												class="info">Mỹ</span>
+											<i class="material-icons prefix-icon">flag</i>Quốc gia: 
+											<span class="info">Mỹ</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">equalizer</i>Quy mô: <span
-												class="info">200-500 người</span>
+											<i class="material-icons prefix-icon">equalizer</i>Quy mô: 
+											<span class="info">200-500 người</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">web</i>Website: <span
-												class="info">www.materialize.com</span>
+											<i class="material-icons prefix-icon">web</i>Website: 
+											<span class="info">www.materialize.com</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">location_on</i>Địa chỉ:
-											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình,
-												TP.HCM</span>
+											<i class="material-icons prefix-icon">location_on</i>Địa chỉ: 
+											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình, TP.HCM</span>
 										</p>
 									</div>
 								</div>
-								<div class="col s3">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="right responsive-img">
+								<div class="col m3 hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="right responsive-img">
 								</div>
 							</div>
 						</div>
 						<div class="company-box">
-							<a href="#" class="follow-sticky"> Theo dõi </a>
+							<a href="#" class="follow-sticky">
+								Theo dõi
+							</a>
 							<div class="row">
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Công ty Tân Hiệp phát</h1>
 									<div class="small-text">
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">flag</i>Quốc gia: <span
-												class="info">Mỹ</span>
+											<i class="material-icons prefix-icon">flag</i>Quốc gia: 
+											<span class="info">Mỹ</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">equalizer</i>Quy mô: <span
-												class="info">200-500 người</span>
+											<i class="material-icons prefix-icon">equalizer</i>Quy mô: 
+											<span class="info">200-500 người</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">web</i>Website: <span
-												class="info">www.materialize.com</span>
+											<i class="material-icons prefix-icon">web</i>Website: 
+											<span class="info">www.materialize.com</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">location_on</i>Địa chỉ:
-											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình,
-												TP.HCM</span>
+											<i class="material-icons prefix-icon">location_on</i>Địa chỉ: 
+											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình, TP.HCM</span>
 										</p>
 									</div>
 								</div>
-								<div class="col s3">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="right responsive-img">
+								<div class="col m3 hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="right responsive-img">
 								</div>
 							</div>
 						</div>
 						<div class="company-box">
-							<a href="#" class="follow-sticky"> Theo dõi </a>
+							<a href="#" class="follow-sticky">
+								Theo dõi
+							</a>
 							<div class="row">
-								<div class="col s9">
+								<div class="col m9">
 									<h1 class="title">Công ty Tân Hiệp phát</h1>
 									<div class="small-text">
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">flag</i>Quốc gia: <span
-												class="info">Mỹ</span>
+											<i class="material-icons prefix-icon">flag</i>Quốc gia: 
+											<span class="info">Mỹ</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">equalizer</i>Quy mô: <span
-												class="info">200-500 người</span>
+											<i class="material-icons prefix-icon">equalizer</i>Quy mô: 
+											<span class="info">200-500 người</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">web</i>Website: <span
-												class="info">www.materialize.com</span>
+											<i class="material-icons prefix-icon">web</i>Website: 
+											<span class="info">www.materialize.com</span>
 										</p>
 										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">location_on</i>Địa chỉ:
-											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình,
-												TP.HCM</span>
+											<i class="material-icons prefix-icon">location_on</i>Địa chỉ: 
+											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình, TP.HCM</span>
 										</p>
 									</div>
 								</div>
-								<div class="col s3">
-									<img src="/resources/images/Hewlett-Packard-Logo-200x200.png"
-										class="right responsive-img">
+								<div class="col m3 hide-on-med-and-down">
+									<img src="images/Hewlett-Packard-Logo-200x200.png" class="right responsive-img">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</div>		
 		</div>
 	</div>
 

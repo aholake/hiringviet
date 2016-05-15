@@ -21,6 +21,10 @@ header #topnav {
 	margin: auto;
 }
 
+nav {
+	display: none;
+}
+
 .none-padding-left {
 	padding-left: 0 !important;
 }
@@ -85,6 +89,14 @@ hr.fancy-hr {
 	font-weight: bolder;
 }
 
+.info-text {
+	color: #02A8F3;
+}
+
+.warning-text {
+	color: #e5760d;
+}
+
 .higher-line {
 	line-height: 28px;
 }
@@ -97,9 +109,17 @@ h1.title {
 	margin-bottom: 3px;
 }
 
-.info {
-	color: #02A8F3;
+
+#footer {
+	height: 50px;
+	background: #02A8F3;
+	color: #FFF;
+	text-align: center;
+	line-height: 50px;
 }
-.warning {
-	color: #e5760d;
+
+.activity-box {
+	margin-bottom: 15px;
 }
+
+@import url("smart.css");

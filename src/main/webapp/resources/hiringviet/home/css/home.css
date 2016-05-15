@@ -82,3 +82,12 @@ a.company-name {
 	right: 100%;
 	top: 0;
 }
+
+.activity-box {
+	padding: 10px 10px 0 10px;
+	border-bottom: 1px dotted #c2c2c2;
+}
+
+.work-location {
+	display: none;
+}
