@@ -1,0 +1,17 @@
+.main-box {
+	width: 100%;
+	min-height: 300px;
+	margin: 20px auto;
+	padding-bottom: 40px;
+}
+.btn-block {
+	width: 100%;
+}
+
+.margin-30 {
+	margin: 30px;
+}
+
+.logo-login {
+	height: 80px !important;
+}

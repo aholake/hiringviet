@@ -13,7 +13,12 @@ public class CommonController {
 
 	@RequestMapping(value = "/homeLogin")
 	public String homeLogin() {
-		return "homeLogin";
+		return "home_login";
+	}
+	
+	@RequestMapping("/login")
+	public String loginPage() {
+		return "login_page";
 	}
 	
 	@RequestMapping(value = "/layouts/navbar")
