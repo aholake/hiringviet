@@ -132,4 +132,14 @@ public class Country implements Serializable {
 		this.lenguage = lenguage;
 	}
 
+	@Override
+	public String toString() {
+		return "Country [countryID=" + countryID + ", countryCode="
+				+ countryCode + ", displayName=" + displayName + ", lenguage="
+				+ lenguage + ", flag=" + flag + ", status=" + status
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+				+ ", deletedAt=" + deletedAt;
+	}
+
+	
 }
