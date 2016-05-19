@@ -25,8 +25,14 @@
 
 	<link rel="stylesheet" type="text/css" href="/resources/common/css/style.css">
 	<link rel="stylesheet" type="text/css" href="/resources/hiringviet/login/css/login.css">
+
+	<!--common js-->
+	<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/common.js'/>"></script>
 </head>
 <body>
+	<input type="hidden" id="url_redirect_page" value="<c:url value='/home' />" />
+	<input type="hidden" id="url_login" value="<c:url value='/member/login' />" />
+	<input type="hidden" id="url_check_account" value="<c:url value='/member/checkAccount' />" />
 	<div class="row">
 		<div class="col m4 offset-m4">
 			<div class="main-box">
@@ -34,33 +40,65 @@
 					<img class="responsive-img logo-login" src="resources/common/images/small_logo.png">
 				</div>
 				<div class="center margin-30">
-					<h5>Sign in to HiringViet</h5>
+					<h5><spring:message code="label.login.login_title"/> </h5>
 				</div>
 				<div class="card-panel">
-					<div class="input-field">
-						<input id="email" type="email" class="validate"></input>
-						<label for="email" data-error="Sai" data-success="Đúng">Email</label>
-					</div>
-					<div class="input-field">
-						<input id="password" type="password" class="validate"></input>
-						<label for="password" data-error="Sai" data-success="Đúng">Password</label>
-					</div>
-					<div class="row margin-top-10">
-						<div class="col m6">
-							<input type="checkbox" id="test5" />
-							<label for="test5">Remember me</label>
+					<form:form >
+						<p id="email_requierd" class="txt-errors">
+							<spring:message code="label.login.errors.email_required" />
+						</p>
+						<p id="password_requierd" class="txt-errors">
+							<spring:message code="label.login.errors.password_required" />
+						</p>
+						<p id="email_or_password_wrong" class="txt-errors">
+							<spring:message code="label.login.errors.email_or_password_wrong" />
+						</p>
+						<p id="email_max_length" class="txt-errors">
+							<spring:message code="label.login.errors.email_max_length" />
+						</p>
+						<p id="password_max_length" class="txt-errors">
+							<spring:message code="label.login.errors.password_max_length" />
+						</p>
+						<div class="input-field">
+							<input id="txtEmail" type="email" class="validate"></input>
+							<label for="txtEmail" data-error="<spring:message code='label.login.errors.email_format' />" data-success="">
+								<spring:message code="label.login.field.email_title"/>
+							</label>
 						</div>
-						<div class="col m6 right-align">
-							<a href="#" class="small-text">Quên mật khẩu</a>
+						<div class="input-field">
+							<input id="txtPassword" type="password" class="validate"></input>
+							<label for="txtPassword" data-error="" data-success="">
+								<spring:message code="label.login.field.password_title"/>
+							</label>
 						</div>
-					</div>
-					<a href="" class="btn waves-effect waves-light btn-block">Đăng nhập</a>
+						<div class="row margin-top-10">
+							<div class="col m6">
+								<input type="checkbox" id="test5" />
+								<label for="test5">
+									<spring:message code="label.login.title.remember_account"/>
+								</label>
+							</div>
+							<div class="col m6 right-align">
+								<a href="#" class="small-text">
+									<spring:message code="label.login.title.forget_password"/>
+								</a>
+							</div>
+						</div>
+						<a href="" id="btn-sign-in" class="btn waves-effect waves-light btn-block">
+							<spring:message code="label.login.button.sign_in"/>
+						</a>
+					</form:form>
 				</div>
 				<div class="card-panel center">
-					New to HiringViet? <a href="#">Create an account</a>.
+					<spring:message code="label.login.ask.title"/> 
+					<a href="#">
+						<spring:message code="label.login.ask.created_account"/>
+					</a>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<script type="text/javascript" src="<c:url value='/resources/hiringviet/login/js/login.js'/>"></script>
 </body>
 </html>

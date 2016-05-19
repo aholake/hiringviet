@@ -122,4 +122,12 @@ h1.title {
 	margin-bottom: 15px;
 }
 
+.txt-errors {
+	display: none;
+	color: #f44336;
+}
+
+.input-field>label {
+	left: 0 !important;
+}
 @import url("smart.css");

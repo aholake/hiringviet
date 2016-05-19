@@ -1,7 +1,9 @@
 
 var MAX_TOTAL_ITEM_7 = 7;
-
-
+var MAX_LENGTH_VALUE_100 = 100;
+var BORDER_INPUT = '#f44336';
+var SUCCESS = 'success';
+var FAIL = 'fail';
 
 $(function() {
 	/* Close all dialog and navbar */
@@ -42,78 +44,106 @@ $(function() {
 	$(".button-collapse").sideNav();
 })
 
-function addCLickListener() {
+/**
+ * Call API function
+ */
+function callAPI(url, method, data, callback, isProgressing, isMobile) {
 
-	/* begin cover image */
-	$('.update-cover-image').on('mouseover', function(event) {
-		$('.update-cover-image span').show();
-		$('.update-cover-image').css('background', "#000");
-		$('.update-cover-image').css('border', "1px solid #CCCCCC");
-		event.preventDefault();
+	if (url == undefined || url == null) return;
+	if (method == undefined || method == null) return;
+	if (data == undefined || data == null) return;
+	if (isProgressing == undefined || isProgressing == null) isProgressing = false;
+	if (isMobile == undefined || isMobile == null) isMobile = false;
+
+	$.ajax({
+		type: method,
+		url: url,
+		cache: false,
+		dataType: "json",
+		Accept : "application/json",
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify(data),
+		beforeSend: function(xhr, settings) {
+			if (isProgressing == true) {
+				enableProgressing(isMobile);
+			}
+		},
+		success: function (result) {
+			if (isProgressing == true) {
+				disableProgressing();
+			}
+			if (callback != undefined && callback != null) {
+				window[callback](result);
+			}
+		},
+		error: function(res, xhr, status) {
+		}
 	});
-
-	$('.update-cover-image').on('mouseout', function(event) {
-		cleanUpdateCoverImage();
-		event.preventDefault();
-	});
-
-	$('.update-cover-image').on('click', function(event) {
-
-	});
-	/* end cover image */
-
-	$('body').on('click', function(event) {
-		event.preventDefault();
-	});
-
-	/* begin avatar image */
-	$('.avatar-image').on('mouseover', function(event) {
-		$('.update-avatar-image span').show();
-		$('.update-avatar-image i').css('color', '#8a8a8a');
-		$('.update-avatar-image').css('background','#000');
-	});
-
-	$('.avatar-image').on('mouseout', function(event) {
-		cleanUpdateAvatarImage();
-	});
-
-	$('.avatar-image').on('click', function(event) {
-	});
-	/* end avatar image */
 }
 
-function addCommonCss() {
+function enableProgressing(isMobile) {
 
-	/* begin cover image */
-	cleanUpdateCoverImage();
-	/* end cover image */
-
-	cleanUpdateAvatarImage();
 }
 
-function cleanUpdateCoverImage() {
-	$('.update-cover-image span').hide();
-	$('.update-cover-image').css('background', "none");
-	$('.update-cover-image').css('border', "none");
+function disableProgressing() {
+
 }
 
-function cleanUpdateAvatarImage() {
-	$('.update-avatar-image span').hide();
-	$('.update-avatar-image').css('background','none');
-	$('.update-avatar-image i').css('color','white');
+function resetErrorMessage(arrs) {
+	if (arrs != null && arrs.length > 0) {
+		var index = 0;
+		var len = arrs.length;
+		for (;index < len; index++) {
+			if (typeof arrs[index]  === "string") {
+				$(arrs[index]).hide();
+			}
+		}
+	}
 }
 
+function resetFocusInput(arrs, borderClass) {
+	if (arrs != null && arrs.length > 0) {
+		var index = 0;
+		var len = arrs.length;
+		for (;index < len; index++) {
+			if (typeof arrs[index]  === "string") {
+				resetForcusInput(arrs[index], borderClass);
+			}
+		}
+	}
+}
 
-function generateHoverListener(divWrap) {
-	var $profileCarrerCurrentEdit = $(divWrap);
-	$profileCarrerCurrentEdit.on('mouseover', function() {
-		$profileCarrerCurrentEdit.find('.edit-field-icon').show();
-		$profileCarrerCurrentEdit.find('.edit-field-icon i').addClass('color-white');
-		$profileCarrerCurrentEdit.css('cursor', 'pointer');
-	});
+function resetForcusInput(selector, oldClass) {
+	$(selector).css("border", "");
+	if (!$(selector).hasClass(oldClass)) {
+		$(selector).addClass(oldClass);
+	}
+}
 
-	$profileCarrerCurrentEdit.on('mouseout', function() {
-		$profileCarrerCurrentEdit.find('.edit-field-icon').hide();
-		$profileCarrerCurrentEdit.find('.edit-field-icon i').removeClass('color-white');
-	});
+function isInValidRequired(input, error, borderInput) {
+	if ($(input).val() == "" || $(input).val() == null) {
+		$(error).show();
+		$(input).css('border-bottom-color', borderInput);
+		return true;
+	}
+	return false;
+}
+
+function isInMaxLength(input, error, borderInput, maxLength) {
+	if ($(input).val().length > maxLength) {
+		$(error).show();
+		$(input).css('border-bottom-color', borderInput);
+		return true;
+	}
+	return false;
+}
+
+/* Refresh page */
+function refreshPage() {
+	location.reload();
+}
+
+/* redirect to page */
+function redirectTo(location) {
+	window.location = location;
 }

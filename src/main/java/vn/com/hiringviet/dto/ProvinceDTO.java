@@ -14,7 +14,7 @@ public class ProvinceDTO implements Serializable {
 
 	private String displayName;
 
-	private String provinceCode;
+	private String provinceType;
 
 	private Integer status;
 
@@ -42,12 +42,12 @@ public class ProvinceDTO implements Serializable {
 		this.displayName = displayName;
 	}
 
-	public String getProvinceCode() {
-		return provinceCode;
+	public String getProvinceType() {
+		return provinceType;
 	}
 
-	public void setProvinceCode(String provinceCode) {
-		this.provinceCode = provinceCode;
+	public void setProvinceType(String provinceType) {
+		this.provinceType = provinceType;
 	}
 
 	public Integer getStatus() {

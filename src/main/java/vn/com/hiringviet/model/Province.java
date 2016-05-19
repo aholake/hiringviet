@@ -28,8 +28,8 @@ public class Province implements Serializable {
 	@Column(name = "DISPLAY_NAME", nullable = false)
 	private String displayName;
 
-	@Column(name = "PROVINCE_CODE", nullable = false)
-	private String provinceCode;
+	@Column(name = "PROVINCE_TYPE", nullable = false)
+	private String provinceType;
 
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
@@ -62,12 +62,12 @@ public class Province implements Serializable {
 		this.displayName = displayName;
 	}
 
-	public String getProvinceCode() {
-		return provinceCode;
+	public String getProvinceType() {
+		return provinceType;
 	}
 
-	public void setProvinceCode(String provinceCode) {
-		this.provinceCode = provinceCode;
+	public void setProvinceType(String provinceType) {
+		this.provinceType = provinceType;
 	}
 
 	public Integer getStatus() {
