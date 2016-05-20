@@ -18,7 +18,7 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
-	@RequestMapping(value = "/member/checkAccount", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/checkAccount", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO login(@RequestBody MemberDTO memberDTO) {
 
 		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();

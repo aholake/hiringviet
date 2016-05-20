@@ -26,12 +26,15 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO checkLogin(String email, String password) {
 
 		Member member = memberDAO.checkLogin(email, password);
-		MemberDTO memberDTO = new MemberDTO();
+		MemberDTO memberDTO = null;
 
-		try {
-			BeanUtils.copyProperties(memberDTO, member);
-		} catch (IllegalAccessException | InvocationTargetException e) {
-			e.printStackTrace();
+		if (member != null) {
+			try {
+				memberDTO = new MemberDTO();
+				BeanUtils.copyProperties(memberDTO, member);
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
 		}
 		return memberDTO;
 	}

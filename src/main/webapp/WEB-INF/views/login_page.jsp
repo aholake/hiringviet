@@ -31,7 +31,6 @@
 </head>
 <body>
 	<input type="hidden" id="url_redirect_page" value="<c:url value='/home' />" />
-	<input type="hidden" id="url_login" value="<c:url value='/member/login' />" />
 	<input type="hidden" id="url_check_account" value="<c:url value='/member/checkAccount' />" />
 	<div class="row">
 		<div class="col m4 offset-m4">
