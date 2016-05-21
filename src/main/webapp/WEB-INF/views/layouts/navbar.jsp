@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title></title>
 
 <meta charset="utf-8">
 <!--Import Google Icon Font-->
@@ -62,12 +62,12 @@
 				<div id="search-input" class="left">
 					<input type="text" id="search-auto-complete"
 						placeholder="Tìm kiếm công việc, công ty, người dùng,...">
-					<p class="search-hint">Từ khóa: Thông dịch viên, lập trình
+					<p class="search-hint"><spring:message code="label.navbar.title.key_word"/>: Thông dịch viên, lập trình
 						Java, lập trình PHP...</p>
 					<div id="suggestion-box" class="z-depth-1">
 						<div class="search-progress">
 							<img src="/resources/images/loading.gif" />
-							<p>Đang tìm kiếm kết quả</p>
+							<p><spring:message code="label.navbar.title.process_search" /></p>
 						</div>
 						<ul class="wrap-search-results">
 
@@ -86,21 +86,20 @@
 						<div class="top-menu-box">
 							<c:if test="${empty memberDTO }">
 								<div id="login-box">
-									<h1 class="title info center">Đăng nhập</h1>
+									<h1 class="title info center"><spring:message code="label.login.button.sign_in"/></h1>
 									<div class="rectangle-input">
-										<label for="email-login"> Email: </label> <input
+										<label for="email-login"> <spring:message code="label.login.field.email_title"/>: </label> <input
 											id="email-login" type="text" class="validate"></input>
 									</div>
 									<div class="rectangle-input">
-										<label for="email-login"> Password: </label> <input
+										<label for="email-login"> <spring:message code="label.login.field.password_title"/>: </label> <input
 											id="password-login" type="text" class="validate"></input>
 									</div>
 									<p>
-										<input type="checkbox" id="test5" /> <label for="test5">Ghi
-											nhớ đăng nhập</label>
+										<input type="checkbox" id="test5" /> <label for="test5"><spring:message code="label.login.title.remember_account"/></label>
 									</p>
 									<div class="margin-top-10 center">
-										<a id="login-btn" href="#" class="btn">Đăng nhập</a>
+										<a id="login-btn" href="#" class="btn"><spring:message code="label.login.button.sign_in"/></a>
 									</div>
 								</div>
 							</c:if>
@@ -112,7 +111,7 @@
 										<a href="#">Võ Tấn Lộc</a>
 									</h5>
 									<h6>
-										<a href="#">Thêm kỹ năng</a>
+										<a href="#"><spring:message code="label.navbar.title.add_skill"/></a>
 									</h6>
 								</div>
 							</c:if>
@@ -121,15 +120,16 @@
 							<ul class="menu-item">
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">account_box</i>Hồ
-											sơ cá nhân</a>
+										<a href="#"><i class="material-icons prefix-icon">account_box</i>
+											<spring:message code="label.navbar.title.profile"/>
+										</a>
 									</div>
 									<div class="menu-item-body">
 										<ul>
-											<li><a href="#">Chỉnh sửa hồ sơ</a></li>
-											<li><a href="#">Người xem hồ sơ</a></li>
-											<li><a href="#">Nhật ký hoạt động</a></li>
-											<li><a href="#">Hòm thư</a></li>
+											<li><a href="#"><spring:message code="label.navbar.title.edit_profile"/></a></li>
+											<li><a href="#"><spring:message code="label.navbar.title.visiting_number"/></a></li>
+											<li><a href="#"><spring:message code="label.navbar.title.activity_log"/></a></li>
+											<li><a href="#"><spring:message code="label.navbar.title.mailbox"/></a></li>
 										</ul>
 									</div>
 								</li>
@@ -142,8 +142,7 @@
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">donut_large</i>Theo
-											dõi</a>
+										<a href="#"><i class="material-icons prefix-icon">donut_large</i><spring:message code="label.navbar.title.follow"/></a>
 									</div>
 									<div class="menu-item-body">
 										<ul>
@@ -166,13 +165,16 @@
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">account_circle</i>Tài
-											khoản</a>
+										<a href="#"><i class="material-icons prefix-icon">account_circle</i>
+											<spring:message code="label.navbar.title.account"/>
+										</a>
 									</div>
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">exit_to_app</i>Thoát</a>
+										<a href="#"><i class="material-icons prefix-icon">exit_to_app</i>
+											<spring:message code="label.navbar.title.sign_out"/>
+										</a>
 									</div>
 								</li>
 							</ul>

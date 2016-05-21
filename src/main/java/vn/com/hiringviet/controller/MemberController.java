@@ -1,6 +1,5 @@
 package vn.com.hiringviet.controller;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
-import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.service.MemberService;
 import vn.com.hiringviet.util.CookieUtil;

@@ -23,15 +23,9 @@ public class CommonController {
 		MemberDTO memberDTO = Utils.getMemberSession(session);
 
 		if (!Utils.isEmptyObject(memberDTO)) {
-			String locale = memberDTO.getLocale();
-			return "redirect:home_login?locale=" + locale;
+			return "home_login";
 		}
 		return "home";
-	}
-	
-	@RequestMapping(value = "/homeLogin")
-	public String homeLogin() {
-		return "home_login";
 	}
 	
 	@RequestMapping("/login")
