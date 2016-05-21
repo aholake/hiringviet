@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.Company;
-import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Province;
-import vn.com.hiringviet.model.Resume;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class DistrictDTO implements Serializable {
 
@@ -27,11 +26,14 @@ public class DistrictDTO implements Serializable {
 
 	private Date deletedAt;
 
-	private Set<Resume> resumeSet;
+	@JsonIgnore
+	private Set<ResumeDTO> resumeSet;
 
-	private Set<Company> companySet;
+	@JsonIgnore
+	private Set<CompanyDTO> companySet;
 
-	private Set<Job> jobSet;
+	@JsonIgnore
+	private Set<JobDTO> jobSet;
 
 	public Integer getDistrictID() {
 		return districtID;
@@ -89,27 +91,27 @@ public class DistrictDTO implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<Resume> getResumeSet() {
+	public Set<ResumeDTO> getResumeSet() {
 		return resumeSet;
 	}
 
-	public void setResumeSet(Set<Resume> resumeSet) {
+	public void setResumeSet(Set<ResumeDTO> resumeSet) {
 		this.resumeSet = resumeSet;
 	}
 
-	public Set<Company> getCompanySet() {
+	public Set<CompanyDTO> getCompanySet() {
 		return companySet;
 	}
 
-	public void setCompanySet(Set<Company> companySet) {
+	public void setCompanySet(Set<CompanyDTO> companySet) {
 		this.companySet = companySet;
 	}
 
-	public Set<Job> getJobSet() {
+	public Set<JobDTO> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<Job> jobSet) {
+	public void setJobSet(Set<JobDTO> jobSet) {
 		this.jobSet = jobSet;
 	}
 

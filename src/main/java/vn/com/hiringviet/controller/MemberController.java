@@ -32,7 +32,7 @@ public class MemberController {
 			return commonResponseDTO;
 		}
 
-		if (memberDTO.getRememberAccount()) {
+		if (memberDTO.isRemembered()) {
 			CookieUtil.createCookie(response, "email", member.getEmail());
 			CookieUtil.createCookie(response, "password", member.getPassword());
 			System.out.println("Cookies is saved");

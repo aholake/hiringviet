@@ -40,6 +40,9 @@ public class Position implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "position")
 	private Set<EmploymentHistory> employmentHistorySet;
 
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "position")
+	private Set<Job> jobSet;
+
 	public Integer getPositionID() {
 		return positionID;
 	}
@@ -89,4 +92,11 @@ public class Position implements Serializable {
 		this.employmentHistorySet = employmentHistorySet;
 	}
 
+	public Set<Job> getJobSet() {
+		return jobSet;
+	}
+
+	public void setJobSet(Set<Job> jobSet) {
+		this.jobSet = jobSet;
+	}
 }

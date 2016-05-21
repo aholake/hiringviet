@@ -4,18 +4,15 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.ReplyComment;
-
 public class CommentDTO implements Serializable {
 
 	private static final long serialVersionUID = 9219480321037261930L;
 
 	private Integer commentID;
 
-	private Job job;
+	private JobDTO job;
 
-	private Set<ReplyComment> replyCommentSet;
+	private Set<ReplyCommentDTO> replyCommentSet;
 
 	private String comment;
 
@@ -35,19 +32,19 @@ public class CommentDTO implements Serializable {
 		this.commentID = commentID;
 	}
 
-	public Job getJob() {
+	public JobDTO getJob() {
 		return job;
 	}
 
-	public void setJob(Job job) {
+	public void setJob(JobDTO job) {
 		this.job = job;
 	}
 
-	public Set<ReplyComment> getReplyCommentSet() {
+	public Set<ReplyCommentDTO> getReplyCommentSet() {
 		return replyCommentSet;
 	}
 
-	public void setReplyCommentSet(Set<ReplyComment> replyCommentSet) {
+	public void setReplyCommentSet(Set<ReplyCommentDTO> replyCommentSet) {
 		this.replyCommentSet = replyCommentSet;
 	}
 
@@ -90,5 +87,6 @@ public class CommentDTO implements Serializable {
 	public void setDeleteAt(Date deleteAt) {
 		this.deleteAt = deleteAt;
 	}
+
 
 }

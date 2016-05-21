@@ -3,17 +3,15 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import vn.com.hiringviet.model.Member;
-
 public class MailboxDTO implements Serializable {
 
 	private static final long serialVersionUID = -6319605028828102552L;
 
 	private Integer mailboxID;
 
-	private Member fromMemberID;
+	private MemberDTO fromMemberID;
 
-	private Member toMemberID;
+	private MemberDTO toMemberID;
 
 	private Integer typeMail;
 
@@ -35,19 +33,19 @@ public class MailboxDTO implements Serializable {
 		this.mailboxID = mailboxID;
 	}
 
-	public Member getFromMemberID() {
+	public MemberDTO getFromMemberID() {
 		return fromMemberID;
 	}
 
-	public void setFromMemberID(Member fromMemberID) {
+	public void setFromMemberID(MemberDTO fromMemberID) {
 		this.fromMemberID = fromMemberID;
 	}
 
-	public Member getToMemberID() {
+	public MemberDTO getToMemberID() {
 		return toMemberID;
 	}
 
-	public void setToMemberID(Member toMemberID) {
+	public void setToMemberID(MemberDTO toMemberID) {
 		this.toMemberID = toMemberID;
 	}
 

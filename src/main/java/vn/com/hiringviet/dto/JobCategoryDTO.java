@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.Job;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class JobCategoryDTO implements Serializable {
 
@@ -12,7 +12,7 @@ public class JobCategoryDTO implements Serializable {
 
 	private Integer jobCategoryID;
 
-	private Integer categoryNAME;
+	private String categoryNAME;
 
 	private Integer status;
 
@@ -22,7 +22,8 @@ public class JobCategoryDTO implements Serializable {
 
 	private Date deletedAt;
 
-	private Set<Job> jobSet;
+	@JsonIgnore
+	private Set<JobDTO> jobSet;
 
 	public Integer getJobCategoryID() {
 		return jobCategoryID;
@@ -32,11 +33,11 @@ public class JobCategoryDTO implements Serializable {
 		this.jobCategoryID = jobCategoryID;
 	}
 
-	public Integer getCategoryNAME() {
+	public String getCategoryNAME() {
 		return categoryNAME;
 	}
 
-	public void setCategoryNAME(Integer categoryNAME) {
+	public void setCategoryNAME(String categoryNAME) {
 		this.categoryNAME = categoryNAME;
 	}
 
@@ -72,12 +73,11 @@ public class JobCategoryDTO implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<Job> getJobSet() {
+	public Set<JobDTO> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<Job> jobSet) {
+	public void setJobSet(Set<JobDTO> jobSet) {
 		this.jobSet = jobSet;
 	}
-
 }

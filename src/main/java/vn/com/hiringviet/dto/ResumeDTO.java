@@ -4,26 +4,21 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.District;
-import vn.com.hiringviet.model.EducationHistory;
-import vn.com.hiringviet.model.EmploymentHistory;
-import vn.com.hiringviet.model.Member;
-
 public class ResumeDTO implements Serializable {
 
 	private static final long serialVersionUID = -4931216192214091278L;
 
 	private Integer resumeID;
 
-	private Member member;
+	private MemberDTO member;
 
-	private District district;
+	private DistrictDTO district;
 
 	private Set<SkillDTO> skillSet;
 
-	private Set<EducationHistory> educationHistorySet;
+	private Set<EducationHistoryDTO> educationHistorySet;
 
-	private Set<EmploymentHistory> employeeHistorySet;
+	private Set<EducationHistoryDTO> employeeHistorySet;
 
 	private String fullName;
 
@@ -55,19 +50,19 @@ public class ResumeDTO implements Serializable {
 		this.resumeID = resumeID;
 	}
 
-	public Member getMember() {
+	public MemberDTO getMember() {
 		return member;
 	}
 
-	public void setMember(Member member) {
+	public void setMember(MemberDTO member) {
 		this.member = member;
 	}
 
-	public District getDistrict() {
+	public DistrictDTO getDistrict() {
 		return district;
 	}
 
-	public void setDistrict(District district) {
+	public void setDistrict(DistrictDTO district) {
 		this.district = district;
 	}
 
@@ -79,19 +74,19 @@ public class ResumeDTO implements Serializable {
 		this.skillSet = skillSet;
 	}
 
-	public Set<EducationHistory> getEducationHistorySet() {
+	public Set<EducationHistoryDTO> getEducationHistorySet() {
 		return educationHistorySet;
 	}
 
-	public void setEducationHistorySet(Set<EducationHistory> educationHistorySet) {
+	public void setEducationHistorySet(Set<EducationHistoryDTO> educationHistorySet) {
 		this.educationHistorySet = educationHistorySet;
 	}
 
-	public Set<EmploymentHistory> getEmployeeHistorySet() {
+	public Set<EducationHistoryDTO> getEmployeeHistorySet() {
 		return employeeHistorySet;
 	}
 
-	public void setEmployeeHistorySet(Set<EmploymentHistory> employeeHistorySet) {
+	public void setEmployeeHistorySet(Set<EducationHistoryDTO> employeeHistorySet) {
 		this.employeeHistorySet = employeeHistorySet;
 	}
 

@@ -3,17 +3,15 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import vn.com.hiringviet.model.Member;
-
 public class FollowDTO implements Serializable {
 
 	private static final long serialVersionUID = -4464300694714420831L;
 
 	private Integer followID;
 
-	private Member fromMemberID;
+	private MemberDTO fromMemberID;
 
-	private Member toMemberID;
+	private MemberDTO toMemberID;
 
 	private Integer status;
 
@@ -31,19 +29,19 @@ public class FollowDTO implements Serializable {
 		this.followID = followID;
 	}
 
-	public Member getFromMemberID() {
+	public MemberDTO getFromMemberID() {
 		return fromMemberID;
 	}
 
-	public void setFromMemberID(Member fromMemberID) {
+	public void setFromMemberID(MemberDTO fromMemberID) {
 		this.fromMemberID = fromMemberID;
 	}
 
-	public Member getToMemberID() {
+	public MemberDTO getToMemberID() {
 		return toMemberID;
 	}
 
-	public void setToMemberID(Member toMemberID) {
+	public void setToMemberID(MemberDTO toMemberID) {
 		this.toMemberID = toMemberID;
 	}
 

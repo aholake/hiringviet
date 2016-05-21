@@ -4,14 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.Apply;
-import vn.com.hiringviet.model.Company;
-import vn.com.hiringviet.model.Endorse;
-import vn.com.hiringviet.model.Follow;
-import vn.com.hiringviet.model.Mailbox;
-import vn.com.hiringviet.model.RequestEndorse;
-import vn.com.hiringviet.model.Resume;
-
 public class MemberDTO implements Serializable {
 
 	private static final long serialVersionUID = -4371044009879481708L;
@@ -34,29 +26,29 @@ public class MemberDTO implements Serializable {
 
 	private Date deletedAt;
 
-	private Resume resume;
+	private ResumeDTO resume;
 
-	private Company company;
+	private CompanyDTO company;
 
-	private Set<Apply> applySet;
+	private Set<ApplyDTO> applySet;
 
-	private Set<Follow> followFromSet;
+	private Set<FollowDTO> followFromSet;
 
-	private Set<Follow> followToSet;
+	private Set<FollowDTO> followToSet;
 
-	private Set<Mailbox> mailboxFromSet;
+	private Set<MailboxDTO> mailboxFromSet;
 
-	private Set<Mailbox> mailboxToSet;
+	private Set<MailboxDTO> mailboxToSet;
 
-	private Set<RequestEndorse> requestEndorseFromSet;
+	private Set<RequestEndorseDTO> requestEndorseFromSet;
 
-	private Set<RequestEndorse> requestEndorseToSet;
+	private Set<RequestEndorseDTO> requestEndorseToSet;
 
-	private Set<Endorse> endorseFromSet;
+	private Set<EndorseDTO> endorseFromSet;
 
-	private Set<Endorse> endorseToSet;
+	private Set<EndorseDTO> endorseToSet;
 
-	private boolean rememberAccount;
+	private boolean remembered;
 
 	public Integer getMemberID() {
 		return memberID;
@@ -130,101 +122,101 @@ public class MemberDTO implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Resume getResume() {
+	public ResumeDTO getResume() {
 		return resume;
 	}
 
-	public void setResume(Resume resume) {
+	public void setResume(ResumeDTO resume) {
 		this.resume = resume;
 	}
 
-	public Company getCompany() {
+	public CompanyDTO getCompany() {
 		return company;
 	}
 
-	public void setCompany(Company company) {
+	public void setCompany(CompanyDTO company) {
 		this.company = company;
 	}
 
-	public Set<Apply> getApplySet() {
+	public Set<ApplyDTO> getApplySet() {
 		return applySet;
 	}
 
-	public void setApplySet(Set<Apply> applySet) {
+	public void setApplySet(Set<ApplyDTO> applySet) {
 		this.applySet = applySet;
 	}
 
-	public Set<Follow> getFollowFromSet() {
+	public Set<FollowDTO> getFollowFromSet() {
 		return followFromSet;
 	}
 
-	public void setFollowFromSet(Set<Follow> followFromSet) {
+	public void setFollowFromSet(Set<FollowDTO> followFromSet) {
 		this.followFromSet = followFromSet;
 	}
 
-	public Set<Follow> getFollowToSet() {
+	public Set<FollowDTO> getFollowToSet() {
 		return followToSet;
 	}
 
-	public void setFollowToSet(Set<Follow> followToSet) {
+	public void setFollowToSet(Set<FollowDTO> followToSet) {
 		this.followToSet = followToSet;
 	}
 
-	public Set<Mailbox> getMailboxFromSet() {
+	public Set<MailboxDTO> getMailboxFromSet() {
 		return mailboxFromSet;
 	}
 
-	public void setMailboxFromSet(Set<Mailbox> mailboxFromSet) {
+	public void setMailboxFromSet(Set<MailboxDTO> mailboxFromSet) {
 		this.mailboxFromSet = mailboxFromSet;
 	}
 
-	public Set<Mailbox> getMailboxToSet() {
+	public Set<MailboxDTO> getMailboxToSet() {
 		return mailboxToSet;
 	}
 
-	public void setMailboxToSet(Set<Mailbox> mailboxToSet) {
+	public void setMailboxToSet(Set<MailboxDTO> mailboxToSet) {
 		this.mailboxToSet = mailboxToSet;
 	}
 
-	public Set<RequestEndorse> getRequestEndorseFromSet() {
+	public Set<RequestEndorseDTO> getRequestEndorseFromSet() {
 		return requestEndorseFromSet;
 	}
 
 	public void setRequestEndorseFromSet(
-			Set<RequestEndorse> requestEndorseFromSet) {
+			Set<RequestEndorseDTO> requestEndorseFromSet) {
 		this.requestEndorseFromSet = requestEndorseFromSet;
 	}
 
-	public Set<RequestEndorse> getRequestEndorseToSet() {
+	public Set<RequestEndorseDTO> getRequestEndorseToSet() {
 		return requestEndorseToSet;
 	}
 
-	public void setRequestEndorseToSet(Set<RequestEndorse> requestEndorseToSet) {
+	public void setRequestEndorseToSet(Set<RequestEndorseDTO> requestEndorseToSet) {
 		this.requestEndorseToSet = requestEndorseToSet;
 	}
 
-	public Set<Endorse> getEndorseFromSet() {
+	public Set<EndorseDTO> getEndorseFromSet() {
 		return endorseFromSet;
 	}
 
-	public void setEndorseFromSet(Set<Endorse> endorseFromSet) {
+	public void setEndorseFromSet(Set<EndorseDTO> endorseFromSet) {
 		this.endorseFromSet = endorseFromSet;
 	}
 
-	public Set<Endorse> getEndorseToSet() {
+	public Set<EndorseDTO> getEndorseToSet() {
 		return endorseToSet;
 	}
 
-	public void setEndorseToSet(Set<Endorse> endorseToSet) {
+	public void setEndorseToSet(Set<EndorseDTO> endorseToSet) {
 		this.endorseToSet = endorseToSet;
 	}
 
-	public boolean getRememberAccount() {
-		return rememberAccount;
+	public boolean isRemembered() {
+		return remembered;
 	}
 
-	public void setRememberAccount(boolean rememberAccount) {
-		this.rememberAccount = rememberAccount;
+	public void setRemembered(boolean remembered) {
+		this.remembered = remembered;
 	}
 
 }

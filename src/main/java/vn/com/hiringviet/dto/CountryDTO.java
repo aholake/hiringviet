@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.Company;
-
 public class CountryDTO implements Serializable {
 
 	private static final long serialVersionUID = 7933643571717816198L;
@@ -28,7 +26,7 @@ public class CountryDTO implements Serializable {
 
 	private Date deletedAt;
 
-	private Set<Company> companySet;
+	private Set<CompanyDTO> companySet;
 
 	public Integer getCountryID() {
 		return countryID;
@@ -54,11 +52,11 @@ public class CountryDTO implements Serializable {
 		this.displayName = displayName;
 	}
 
-	public String getLenguage() {
+	public String getLanguage() {
 		return language;
 	}
 
-	public void setLenguage(String language) {
+	public void setLanguage(String language) {
 		this.language = language;
 	}
 
@@ -102,11 +100,11 @@ public class CountryDTO implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<Company> getCompanySet() {
+	public Set<CompanyDTO> getCompanySet() {
 		return companySet;
 	}
 
-	public void setCompanySet(Set<Company> companySet) {
+	public void setCompanySet(Set<CompanyDTO> companySet) {
 		this.companySet = companySet;
 	}
 

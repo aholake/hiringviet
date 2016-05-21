@@ -3,18 +3,15 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import vn.com.hiringviet.model.Degree;
-import vn.com.hiringviet.model.Resume;
-
 public class EducationHistoryDTO implements Serializable {
 
 	private static final long serialVersionUID = -247002098097375475L;
 
 	private Integer eduHistoryID;
 
-	private Resume resume;
+	private ResumeDTO resume;
 
-	private Degree degree;
+	private DegreeDTO degree;
 
 	private String universityName;
 
@@ -42,19 +39,19 @@ public class EducationHistoryDTO implements Serializable {
 		this.eduHistoryID = eduHistoryID;
 	}
 
-	public Resume getResume() {
+	public ResumeDTO getResume() {
 		return resume;
 	}
 
-	public void setResume(Resume resume) {
+	public void setResume(ResumeDTO resume) {
 		this.resume = resume;
 	}
 
-	public Degree getDegree() {
+	public DegreeDTO getDegree() {
 		return degree;
 	}
 
-	public void setDegree(Degree degree) {
+	public void setDegree(DegreeDTO degree) {
 		this.degree = degree;
 	}
 

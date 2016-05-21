@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.Endorse;
-import vn.com.hiringviet.model.Job;
-
 public class SkillDTO implements Serializable {
 
 	private static final long serialVersionUID = -5381027238277880906L;
@@ -25,9 +22,9 @@ public class SkillDTO implements Serializable {
 
 	private Set<ResumeDTO> resumeSet;
 
-	private Set<Job> jobSet;
+	private Set<JobDTO> jobSet;
 
-	private Set<Endorse> endorseSet;
+	private Set<EndorseDTO> endorseSet;
 
 	public Integer getSkillID() {
 		return skillID;
@@ -85,19 +82,19 @@ public class SkillDTO implements Serializable {
 		this.resumeSet = resumeSet;
 	}
 
-	public Set<Job> getJobSet() {
+	public Set<JobDTO> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<Job> jobSet) {
+	public void setJobSet(Set<JobDTO> jobSet) {
 		this.jobSet = jobSet;
 	}
 
-	public Set<Endorse> getEndorseSet() {
+	public Set<EndorseDTO> getEndorseSet() {
 		return endorseSet;
 	}
 
-	public void setEndorseSet(Set<Endorse> endorseSet) {
+	public void setEndorseSet(Set<EndorseDTO> endorseSet) {
 		this.endorseSet = endorseSet;
 	}
 

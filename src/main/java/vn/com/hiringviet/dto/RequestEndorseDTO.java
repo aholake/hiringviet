@@ -2,17 +2,15 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 
-import vn.com.hiringviet.model.Member;
-
 public class RequestEndorseDTO implements Serializable {
 
 	private static final long serialVersionUID = 2211702272100720337L;
 
 	private Integer requestEndorseID;
 
-	private Member fromMemberID;
+	private MemberDTO fromMemberID;
 
-	private Member toMemberID;
+	private MemberDTO toMemberID;
 
 	private Integer status;
 
@@ -24,19 +22,19 @@ public class RequestEndorseDTO implements Serializable {
 		this.requestEndorseID = requestEndorseID;
 	}
 
-	public Member getFromMemberID() {
+	public MemberDTO getFromMemberID() {
 		return fromMemberID;
 	}
 
-	public void setFromMemberID(Member fromMemberID) {
+	public void setFromMemberID(MemberDTO fromMemberID) {
 		this.fromMemberID = fromMemberID;
 	}
 
-	public Member getToMemberID() {
+	public MemberDTO getToMemberID() {
 		return toMemberID;
 	}
 
-	public void setToMemberID(Member toMemberID) {
+	public void setToMemberID(MemberDTO toMemberID) {
 		this.toMemberID = toMemberID;
 	}
 

@@ -3,18 +3,15 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Member;
-
 public class ApplyDTO implements Serializable {
 
 	private static final long serialVersionUID = 8790898850284130257L;
 
 	private Integer applyID;
 
-	private Member member;
+	private MemberDTO member;
 
-	private Job job;
+	private JobDTO job;
 
 	private Integer jobID;
 
@@ -34,19 +31,19 @@ public class ApplyDTO implements Serializable {
 		this.applyID = applyID;
 	}
 
-	public Member getMember() {
+	public MemberDTO getMember() {
 		return member;
 	}
 
-	public void setMember(Member member) {
+	public void setMember(MemberDTO member) {
 		this.member = member;
 	}
 
-	public Job getJob() {
+	public JobDTO getJob() {
 		return job;
 	}
 
-	public void setJob(Job job) {
+	public void setJob(JobDTO job) {
 		this.job = job;
 	}
 

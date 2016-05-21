@@ -4,29 +4,31 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.Apply;
-import vn.com.hiringviet.model.Comment;
-import vn.com.hiringviet.model.Company;
-import vn.com.hiringviet.model.District;
-import vn.com.hiringviet.model.JobCategory;
-import vn.com.hiringviet.model.Skill;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class JobDTO implements Serializable {
 
 	private static final long serialVersionUID = -3278815174799070361L;
+
 	private Integer jobID;
+	
+	@JsonIgnore
+	private JobCategoryDTO jobCategory;
 
-	private JobCategory jobCategory;
+	@JsonIgnore
+	private CompanyDTO company;
 
-	private Company company;
+	@JsonIgnore
+	private DistrictDTO district;
 
-	private District district;
+	@JsonIgnore
+	private Set<SkillDTO> skillSet;
 
-	private Set<Skill> skillSet;
+	@JsonIgnore
+	private Set<CommentDTO> commentSet;
 
-	private Set<Comment> commentSet;
-
-	private Set<Apply> applySet;
+	@JsonIgnore
+	private Set<ApplyDTO> applySet;
 
 	private String title;
 
@@ -39,6 +41,9 @@ public class JobDTO implements Serializable {
 	private Date postDate;
 
 	private String requirement;
+
+	@JsonIgnore
+	private PositionDTO position;
 
 	private Integer status;
 
@@ -56,51 +61,51 @@ public class JobDTO implements Serializable {
 		this.jobID = jobID;
 	}
 
-	public JobCategory getJobCategory() {
+	public JobCategoryDTO getJobCategory() {
 		return jobCategory;
 	}
 
-	public void setJobCategory(JobCategory jobCategory) {
+	public void setJobCategory(JobCategoryDTO jobCategory) {
 		this.jobCategory = jobCategory;
 	}
 
-	public Company getCompany() {
+	public CompanyDTO getCompany() {
 		return company;
 	}
 
-	public void setCompany(Company company) {
+	public void setCompany(CompanyDTO company) {
 		this.company = company;
 	}
 
-	public District getDistrict() {
+	public DistrictDTO getDistrict() {
 		return district;
 	}
 
-	public void setDistrict(District district) {
+	public void setDistrict(DistrictDTO district) {
 		this.district = district;
 	}
 
-	public Set<Skill> getSkillSet() {
+	public Set<SkillDTO> getSkillSet() {
 		return skillSet;
 	}
 
-	public void setSkillSet(Set<Skill> skillSet) {
+	public void setSkillSet(Set<SkillDTO> skillSet) {
 		this.skillSet = skillSet;
 	}
 
-	public Set<Comment> getCommentSet() {
+	public Set<CommentDTO> getCommentSet() {
 		return commentSet;
 	}
 
-	public void setCommentSet(Set<Comment> commentSet) {
+	public void setCommentSet(Set<CommentDTO> commentSet) {
 		this.commentSet = commentSet;
 	}
 
-	public Set<Apply> getApplySet() {
+	public Set<ApplyDTO> getApplySet() {
 		return applySet;
 	}
 
-	public void setApplySet(Set<Apply> applySet) {
+	public void setApplySet(Set<ApplyDTO> applySet) {
 		this.applySet = applySet;
 	}
 
@@ -150,6 +155,14 @@ public class JobDTO implements Serializable {
 
 	public void setRequirement(String requirement) {
 		this.requirement = requirement;
+	}
+
+	public PositionDTO getPosition() {
+		return position;
+	}
+
+	public void setPosition(PositionDTO position) {
+		this.position = position;
 	}
 
 	public Integer getStatus() {

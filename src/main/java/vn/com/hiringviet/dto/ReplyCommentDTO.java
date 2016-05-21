@@ -3,15 +3,13 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import vn.com.hiringviet.model.Comment;
-
 public class ReplyCommentDTO implements Serializable {
 
 	private static final long serialVersionUID = -7323150243345284504L;
 
 	private Integer replyCommentID;
 
-	private Comment comment;
+	private CommentDTO comment;
 
 	private String replyComment;
 
@@ -31,11 +29,11 @@ public class ReplyCommentDTO implements Serializable {
 		this.replyCommentID = replyCommentID;
 	}
 
-	public Comment getComment() {
+	public CommentDTO getComment() {
 		return comment;
 	}
 
-	public void setComment(Comment comment) {
+	public void setComment(CommentDTO comment) {
 		this.comment = comment;
 	}
 

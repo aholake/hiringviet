@@ -4,23 +4,17 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.CompanyPhoto;
-import vn.com.hiringviet.model.Country;
-import vn.com.hiringviet.model.District;
-import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Member;
-
 public class CompanyDTO implements Serializable {
 
 	private static final long serialVersionUID = 7621411313072097608L;
 
 	private Integer companyID;
 
-	private Member member;
+	private MemberDTO member;
 
-	private District district;
+	private DistrictDTO district;
 
-	private Country country;
+	private CountryDTO country;
 
 	private String displayName;
 
@@ -50,9 +44,9 @@ public class CompanyDTO implements Serializable {
 
 	private Date deleteAt;
 
-	private Set<CompanyPhoto> companyPhotoSet;
+	private Set<CompanyPhotoDTO> companyPhotoSet;
 
-	private Set<Job> jobSet;
+	private Set<JobDTO> jobSet;
 
 	public Integer getCompanyID() {
 		return companyID;
@@ -62,27 +56,27 @@ public class CompanyDTO implements Serializable {
 		this.companyID = companyID;
 	}
 
-	public Member getMember() {
+	public MemberDTO getMember() {
 		return member;
 	}
 
-	public void setMember(Member member) {
+	public void setMember(MemberDTO member) {
 		this.member = member;
 	}
 
-	public District getDistrict() {
+	public DistrictDTO getDistrict() {
 		return district;
 	}
 
-	public void setDistrict(District district) {
+	public void setDistrict(DistrictDTO district) {
 		this.district = district;
 	}
 
-	public Country getCountry() {
+	public CountryDTO getCountry() {
 		return country;
 	}
 
-	public void setCountry(Country country) {
+	public void setCountry(CountryDTO country) {
 		this.country = country;
 	}
 
@@ -198,19 +192,19 @@ public class CompanyDTO implements Serializable {
 		this.deleteAt = deleteAt;
 	}
 
-	public Set<CompanyPhoto> getCompanyPhotoSet() {
+	public Set<CompanyPhotoDTO> getCompanyPhotoSet() {
 		return companyPhotoSet;
 	}
 
-	public void setCompanyPhotoSet(Set<CompanyPhoto> companyPhotoSet) {
+	public void setCompanyPhotoSet(Set<CompanyPhotoDTO> companyPhotoSet) {
 		this.companyPhotoSet = companyPhotoSet;
 	}
 
-	public Set<Job> getJobSet() {
+	public Set<JobDTO> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<Job> jobSet) {
+	public void setJobSet(Set<JobDTO> jobSet) {
 		this.jobSet = jobSet;
 	}
 

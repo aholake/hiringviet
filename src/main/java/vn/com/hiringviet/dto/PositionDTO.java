@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Set;
 
 import vn.com.hiringviet.model.EmploymentHistory;
+import vn.com.hiringviet.model.Job;
 
 public class PositionDTO implements Serializable {
 
@@ -22,6 +23,8 @@ public class PositionDTO implements Serializable {
 
 	private Set<EmploymentHistory> employmentHistorySet;
 
+	private Set<Job> jobSet;
+
 	public Integer getPositionID() {
 		return positionID;
 	}
@@ -36,6 +39,14 @@ public class PositionDTO implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	public Set<Job> getJobSet() {
+		return jobSet;
+	}
+
+	public void setJobDTOSet(Set<Job> jobSet) {
+		this.jobSet = jobSet;
 	}
 
 	public Integer getStatus() {

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.District;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ProvinceDTO implements Serializable {
 
@@ -24,7 +24,8 @@ public class ProvinceDTO implements Serializable {
 
 	private Date deletedAt;
 
-	private Set<District> districtSet;
+	@JsonIgnore
+	private Set<DistrictDTO> districtSet;
 
 	public Integer getProvinceID() {
 		return provinceID;
@@ -82,11 +83,11 @@ public class ProvinceDTO implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<District> getDistrictSet() {
+	public Set<DistrictDTO> getDistrictSet() {
 		return districtSet;
 	}
 
-	public void setDistrictSet(Set<District> districtSet) {
+	public void setDistrictSet(Set<DistrictDTO> districtSet) {
 		this.districtSet = districtSet;
 	}
 

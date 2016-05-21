@@ -76,6 +76,10 @@ public class Job implements Serializable {
 	@Column(name = "REQUIREMENT", nullable = false)
 	private String requirement;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "POSITION_ID")
+	private Position position;
+
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
 
@@ -224,4 +228,11 @@ public class Job implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
 }

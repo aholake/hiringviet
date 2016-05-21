@@ -3,8 +3,6 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import vn.com.hiringviet.model.Company;
-
 public class CompanyPhotoDTO implements Serializable {
 
 	private static final long serialVersionUID = -6886420826151394119L;
@@ -27,7 +25,7 @@ public class CompanyPhotoDTO implements Serializable {
 
 	private Date deletedAt;
 
-	private Company company;
+	private CompanyDTO company;
 
 	public Integer getCompanyPhotoID() {
 		return companyPhotoID;
@@ -101,11 +99,11 @@ public class CompanyPhotoDTO implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Company getCompany() {
+	public CompanyDTO getCompany() {
 		return company;
 	}
 
-	public void setCompany(Company company) {
+	public void setCompany(CompanyDTO company) {
 		this.company = company;
 	}
 

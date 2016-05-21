@@ -2,20 +2,17 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 
-import vn.com.hiringviet.model.Member;
-import vn.com.hiringviet.model.Skill;
-
 public class EndorseDTO implements Serializable {
 
 	private static final long serialVersionUID = 8625187641680304101L;
 
 	private Integer requestEndorseID;
 
-	private Member fromMemberID;
+	private MemberDTO fromMemberID;
 
-	private Member toMemberID;
+	private MemberDTO toMemberID;
 
-	private Skill skill;
+	private SkillDTO skill;
 
 	private Integer status;
 
@@ -27,20 +24,28 @@ public class EndorseDTO implements Serializable {
 		this.requestEndorseID = requestEndorseID;
 	}
 
-	public Member getFromMemberID() {
+	public MemberDTO getFromMemberID() {
 		return fromMemberID;
 	}
 
-	public void setFromMemberID(Member fromMemberID) {
+	public void setFromMemberID(MemberDTO fromMemberID) {
 		this.fromMemberID = fromMemberID;
 	}
 
-	public Member getToMemberID() {
+	public MemberDTO getToMemberID() {
 		return toMemberID;
 	}
 
-	public void setToMemberID(Member toMemberID) {
+	public void setToMemberID(MemberDTO toMemberID) {
 		this.toMemberID = toMemberID;
+	}
+
+	public SkillDTO getSkill() {
+		return skill;
+	}
+
+	public void setSkill(SkillDTO skill) {
+		this.skill = skill;
 	}
 
 	public Integer getStatus() {
@@ -49,14 +54,6 @@ public class EndorseDTO implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
-	}
-
-	public Skill getSkill() {
-		return skill;
-	}
-
-	public void setSkill(Skill skill) {
-		this.skill = skill;
 	}
 
 }
