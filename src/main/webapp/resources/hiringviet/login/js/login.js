@@ -2,7 +2,16 @@ $(function() {
 	$('#btn-sign-in').on('click', function(event) {
 		reset_error_message();
 		if (!checkValidate()) {
-			callAPI($('#url_check_account').val(), 'POST', {'email':$('#txtEmail').val(), 'password':$('#txtPassword').val()}, 'resultSignIn', true)
+			var remember_cb = false;
+			if($("#remember_cb").is(":checked")) {
+				remember_cb = true;
+			}
+			var data = {
+					email: $('#txtEmail').val(),
+					password: $('#txtPassword').val(),
+					rememberAccount: remember_cb
+			}
+			callAPI($('#url_check_account').val(), 'POST', data, 'resultSignIn', true)
 		}
 		event.preventDefault();
 	});

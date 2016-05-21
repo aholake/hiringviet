@@ -16,7 +16,7 @@ public class CountryDTO implements Serializable {
 
 	private String displayName;
 
-	private String lenguage;
+	private String language;
 
 	private String flag;
 
@@ -55,11 +55,11 @@ public class CountryDTO implements Serializable {
 	}
 
 	public String getLenguage() {
-		return lenguage;
+		return language;
 	}
 
-	public void setLenguage(String lenguage) {
-		this.lenguage = lenguage;
+	public void setLenguage(String language) {
+		this.language = language;
 	}
 
 	public String getFlag() {

@@ -2,6 +2,10 @@ package vn.com.hiringviet.util;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import vn.com.hiringviet.dto.MemberDTO;
+
 public class Utils {
 
 	/**
@@ -126,5 +130,9 @@ public class Utils {
 		} else {
 			return 0;
 		}
+	}
+
+	public static MemberDTO getMemberSession(HttpSession session) {
+		return (MemberDTO) session.getAttribute("memberDTO");
 	}
 }

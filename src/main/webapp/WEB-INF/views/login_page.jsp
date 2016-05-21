@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" session="false"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -72,8 +72,8 @@
 						</div>
 						<div class="row margin-top-10">
 							<div class="col m6">
-								<input type="checkbox" id="test5" />
-								<label for="test5">
+								<input type="checkbox" id="remember_cb" />
+								<label for="remember_cb">
 									<spring:message code="label.login.title.remember_account"/>
 								</label>
 							</div>

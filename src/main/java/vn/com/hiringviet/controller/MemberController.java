@@ -1,5 +1,9 @@
 package vn.com.hiringviet.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,13 +23,21 @@ public class MemberController {
 	private MemberService memberService;
 
 	@RequestMapping(value = "/member/checkAccount", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO login(@RequestBody MemberDTO memberDTO) {
+	public @ResponseBody CommonResponseDTO login(@RequestBody MemberDTO memberDTO, HttpServletResponse response, HttpSession session) {
 
 		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
 		MemberDTO member = memberService.checkLogin(memberDTO.getEmail(), memberDTO.getPassword());
 		if (member == null) {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+			return commonResponseDTO;
 		}
+
+		if (memberDTO.getRememberAccount()) {
+			response.addCookie(new Cookie("email", memberDTO.getEmail()));
+			response.addCookie(new Cookie("password", memberDTO.getPassword()));
+		}
+
+		session.setAttribute("memberDTO", memberDTO);
 		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		return commonResponseDTO;
 	}

@@ -41,7 +41,7 @@ public class AESUtil {
 		if (!Utils.isEmptyString(value)) {
 			final Cipher decryptCipher = Cipher.getInstance("AES");
 			decryptCipher.init(Cipher.DECRYPT_MODE,generateMySQLAESKey(props.getProperty("database.encrypt.key"), "UTF-8"));
-			return (new String(decryptCipher.doFinal(Hex.decodeHex(value.toCharArray()))));
+			return (new String(decryptCipher.doFinal(Hex.decodeHex(value.toCharArray())), "UTF-8"));
 		}
 
 		return null;

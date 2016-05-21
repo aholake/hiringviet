@@ -32,7 +32,7 @@ public class Country implements Serializable {
 	private String displayName;
 
 	@Column(name = "LANGUAGE", nullable = false, length = 100)
-	private String lenguage;
+	private String language;
 
 	@Column(name = "FLAG")
 	private String flag;
@@ -125,18 +125,18 @@ public class Country implements Serializable {
 	}
 
 	public String getLenguage() {
-		return lenguage;
+		return language;
 	}
 
-	public void setLenguage(String lenguage) {
-		this.lenguage = lenguage;
+	public void setLenguage(String language) {
+		this.language = language;
 	}
 
 	@Override
 	public String toString() {
 		return "Country [countryID=" + countryID + ", countryCode="
 				+ countryCode + ", displayName=" + displayName + ", lenguage="
-				+ lenguage + ", flag=" + flag + ", status=" + status
+				+ language + ", flag=" + flag + ", status=" + status
 				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
 				+ ", deletedAt=" + deletedAt;
 	}

@@ -56,7 +56,7 @@ public class MemberDTO implements Serializable {
 
 	private Set<Endorse> endorseToSet;
 
-	private Integer rememberAccount;
+	private boolean rememberAccount;
 
 	public Integer getMemberID() {
 		return memberID;
@@ -219,11 +219,11 @@ public class MemberDTO implements Serializable {
 		this.endorseToSet = endorseToSet;
 	}
 
-	public Integer getRememberAccount() {
+	public boolean getRememberAccount() {
 		return rememberAccount;
 	}
 
-	public void setRememberAccount(Integer rememberAccount) {
+	public void setRememberAccount(boolean rememberAccount) {
 		this.rememberAccount = rememberAccount;
 	}
 

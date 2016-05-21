@@ -4,8 +4,11 @@
     <version>1</version>
     <threadsafe>true</threadsafe>
     <use-google-connector-j>true</use-google-connector-j><!-- for connecting to SQL Cloud -->
+    <sessions-enabled>true</sessions-enabled>
 
     <system-properties>
         <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
     </system-properties>
+    
+    
 </appengine-web-app>
