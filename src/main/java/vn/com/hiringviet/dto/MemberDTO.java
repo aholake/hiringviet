@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class MemberDTO implements Serializable {
 
 	private static final long serialVersionUID = -4371044009879481708L;
@@ -30,22 +32,31 @@ public class MemberDTO implements Serializable {
 
 	private CompanyDTO company;
 
+	@JsonIgnore
 	private Set<ApplyDTO> applySet;
 
+	@JsonIgnore
 	private Set<FollowDTO> followFromSet;
 
+	@JsonIgnore
 	private Set<FollowDTO> followToSet;
 
+	@JsonIgnore
 	private Set<MailboxDTO> mailboxFromSet;
 
+	@JsonIgnore
 	private Set<MailboxDTO> mailboxToSet;
 
+	@JsonIgnore
 	private Set<RequestEndorseDTO> requestEndorseFromSet;
 
+	@JsonIgnore
 	private Set<RequestEndorseDTO> requestEndorseToSet;
 
+	@JsonIgnore
 	private Set<EndorseDTO> endorseFromSet;
 
+	@JsonIgnore
 	private Set<EndorseDTO> endorseToSet;
 
 	private boolean remembered;

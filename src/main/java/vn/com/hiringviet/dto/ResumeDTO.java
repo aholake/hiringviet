@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ResumeDTO implements Serializable {
 
 	private static final long serialVersionUID = -4931216192214091278L;
@@ -14,11 +16,14 @@ public class ResumeDTO implements Serializable {
 
 	private DistrictDTO district;
 
+	@JsonIgnore
 	private Set<SkillDTO> skillSet;
 
+	@JsonIgnore
 	private Set<EducationHistoryDTO> educationHistorySet;
 
-	private Set<EducationHistoryDTO> employeeHistorySet;
+	@JsonIgnore
+	private Set<EmploymentHistoryDTO> employeeHistorySet;
 
 	private String fullName;
 
@@ -82,11 +87,11 @@ public class ResumeDTO implements Serializable {
 		this.educationHistorySet = educationHistorySet;
 	}
 
-	public Set<EducationHistoryDTO> getEmployeeHistorySet() {
+	public Set<EmploymentHistoryDTO> getEmployeeHistorySet() {
 		return employeeHistorySet;
 	}
 
-	public void setEmployeeHistorySet(Set<EducationHistoryDTO> employeeHistorySet) {
+	public void setEmployeeHistorySet(Set<EmploymentHistoryDTO> employeeHistorySet) {
 		this.employeeHistorySet = employeeHistorySet;
 	}
 

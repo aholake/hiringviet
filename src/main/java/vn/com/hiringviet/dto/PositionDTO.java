@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.EmploymentHistory;
-import vn.com.hiringviet.model.Job;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class PositionDTO implements Serializable {
 
@@ -21,9 +20,11 @@ public class PositionDTO implements Serializable {
 
 	private Date updatedAt;
 
-	private Set<EmploymentHistory> employmentHistorySet;
+	@JsonIgnore
+	private Set<EmploymentHistoryDTO> employmentHistorySet;
 
-	private Set<Job> jobSet;
+	@JsonIgnore
+	private Set<JobDTO> jobSet;
 
 	public Integer getPositionID() {
 		return positionID;
@@ -39,14 +40,6 @@ public class PositionDTO implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
-	}
-
-	public Set<Job> getJobSet() {
-		return jobSet;
-	}
-
-	public void setJobDTOSet(Set<Job> jobSet) {
-		this.jobSet = jobSet;
 	}
 
 	public Integer getStatus() {
@@ -73,13 +66,21 @@ public class PositionDTO implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Set<EmploymentHistory> getEmploymentHistorySet() {
+	public Set<EmploymentHistoryDTO> getEmploymentHistorySet() {
 		return employmentHistorySet;
 	}
 
 	public void setEmploymentHistorySet(
-			Set<EmploymentHistory> employmentHistorySet) {
+			Set<EmploymentHistoryDTO> employmentHistorySet) {
 		this.employmentHistorySet = employmentHistorySet;
+	}
+
+	public Set<JobDTO> getJobSet() {
+		return jobSet;
+	}
+
+	public void setJobSet(Set<JobDTO> jobSet) {
+		this.jobSet = jobSet;
 	}
 
 }

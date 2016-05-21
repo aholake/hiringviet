@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CompanyDTO implements Serializable {
 
 	private static final long serialVersionUID = 7621411313072097608L;
@@ -44,8 +46,10 @@ public class CompanyDTO implements Serializable {
 
 	private Date deleteAt;
 
+	@JsonIgnore
 	private Set<CompanyPhotoDTO> companyPhotoSet;
 
+	@JsonIgnore
 	private Set<JobDTO> jobSet;
 
 	public Integer getCompanyID() {

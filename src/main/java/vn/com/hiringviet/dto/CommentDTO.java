@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CommentDTO implements Serializable {
 
 	private static final long serialVersionUID = 9219480321037261930L;
@@ -12,6 +14,7 @@ public class CommentDTO implements Serializable {
 
 	private JobDTO job;
 
+	@JsonIgnore
 	private Set<ReplyCommentDTO> replyCommentSet;
 
 	private String comment;

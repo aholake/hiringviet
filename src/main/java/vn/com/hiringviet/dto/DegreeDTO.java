@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class DegreeDTO implements Serializable {
 
 	private static final long serialVersionUID = 3205589962671010114L;
@@ -18,6 +20,7 @@ public class DegreeDTO implements Serializable {
 
 	private Date updatedAt;
 
+	@JsonIgnore
 	private Set<EducationHistoryDTO> educationHistorySet;
 
 	public Integer getDegreeID() {

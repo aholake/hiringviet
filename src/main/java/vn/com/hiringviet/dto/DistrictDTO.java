@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import vn.com.hiringviet.model.Province;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class DistrictDTO implements Serializable {
@@ -14,7 +12,8 @@ public class DistrictDTO implements Serializable {
 
 	private Integer districtID;
 
-	private Province province;
+	@JsonIgnore
+	private ProvinceDTO province;
 
 	private String displayName;
 
@@ -43,11 +42,11 @@ public class DistrictDTO implements Serializable {
 		this.districtID = districtID;
 	}
 
-	public Province getProvince() {
+	public ProvinceDTO getProvince() {
 		return province;
 	}
 
-	public void setProvince(Province province) {
+	public void setProvince(ProvinceDTO province) {
 		this.province = province;
 	}
 

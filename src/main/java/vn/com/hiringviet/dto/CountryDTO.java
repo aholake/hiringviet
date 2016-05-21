@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class CountryDTO implements Serializable {
 
 	private static final long serialVersionUID = 7933643571717816198L;
@@ -26,6 +28,7 @@ public class CountryDTO implements Serializable {
 
 	private Date deletedAt;
 
+	@JsonIgnore
 	private Set<CompanyDTO> companySet;
 
 	public Integer getCountryID() {

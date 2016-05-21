@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class SkillDTO implements Serializable {
 
 	private static final long serialVersionUID = -5381027238277880906L;
@@ -20,10 +22,13 @@ public class SkillDTO implements Serializable {
 
 	private Date deletedAt;
 
+	@JsonIgnore
 	private Set<ResumeDTO> resumeSet;
 
+	@JsonIgnore
 	private Set<JobDTO> jobSet;
 
+	@JsonIgnore
 	private Set<EndorseDTO> endorseSet;
 
 	public Integer getSkillID() {

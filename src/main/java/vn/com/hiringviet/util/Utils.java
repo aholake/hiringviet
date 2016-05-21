@@ -1,8 +1,11 @@
 package vn.com.hiringviet.util;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 import vn.com.hiringviet.dto.MemberDTO;
 
@@ -145,5 +148,13 @@ public class Utils {
 		}
 
 		return isEmpty;
+	}
+	
+	public static void copyProperties(Object source, Object target) {
+		try {
+			BeanUtils.copyProperties(source, target);
+		} catch (IllegalAccessException | InvocationTargetException e) {
+			e.printStackTrace();
+		}
 	}
 }
