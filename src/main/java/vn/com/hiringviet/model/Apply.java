@@ -31,11 +31,8 @@ public class Apply implements Serializable {
 	private Member member;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOB_ID", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "JOB_ID", nullable = false)
 	private Job job;
-
-	@Column(name = "JOB_ID", unique = true, nullable = false, length = 11)
-	private Integer jobID;
 
 	@Column(name = "STATUS", nullable = false, length = 1)
 	private Integer status;
@@ -74,14 +71,6 @@ public class Apply implements Serializable {
 
 	public void setJob(Job job) {
 		this.job = job;
-	}
-
-	public Integer getJobID() {
-		return jobID;
-	}
-
-	public void setJobID(Integer jobID) {
-		this.jobID = jobID;
 	}
 
 	public Integer getStatus() {

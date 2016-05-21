@@ -139,6 +139,7 @@ public class JobDTO implements Serializable {
 
 	public void setMaxSalary(Double maxSalary) {
 		this.maxSalary = maxSalary;
+		
 	}
 
 	public Date getPostDate() {

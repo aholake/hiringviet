@@ -49,10 +49,10 @@ public class Job implements Serializable {
 	@JoinTable(name = "JOB_SKILL", catalog = "hiringviet", joinColumns = { @JoinColumn(name = "JOB_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "SKILL_ID", nullable = false, updatable = false) })
 	private Set<Skill> skillSet;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "job")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "job")
 	private Set<Comment> commentSet;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "job")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "job")
 	private Set<Apply> applySet;
 
 	@Column(name = "TITLE", nullable = false)

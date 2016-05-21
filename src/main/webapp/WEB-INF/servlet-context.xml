@@ -17,7 +17,7 @@
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/hiringviet?characterEncoding=UTF-8" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="11221122" />
 		<!-- <property name="url" value="jdbc:google:mysql://hiringviet:gae-project/javatraining?user=root" /> -->
 	</bean>
 
@@ -71,6 +71,8 @@
 			<property name="paramName" value="locale" />
 		</bean>
 	</mvc:interceptors>
+
+	<bean id="modelMapper" class="org.modelmapper.ModelMapper"></bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -3,6 +3,7 @@ package vn.com.hiringviet.service.impl;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ public class JobServiceImpl implements JobService {
 
 	@Autowired
 	private JobDAO jobDAO;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Override
 	public JobDTO getJobByID(Integer jobID) {
