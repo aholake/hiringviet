@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
+import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.service.MemberService;
+import vn.com.hiringviet.util.CookieUtil;
 
 @Controller
 public class MemberController {
@@ -33,11 +35,12 @@ public class MemberController {
 		}
 
 		if (memberDTO.getRememberAccount()) {
-			response.addCookie(new Cookie("email", memberDTO.getEmail()));
-			response.addCookie(new Cookie("password", memberDTO.getPassword()));
+			CookieUtil.createCookie(response, "email", member.getEmail());
+			CookieUtil.createCookie(response, "password", member.getPassword());
+			System.out.println("Cookies is saved");
 		}
 
-		session.setAttribute("memberDTO", memberDTO);
+		session.setAttribute("memberDTO", member);
 		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		return commonResponseDTO;
 	}

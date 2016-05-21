@@ -21,7 +21,11 @@ public class CommonController {
 	@RequestMapping(value = {"/","/home"})
 	public String home(Model model, HttpSession session) {
 		MemberDTO memberDTO = Utils.getMemberSession(session);
-		model.addAttribute("memberDTO", memberDTO);
+
+		if (!Utils.isEmptyObject(memberDTO)) {
+			String locale = memberDTO.getLocale();
+			return "redirect:home_login?locale=" + locale;
+		}
 		return "home";
 	}
 	

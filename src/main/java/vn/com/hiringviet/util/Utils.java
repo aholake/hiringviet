@@ -51,7 +51,7 @@ public class Utils {
 	public static boolean isEmptyList(List<?> list) {
 		boolean isEmpty = true;
 
-		// check string not empty
+		// check list not empty
 		if (list != null && list.size() > 0) {
 			isEmpty = false;
 		}
@@ -69,7 +69,7 @@ public class Utils {
 	public static boolean isEmptyNumber(Integer number) {
 		boolean isEmpty = true;
 
-		// check string not empty
+		// check Integer not empty
 		if (number != null && number > 0) {
 			isEmpty = false;
 		}
@@ -134,5 +134,16 @@ public class Utils {
 
 	public static MemberDTO getMemberSession(HttpSession session) {
 		return (MemberDTO) session.getAttribute("memberDTO");
+	}
+
+	public static boolean isEmptyObject(Object object) {
+		boolean isEmpty = true;
+
+		// check object not empty
+		if (object != null) {
+			isEmpty = false;
+		}
+
+		return isEmpty;
 	}
 }

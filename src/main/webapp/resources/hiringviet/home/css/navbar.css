@@ -131,7 +131,7 @@ div.rectangle-input input:focus {
 }
 
 #profile {
-	display: none;
+	display: block;
 	text-align: center;
 }
 
