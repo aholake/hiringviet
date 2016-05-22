@@ -2,10 +2,12 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class JobDTO implements Serializable {
 
 	private static final long serialVersionUID = -3278815174799070361L;
@@ -22,13 +24,13 @@ public class JobDTO implements Serializable {
 	private DistrictDTO district;
 
 	@JsonIgnore
-	private Set<SkillDTO> skillSet;
+	private List<SkillDTO> skillSet;
 
 	@JsonIgnore
-	private Set<CommentDTO> commentSet;
+	private List<CommentDTO> commentSet;
 
 	@JsonIgnore
-	private Set<ApplyDTO> applySet;
+	private List<ApplyDTO> applySet;
 
 	private String title;
 
@@ -85,27 +87,27 @@ public class JobDTO implements Serializable {
 		this.district = district;
 	}
 
-	public Set<SkillDTO> getSkillSet() {
+	public List<SkillDTO> getSkillSet() {
 		return skillSet;
 	}
 
-	public void setSkillSet(Set<SkillDTO> skillSet) {
+	public void setSkillSet(List<SkillDTO> skillSet) {
 		this.skillSet = skillSet;
 	}
 
-	public Set<CommentDTO> getCommentSet() {
+	public List<CommentDTO> getCommentSet() {
 		return commentSet;
 	}
 
-	public void setCommentSet(Set<CommentDTO> commentSet) {
+	public void setCommentSet(List<CommentDTO> commentSet) {
 		this.commentSet = commentSet;
 	}
 
-	public Set<ApplyDTO> getApplySet() {
+	public List<ApplyDTO> getApplySet() {
 		return applySet;
 	}
 
-	public void setApplySet(Set<ApplyDTO> applySet) {
+	public void setApplySet(List<ApplyDTO> applySet) {
 		this.applySet = applySet;
 	}
 
@@ -139,7 +141,6 @@ public class JobDTO implements Serializable {
 
 	public void setMaxSalary(Double maxSalary) {
 		this.maxSalary = maxSalary;
-		
 	}
 
 	public Date getPostDate() {

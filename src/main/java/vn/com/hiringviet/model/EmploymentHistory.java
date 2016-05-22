@@ -15,8 +15,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "EMPLOYMENT_HISTORY", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class EmploymentHistory implements Serializable {
 
 	private static final long serialVersionUID = 4962308394934505729L;

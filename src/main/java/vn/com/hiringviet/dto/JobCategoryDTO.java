@@ -2,10 +2,12 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class JobCategoryDTO implements Serializable {
 
 	private static final long serialVersionUID = -7098623801141057102L;
@@ -23,7 +25,7 @@ public class JobCategoryDTO implements Serializable {
 	private Date deletedAt;
 
 	@JsonIgnore
-	private Set<JobDTO> jobSet;
+	private List<JobDTO> jobSet;
 
 	public Integer getJobCategoryID() {
 		return jobCategoryID;
@@ -73,11 +75,12 @@ public class JobCategoryDTO implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<JobDTO> getJobSet() {
+	public List<JobDTO> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<JobDTO> jobSet) {
+	public void setJobSet(List<JobDTO> jobSet) {
 		this.jobSet = jobSet;
 	}
+
 }

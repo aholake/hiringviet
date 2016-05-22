@@ -2,10 +2,12 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class PositionDTO implements Serializable {
 
 	private static final long serialVersionUID = -45982404463146068L;
@@ -21,10 +23,10 @@ public class PositionDTO implements Serializable {
 	private Date updatedAt;
 
 	@JsonIgnore
-	private Set<EmploymentHistoryDTO> employmentHistorySet;
+	private List<EmploymentHistoryDTO> employmentHistorySet;
 
 	@JsonIgnore
-	private Set<JobDTO> jobSet;
+	private List<JobDTO> jobSet;
 
 	public Integer getPositionID() {
 		return positionID;
@@ -66,20 +68,20 @@ public class PositionDTO implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Set<EmploymentHistoryDTO> getEmploymentHistorySet() {
+	public List<EmploymentHistoryDTO> getEmploymentHistorySet() {
 		return employmentHistorySet;
 	}
 
 	public void setEmploymentHistorySet(
-			Set<EmploymentHistoryDTO> employmentHistorySet) {
+			List<EmploymentHistoryDTO> employmentHistorySet) {
 		this.employmentHistorySet = employmentHistorySet;
 	}
 
-	public Set<JobDTO> getJobSet() {
+	public List<JobDTO> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<JobDTO> jobSet) {
+	public void setJobSet(List<JobDTO> jobSet) {
 		this.jobSet = jobSet;
 	}
 

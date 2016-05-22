@@ -13,8 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "COMPANY_PHOTO", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CompanyPhoto implements Serializable {
 
 	private static final long serialVersionUID = -6886420826151394119L;
@@ -48,7 +51,7 @@ public class CompanyPhoto implements Serializable {
 	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "COMPANY_ID", nullable = false, insertable = false, updatable = false)
 	private Company company;
 

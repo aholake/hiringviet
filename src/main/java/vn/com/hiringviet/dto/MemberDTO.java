@@ -2,10 +2,12 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class MemberDTO implements Serializable {
 
 	private static final long serialVersionUID = -4371044009879481708L;
@@ -33,31 +35,31 @@ public class MemberDTO implements Serializable {
 	private CompanyDTO company;
 
 	@JsonIgnore
-	private Set<ApplyDTO> applySet;
+	private List<ApplyDTO> applySet;
 
 	@JsonIgnore
-	private Set<FollowDTO> followFromSet;
+	private List<FollowDTO> followFromSet;
 
 	@JsonIgnore
-	private Set<FollowDTO> followToSet;
+	private List<FollowDTO> followToSet;
 
 	@JsonIgnore
-	private Set<MailboxDTO> mailboxFromSet;
+	private List<MailboxDTO> mailboxFromSet;
 
 	@JsonIgnore
-	private Set<MailboxDTO> mailboxToSet;
+	private List<MailboxDTO> mailboxToSet;
 
 	@JsonIgnore
-	private Set<RequestEndorseDTO> requestEndorseFromSet;
+	private List<RequestEndorseDTO> requestEndorseFromSet;
 
 	@JsonIgnore
-	private Set<RequestEndorseDTO> requestEndorseToSet;
+	private List<RequestEndorseDTO> requestEndorseToSet;
 
 	@JsonIgnore
-	private Set<EndorseDTO> endorseFromSet;
+	private List<EndorseDTO> endorseFromSet;
 
 	@JsonIgnore
-	private Set<EndorseDTO> endorseToSet;
+	private List<EndorseDTO> endorseToSet;
 
 	private boolean remembered;
 
@@ -149,76 +151,76 @@ public class MemberDTO implements Serializable {
 		this.company = company;
 	}
 
-	public Set<ApplyDTO> getApplySet() {
+	public List<ApplyDTO> getApplySet() {
 		return applySet;
 	}
 
-	public void setApplySet(Set<ApplyDTO> applySet) {
+	public void setApplySet(List<ApplyDTO> applySet) {
 		this.applySet = applySet;
 	}
 
-	public Set<FollowDTO> getFollowFromSet() {
+	public List<FollowDTO> getFollowFromSet() {
 		return followFromSet;
 	}
 
-	public void setFollowFromSet(Set<FollowDTO> followFromSet) {
+	public void setFollowFromSet(List<FollowDTO> followFromSet) {
 		this.followFromSet = followFromSet;
 	}
 
-	public Set<FollowDTO> getFollowToSet() {
+	public List<FollowDTO> getFollowToSet() {
 		return followToSet;
 	}
 
-	public void setFollowToSet(Set<FollowDTO> followToSet) {
+	public void setFollowToSet(List<FollowDTO> followToSet) {
 		this.followToSet = followToSet;
 	}
 
-	public Set<MailboxDTO> getMailboxFromSet() {
+	public List<MailboxDTO> getMailboxFromSet() {
 		return mailboxFromSet;
 	}
 
-	public void setMailboxFromSet(Set<MailboxDTO> mailboxFromSet) {
+	public void setMailboxFromSet(List<MailboxDTO> mailboxFromSet) {
 		this.mailboxFromSet = mailboxFromSet;
 	}
 
-	public Set<MailboxDTO> getMailboxToSet() {
+	public List<MailboxDTO> getMailboxToSet() {
 		return mailboxToSet;
 	}
 
-	public void setMailboxToSet(Set<MailboxDTO> mailboxToSet) {
+	public void setMailboxToSet(List<MailboxDTO> mailboxToSet) {
 		this.mailboxToSet = mailboxToSet;
 	}
 
-	public Set<RequestEndorseDTO> getRequestEndorseFromSet() {
+	public List<RequestEndorseDTO> getRequestEndorseFromSet() {
 		return requestEndorseFromSet;
 	}
 
 	public void setRequestEndorseFromSet(
-			Set<RequestEndorseDTO> requestEndorseFromSet) {
+			List<RequestEndorseDTO> requestEndorseFromSet) {
 		this.requestEndorseFromSet = requestEndorseFromSet;
 	}
 
-	public Set<RequestEndorseDTO> getRequestEndorseToSet() {
+	public List<RequestEndorseDTO> getRequestEndorseToSet() {
 		return requestEndorseToSet;
 	}
 
-	public void setRequestEndorseToSet(Set<RequestEndorseDTO> requestEndorseToSet) {
+	public void setRequestEndorseToSet(List<RequestEndorseDTO> requestEndorseToSet) {
 		this.requestEndorseToSet = requestEndorseToSet;
 	}
 
-	public Set<EndorseDTO> getEndorseFromSet() {
+	public List<EndorseDTO> getEndorseFromSet() {
 		return endorseFromSet;
 	}
 
-	public void setEndorseFromSet(Set<EndorseDTO> endorseFromSet) {
+	public void setEndorseFromSet(List<EndorseDTO> endorseFromSet) {
 		this.endorseFromSet = endorseFromSet;
 	}
 
-	public Set<EndorseDTO> getEndorseToSet() {
+	public List<EndorseDTO> getEndorseToSet() {
 		return endorseToSet;
 	}
 
-	public void setEndorseToSet(Set<EndorseDTO> endorseToSet) {
+	public void setEndorseToSet(List<EndorseDTO> endorseToSet) {
 		this.endorseToSet = endorseToSet;
 	}
 

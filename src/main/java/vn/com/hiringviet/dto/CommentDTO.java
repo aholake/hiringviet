@@ -2,10 +2,12 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CommentDTO implements Serializable {
 
 	private static final long serialVersionUID = 9219480321037261930L;
@@ -15,7 +17,7 @@ public class CommentDTO implements Serializable {
 	private JobDTO job;
 
 	@JsonIgnore
-	private Set<ReplyCommentDTO> replyCommentSet;
+	private List<ReplyCommentDTO> replyCommentSet;
 
 	private String comment;
 
@@ -43,11 +45,11 @@ public class CommentDTO implements Serializable {
 		this.job = job;
 	}
 
-	public Set<ReplyCommentDTO> getReplyCommentSet() {
+	public List<ReplyCommentDTO> getReplyCommentSet() {
 		return replyCommentSet;
 	}
 
-	public void setReplyCommentSet(Set<ReplyCommentDTO> replyCommentSet) {
+	public void setReplyCommentSet(List<ReplyCommentDTO> replyCommentSet) {
 		this.replyCommentSet = replyCommentSet;
 	}
 
@@ -90,6 +92,5 @@ public class CommentDTO implements Serializable {
 	public void setDeleteAt(Date deleteAt) {
 		this.deleteAt = deleteAt;
 	}
-
 
 }

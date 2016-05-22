@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "DEGREE", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Degree implements Serializable {
 
 	private static final long serialVersionUID = 3205589962671010114L;
@@ -38,7 +41,7 @@ public class Degree implements Serializable {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "degree")
-	private Set<EducationHistory> educationHistorySet;
+	private List<EducationHistory> educationHistorySet;
 
 	public Integer getDegreeID() {
 		return degreeID;
@@ -80,11 +83,11 @@ public class Degree implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Set<EducationHistory> getEducationHistorySet() {
+	public List<EducationHistory> getEducationHistorySet() {
 		return educationHistorySet;
 	}
 
-	public void setEducationHistorySet(Set<EducationHistory> educationHistorySet) {
+	public void setEducationHistorySet(List<EducationHistory> educationHistorySet) {
 		this.educationHistorySet = educationHistorySet;
 	}
 

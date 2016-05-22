@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "POSITION", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Position implements Serializable {
 
 	private static final long serialVersionUID = -45982404463146068L;
@@ -38,10 +41,10 @@ public class Position implements Serializable {
 	private Date updatedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "position")
-	private Set<EmploymentHistory> employmentHistorySet;
+	private List<EmploymentHistory> employmentHistorySet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "position")
-	private Set<Job> jobSet;
+	private List<Job> jobSet;
 
 	public Integer getPositionID() {
 		return positionID;
@@ -83,20 +86,20 @@ public class Position implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-	public Set<EmploymentHistory> getEmploymentHistorySet() {
+	public List<EmploymentHistory> getEmploymentHistorySet() {
 		return employmentHistorySet;
 	}
 
-	public void setEmploymentHistorySet(
-			Set<EmploymentHistory> employmentHistorySet) {
+	public void setEmploymentHistorySet(List<EmploymentHistory> employmentHistorySet) {
 		this.employmentHistorySet = employmentHistorySet;
 	}
 
-	public Set<Job> getJobSet() {
+	public List<Job> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<Job> jobSet) {
+	public void setJobSet(List<Job> jobSet) {
 		this.jobSet = jobSet;
 	}
+
 }

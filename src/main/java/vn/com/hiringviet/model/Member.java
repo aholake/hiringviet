@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,8 +17,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "MEMBER", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Member implements Serializable {
 
 	private static final long serialVersionUID = -4371044009879481708L;
@@ -62,31 +65,31 @@ public class Member implements Serializable {
 	private Company company;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-	private Set<Apply> applySet;
+	private List<Apply> applySet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
-	private Set<Follow> followFromSet;
+	private List<Follow> followFromSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
-	private Set<Follow> followToSet;
+	private List<Follow> followToSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
-	private Set<Mailbox> mailboxFromSet;
+	private List<Mailbox> mailboxFromSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
-	private Set<Mailbox> mailboxToSet;
+	private List<Mailbox> mailboxToSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
-	private Set<RequestEndorse> requestEndorseFromSet;
+	private List<RequestEndorse> requestEndorseFromSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
-	private Set<RequestEndorse> requestEndorseToSet;
+	private List<RequestEndorse> requestEndorseToSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
-	private Set<Endorse> endorseFromSet;
+	private List<Endorse> endorseFromSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
-	private Set<Endorse> endorseToSet;
+	private List<Endorse> endorseToSet;
 
 	public Integer getMemberID() {
 		return memberID;
@@ -176,61 +179,76 @@ public class Member implements Serializable {
 		this.company = company;
 	}
 
-	public Set<Apply> getApplySet() {
+	public List<Apply> getApplySet() {
 		return applySet;
 	}
 
-	public void setApplySet(Set<Apply> applySet) {
+	public void setApplySet(List<Apply> applySet) {
 		this.applySet = applySet;
 	}
 
-	public Set<Follow> getFollowFromSet() {
+	public List<Follow> getFollowFromSet() {
 		return followFromSet;
 	}
 
-	public void setFollowFromSet(Set<Follow> followFromSet) {
+	public void setFollowFromSet(List<Follow> followFromSet) {
 		this.followFromSet = followFromSet;
 	}
 
-	public Set<Follow> getFollowToSet() {
+	public List<Follow> getFollowToSet() {
 		return followToSet;
 	}
 
-	public void setFollowToSet(Set<Follow> followToSet) {
+	public void setFollowToSet(List<Follow> followToSet) {
 		this.followToSet = followToSet;
 	}
 
-	public Set<Mailbox> getMailboxFromSet() {
+	public List<Mailbox> getMailboxFromSet() {
 		return mailboxFromSet;
 	}
 
-	public void setMailboxFromSet(Set<Mailbox> mailboxFromSet) {
+	public void setMailboxFromSet(List<Mailbox> mailboxFromSet) {
 		this.mailboxFromSet = mailboxFromSet;
 	}
 
-	public Set<Mailbox> getMailboxToSet() {
+	public List<Mailbox> getMailboxToSet() {
 		return mailboxToSet;
 	}
 
-	public void setMailboxToSet(Set<Mailbox> mailboxToSet) {
+	public void setMailboxToSet(List<Mailbox> mailboxToSet) {
 		this.mailboxToSet = mailboxToSet;
 	}
 
-	public Set<RequestEndorse> getRequestEndorseFromSet() {
+	public List<RequestEndorse> getRequestEndorseFromSet() {
 		return requestEndorseFromSet;
 	}
 
-	public void setRequestEndorseFromSet(
-			Set<RequestEndorse> requestEndorseFromSet) {
+	public void setRequestEndorseFromSet(List<RequestEndorse> requestEndorseFromSet) {
 		this.requestEndorseFromSet = requestEndorseFromSet;
 	}
 
-	public Set<RequestEndorse> getRequestEndorseToSet() {
+	public List<RequestEndorse> getRequestEndorseToSet() {
 		return requestEndorseToSet;
 	}
 
-	public void setRequestEndorseToSet(Set<RequestEndorse> requestEndorseToSet) {
+	public void setRequestEndorseToSet(List<RequestEndorse> requestEndorseToSet) {
 		this.requestEndorseToSet = requestEndorseToSet;
+	}
+
+	public List<Endorse> getEndorseFromSet() {
+		return endorseFromSet;
+	}
+
+	public void setEndorseFromSet(List<Endorse> endorseFromSet) {
+		this.endorseFromSet = endorseFromSet;
+	}
+
+	public List<Endorse> getEndorseToSet() {
+		return endorseToSet;
+	}
+
+	public void setEndorseToSet(List<Endorse> endorseToSet) {
+		this.endorseToSet = endorseToSet;
 	}
 
 }

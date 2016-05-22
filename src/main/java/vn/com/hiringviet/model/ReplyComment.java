@@ -17,8 +17,11 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "REPLY_COMMENT", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ReplyComment implements Serializable {
 
 	private static final long serialVersionUID = -7323150243345284504L;

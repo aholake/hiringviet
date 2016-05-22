@@ -2,10 +2,12 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ResumeDTO implements Serializable {
 
 	private static final long serialVersionUID = -4931216192214091278L;
@@ -17,13 +19,13 @@ public class ResumeDTO implements Serializable {
 	private DistrictDTO district;
 
 	@JsonIgnore
-	private Set<SkillDTO> skillSet;
+	private List<SkillDTO> skillSet;
 
 	@JsonIgnore
-	private Set<EducationHistoryDTO> educationHistorySet;
+	private List<EducationHistoryDTO> educationHistorySet;
 
 	@JsonIgnore
-	private Set<EmploymentHistoryDTO> employeeHistorySet;
+	private List<EmploymentHistoryDTO> employeeHistorySet;
 
 	private String fullName;
 
@@ -71,27 +73,27 @@ public class ResumeDTO implements Serializable {
 		this.district = district;
 	}
 
-	public Set<SkillDTO> getSkillSet() {
+	public List<SkillDTO> getSkillSet() {
 		return skillSet;
 	}
 
-	public void setSkillSet(Set<SkillDTO> skillSet) {
+	public void setSkillSet(List<SkillDTO> skillSet) {
 		this.skillSet = skillSet;
 	}
 
-	public Set<EducationHistoryDTO> getEducationHistorySet() {
+	public List<EducationHistoryDTO> getEducationHistorySet() {
 		return educationHistorySet;
 	}
 
-	public void setEducationHistorySet(Set<EducationHistoryDTO> educationHistorySet) {
+	public void setEducationHistorySet(List<EducationHistoryDTO> educationHistorySet) {
 		this.educationHistorySet = educationHistorySet;
 	}
 
-	public Set<EmploymentHistoryDTO> getEmployeeHistorySet() {
+	public List<EmploymentHistoryDTO> getEmployeeHistorySet() {
 		return employeeHistorySet;
 	}
 
-	public void setEmployeeHistorySet(Set<EmploymentHistoryDTO> employeeHistorySet) {
+	public void setEmployeeHistorySet(List<EmploymentHistoryDTO> employeeHistorySet) {
 		this.employeeHistorySet = employeeHistorySet;
 	}
 

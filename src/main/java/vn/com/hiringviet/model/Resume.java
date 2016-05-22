@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,8 +20,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "RESUME", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Resume implements Serializable {
 
 	private static final long serialVersionUID = -4931216192214091278L;
@@ -41,13 +44,13 @@ public class Resume implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "RESUME_SKILL", catalog = "hiringviet", joinColumns = { @JoinColumn(name = "RESUME_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "SKILL_ID", nullable = false, updatable = false) })
-	private Set<Skill> skillSet;
+	private List<Skill> skillSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
-	private Set<EducationHistory> educationHistorySet;
+	private List<EducationHistory> educationHistorySet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
-	private Set<EmploymentHistory> employeeHistorySet;
+	private List<EmploymentHistory> employeeHistorySet;
 
 	@Column(name = "FULL_NAME", nullable = false, length = 100)
 	private String fullName;
@@ -106,27 +109,27 @@ public class Resume implements Serializable {
 		this.district = district;
 	}
 
-	public Set<Skill> getSkillSet() {
+	public List<Skill> getSkillSet() {
 		return skillSet;
 	}
 
-	public void setSkillSet(Set<Skill> skillSet) {
+	public void setSkillSet(List<Skill> skillSet) {
 		this.skillSet = skillSet;
 	}
 
-	public Set<EducationHistory> getEducationHistorySet() {
+	public List<EducationHistory> getEducationHistorySet() {
 		return educationHistorySet;
 	}
 
-	public void setEducationHistorySet(Set<EducationHistory> educationHistorySet) {
+	public void setEducationHistorySet(List<EducationHistory> educationHistorySet) {
 		this.educationHistorySet = educationHistorySet;
 	}
 
-	public Set<EmploymentHistory> getEmployeeHistorySet() {
+	public List<EmploymentHistory> getEmployeeHistorySet() {
 		return employeeHistorySet;
 	}
 
-	public void setEmployeeHistorySet(Set<EmploymentHistory> employeeHistorySet) {
+	public void setEmployeeHistorySet(List<EmploymentHistory> employeeHistorySet) {
 		this.employeeHistorySet = employeeHistorySet;
 	}
 

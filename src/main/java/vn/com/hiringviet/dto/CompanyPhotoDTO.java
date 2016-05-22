@@ -3,6 +3,9 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CompanyPhotoDTO implements Serializable {
 
 	private static final long serialVersionUID = -6886420826151394119L;

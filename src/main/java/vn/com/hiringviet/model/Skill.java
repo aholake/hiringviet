@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,8 +15,11 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "SKILL", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Skill implements Serializable {
 
 	private static final long serialVersionUID = -5381027238277880906L;
@@ -42,13 +45,13 @@ public class Skill implements Serializable {
 	private Date deletedAt;
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "skillSet")
-	private Set<Resume> resumeSet;
+	private List<Resume> resumeSet;
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "skillSet")
-	private Set<Job> jobSet;
+	private List<Job> jobSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "skill")
-	private Set<Endorse> endorseSet;
+	private List<Endorse> endorseSet;
 
 	public Integer getSkillID() {
 		return skillID;
@@ -98,27 +101,27 @@ public class Skill implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<Resume> getResumeSet() {
+	public List<Resume> getResumeSet() {
 		return resumeSet;
 	}
 
-	public void setResumeSet(Set<Resume> resumeSet) {
+	public void setResumeSet(List<Resume> resumeSet) {
 		this.resumeSet = resumeSet;
 	}
 
-	public Set<Job> getJobSet() {
+	public List<Job> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<Job> jobSet) {
+	public void setJobSet(List<Job> jobSet) {
 		this.jobSet = jobSet;
 	}
 
-	public Set<Endorse> getEndorseSet() {
+	public List<Endorse> getEndorseSet() {
 		return endorseSet;
 	}
 
-	public void setEndorseSet(Set<Endorse> endorseSet) {
+	public void setEndorseSet(List<Endorse> endorseSet) {
 		this.endorseSet = endorseSet;
 	}
 

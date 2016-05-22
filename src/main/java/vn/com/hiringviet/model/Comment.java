@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,8 +20,11 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "COMMENT", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Comment implements Serializable {
 
 	private static final long serialVersionUID = 9219480321037261930L;
@@ -36,7 +39,7 @@ public class Comment implements Serializable {
 	private Job job;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "comment")
-	private Set<ReplyComment> replyCommentSet;
+	private List<ReplyComment> replyCommentSet;
 
 	@Type(type = "text")
 	@Column(name = "COMMENT", nullable = false, length = 300)
@@ -73,11 +76,11 @@ public class Comment implements Serializable {
 		this.job = job;
 	}
 
-	public Set<ReplyComment> getReplyCommentSet() {
+	public List<ReplyComment> getReplyCommentSet() {
 		return replyCommentSet;
 	}
 
-	public void setReplyCommentSet(Set<ReplyComment> replyCommentSet) {
+	public void setReplyCommentSet(List<ReplyComment> replyCommentSet) {
 		this.replyCommentSet = replyCommentSet;
 	}
 

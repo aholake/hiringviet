@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,8 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "DISTRICT", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class District implements Serializable {
 
 	private static final long serialVersionUID = 4567651847477356613L;
@@ -46,13 +49,13 @@ public class District implements Serializable {
 	private Date deletedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
-	private Set<Resume> resumeSet;
+	private List<Resume> resumeSet;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
-	private Set<Company> companySet;
+	private List<Company> companySet;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "district")
-	private Set<Job> jobSet;
+	private List<Job> jobSet;
 
 	public Integer getDistrictID() {
 		return districtID;
@@ -110,27 +113,27 @@ public class District implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<Resume> getResumeSet() {
+	public List<Resume> getResumeSet() {
 		return resumeSet;
 	}
 
-	public void setResumeSet(Set<Resume> resumeSet) {
+	public void setResumeSet(List<Resume> resumeSet) {
 		this.resumeSet = resumeSet;
 	}
 
-	public Set<Company> getCompanySet() {
+	public List<Company> getCompanySet() {
 		return companySet;
 	}
 
-	public void setCompanySet(Set<Company> companySet) {
+	public void setCompanySet(List<Company> companySet) {
 		this.companySet = companySet;
 	}
 
-	public Set<Job> getJobSet() {
+	public List<Job> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<Job> jobSet) {
+	public void setJobSet(List<Job> jobSet) {
 		this.jobSet = jobSet;
 	}
 

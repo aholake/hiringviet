@@ -42,11 +42,4 @@ public class CommonController {
 	public String footer() {
 		return "layouts/footer";
 	}
-	
-	@RequestMapping(value = "/testCommon")
-	public @ResponseBody Country getCountries() {
-		Country country = countryService.getCountryById(1);
-		System.out.println(country);
-		return country;
-	}
 }

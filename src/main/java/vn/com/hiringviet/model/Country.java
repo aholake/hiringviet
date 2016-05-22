@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "COUNTRY", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Country implements Serializable {
 
 	private static final long serialVersionUID = 7933643571717816198L;
@@ -49,8 +52,8 @@ public class Country implements Serializable {
 	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "country")
-	private Set<Company> companySet;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "country")
+	private List<Company> companyList;
 
 	public Integer getCountryID() {
 		return countryID;
@@ -108,12 +111,12 @@ public class Country implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<Company> getCompanySet() {
-		return companySet;
+	public List<Company> getCompanyList() {
+		return companyList;
 	}
 
-	public void setCompanySet(Set<Company> companySet) {
-		this.companySet = companySet;
+	public void setCompanyList(List<Company> companyList) {
+		this.companyList = companyList;
 	}
 
 	public String getFlag() {
@@ -124,11 +127,11 @@ public class Country implements Serializable {
 		this.flag = flag;
 	}
 
-	public String getLenguage() {
+	public String getLanguage() {
 		return language;
 	}
 
-	public void setLenguage(String language) {
+	public void setLanguage(String language) {
 		this.language = language;
 	}
 

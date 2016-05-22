@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,8 +22,11 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "JOB", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Job implements Serializable {
 
 	private static final long serialVersionUID = -3278815174799070361L;
@@ -47,13 +50,13 @@ public class Job implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "JOB_SKILL", catalog = "hiringviet", joinColumns = { @JoinColumn(name = "JOB_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "SKILL_ID", nullable = false, updatable = false) })
-	private Set<Skill> skillSet;
+	private List<Skill> skillSet;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "job")
-	private Set<Comment> commentSet;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "job")
+	private List<Comment> commentSet;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "job")
-	private Set<Apply> applySet;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "job")
+	private List<Apply> applySet;
 
 	@Column(name = "TITLE", nullable = false)
 	@Type(type = "text")
@@ -76,7 +79,7 @@ public class Job implements Serializable {
 	@Column(name = "REQUIREMENT", nullable = false)
 	private String requirement;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "POSITION_ID")
 	private Position position;
 
@@ -124,27 +127,27 @@ public class Job implements Serializable {
 		this.district = district;
 	}
 
-	public Set<Skill> getSkillSet() {
+	public List<Skill> getSkillSet() {
 		return skillSet;
 	}
 
-	public void setSkillSet(Set<Skill> skillSet) {
+	public void setSkillSet(List<Skill> skillSet) {
 		this.skillSet = skillSet;
 	}
 
-	public Set<Comment> getCommentSet() {
+	public List<Comment> getCommentSet() {
 		return commentSet;
 	}
 
-	public void setCommentSet(Set<Comment> commentSet) {
+	public void setCommentSet(List<Comment> commentSet) {
 		this.commentSet = commentSet;
 	}
 
-	public Set<Apply> getApplySet() {
+	public List<Apply> getApplySet() {
 		return applySet;
 	}
 
-	public void setApplySet(Set<Apply> applySet) {
+	public void setApplySet(List<Apply> applySet) {
 		this.applySet = applySet;
 	}
 
@@ -196,6 +199,14 @@ public class Job implements Serializable {
 		this.requirement = requirement;
 	}
 
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
 	public Integer getStatus() {
 		return status;
 	}
@@ -228,11 +239,4 @@ public class Job implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Position getPosition() {
-		return position;
-	}
-
-	public void setPosition(Position position) {
-		this.position = position;
-	}
 }

@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "PROVINCE", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Province implements Serializable {
 
 	private static final long serialVersionUID = 808142982176659911L;
@@ -44,7 +47,7 @@ public class Province implements Serializable {
 	private Date deletedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "province")
-	private Set<District> districtSet;
+	private List<District> districtSet;
 
 	public Integer getProvinceID() {
 		return provinceID;
@@ -102,12 +105,13 @@ public class Province implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<District> getDistrictSet() {
+	public List<District> getDistrictSet() {
 		return districtSet;
 	}
 
-	public void setDistrictSet(Set<District> districtSet) {
+	public void setDistrictSet(List<District> districtSet) {
 		this.districtSet = districtSet;
 	}
 
+	
 }

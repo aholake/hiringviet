@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "JOB_CATEGORY", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class JobCategory implements Serializable {
 
 	private static final long serialVersionUID = -7098623801141057102L;
@@ -41,7 +44,7 @@ public class JobCategory implements Serializable {
 	private Date deletedAt;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "jobCategory")
-	private Set<Job> jobSet;
+	private List<Job> jobSet;
 
 	public Integer getJobCategoryID() {
 		return jobCategoryID;
@@ -91,11 +94,11 @@ public class JobCategory implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<Job> getJobSet() {
+	public List<Job> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<Job> jobSet) {
+	public void setJobSet(List<Job> jobSet) {
 		this.jobSet = jobSet;
 	}
 

@@ -2,10 +2,12 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class SkillDTO implements Serializable {
 
 	private static final long serialVersionUID = -5381027238277880906L;
@@ -23,13 +25,13 @@ public class SkillDTO implements Serializable {
 	private Date deletedAt;
 
 	@JsonIgnore
-	private Set<ResumeDTO> resumeSet;
+	private List<ResumeDTO> resumeSet;
 
 	@JsonIgnore
-	private Set<JobDTO> jobSet;
+	private List<JobDTO> jobSet;
 
 	@JsonIgnore
-	private Set<EndorseDTO> endorseSet;
+	private List<EndorseDTO> endorseSet;
 
 	public Integer getSkillID() {
 		return skillID;
@@ -79,27 +81,27 @@ public class SkillDTO implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Set<ResumeDTO> getResumeSet() {
+	public List<ResumeDTO> getResumeSet() {
 		return resumeSet;
 	}
 
-	public void setResumeSet(Set<ResumeDTO> resumeSet) {
+	public void setResumeSet(List<ResumeDTO> resumeSet) {
 		this.resumeSet = resumeSet;
 	}
 
-	public Set<JobDTO> getJobSet() {
+	public List<JobDTO> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<JobDTO> jobSet) {
+	public void setJobSet(List<JobDTO> jobSet) {
 		this.jobSet = jobSet;
 	}
 
-	public Set<EndorseDTO> getEndorseSet() {
+	public List<EndorseDTO> getEndorseSet() {
 		return endorseSet;
 	}
 
-	public void setEndorseSet(Set<EndorseDTO> endorseSet) {
+	public void setEndorseSet(List<EndorseDTO> endorseSet) {
 		this.endorseSet = endorseSet;
 	}
 

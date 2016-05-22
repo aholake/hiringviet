@@ -2,10 +2,12 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CompanyDTO implements Serializable {
 
 	private static final long serialVersionUID = 7621411313072097608L;
@@ -47,10 +49,10 @@ public class CompanyDTO implements Serializable {
 	private Date deleteAt;
 
 	@JsonIgnore
-	private Set<CompanyPhotoDTO> companyPhotoSet;
+	private List<CompanyPhotoDTO> companyPhotoSet;
 
 	@JsonIgnore
-	private Set<JobDTO> jobSet;
+	private List<JobDTO> jobSet;
 
 	public Integer getCompanyID() {
 		return companyID;
@@ -196,19 +198,19 @@ public class CompanyDTO implements Serializable {
 		this.deleteAt = deleteAt;
 	}
 
-	public Set<CompanyPhotoDTO> getCompanyPhotoSet() {
+	public List<CompanyPhotoDTO> getCompanyPhotoSet() {
 		return companyPhotoSet;
 	}
 
-	public void setCompanyPhotoSet(Set<CompanyPhotoDTO> companyPhotoSet) {
+	public void setCompanyPhotoSet(List<CompanyPhotoDTO> companyPhotoSet) {
 		this.companyPhotoSet = companyPhotoSet;
 	}
 
-	public Set<JobDTO> getJobSet() {
+	public List<JobDTO> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<JobDTO> jobSet) {
+	public void setJobSet(List<JobDTO> jobSet) {
 		this.jobSet = jobSet;
 	}
 

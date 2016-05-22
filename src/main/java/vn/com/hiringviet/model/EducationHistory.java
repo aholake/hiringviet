@@ -15,8 +15,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "EDUCATION_HISTORY", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+
 public class EducationHistory implements Serializable {
 
 	private static final long serialVersionUID = -247002098097375475L;

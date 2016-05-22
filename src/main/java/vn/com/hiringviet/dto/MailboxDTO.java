@@ -3,6 +3,9 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class MailboxDTO implements Serializable {
 
 	private static final long serialVersionUID = -6319605028828102552L;

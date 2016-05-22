@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,8 +22,11 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "COMPANY", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Company implements Serializable {
 
 	private static final long serialVersionUID = 7621411313072097608L;
@@ -93,10 +96,10 @@ public class Company implements Serializable {
 	private Date deleteAt;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
-	private Set<CompanyPhoto> companyPhotoSet;
+	private List<CompanyPhoto> companyPhotoSet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
-	private Set<Job> jobSet;
+	private List<Job> jobSet;
 
 	public Integer getCompanyID() {
 		return companyID;
@@ -242,19 +245,19 @@ public class Company implements Serializable {
 		this.deleteAt = deleteAt;
 	}
 
-	public Set<CompanyPhoto> getCompanyPhotoSet() {
+	public List<CompanyPhoto> getCompanyPhotoSet() {
 		return companyPhotoSet;
 	}
 
-	public void setCompanyPhotoSet(Set<CompanyPhoto> companyPhotoSet) {
+	public void setCompanyPhotoSet(List<CompanyPhoto> companyPhotoSet) {
 		this.companyPhotoSet = companyPhotoSet;
 	}
 
-	public Set<Job> getJobSet() {
+	public List<Job> getJobSet() {
 		return jobSet;
 	}
 
-	public void setJobSet(Set<Job> jobSet) {
+	public void setJobSet(List<Job> jobSet) {
 		this.jobSet = jobSet;
 	}
 

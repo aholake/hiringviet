@@ -17,8 +17,11 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "MAILBOX", catalog = "hiringviet")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Mailbox implements Serializable {
 
 	private static final long serialVersionUID = -6319605028828102552L;
