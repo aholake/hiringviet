@@ -16,8 +16,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -34,8 +32,8 @@ public class Resume implements Serializable {
 	@Column(name = "RESUME_ID", nullable = false, length = 11)
 	private Integer resumeID;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MEMBER_ID", nullable = false)
 	private Member member;
 
 	@ManyToOne(fetch = FetchType.LAZY)

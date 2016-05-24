@@ -14,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,8 +34,8 @@ public class Company implements Serializable {
 	@Column(name = "COMPANY_ID", unique = true, nullable = false, length = 11)
 	private Integer companyID;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "MEMBER_ID", nullable = false)
 	private Member member;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
