@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -58,11 +57,11 @@ public class Member implements Serializable {
 	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-	private Resume resume;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
+	private List<Resume> resumeSet;
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
-	private Company company;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
+	private List<Company> companySet;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
 	private List<Apply> applySet;
@@ -163,20 +162,20 @@ public class Member implements Serializable {
 		this.deletedAt = deletedAt;
 	}
 
-	public Resume getResume() {
-		return resume;
+	public List<Resume> getResumeSet() {
+		return resumeSet;
 	}
 
-	public void setResume(Resume resume) {
-		this.resume = resume;
+	public void setResumeSet(List<Resume> resumeSet) {
+		this.resumeSet = resumeSet;
 	}
 
-	public Company getCompany() {
-		return company;
+	public List<Company> getCompanySet() {
+		return companySet;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setCompanySet(List<Company> companySet) {
+		this.companySet = companySet;
 	}
 
 	public List<Apply> getApplySet() {

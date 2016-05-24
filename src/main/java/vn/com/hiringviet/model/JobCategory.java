@@ -28,8 +28,8 @@ public class JobCategory implements Serializable {
 	@Column(name = "JOB_CATEGORY_ID", nullable = false, length = 11)
 	private Integer jobCategoryID;
 
-	@Column(name = "CATEGORY_NAME", nullable = false, length = 11)
-	private Integer categoryNAME;
+	@Column(name = "CATEGORY_NAME", nullable = false)
+	private String categoryNAME;
 
 	@Column(name = "STATUS", nullable = false)
 	private Integer status;
@@ -54,11 +54,11 @@ public class JobCategory implements Serializable {
 		this.jobCategoryID = jobCategoryID;
 	}
 
-	public Integer getCategoryNAME() {
+	public String getCategoryNAME() {
 		return categoryNAME;
 	}
 
-	public void setCategoryNAME(Integer categoryNAME) {
+	public void setCategoryNAME(String categoryNAME) {
 		this.categoryNAME = categoryNAME;
 	}
 
