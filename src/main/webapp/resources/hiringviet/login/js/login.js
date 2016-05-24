@@ -11,7 +11,8 @@ $(function() {
 					password: $('#txtPassword').val(),
 					rememberAccount: remember_cb
 			}
-			callAPI($('#url_check_account').val(), 'POST', data, 'resultSignIn', true)
+			console.log(data);
+			callAPI($('#url_check_account').val(), 'POST', data, 'resultSignIn', true);
 		}
 		event.preventDefault();
 	});
