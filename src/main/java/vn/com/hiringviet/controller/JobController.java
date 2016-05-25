@@ -1,5 +1,7 @@
 package vn.com.hiringviet.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,12 @@ public class JobController {
 	
 	@RequestMapping(value = "/job/{jobID}", method = RequestMethod.GET)
 	public @ResponseBody JobDTO getJob(@PathVariable("jobID") Integer jobID) {
+		System.out.println(jobService.getJobByID(jobID));
 		return jobService.getJobByID(jobID);
+	}
+
+	@RequestMapping(value = "/job/hot", method = RequestMethod.GET)
+	public @ResponseBody List<JobDTO> getJobHot() {
+		return jobService.getListJobHot(0, 10);
 	}
 }

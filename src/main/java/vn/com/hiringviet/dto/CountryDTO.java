@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -29,6 +30,7 @@ public class CountryDTO implements Serializable {
 
 	private Date deletedAt;
 
+	@JsonIgnore
 	private List<CompanyDTO> companyList;
 
 	public Integer getCountryID() {
