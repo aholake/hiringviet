@@ -17,6 +17,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -31,6 +32,7 @@ public class ReplyComment implements Serializable {
 	@Column(name = "REPLY_COMMENT_ID", unique = true, nullable = false, length = 11)
 	private Integer replyCommentID;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "COMMENT_ID", nullable = false)
 	private Comment comment;

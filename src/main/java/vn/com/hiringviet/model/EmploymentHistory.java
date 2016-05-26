@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -29,6 +30,7 @@ public class EmploymentHistory implements Serializable {
 	@Column(name = "EMP_HISTORY_ID", nullable = false, length = 11)
 	private Integer empHistoryID;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "RESUME_ID", nullable = false)
 	private Resume resume;

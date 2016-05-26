@@ -2,19 +2,13 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class DistrictDTO implements Serializable {
 
 	private static final long serialVersionUID = 4567651847477356613L;
 
 	private Integer districtID;
 
-	@JsonIgnore
 	private ProvinceDTO province;
 
 	private String displayName;
@@ -26,15 +20,6 @@ public class DistrictDTO implements Serializable {
 	private Date updatedAt;
 
 	private Date deletedAt;
-
-	@JsonIgnore
-	private List<ResumeDTO> resumeSet;
-
-	@JsonIgnore
-	private List<CompanyDTO> companySet;
-
-	@JsonIgnore
-	private List<JobDTO> jobSet;
 
 	public Integer getDistrictID() {
 		return districtID;
@@ -91,29 +76,4 @@ public class DistrictDTO implements Serializable {
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
 	}
-
-	public List<ResumeDTO> getResumeSet() {
-		return resumeSet;
-	}
-
-	public void setResumeSet(List<ResumeDTO> resumeSet) {
-		this.resumeSet = resumeSet;
-	}
-
-	public List<CompanyDTO> getCompanySet() {
-		return companySet;
-	}
-
-	public void setCompanySet(List<CompanyDTO> companySet) {
-		this.companySet = companySet;
-	}
-
-	public List<JobDTO> getJobSet() {
-		return jobSet;
-	}
-
-	public void setJobSet(List<JobDTO> jobSet) {
-		this.jobSet = jobSet;
-	}
-
 }

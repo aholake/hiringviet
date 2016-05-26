@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -32,21 +33,23 @@ public class Resume implements Serializable {
 	@Column(name = "RESUME_ID", nullable = false, length = 11)
 	private Integer resumeID;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MEMBER_ID", nullable = false)
-	private Member member;
+	@Column(name = "MEMBER_ID", unique = true, nullable = false)
+	private Integer memberID;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DISTRICT_ID", nullable = false)
 	private District district;
 
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "RESUME_SKILL", catalog = "hiringviet", joinColumns = { @JoinColumn(name = "RESUME_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "SKILL_ID", nullable = false, updatable = false) })
 	private List<Skill> skillSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
 	private List<EducationHistory> educationHistorySet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
 	private List<EmploymentHistory> employeeHistorySet;
 
@@ -91,12 +94,12 @@ public class Resume implements Serializable {
 		this.resumeID = resumeID;
 	}
 
-	public Member getMember() {
-		return member;
+	public Integer getMemberID() {
+		return memberID;
 	}
 
-	public void setMember(Member member) {
-		this.member = member;
+	public void setMemberID(Integer memberID) {
+		this.memberID = memberID;
 	}
 
 	public District getDistrict() {

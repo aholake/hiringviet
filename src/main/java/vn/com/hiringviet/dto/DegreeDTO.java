@@ -2,12 +2,7 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class DegreeDTO implements Serializable {
 
 	private static final long serialVersionUID = 3205589962671010114L;
@@ -21,9 +16,6 @@ public class DegreeDTO implements Serializable {
 	private Date createdAt;
 
 	private Date updatedAt;
-
-	@JsonIgnore
-	private Set<EducationHistoryDTO> educationHistorySet;
 
 	public Integer getDegreeID() {
 		return degreeID;
@@ -63,14 +55,6 @@ public class DegreeDTO implements Serializable {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-
-	public Set<EducationHistoryDTO> getEducationHistorySet() {
-		return educationHistorySet;
-	}
-
-	public void setEducationHistorySet(Set<EducationHistoryDTO> educationHistorySet) {
-		this.educationHistorySet = educationHistorySet;
 	}
 
 }

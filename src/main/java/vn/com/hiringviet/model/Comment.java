@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -34,10 +35,12 @@ public class Comment implements Serializable {
 	@Column(name = "COMMENT_ID", unique = true, nullable = false, length = 11)
 	private Integer commentID;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "JOB_ID", nullable = false)
 	private Job job;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "comment")
 	private List<ReplyComment> replyCommentSet;
 

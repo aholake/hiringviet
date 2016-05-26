@@ -2,12 +2,7 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class MemberDTO implements Serializable {
 
 	private static final long serialVersionUID = -4371044009879481708L;
@@ -33,33 +28,6 @@ public class MemberDTO implements Serializable {
 	private ResumeDTO resume;
 
 	private CompanyDTO company;
-
-	@JsonIgnore
-	private List<ApplyDTO> applySet;
-
-	@JsonIgnore
-	private List<FollowDTO> followFromSet;
-
-	@JsonIgnore
-	private List<FollowDTO> followToSet;
-
-	@JsonIgnore
-	private List<MailboxDTO> mailboxFromSet;
-
-	@JsonIgnore
-	private List<MailboxDTO> mailboxToSet;
-
-	@JsonIgnore
-	private List<RequestEndorseDTO> requestEndorseFromSet;
-
-	@JsonIgnore
-	private List<RequestEndorseDTO> requestEndorseToSet;
-
-	@JsonIgnore
-	private List<EndorseDTO> endorseFromSet;
-
-	@JsonIgnore
-	private List<EndorseDTO> endorseToSet;
 
 	private boolean remembered;
 
@@ -149,79 +117,6 @@ public class MemberDTO implements Serializable {
 
 	public void setCompany(CompanyDTO company) {
 		this.company = company;
-	}
-
-	public List<ApplyDTO> getApplySet() {
-		return applySet;
-	}
-
-	public void setApplySet(List<ApplyDTO> applySet) {
-		this.applySet = applySet;
-	}
-
-	public List<FollowDTO> getFollowFromSet() {
-		return followFromSet;
-	}
-
-	public void setFollowFromSet(List<FollowDTO> followFromSet) {
-		this.followFromSet = followFromSet;
-	}
-
-	public List<FollowDTO> getFollowToSet() {
-		return followToSet;
-	}
-
-	public void setFollowToSet(List<FollowDTO> followToSet) {
-		this.followToSet = followToSet;
-	}
-
-	public List<MailboxDTO> getMailboxFromSet() {
-		return mailboxFromSet;
-	}
-
-	public void setMailboxFromSet(List<MailboxDTO> mailboxFromSet) {
-		this.mailboxFromSet = mailboxFromSet;
-	}
-
-	public List<MailboxDTO> getMailboxToSet() {
-		return mailboxToSet;
-	}
-
-	public void setMailboxToSet(List<MailboxDTO> mailboxToSet) {
-		this.mailboxToSet = mailboxToSet;
-	}
-
-	public List<RequestEndorseDTO> getRequestEndorseFromSet() {
-		return requestEndorseFromSet;
-	}
-
-	public void setRequestEndorseFromSet(
-			List<RequestEndorseDTO> requestEndorseFromSet) {
-		this.requestEndorseFromSet = requestEndorseFromSet;
-	}
-
-	public List<RequestEndorseDTO> getRequestEndorseToSet() {
-		return requestEndorseToSet;
-	}
-
-	public void setRequestEndorseToSet(List<RequestEndorseDTO> requestEndorseToSet) {
-		this.requestEndorseToSet = requestEndorseToSet;
-	}
-
-	public List<EndorseDTO> getEndorseFromSet() {
-		return endorseFromSet;
-	}
-
-	public void setEndorseFromSet(List<EndorseDTO> endorseFromSet) {
-		this.endorseFromSet = endorseFromSet;
-	}
-
-	public List<EndorseDTO> getEndorseToSet() {
-		return endorseToSet;
-	}
-
-	public void setEndorseToSet(List<EndorseDTO> endorseToSet) {
-		this.endorseToSet = endorseToSet;
 	}
 
 	public boolean isRemembered() {

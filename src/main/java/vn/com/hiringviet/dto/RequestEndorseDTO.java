@@ -2,9 +2,6 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class RequestEndorseDTO implements Serializable {
 
 	private static final long serialVersionUID = 2211702272100720337L;

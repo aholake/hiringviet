@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -57,36 +58,39 @@ public class Member implements Serializable {
 	@Column(name = "DELETED_AT")
 	private Date deletedAt;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-	private List<Resume> resumeSet;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-	private List<Company> companySet;
-
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
 	private List<Apply> applySet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
 	private List<Follow> followFromSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
 	private List<Follow> followToSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
 	private List<Mailbox> mailboxFromSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
 	private List<Mailbox> mailboxToSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
 	private List<RequestEndorse> requestEndorseFromSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
 	private List<RequestEndorse> requestEndorseToSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "fromMemberID")
 	private List<Endorse> endorseFromSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "toMemberID")
 	private List<Endorse> endorseToSet;
 
@@ -160,22 +164,6 @@ public class Member implements Serializable {
 
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
-	}
-
-	public List<Resume> getResumeSet() {
-		return resumeSet;
-	}
-
-	public void setResumeSet(List<Resume> resumeSet) {
-		this.resumeSet = resumeSet;
-	}
-
-	public List<Company> getCompanySet() {
-		return companySet;
-	}
-
-	public void setCompanySet(List<Company> companySet) {
-		this.companySet = companySet;
 	}
 
 	public List<Apply> getApplySet() {

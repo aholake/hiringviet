@@ -3,9 +3,6 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CompanyPhotoDTO implements Serializable {
 
 	private static final long serialVersionUID = -6886420826151394119L;
@@ -27,8 +24,6 @@ public class CompanyPhotoDTO implements Serializable {
 	private Date updatedAt;
 
 	private Date deletedAt;
-
-	private CompanyDTO company;
 
 	public Integer getCompanyPhotoID() {
 		return companyPhotoID;
@@ -100,14 +95,6 @@ public class CompanyPhotoDTO implements Serializable {
 
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
-	}
-
-	public CompanyDTO getCompany() {
-		return company;
-	}
-
-	public void setCompany(CompanyDTO company) {
-		this.company = company;
 	}
 
 }
