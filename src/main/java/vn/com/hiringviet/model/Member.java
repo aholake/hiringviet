@@ -60,14 +60,6 @@ public class Member implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-	private List<Resume> resumeSet;
-
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-	private List<Company> companySet;
-
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
 	private List<Apply> applySet;
 
 	@JsonIgnore
@@ -172,22 +164,6 @@ public class Member implements Serializable {
 
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
-	}
-
-	public List<Resume> getResumeSet() {
-		return resumeSet;
-	}
-
-	public void setResumeSet(List<Resume> resumeSet) {
-		this.resumeSet = resumeSet;
-	}
-
-	public List<Company> getCompanySet() {
-		return companySet;
-	}
-
-	public void setCompanySet(List<Company> companySet) {
-		this.companySet = companySet;
 	}
 
 	public List<Apply> getApplySet() {

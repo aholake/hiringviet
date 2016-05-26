@@ -4,17 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CompanyDTO implements Serializable {
 
 	private static final long serialVersionUID = 7621411313072097608L;
 
 	private Integer companyID;
 
-	private MemberDTO member;
+	private Integer memberID;
 
 	private DistrictDTO district;
 
@@ -48,10 +44,8 @@ public class CompanyDTO implements Serializable {
 
 	private Date deleteAt;
 
-	@JsonIgnore
 	private List<CompanyPhotoDTO> companyPhotoSet;
 
-	@JsonIgnore
 	private List<JobDTO> jobSet;
 
 	public Integer getCompanyID() {
@@ -62,12 +56,12 @@ public class CompanyDTO implements Serializable {
 		this.companyID = companyID;
 	}
 
-	public MemberDTO getMember() {
-		return member;
+	public Integer getMemberID() {
+		return memberID;
 	}
 
-	public void setMember(MemberDTO member) {
-		this.member = member;
+	public void setMemberID(Integer memberID) {
+		this.memberID = memberID;
 	}
 
 	public DistrictDTO getDistrict() {

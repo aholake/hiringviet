@@ -33,9 +33,8 @@ public class Resume implements Serializable {
 	@Column(name = "RESUME_ID", nullable = false, length = 11)
 	private Integer resumeID;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "MEMBER_ID", nullable = false)
-	private Member member;
+	@Column(name = "MEMBER_ID", unique = true, nullable = false)
+	private Integer memberID;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "DISTRICT_ID", nullable = false)
@@ -95,12 +94,12 @@ public class Resume implements Serializable {
 		this.resumeID = resumeID;
 	}
 
-	public Member getMember() {
-		return member;
+	public Integer getMemberID() {
+		return memberID;
 	}
 
-	public void setMember(Member member) {
-		this.member = member;
+	public void setMemberID(Integer memberID) {
+		this.memberID = memberID;
 	}
 
 	public District getDistrict() {

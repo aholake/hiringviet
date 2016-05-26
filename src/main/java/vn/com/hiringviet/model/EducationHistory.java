@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -30,6 +31,7 @@ public class EducationHistory implements Serializable {
 	@Column(name = "EDU_HISTORY_ID", nullable = false, length = 11)
 	private Integer eduHistoryID;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "RESUME_ID", nullable = false)
 	private Resume resume;

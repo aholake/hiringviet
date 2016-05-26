@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -48,13 +49,16 @@ public class Job implements Serializable {
 	@JoinColumn(name = "DISTRICT_ID", nullable = false)
 	private District district;
 
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "JOB_SKILL", catalog = "hiringviet", joinColumns = { @JoinColumn(name = "JOB_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "SKILL_ID", nullable = false, updatable = false) })
 	private List<Skill> skillSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "job")
 	private List<Comment> commentSet;
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "job")
 	private List<Apply> applySet;
 
@@ -79,7 +83,7 @@ public class Job implements Serializable {
 	@Column(name = "REQUIREMENT", nullable = false)
 	private String requirement;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "POSITION_ID")
 	private Position position;
 

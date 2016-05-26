@@ -35,9 +35,8 @@ public class Company implements Serializable {
 	@Column(name = "COMPANY_ID", unique = true, nullable = false, length = 11)
 	private Integer companyID;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "MEMBER_ID", nullable = false)
-	private Member member;
+	@Column(name = "MEMBER_ID",unique = true, nullable = false)
+	private Integer memberID;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "DISTRICT_ID", nullable = false)
@@ -110,12 +109,12 @@ public class Company implements Serializable {
 		this.companyID = companyID;
 	}
 
-	public Member getMember() {
-		return member;
+	public Integer getMemberID() {
+		return memberID;
 	}
 
-	public void setMember(Member member) {
-		this.member = member;
+	public void setMemberID(Integer memberID) {
+		this.memberID = memberID;
 	}
 
 	public District getDistrict() {

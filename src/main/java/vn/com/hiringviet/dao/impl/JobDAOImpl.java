@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.JobDAO;
-import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.model.Job;
 
 @Repository
@@ -30,7 +29,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 	}
 
 	@Override
-	public JobDTO getJobByID(Integer jobID) {
+	public Job getJobByID(Integer jobID) {
 
 		StringBuilder hql = new StringBuilder();
 		hql.append("FROM Job as j ");
@@ -43,13 +42,33 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
 		query.setParameter("jobID", jobID);
 
-		JobDTO jobDTO = (JobDTO) query.uniqueResult();
-		return jobDTO;
+		Job job = (Job) query.uniqueResult();
+		return job;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Job> getListJobHot(Integer first, Integer max) {
+
+		StringBuilder hql = new StringBuilder();
+		hql.append("FROM Job as j ");
+		hql.append("WHERE j.status = :status ");
+		hql.append("ORDER BY j.createdAt");
+		Session session = sessionFactory.getCurrentSession();
+
+		Query query = session.createQuery(hql.toString());
+		query.setFirstResult(first);
+		query.setMaxResults(max);
+
+		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
+
+		List<Job> jobList = query.list();
+		return jobList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getListJobSuggest(Integer first, Integer max) {
 
 		StringBuilder hql = new StringBuilder();
 		hql.append("FROM Job as j ");

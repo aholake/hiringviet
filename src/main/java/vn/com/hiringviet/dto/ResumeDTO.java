@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ResumeDTO implements Serializable {
 
 	private static final long serialVersionUID = -4931216192214091278L;
@@ -18,13 +14,10 @@ public class ResumeDTO implements Serializable {
 
 	private DistrictDTO district;
 
-	@JsonIgnore
 	private List<SkillDTO> skillSet;
 
-	@JsonIgnore
 	private List<EducationHistoryDTO> educationHistorySet;
 
-	@JsonIgnore
 	private List<EmploymentHistoryDTO> employeeHistorySet;
 
 	private String fullName;

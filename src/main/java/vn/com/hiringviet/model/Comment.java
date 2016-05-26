@@ -35,6 +35,7 @@ public class Comment implements Serializable {
 	@Column(name = "COMMENT_ID", unique = true, nullable = false, length = 11)
 	private Integer commentID;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "JOB_ID", nullable = false)
 	private Job job;

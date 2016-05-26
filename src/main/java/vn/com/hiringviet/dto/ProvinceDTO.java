@@ -2,12 +2,7 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class ProvinceDTO implements Serializable {
 
 	private static final long serialVersionUID = 808142982176659911L;
@@ -25,9 +20,6 @@ public class ProvinceDTO implements Serializable {
 	private Date updatedAt;
 
 	private Date deletedAt;
-
-	@JsonIgnore
-	private List<DistrictDTO> districtSet;
 
 	public Integer getProvinceID() {
 		return provinceID;
@@ -83,14 +75,6 @@ public class ProvinceDTO implements Serializable {
 
 	public void setDeletedAt(Date deletedAt) {
 		this.deletedAt = deletedAt;
-	}
-
-	public List<DistrictDTO> getDistrictSet() {
-		return districtSet;
-	}
-
-	public void setDistrictSet(List<DistrictDTO> districtSet) {
-		this.districtSet = districtSet;
 	}
 
 }

@@ -4,19 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class CommentDTO implements Serializable {
 
 	private static final long serialVersionUID = 9219480321037261930L;
 
 	private Integer commentID;
 
-	private JobDTO job;
-
-	@JsonIgnore
 	private List<ReplyCommentDTO> replyCommentSet;
 
 	private String comment;
@@ -35,14 +28,6 @@ public class CommentDTO implements Serializable {
 
 	public void setCommentID(Integer commentID) {
 		this.commentID = commentID;
-	}
-
-	public JobDTO getJob() {
-		return job;
-	}
-
-	public void setJob(JobDTO job) {
-		this.job = job;
 	}
 
 	public List<ReplyCommentDTO> getReplyCommentSet() {

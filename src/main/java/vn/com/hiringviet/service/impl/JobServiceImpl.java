@@ -1,8 +1,11 @@
 package vn.com.hiringviet.service.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +29,9 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public JobDTO getJobByID(Integer jobID) {
 
-		return  jobDAO.getJobByID(jobID);
+		Job job = jobDAO.getJobByID(jobID);
+		JobDTO jobDTO = modelMapper.map(job, JobDTO.class);
+		return  jobDTO;
 	}
 
 	@SuppressWarnings("serial")
@@ -36,6 +41,36 @@ public class JobServiceImpl implements JobService {
 		List<Job> jobList = jobDAO.getListJobHot(first, max);
 		Type type = new TypeToken<List<Job>>() {}.getType();
 		List<JobDTO> jobDTOList = modelMapper.map(jobList, type);
+//		List<JobDTO> jobDTOList = new ArrayList<JobDTO>();
+//		for (Job job : jobList) {
+//			JobDTO jobDTO = new JobDTO();
+//			try {
+//				BeanUtils.copyProperties(jobDTO, job);
+//			} catch (IllegalAccessException | InvocationTargetException e) {
+//				e.printStackTrace();
+//			}
+//			jobDTOList.add(jobDTO);
+//		}
+		return jobDTOList;
+	}
+
+	@SuppressWarnings("serial")
+	@Override
+	public List<JobDTO> getListJobSuggest(Integer first, Integer max) {
+
+		List<Job> jobList = jobDAO.getListJobSuggest(first, max);
+//		Type type = new TypeToken<List<Job>>() {}.getType();
+//		List<JobDTO> jobDTOList = modelMapper.map(jobList, type);
+		List<JobDTO> jobDTOList = new ArrayList<JobDTO>();
+		for (Job job : jobList) {
+			JobDTO jobDTO = new JobDTO();
+			try {
+				BeanUtils.copyProperties(jobDTO, job);
+			} catch (IllegalAccessException | InvocationTargetException e) {
+				e.printStackTrace();
+			}
+			jobDTOList.add(jobDTO);
+		}
 		return jobDTOList;
 	}
 }
