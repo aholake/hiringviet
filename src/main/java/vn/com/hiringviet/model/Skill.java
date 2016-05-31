@@ -19,52 +19,30 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "SKILL", catalog = "hiringviet")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Table(name = "skill")
 public class Skill implements Serializable {
 
 	private static final long serialVersionUID = -5381027238277880906L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "SKILL_ID", nullable = false, length = 11)
-	private Integer skillID;
+	private Integer id;
 
-	@Column(name = "DISPLAY_NAME", nullable = false, length = 200)
 	private String displayName;
 
-	@Column(name = "STATUS", nullable = false)
-	private Integer status;
+	private List<Resume> resumeList;
 
-	@Column(name = "CREATED_AT", nullable = false)
-	private Date createdAt;
+	private List<Job> jobList;
 
-	@Column(name = "UPDATED_AT", nullable = false)
-	private Date updatedAt;
-
-	@Column(name = "DELETED_AT", nullable = true)
-	private Date deletedAt;
-
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "skillSet")
-	private List<Resume> resumeSet;
-
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "skillSet")
-	private List<Job> jobSet;
-
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "skill")
-	private List<Endorse> endorseSet;
-
-	public Integer getSkillID() {
-		return skillID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
 	}
 
-	public void setSkillID(Integer skillID) {
-		this.skillID = skillID;
+	public void setId(Integer skillID) {
+		this.id = skillID;
 	}
 
+	@Column(name = "display_name")
 	public String getDisplayName() {
 		return displayName;
 	}
@@ -73,60 +51,22 @@ public class Skill implements Serializable {
 		this.displayName = displayName;
 	}
 
-	public Integer getStatus() {
-		return status;
+	@ManyToMany(mappedBy = "skillList")
+	public List<Resume> getResumeList() {
+		return resumeList;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setResumeList(List<Resume> resumeList) {
+		this.resumeList = resumeList;
 	}
 
-	public Date getCreatedAt() {
-		return createdAt;
+	@ManyToMany(mappedBy = "skillList")
+	public List<Job> getJobList() {
+		return jobList;
 	}
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public Date getDeletedAt() {
-		return deletedAt;
-	}
-
-	public void setDeletedAt(Date deletedAt) {
-		this.deletedAt = deletedAt;
-	}
-
-	public List<Resume> getResumeSet() {
-		return resumeSet;
-	}
-
-	public void setResumeSet(List<Resume> resumeSet) {
-		this.resumeSet = resumeSet;
-	}
-
-	public List<Job> getJobSet() {
-		return jobSet;
-	}
-
-	public void setJobSet(List<Job> jobSet) {
-		this.jobSet = jobSet;
-	}
-
-	public List<Endorse> getEndorseSet() {
-		return endorseSet;
-	}
-
-	public void setEndorseSet(List<Endorse> endorseSet) {
-		this.endorseSet = endorseSet;
+	public void setJobList(List<Job> jobList) {
+		this.jobList = jobList;
 	}
 
 }

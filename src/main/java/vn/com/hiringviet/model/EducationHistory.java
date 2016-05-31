@@ -1,8 +1,8 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,71 +11,43 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@Table(name = "EDUCATION_HISTORY", catalog = "hiringviet")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-
+@Table(name = "education_history")
 public class EducationHistory implements Serializable {
 
 	private static final long serialVersionUID = -247002098097375475L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "EDU_HISTORY_ID", nullable = false, length = 11)
-	private Integer eduHistoryID;
+	private Integer id;
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "RESUME_ID", nullable = false)
 	private Resume resume;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DEGREE_ID", nullable = false)
-	private Degree degree;
-
-	@Column(name = "UNIVERSITY_NAME", nullable = false, length = 200)
 	private String universityName;
 
-	@Column(name = "MAJOR_NAME", nullable = false, length = 200)
 	private String majorName;
 
-	@Column(name = "BEGIN_YEAR", nullable = false, length = 4)
 	private Integer beginYear;
 
-	@Column(name = "END_YEAR", nullable = false, length = 4)
 	private Integer endYear;
 
-	@Column(name = "ACTIVITY_AND_SOCUETIES")
-	@Type(type = "text")
-	private String activityAndSocueties;
+	private String socialActivity;
 
-	@Column(name = "STATUS", nullable = false)
-	private Integer status;
+	private ChangeLog changeLog;
 
-	@Column(name = "CREATED_AT", nullable = false)
-	private Date createdAt;
-
-	@Column(name = "UPDATED_AT", nullable = false)
-	private Date updatedAt;
-
-	@Column(name = "DELETED_AT")
-	private Date deletedAt;
-
-	public Integer getEduHistoryID() {
-		return eduHistoryID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
 	}
 
-	public void setEduHistoryID(Integer eduHistoryID) {
-		this.eduHistoryID = eduHistoryID;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "resume_id")
 	public Resume getResume() {
 		return resume;
 	}
@@ -84,14 +56,7 @@ public class EducationHistory implements Serializable {
 		this.resume = resume;
 	}
 
-	public Degree getDegree() {
-		return degree;
-	}
-
-	public void setDegree(Degree degree) {
-		this.degree = degree;
-	}
-
+	@Column(name = "university_name")
 	public String getUniversityName() {
 		return universityName;
 	}
@@ -100,6 +65,7 @@ public class EducationHistory implements Serializable {
 		this.universityName = universityName;
 	}
 
+	@Column(name = "major_name")
 	public String getMajorName() {
 		return majorName;
 	}
@@ -108,6 +74,7 @@ public class EducationHistory implements Serializable {
 		this.majorName = majorName;
 	}
 
+	@Column(name = "begin_year")
 	public Integer getBeginYear() {
 		return beginYear;
 	}
@@ -116,6 +83,7 @@ public class EducationHistory implements Serializable {
 		this.beginYear = beginYear;
 	}
 
+	@Column(name = "end_year")
 	public Integer getEndYear() {
 		return endYear;
 	}
@@ -124,44 +92,22 @@ public class EducationHistory implements Serializable {
 		this.endYear = endYear;
 	}
 
-	public String getActivityAndSocueties() {
-		return activityAndSocueties;
+	@Column(name = "social_activity")
+	public String getSocialActivity() {
+		return socialActivity;
 	}
 
-	public void setActivityAndSocueties(String activityAndSocueties) {
-		this.activityAndSocueties = activityAndSocueties;
+	public void setSocialActivity(String socialActivity) {
+		this.socialActivity = socialActivity;
 	}
 
-	public Integer getStatus() {
-		return status;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "change_log_id")
+	public ChangeLog getChangeLog() {
+		return changeLog;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setChangeLog(ChangeLog changeLog) {
+		this.changeLog = changeLog;
 	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public Date getDeletedAt() {
-		return deletedAt;
-	}
-
-	public void setDeletedAt(Date deletedAt) {
-		this.deletedAt = deletedAt;
-	}
-
 }

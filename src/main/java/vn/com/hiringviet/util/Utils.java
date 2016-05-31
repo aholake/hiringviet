@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import vn.com.hiringviet.dto.MemberDTO;
+import vn.com.hiringviet.model.Member;
 
 public class Utils {
 
@@ -135,8 +135,8 @@ public class Utils {
 		}
 	}
 
-	public static MemberDTO getMemberSession(HttpSession session) {
-		return (MemberDTO) session.getAttribute("memberDTO");
+	public static Member getMemberSession(HttpSession session) {
+		return (Member) session.getAttribute("member");
 	}
 
 	public static boolean isEmptyObject(Object object) {

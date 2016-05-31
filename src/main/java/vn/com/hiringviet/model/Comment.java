@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,53 +25,33 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "COMMENT", catalog = "hiringviet")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Table(name = "comment")
 public class Comment implements Serializable {
 
 	private static final long serialVersionUID = 9219480321037261930L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "COMMENT_ID", unique = true, nullable = false, length = 11)
-	private Integer commentID;
+	private Integer id;
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "JOB_ID", nullable = false)
 	private Job job;
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "comment")
 	private List<ReplyComment> replyCommentSet;
 
-	@Type(type = "text")
-	@Column(name = "COMMENT", nullable = false, length = 300)
 	private String comment;
 
-	@Column(name = "STATUS", nullable = false, length = 1)
-	private Integer status;
+	private ChangeLog changeLog;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED_AT", nullable = false)
-	private Date createAt;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "UPDATED_AT", nullable = false)
-	private Date updateAt;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DELETED_AT")
-	private Date deleteAt;
-
-	public Integer getCommentID() {
-		return commentID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
 	}
 
-	public void setCommentID(Integer commentID) {
-		this.commentID = commentID;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "job_id")
 	public Job getJob() {
 		return job;
 	}
@@ -79,6 +60,7 @@ public class Comment implements Serializable {
 		this.job = job;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "comment")
 	public List<ReplyComment> getReplyCommentSet() {
 		return replyCommentSet;
 	}
@@ -87,6 +69,7 @@ public class Comment implements Serializable {
 		this.replyCommentSet = replyCommentSet;
 	}
 
+	@Column(name = "comment")
 	public String getComment() {
 		return comment;
 	}
@@ -95,36 +78,13 @@ public class Comment implements Serializable {
 		this.comment = comment;
 	}
 
-	public Integer getStatus() {
-		return status;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "change_log_id")
+	public ChangeLog getChangeLog() {
+		return changeLog;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setChangeLog(ChangeLog changeLog) {
+		this.changeLog = changeLog;
 	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-
-	public Date getUpdateAt() {
-		return updateAt;
-	}
-
-	public void setUpdateAt(Date updateAt) {
-		this.updateAt = updateAt;
-	}
-
-	public Date getDeleteAt() {
-		return deleteAt;
-	}
-
-	public void setDeleteAt(Date deleteAt) {
-		this.deleteAt = deleteAt;
-	}
-
 }

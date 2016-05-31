@@ -1,7 +1,6 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,134 +13,90 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@Table(name = "RESUME", catalog = "hiringviet")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Table(name = "resume")
 public class Resume implements Serializable {
 
 	private static final long serialVersionUID = -4931216192214091278L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "RESUME_ID", nullable = false, length = 11)
-	private Integer resumeID;
+	private Integer id;
 
-	@Column(name = "MEMBER_ID", unique = true, nullable = false)
-	private Integer memberID;
+	private Member member;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DISTRICT_ID", nullable = false)
-	private District district;
+	private List<Skill> skillList;
 
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "RESUME_SKILL", catalog = "hiringviet", joinColumns = { @JoinColumn(name = "RESUME_ID", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "SKILL_ID", nullable = false, updatable = false) })
-	private List<Skill> skillSet;
+	private List<EducationHistory> educationHistoryList;
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
-	private List<EducationHistory> educationHistorySet;
+	private List<EmploymentHistory> employeeHistoryList;
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "resume")
-	private List<EmploymentHistory> employeeHistorySet;
-
-	@Column(name = "FULL_NAME", nullable = false, length = 100)
-	private String fullName;
-
-	@Column(name = "PHONE_NUMBER", length = 15)
 	private String phoneNumber;
 
-	@Column(name = "SEX")
-	private boolean sex;
+	private Address address;
 
-	@Column(name = "ADDRESS", length = 300)
-	private String address;
+	private boolean maleGender;
 
-	@Column(name = "NOTIONALITY", length = 300)
-	private String notionality;
+	private String nationality;
 
-	@Column(name = "AVATAR_IMAGE")
-	private byte[] avatarImage;
+	private String avatarImage;
 
-	@Column(name = "COVER_IMAGE")
-	private byte[] coverImage;
+	private String coverImage;
 
-	@Column(name = "STATUS", nullable = false)
-	private Integer status;
+	private ChangeLog changeLog;
 
-	@Column(name = "CREATED_AT", nullable = false)
-	private Date createdAt;
-
-	@Column(name = "UPDATED_AT", nullable = false)
-	private Date updatedAt;
-
-	@Column(name = "DELETED_AT")
-	private Date deletedAt;
-
-	public Integer getResumeID() {
-		return resumeID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
 	}
 
-	public void setResumeID(Integer resumeID) {
-		this.resumeID = resumeID;
+	public void setId(Integer resumeID) {
+		this.id = resumeID;
 	}
 
-	public Integer getMemberID() {
-		return memberID;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id")
+	public Member getMember() {
+		return member;
 	}
 
-	public void setMemberID(Integer memberID) {
-		this.memberID = memberID;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
-	public District getDistrict() {
-		return district;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "resume_skill", joinColumns = { @JoinColumn(name = "resume_id") }, inverseJoinColumns = { @JoinColumn(name = "skill_id") })
+	public List<Skill> getSkillList() {
+		return skillList;
 	}
 
-	public void setDistrict(District district) {
-		this.district = district;
+	public void setSkillList(List<Skill> skillList) {
+		this.skillList = skillList;
 	}
 
-	public List<Skill> getSkillSet() {
-		return skillSet;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resume")
+	public List<EducationHistory> getEducationHistoryList() {
+		return educationHistoryList;
 	}
 
-	public void setSkillSet(List<Skill> skillSet) {
-		this.skillSet = skillSet;
+	public void setEducationHistoryList(
+			List<EducationHistory> educationHistorySet) {
+		this.educationHistoryList = educationHistorySet;
 	}
 
-	public List<EducationHistory> getEducationHistorySet() {
-		return educationHistorySet;
-	}
-
-	public void setEducationHistorySet(List<EducationHistory> educationHistorySet) {
-		this.educationHistorySet = educationHistorySet;
-	}
-
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resume")
 	public List<EmploymentHistory> getEmployeeHistorySet() {
-		return employeeHistorySet;
+		return employeeHistoryList;
 	}
 
 	public void setEmployeeHistorySet(List<EmploymentHistory> employeeHistorySet) {
-		this.employeeHistorySet = employeeHistorySet;
+		this.employeeHistoryList = employeeHistorySet;
 	}
 
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
+	@Column(name = "phone_number")
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -150,76 +105,60 @@ public class Resume implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public boolean isSex() {
-		return sex;
-	}
-
-	public void setSex(boolean sex) {
-		this.sex = sex;
-	}
-
-	public String getAddress() {
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "address_id")
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 
-	public String getNotionality() {
-		return notionality;
+	@Column(name = "male_gender")
+	public boolean isMaleGender() {
+		return maleGender;
 	}
 
-	public void setNotionality(String notionality) {
-		this.notionality = notionality;
+	public void setMaleGender(boolean maleGender) {
+		this.maleGender = maleGender;
 	}
 
-	public byte[] getAvatarImage() {
+	@Column(name = "nationality")
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	@Column(name = "avatar_image")
+	public String getAvatarImage() {
 		return avatarImage;
 	}
 
-	public void setAvatarImage(byte[] avatarImage) {
+	public void setAvatarImage(String avatarImage) {
 		this.avatarImage = avatarImage;
 	}
 
-	public byte[] getCoverImage() {
+	@Column(name = "cover_image")
+	public String getCoverImage() {
 		return coverImage;
 	}
 
-	public void setCoverImage(byte[] coverImage) {
+	public void setCoverImage(String coverImage) {
 		this.coverImage = coverImage;
 	}
 
-	public Integer getStatus() {
-		return status;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "change_log_id")
+	public ChangeLog getChangeLog() {
+		return changeLog;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public Date getDeletedAt() {
-		return deletedAt;
-	}
-
-	public void setDeletedAt(Date deletedAt) {
-		this.deletedAt = deletedAt;
+	public void setChangeLog(ChangeLog changeLog) {
+		this.changeLog = changeLog;
 	}
 
 }

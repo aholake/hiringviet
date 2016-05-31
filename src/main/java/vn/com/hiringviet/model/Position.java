@@ -11,44 +11,32 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "POSITION", catalog = "hiringviet")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Table(name = "position")
 public class Position implements Serializable {
 
 	private static final long serialVersionUID = -45982404463146068L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "POSITION_ID", nullable = false, length = 11)
 	private Integer positionID;
 
-	@Column(name = "DISPLAY_NAME", nullable = false, length = 200)
 	private String displayName;
 
-	@Column(name = "STATUS", nullable = false)
-	private Integer status;
-
-	@Column(name = "CREATED_AT", nullable = false)
-	private Date createdAt;
-
-	@Column(name = "UPDATED_AT", nullable = false)
-	private Date updatedAt;
-
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "position")
 	private List<EmploymentHistory> employmentHistorySet;
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "position")
-	private List<Job> jobSet;
+	private List<Job> jobList;
 
+	private ChangeLog changeLog;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getPositionID() {
 		return positionID;
 	}
@@ -57,6 +45,7 @@ public class Position implements Serializable {
 		this.positionID = positionID;
 	}
 
+	@Column(name = "display_name")
 	public String getDisplayName() {
 		return displayName;
 	}
@@ -65,44 +54,33 @@ public class Position implements Serializable {
 		this.displayName = displayName;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "position")
 	public List<EmploymentHistory> getEmploymentHistorySet() {
 		return employmentHistorySet;
 	}
 
-	public void setEmploymentHistorySet(List<EmploymentHistory> employmentHistorySet) {
+	public void setEmploymentHistorySet(
+			List<EmploymentHistory> employmentHistorySet) {
 		this.employmentHistorySet = employmentHistorySet;
 	}
 
-	public List<Job> getJobSet() {
-		return jobSet;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "position")
+	public List<Job> getJobList() {
+		return jobList;
 	}
 
-	public void setJobSet(List<Job> jobSet) {
-		this.jobSet = jobSet;
+	public void setJobList(List<Job> jobList) {
+		this.jobList = jobList;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "change_log_id")
+	public ChangeLog getChangeLog() {
+		return changeLog;
+	}
+
+	public void setChangeLog(ChangeLog changeLog) {
+		this.changeLog = changeLog;
 	}
 
 }

@@ -4,14 +4,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import vn.com.hiringviet.dto.ApplyDTO;
+import vn.com.hiringviet.model.Apply;
 
 @Service("applyService")
 public interface ApplyService {
 
-	public ApplyDTO getApplyByID(Integer applyID);
+	public Apply getApplyByID(Integer applyID);
 
-	public void addApply(ApplyDTO applyDTO);
+	public void addApply(Apply apply);
 
-	public List<ApplyDTO> getAll();
+	public List<Apply> getAll();
 }

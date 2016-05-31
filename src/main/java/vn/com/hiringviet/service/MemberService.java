@@ -2,16 +2,16 @@ package vn.com.hiringviet.service;
 
 import org.springframework.stereotype.Service;
 
-import vn.com.hiringviet.dto.MemberDTO;
+import vn.com.hiringviet.model.Member;
 
 @Service("memberService")
 public interface MemberService {
 
-	public boolean addMember(MemberDTO memberDTO, boolean isCompany);
+	public boolean addMember(Member member, boolean isCompany);
 
-	public MemberDTO checkLogin(String email, String password);
+	public Member checkLogin(String email, String password);
 
 	public boolean activeAccount(Integer memberID);
 
-	public MemberDTO getMemberByteID(Integer memberID);
+	public Member getMemberByteID(Integer memberID);
 }

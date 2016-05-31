@@ -1,11 +1,10 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,74 +12,42 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@Table(name = "COMPANY_PHOTO", catalog = "hiringviet")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Table(name = "company_photo")
 public class CompanyPhoto implements Serializable {
 
 	private static final long serialVersionUID = -6886420826151394119L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "COMPANY_PHOTO_ID", nullable = false, length = 11)
-	private Integer companyPhotoID;
+	private Integer id;
 
-	@Column(name = "COMPANY_ID", nullable = false, length = 11)
-	private Integer companyID;
+	private String photo;
 
-	@Column(name = "PHOTO", nullable = false)
-	private byte[] photo;
-
-	@Column(name = "TITLE", nullable = true, length = 200)
 	private String title;
 
-	@Column(name = "DESCRIPTION", nullable = true, length = 200)
 	private String description;
 
-	@Column(name = "STATUS", nullable = false)
-	private Integer status;
-
-	@Column(name = "CREATED_AT", nullable = false)
-	private Date createdAt;
-
-	@Column(name = "UPDATED_AT", nullable = false)
-	private Date updatedAt;
-
-	@Column(name = "DELETED_AT")
-	private Date deletedAt;
-
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COMPANY_ID", nullable = false, insertable = false, updatable = false)
 	private Company company;
 
-	public Integer getCompanyPhotoID() {
-		return companyPhotoID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
 	}
 
-	public void setCompanyPhotoID(Integer companyPhotoID) {
-		this.companyPhotoID = companyPhotoID;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public Integer getCompanyID() {
-		return companyID;
-	}
-
-	public void setCompanyID(Integer companyID) {
-		this.companyID = companyID;
-	}
-
-	public byte[] getPhoto() {
+	@Column(name = "photo")
+	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(byte[] photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 
+	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
@@ -89,6 +56,7 @@ public class CompanyPhoto implements Serializable {
 		this.title = title;
 	}
 
+	@Column(name = "description")
 	public String getDescription() {
 		return description;
 	}
@@ -97,38 +65,8 @@ public class CompanyPhoto implements Serializable {
 		this.description = description;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public Date getDeletedAt() {
-		return deletedAt;
-	}
-
-	public void setDeletedAt(Date deletedAt) {
-		this.deletedAt = deletedAt;
-	}
-
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "company_id")
 	public Company getCompany() {
 		return company;
 	}

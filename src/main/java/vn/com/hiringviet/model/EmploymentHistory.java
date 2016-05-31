@@ -11,68 +11,45 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@Table(name = "EMPLOYMENT_HISTORY", catalog = "hiringviet")
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@Table(name = "employment_history")
 public class EmploymentHistory implements Serializable {
 
 	private static final long serialVersionUID = 4962308394934505729L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "EMP_HISTORY_ID", nullable = false, length = 11)
-	private Integer empHistoryID;
+	private Integer id;
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "RESUME_ID", nullable = false)
 	private Resume resume;
 
-	@Column(name = "COMPANY_NAME", nullable = false)
-	private String companyNAME;
+	private Company company;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "POSITION_ID", nullable = false)
 	private Position position;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "FROM_DATE")
-	private Date fromDate;
+	private Date beginDate;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "TO_DATE")
-	private Date toDate;
+	private Date endDate;
 
-	@Column(name = "DESCRIPTION", nullable = true)
 	private String description;
 
-	@Column(name = "STATUS", nullable = false)
-	private Integer status;
+	private ChangeLog changeLog;
 
-	@Column(name = "CREATED_AT", nullable = false)
-	private Date createdAt;
-
-	@Column(name = "UPDATED_AT", nullable = false)
-	private Date updatedAt;
-
-	@Column(name = "DELETED_AT")
-	private Date deletedAt;
-
-	public Integer getEmpHistoryID() {
-		return empHistoryID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
 	}
 
-	public void setEmpHistoryID(Integer empHistoryID) {
-		this.empHistoryID = empHistoryID;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "resume_id")
 	public Resume getResume() {
 		return resume;
 	}
@@ -81,14 +58,18 @@ public class EmploymentHistory implements Serializable {
 		this.resume = resume;
 	}
 
-	public String getCompanyNAME() {
-		return companyNAME;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_id")
+	public Company getCompany() {
+		return company;
 	}
 
-	public void setCompanyNAME(String companyNAME) {
-		this.companyNAME = companyNAME;
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "position_id")
 	public Position getPosition() {
 		return position;
 	}
@@ -97,22 +78,27 @@ public class EmploymentHistory implements Serializable {
 		this.position = position;
 	}
 
-	public Date getFromDate() {
-		return fromDate;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "begin_date")
+	public Date getBeginDate() {
+		return beginDate;
 	}
 
-	public void setFromDate(Date fromDate) {
-		this.fromDate = fromDate;
+	public void setBeginDate(Date beginDate) {
+		this.beginDate = beginDate;
 	}
 
-	public Date getToDate() {
-		return toDate;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "end_date")
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setToDate(Date toDate) {
-		this.toDate = toDate;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
+	@Column(name = "description")
 	public String getDescription() {
 		return description;
 	}
@@ -121,36 +107,14 @@ public class EmploymentHistory implements Serializable {
 		this.description = description;
 	}
 
-	public Integer getStatus() {
-		return status;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "change_log_id")
+	public ChangeLog getChangeLog() {
+		return changeLog;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public Date getDeletedAt() {
-		return deletedAt;
-	}
-
-	public void setDeletedAt(Date deletedAt) {
-		this.deletedAt = deletedAt;
+	public void setChangeLog(ChangeLog changeLog) {
+		this.changeLog = changeLog;
 	}
 
 }
