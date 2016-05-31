@@ -3,7 +3,8 @@ package vn.com.hiringviet.controller;
 
 import java.util.List;
 
-
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,9 @@ import vn.com.hiringviet.common.PagingEnum;
 import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.service.CountryService;
-
 import vn.com.hiringviet.service.JobService;
+import vn.com.hiringviet.service.MemberService;
+import vn.com.hiringviet.util.ResourceNotFoundException;
 import vn.com.hiringviet.util.Utils;
 
 @Controller
@@ -25,6 +27,8 @@ public class CommonController {
 	@Autowired
 	private CountryService countryService;
 
+	@Autowired
+	private MemberService memberService;
 
 	@Autowired
 	private JobService jobService;
@@ -92,7 +96,22 @@ public class CommonController {
 	public String footer() {
 		return "layouts/footer";
 	}
-	
+
+	@RequestMapping(value = "/layouts/companyBanner")
+	public String companyBanner() {
+		return "layouts/company_banner";
+	}
+
+	@RequestMapping(value = "/layouts/companyHeader")
+	public String companyHeader() {
+		return "layouts/company_header";
+	}
+
+	@RequestMapping(value = "/company")
+	public String company() {
+		return "company";
+	}
+
 	private MemberDTO loginByCookie(String username, String password) {
 		MemberDTO memberDTO = memberService.checkLogin(username, password);
 		if(memberDTO != null) {
