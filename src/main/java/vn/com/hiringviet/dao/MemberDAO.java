@@ -6,5 +6,4 @@ import vn.com.hiringviet.model.Member;
 
 @Repository
 public interface MemberDAO extends CommonDAO<Member> {
-	public boolean isExistEmail(String email);
 }

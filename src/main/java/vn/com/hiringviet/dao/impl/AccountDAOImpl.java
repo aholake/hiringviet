@@ -1,5 +1,7 @@
 package vn.com.hiringviet.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,6 +43,24 @@ public class AccountDAOImpl implements AccountDAO {
 		Account account = (Account) query.uniqueResult();
 
 		return account;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean isExistedAccount(String email) {
+		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		StringBuilder sb = new StringBuilder();
+		sb.append("FROM account");
+		sb.append("WHERE email = :email");
+		Query query = session.createQuery(sb.toString());
+		query.setParameter("email", email);
+		
+		List<Account> accounts = query.list();
+		if(accounts.isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 
 }

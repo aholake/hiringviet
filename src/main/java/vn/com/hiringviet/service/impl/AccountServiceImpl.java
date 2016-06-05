@@ -19,4 +19,10 @@ public class AccountServiceImpl implements AccountService {
 		return accountDAO.checkLogin(email, password);
 	}
 
+	@Override
+	public boolean isExistedAccount(String email) {
+		// TODO Auto-generated method stub
+		return accountDAO.isExistedAccount(email);
+	}
+
 }
