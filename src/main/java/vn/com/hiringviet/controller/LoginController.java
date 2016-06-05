@@ -18,7 +18,7 @@ import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.util.CookieUtil;
 
 @Controller
-public class AccountController {
+public class LoginController {
 
 	@Autowired
 	private AccountService accountService;
@@ -29,7 +29,8 @@ public class AccountController {
 			HttpSession session) {
 
 		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
-		Account account = accountService.checkLogin(accountDTO.getEmail(), accountDTO.getPassword());
+		Account account = accountService.checkLogin(accountDTO.getEmail(),
+				accountDTO.getPassword());
 
 		if (account == null) {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -38,12 +39,17 @@ public class AccountController {
 
 		if (accountDTO.isRemembered()) {
 			CookieUtil.createCookie(response, "email", account.getEmail());
-			CookieUtil.createCookie(response, "password", account.getPassword());
+			CookieUtil
+					.createCookie(response, "password", account.getPassword());
 		}
 
 		session.setAttribute("account", account);
 		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		return commonResponseDTO;
+	}
+
+	public static Account getAccountSession(HttpSession session) {
+		return (Account) session.getAttribute("account");
 	}
 
 }

@@ -1,5 +1,7 @@
 package vn.com.hiringviet.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -12,19 +14,27 @@ import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.model.Member;
 
 @Repository
-@Transactional
 public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@SuppressWarnings("unchecked")
 	@Override
+	@Transactional
 	public boolean isExistEmail(String email) {
 		// TODO Auto-generated method stub
 		Session session = this.sessionFactory.getCurrentSession();
 		StringBuilder sb = new StringBuilder();
 		sb.append("FROM member");
 		sb.append("WHERE account.email = :email");
-		return false;
+
+		Query query = session.createQuery(sb.toString());
+		query.setParameter("email", email);
+		List<Member> memberList = query.list();
+		if (memberList.isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 
 	// @Autowired

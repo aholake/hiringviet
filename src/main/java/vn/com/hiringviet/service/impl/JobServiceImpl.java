@@ -19,14 +19,15 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public List<Job> getJobList(Integer first, Integer max) {
-
-		return jobDAO.getJobList(first, max);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public Job getJobById(Integer id) {
-
-		return jobDAO.findOne(id);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
+	
 }

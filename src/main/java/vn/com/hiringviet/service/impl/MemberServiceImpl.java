@@ -1,37 +1,47 @@
 package vn.com.hiringviet.service.impl;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.MemberService;
 
 @Service("memberService")
-@Transactional
 public class MemberServiceImpl implements MemberService {
+	@Autowired
+	private MemberDAO memberDAO;
 
 	@Override
-	public boolean addMember(Member member, boolean isCompany) {
+	public int addMember(Member member) {
 		// TODO Auto-generated method stub
-		return false;
+		return memberDAO.create(member);
 	}
 
 	@Override
-	public Member checkLogin(String email, String password) {
+	public boolean deleteMember(Member member) {
 		// TODO Auto-generated method stub
-		return null;
+		return memberDAO.delete(member);
 	}
 
 	@Override
-	public boolean activeAccount(Integer memberID) {
+	public List<Member> getMemberList() {
 		// TODO Auto-generated method stub
-		return false;
+		return memberDAO.findAll();
 	}
 
 	@Override
-	public Member getMemberByteID(Integer memberID) {
+	public Member getMemberByID(Integer memberID) {
 		// TODO Auto-generated method stub
-		return null;
+		return memberDAO.findOne(memberID);
+	}
+
+	@Override
+	public boolean isExistEmail(String email) {
+		// TODO Auto-generated method stub
+		return memberDAO.isExistEmail(email);
 	}
 
 }
