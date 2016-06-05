@@ -1,7 +1,6 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,7 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "position")
@@ -54,6 +52,7 @@ public class Position implements Serializable {
 		this.displayName = displayName;
 	}
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "position")
 	public List<EmploymentHistory> getEmploymentHistorySet() {
 		return employmentHistorySet;
@@ -64,6 +63,7 @@ public class Position implements Serializable {
 		this.employmentHistorySet = employmentHistorySet;
 	}
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "position")
 	public List<Job> getJobList() {
 		return jobList;
@@ -73,6 +73,7 @@ public class Position implements Serializable {
 		this.jobList = jobList;
 	}
 
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
@@ -81,6 +82,14 @@ public class Position implements Serializable {
 
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
+	}
+
+	@Override
+	public String toString() {
+		return "Position [positionID=" + positionID + ", displayName="
+				+ displayName + ", employmentHistorySet="
+				+ employmentHistorySet + ", jobList=" + jobList
+				+ ", changeLog=" + changeLog + "]";
 	}
 
 }

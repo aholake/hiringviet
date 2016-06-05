@@ -31,7 +31,7 @@
 </head>
 <body>
 	<input type="hidden" id="url_redirect_page" value="<c:url value='/home' />" />
-	<input type="hidden" id="url_check_account" value="<c:url value='/member/checkAccount' />" />
+	<input type="hidden" id="url_check_account" value="<c:url value='/account/checkAccount' />" />
 	<div class="row">
 		<div class="col m4 offset-m4">
 			<div class="main-box">
@@ -83,7 +83,7 @@
 								</a>
 							</div>
 						</div>
-						<a href="" id="btn-sign-in" class="btn waves-effect waves-light btn-block">
+						<a href="" id="btn-sign-in" class="btn waves-effect waves-light orange btn-block">
 							<spring:message code="label.login.button.sign_in"/>
 						</a>
 					</form:form>

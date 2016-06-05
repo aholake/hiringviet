@@ -9,9 +9,8 @@ $(function() {
 			var data = {
 					email: $('#txtEmail').val(),
 					password: $('#txtPassword').val(),
-					rememberAccount: remember_cb
+					isRemembered: remember_cb
 			}
-			console.log(data);
 			callAPI($('#url_check_account').val(), 'POST', data, 'resultSignIn', true);
 		}
 		event.preventDefault();

@@ -1,5 +1,6 @@
 package vn.com.hiringviet.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -13,9 +14,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "change_log")
-public class ChangeLog {
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class ChangeLog implements Serializable {
+
+	private static final long serialVersionUID = -393256196794848432L;
+
 	private int id;
 
 	private Date createdDate;
@@ -95,6 +103,7 @@ public class ChangeLog {
 		this.status = status;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public Member getMember() {
 		return member;
@@ -104,6 +113,7 @@ public class ChangeLog {
 		this.member = member;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public Company getCompany() {
 		return company;
@@ -113,6 +123,7 @@ public class ChangeLog {
 		this.company = company;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public EducationHistory getEducationHistory() {
 		return educationHistory;
@@ -122,6 +133,7 @@ public class ChangeLog {
 		this.educationHistory = educationHistory;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public EmploymentHistory getEmploymentHistory() {
 		return employmentHistory;
@@ -131,6 +143,7 @@ public class ChangeLog {
 		this.employmentHistory = employmentHistory;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public Job getJob() {
 		return job;
@@ -140,6 +153,7 @@ public class ChangeLog {
 		this.job = job;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public JobCategory getJobCategory() {
 		return jobCategory;
@@ -149,6 +163,7 @@ public class ChangeLog {
 		this.jobCategory = jobCategory;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public Comment getComment() {
 		return comment;
@@ -158,6 +173,7 @@ public class ChangeLog {
 		this.comment = comment;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public ReplyComment getReplyComment() {
 		return replyComment;
@@ -167,6 +183,7 @@ public class ChangeLog {
 		this.replyComment = replyComment;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public Resume getResume() {
 		return resume;
@@ -176,6 +193,7 @@ public class ChangeLog {
 		this.resume = resume;
 	}
 
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "changeLog")
 	public Position getPosition() {
 		return position;

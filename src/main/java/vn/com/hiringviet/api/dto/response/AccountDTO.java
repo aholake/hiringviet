@@ -1,26 +1,15 @@
-package vn.com.hiringviet.model;
+package vn.com.hiringviet.api.dto.response;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Member;
+import vn.com.hiringviet.model.Message;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+public class AccountDTO implements Serializable {
 
-@Entity
-@Table(name = "account")
-public class Account implements Serializable {
-
-	private static final long serialVersionUID = -4371044009879481708L;
+	private static final long serialVersionUID = 4072348976258199771L;
 
 	private Integer id;
 
@@ -42,17 +31,16 @@ public class Account implements Serializable {
 
 	private List<Message> sentMessages;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private boolean isRemembered;
+
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer accountID) {
-		this.id = accountID;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	@Column(name = "email")
 	public String getEmail() {
 		return email;
 	}
@@ -61,7 +49,6 @@ public class Account implements Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "password")
 	public String getPassword() {
 		return password;
 	}
@@ -70,7 +57,6 @@ public class Account implements Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "role_id")
 	public Integer getRoleID() {
 		return roleID;
 	}
@@ -79,7 +65,6 @@ public class Account implements Serializable {
 		this.roleID = roleID;
 	}
 
-	@Column(name = "locale")
 	public String getLocale() {
 		return locale;
 	}
@@ -96,8 +81,6 @@ public class Account implements Serializable {
 		this.status = status;
 	}
 
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "account")
 	public Member getMember() {
 		return member;
 	}
@@ -106,8 +89,6 @@ public class Account implements Serializable {
 		this.member = member;
 	}
 
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "account")
 	public Company getCompany() {
 		return company;
 	}
@@ -116,8 +97,6 @@ public class Account implements Serializable {
 		this.company = company;
 	}
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerAccount")
 	public List<Message> getInboxMessages() {
 		return inboxMessages;
 	}
@@ -126,8 +105,6 @@ public class Account implements Serializable {
 		this.inboxMessages = inboxMessages;
 	}
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "senderAccount")
 	public List<Message> getSentMessages() {
 		return sentMessages;
 	}
@@ -135,4 +112,13 @@ public class Account implements Serializable {
 	public void setSentMessages(List<Message> sentMessages) {
 		this.sentMessages = sentMessages;
 	}
+
+	public boolean isRemembered() {
+		return isRemembered;
+	}
+
+	public void setRemembered(boolean isRemembered) {
+		this.isRemembered = isRemembered;
+	}
+
 }
