@@ -1,7 +1,6 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,7 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "job_category")
@@ -52,6 +50,7 @@ public class JobCategory implements Serializable {
 		this.categoryName = categoryName;
 	}
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "jobCategory")
 	public List<Job> getJobList() {
 		return jobList;
@@ -61,6 +60,7 @@ public class JobCategory implements Serializable {
 		this.jobList = jobList;
 	}
 
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {

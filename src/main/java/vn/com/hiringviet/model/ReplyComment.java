@@ -1,7 +1,6 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,13 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "reply_comment")
@@ -46,6 +40,7 @@ public class ReplyComment implements Serializable {
 		this.id = id;
 	}
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "comment_id")
 	public Comment getComment() {
@@ -65,6 +60,7 @@ public class ReplyComment implements Serializable {
 		this.replyComment = replyComment;
 	}
 
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {

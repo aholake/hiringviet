@@ -21,8 +21,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "job")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Job implements Serializable {
 
 	private static final long serialVersionUID = -3278815174799070361L;
@@ -75,7 +82,7 @@ public class Job implements Serializable {
 		this.jobCategory = jobCategory;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "company_id")
 	public Company getCompany() {
 		return company;
@@ -85,7 +92,8 @@ public class Job implements Serializable {
 		this.company = company;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SELECT)
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "job_skill", joinColumns = { @JoinColumn(name = "job_id") }, inverseJoinColumns = { @JoinColumn(name = "skill_id") })
 	public List<Skill> getSkillList() {
 		return skillList;
@@ -95,7 +103,7 @@ public class Job implements Serializable {
 		this.skillList = skillList;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "job")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "job")
 	public List<Comment> getCommentSet() {
 		return commentSet;
 	}
@@ -104,6 +112,7 @@ public class Job implements Serializable {
 		this.commentSet = commentSet;
 	}
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "job")
 	public List<Apply> getApplyList() {
 		return applyList;
@@ -178,7 +187,7 @@ public class Job implements Serializable {
 		this.position = position;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
 		return changeLog;
@@ -187,5 +196,4 @@ public class Job implements Serializable {
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
 	}
-
 }

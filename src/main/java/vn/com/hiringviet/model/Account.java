@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "account")
 public class Account implements Serializable {
@@ -29,6 +31,8 @@ public class Account implements Serializable {
 	private Integer roleID;
 
 	private String locale;
+
+	private Integer status;
 
 	private Member member;
 
@@ -84,6 +88,15 @@ public class Account implements Serializable {
 		this.locale = locale;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "account")
 	public Member getMember() {
 		return member;
@@ -93,6 +106,7 @@ public class Account implements Serializable {
 		this.member = member;
 	}
 
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "account")
 	public Company getCompany() {
 		return company;
@@ -102,6 +116,7 @@ public class Account implements Serializable {
 		this.company = company;
 	}
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerAccount")
 	public List<Message> getInboxMessages() {
 		return inboxMessages;
@@ -111,6 +126,7 @@ public class Account implements Serializable {
 		this.inboxMessages = inboxMessages;
 	}
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "senderAccount")
 	public List<Message> getSentMessages() {
 		return sentMessages;

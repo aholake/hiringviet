@@ -12,8 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "message")
@@ -45,6 +46,7 @@ public class Message implements Serializable {
 		this.id = id;
 	}
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "owner_account_id")
 	public Account getOwnerAccount() {
@@ -55,6 +57,7 @@ public class Message implements Serializable {
 		this.ownerAccount = ownerAccount;
 	}
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "sender_account_id")
 	public Account getSenderAccount() {

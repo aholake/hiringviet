@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "company")
 public class Company implements Serializable {
@@ -59,6 +62,7 @@ public class Company implements Serializable {
 		this.id = companyID;
 	}
 
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="account_id")
 	public Account getAccount() {
@@ -87,6 +91,7 @@ public class Company implements Serializable {
 		this.companySize = companySize;
 	}
 
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
 	public Address getAddress() {
@@ -151,6 +156,7 @@ public class Company implements Serializable {
 		this.location = location;
 	}
 
+	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
@@ -161,6 +167,7 @@ public class Company implements Serializable {
 		this.changeLog = changeLog;
 	}
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.ALL)
 	public List<CompanyPhoto> getCompanyPhotoList() {
 		return companyPhotoList;
@@ -170,7 +177,8 @@ public class Company implements Serializable {
 		this.companyPhotoList = companyPhotoList;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "company")
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
 	public List<Job> getJobList() {
 		return jobList;
 	}

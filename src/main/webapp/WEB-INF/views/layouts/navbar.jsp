@@ -62,19 +62,23 @@
 				<div id="search-input" class="left">
 					<input type="text" id="search-auto-complete"
 						placeholder="Tìm kiếm công việc, công ty, người dùng,...">
-					<p class="search-hint"><spring:message code="label.navbar.title.key_word"/>: Thông dịch viên, lập trình
-						Java, lập trình PHP...</p>
+					<p class="search-hint">
+						<spring:message code="label.navbar.title.key_word" />
+						: Thông dịch viên, lập trình Java, lập trình PHP...
+					</p>
 					<div id="suggestion-box" class="z-depth-1">
 						<div class="search-progress">
 							<img src="/resources/images/loading.gif" />
-							<p><spring:message code="label.navbar.title.process_search" /></p>
+							<p>
+								<spring:message code="label.navbar.title.process_search" />
+							</p>
 						</div>
 						<ul class="wrap-search-results">
 
 						</ul>
 					</div>
 				</div>
-				<a id="search-btn" class="circle-btn left blue lighten-2 noselect">
+				<a id="search-btn" class="circle-btn left orange darken-1 noselect">
 					<i class="material-icons white-text">search</i>
 				</a>
 
@@ -86,20 +90,26 @@
 						<div class="top-menu-box">
 							<c:if test="${empty memberDTO }">
 								<div id="login-box">
-									<h1 class="title info center"><spring:message code="label.login.button.sign_in"/></h1>
+									<h1 class="title info center">
+										<spring:message code="label.login.button.sign_in" />
+									</h1>
 									<div class="rectangle-input">
-										<label for="email-login"> <spring:message code="label.login.field.email_title"/>: </label> <input
-											id="email-login" type="text" class="validate"></input>
+										<label for="email-login"> <spring:message
+												code="label.login.field.email_title" />:
+										</label> <input id="email-login" type="text" class="validate"></input>
 									</div>
 									<div class="rectangle-input">
-										<label for="email-login"> <spring:message code="label.login.field.password_title"/>: </label> <input
-											id="password-login" type="text" class="validate"></input>
+										<label for="email-login"> <spring:message
+												code="label.login.field.password_title" />:
+										</label> <input id="password-login" type="text" class="validate"></input>
 									</div>
 									<p>
-										<input type="checkbox" id="test5" /> <label for="test5"><spring:message code="label.login.title.remember_account"/></label>
+										<input type="checkbox" id="test5" /> <label for="test5"><spring:message
+												code="label.login.title.remember_account" /></label>
 									</p>
 									<div class="margin-top-10 center">
-										<a id="login-btn" href="#" class="btn"><spring:message code="label.login.button.sign_in"/></a>
+										<a id="login-btn" href="#" class="btn"><spring:message
+												code="label.login.button.sign_in" /></a>
 									</div>
 								</div>
 							</c:if>
@@ -111,7 +121,8 @@
 										<a href="#">Võ Tấn Lộc</a>
 									</h5>
 									<h6>
-										<a href="#"><spring:message code="label.navbar.title.add_skill"/></a>
+										<a href="#"><spring:message
+												code="label.navbar.title.add_skill" /></a>
 									</h6>
 								</div>
 							</c:if>
@@ -121,15 +132,18 @@
 								<li>
 									<div class="menu-item-header">
 										<a href="#"><i class="material-icons prefix-icon">account_box</i>
-											<spring:message code="label.navbar.title.profile"/>
-										</a>
+											<spring:message code="label.navbar.title.profile" /> </a>
 									</div>
 									<div class="menu-item-body">
 										<ul>
-											<li><a href="#"><spring:message code="label.navbar.title.edit_profile"/></a></li>
-											<li><a href="#"><spring:message code="label.navbar.title.visiting_number"/></a></li>
-											<li><a href="#"><spring:message code="label.navbar.title.activity_log"/></a></li>
-											<li><a href="#"><spring:message code="label.navbar.title.mailbox"/></a></li>
+											<li><a href="#"><spring:message
+														code="label.navbar.title.edit_profile" /></a></li>
+											<li><a href="#"><spring:message
+														code="label.navbar.title.visiting_number" /></a></li>
+											<li><a href="#"><spring:message
+														code="label.navbar.title.activity_log" /></a></li>
+											<li><a href="#"><spring:message
+														code="label.navbar.title.mailbox" /></a></li>
 										</ul>
 									</div>
 								</li>
@@ -142,7 +156,8 @@
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">donut_large</i><spring:message code="label.navbar.title.follow"/></a>
+										<a href="#"><i class="material-icons prefix-icon">donut_large</i>
+										<spring:message code="label.navbar.title.follow" /></a>
 									</div>
 									<div class="menu-item-body">
 										<ul>
@@ -166,15 +181,13 @@
 								<li>
 									<div class="menu-item-header">
 										<a href="#"><i class="material-icons prefix-icon">account_circle</i>
-											<spring:message code="label.navbar.title.account"/>
-										</a>
+											<spring:message code="label.navbar.title.account" /> </a>
 									</div>
 								</li>
 								<li>
 									<div class="menu-item-header">
 										<a href="#"><i class="material-icons prefix-icon">exit_to_app</i>
-											<spring:message code="label.navbar.title.sign_out"/>
-										</a>
+											<spring:message code="label.navbar.title.sign_out" /> </a>
 									</div>
 								</li>
 							</ul>

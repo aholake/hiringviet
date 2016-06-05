@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "company_photo")
 public class CompanyPhoto implements Serializable {
@@ -65,6 +67,7 @@ public class CompanyPhoto implements Serializable {
 		this.description = description;
 	}
 
+	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "company_id")
 	public Company getCompany() {

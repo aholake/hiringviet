@@ -21,6 +21,9 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 	public boolean isExistEmail(String email) {
 		// TODO Auto-generated method stub
 		Session session = this.sessionFactory.getCurrentSession();
+		StringBuilder sb = new StringBuilder();
+		sb.append("FROM member");
+		sb.append("WHERE account.email = :email");
 		return false;
 	}
 
