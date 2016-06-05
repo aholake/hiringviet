@@ -49,15 +49,16 @@ public class AccountDAOImpl implements AccountDAO {
 	@Override
 	public boolean isExistedAccount(String email) {
 		// TODO Auto-generated method stub
+		System.out.println("check email " + email);
 		Session session = this.sessionFactory.getCurrentSession();
 		StringBuilder sb = new StringBuilder();
-		sb.append("FROM account");
+		sb.append("FROM Account ");
 		sb.append("WHERE email = :email");
 		Query query = session.createQuery(sb.toString());
 		query.setParameter("email", email);
-		
-		List<Account> accounts = query.list();
-		if(accounts.isEmpty()) {
+
+		Account account = (Account) query.uniqueResult();
+		if (account == null) {
 			return false;
 		}
 		return true;

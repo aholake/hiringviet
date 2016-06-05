@@ -88,14 +88,6 @@ public class Account implements Serializable {
 		this.locale = locale;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "account")
 	public Member getMember() {
