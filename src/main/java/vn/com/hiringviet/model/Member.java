@@ -18,6 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "member")
 public class Member implements Serializable {
@@ -54,6 +56,7 @@ public class Member implements Serializable {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_id")
+	@Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	public Account getAccount() {
 		return account;
 	}

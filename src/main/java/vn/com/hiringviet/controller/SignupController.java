@@ -12,11 +12,15 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
+import vn.com.hiringviet.service.MemberService;
 
 @Controller
 public class SignupController {
 	@Autowired
 	private AccountService accountService;
+
+	@Autowired
+	private MemberService memberService;
 
 	@RequestMapping(value = "/register")
 	public String goToRegisterOption() {
@@ -39,5 +43,13 @@ public class SignupController {
 	@RequestMapping(value = "/rest/checkExistedEmail", method = RequestMethod.POST)
 	public @ResponseBody boolean checkExistedEmail(@RequestBody String email) {
 		return accountService.isExistedAccount(email);
+	}
+
+	@RequestMapping(value = "/rest/addNewMember", method = RequestMethod.POST)
+	public @ResponseBody int addNewMember(@RequestBody Member member) {
+		System.out.println(member.getAccount().getEmail() + ", "
+				+ member.getAccount().getPassword() + ", "
+				+ member.getFirstName() + ", " + member.getLastName());
+		return memberService.addMember(member);
 	}
 }
