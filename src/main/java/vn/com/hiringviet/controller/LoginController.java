@@ -29,8 +29,7 @@ public class LoginController {
 			HttpSession session) {
 
 		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
-		Account account = accountService.checkLogin(accountDTO.getEmail(),
-				accountDTO.getPassword());
+		Account account = accountService.checkLogin(accountDTO.getEmail(), accountDTO.getPassword());
 
 		if (account == null) {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -39,8 +38,7 @@ public class LoginController {
 
 		if (accountDTO.isRemembered()) {
 			CookieUtil.createCookie(response, "email", account.getEmail());
-			CookieUtil
-					.createCookie(response, "password", account.getPassword());
+			CookieUtil.createCookie(response, "password", account.getPassword());
 		}
 
 		session.setAttribute("account", account);

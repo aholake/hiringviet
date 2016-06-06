@@ -58,6 +58,10 @@ public class Job implements Serializable {
 
 	private String requirement;
 
+	private String cultureDescription;
+
+	private Integer size;
+
 	private Position position;
 
 	private ChangeLog changeLog;
@@ -92,8 +96,8 @@ public class Job implements Serializable {
 		this.company = company;
 	}
 
-	@Fetch(FetchMode.SELECT)
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SUBSELECT)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "job_skill", joinColumns = { @JoinColumn(name = "job_id") }, inverseJoinColumns = { @JoinColumn(name = "skill_id") })
 	public List<Skill> getSkillList() {
 		return skillList;
@@ -175,6 +179,24 @@ public class Job implements Serializable {
 
 	public void setRequirement(String requirement) {
 		this.requirement = requirement;
+	}
+
+	@Column(name = "culture_description")
+	public String getCultureDescription() {
+		return cultureDescription;
+	}
+
+	public void setCultureDescription(String cultureDescription) {
+		this.cultureDescription = cultureDescription;
+	}
+
+	@Column(name = "size")
+	public Integer getSize() {
+		return size;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)

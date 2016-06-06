@@ -16,7 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "company")
@@ -45,6 +44,8 @@ public class Company implements Serializable {
 	private String website;
 
 	private String location;
+
+	private String country;
 
 	private ChangeLog changeLog;
 
@@ -91,8 +92,7 @@ public class Company implements Serializable {
 		this.companySize = companySize;
 	}
 
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "address_id")
 	public Address getAddress() {
 		return address;
@@ -156,8 +156,16 @@ public class Company implements Serializable {
 		this.location = location;
 	}
 
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@Column(name = "country")
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
 		return changeLog;

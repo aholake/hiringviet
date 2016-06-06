@@ -64,7 +64,7 @@ public class ChangeLog implements Serializable {
 		this.id = id;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date")
 	public Date getCreatedDate() {
 		return createdDate;
@@ -74,7 +74,7 @@ public class ChangeLog implements Serializable {
 		this.createdDate = createdDate;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated_date")
 	public Date getUpdatedDate() {
 		return updatedDate;
@@ -84,7 +84,7 @@ public class ChangeLog implements Serializable {
 		this.updatedDate = updatedDate;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "deleted_date")
 	public Date getDeletedDate() {
 		return deletedDate;

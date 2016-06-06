@@ -3,11 +3,7 @@ package vn.com.hiringviet.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.beanutils.BeanUtils;
-
-import vn.com.hiringviet.model.Account;
 
 public class Utils {
 
@@ -133,10 +129,6 @@ public class Utils {
 		} else {
 			return 0;
 		}
-	}
-
-	public static Account getMemberSession(HttpSession session) {
-		return (Account) session.getAttribute("account");
 	}
 
 	public static boolean isEmptyObject(Object object) {

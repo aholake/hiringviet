@@ -1,7 +1,5 @@
 package vn.com.hiringviet.dao.impl;
 
-import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

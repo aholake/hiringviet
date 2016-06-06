@@ -11,7 +11,7 @@ import vn.com.hiringviet.model.Job;
 @Transactional
 public interface JobService {
 
-	public List<Job> getJobList(Integer first, Integer max);
+	public List<Job> getJobList(Integer first, Integer max, boolean isJobHot);
 
 	public Job getJobById(Integer id);
 }
