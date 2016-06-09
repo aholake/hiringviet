@@ -37,4 +37,10 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberDAO.findOne(memberID);
 	}
+
+	@Override
+	public Member getMemberByAccountId(Integer accountId) {
+
+		return memberDAO.getMemberByAccountId(accountId);
+	}
 }

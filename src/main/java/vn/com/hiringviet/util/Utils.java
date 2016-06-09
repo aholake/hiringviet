@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import vn.com.hiringviet.constant.ConstantValues;
+import vn.com.hiringviet.dto.PagingDTO;
+
 public class Utils {
 
 	/**
@@ -148,5 +151,10 @@ public class Utils {
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static PagingDTO calculatorPaging(PagingDTO pagingDTO) {
+		pagingDTO.setFirstItem(pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT);
+		return pagingDTO;
 	}
 }

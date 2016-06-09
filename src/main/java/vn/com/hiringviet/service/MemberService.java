@@ -17,4 +17,6 @@ public interface MemberService {
 
 	public Member getMemberByID(Integer memberID);
 
+	public Member getMemberByAccountId(Integer accountId);
+
 }

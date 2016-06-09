@@ -51,6 +51,10 @@ nav {
 	margin-top: 5px;
 }
 
+.margin-bottom-5 {
+	margin-bottom: 5px;
+}
+
 .margin-top-10 {
 	margin-top: 10px;
 }
@@ -158,5 +162,14 @@ h1.title {
 .chip:hover {
 	color: #fb8c00;
 	border: 1px solid #fb8c00 !important;
+}
+
+.img-full {
+	width: 100%;
+	height: 100%;
+}
+
+.text-align-center {
+	text-align: center;
 }
 @import url("smart.css");

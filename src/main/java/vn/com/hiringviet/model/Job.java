@@ -56,6 +56,8 @@ public class Job implements Serializable {
 
 	private Date postDate;
 
+	private Date expiredDate;
+
 	private String requirement;
 
 	private String cultureDescription;
@@ -170,6 +172,16 @@ public class Job implements Serializable {
 
 	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
+	}
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "expired_date")
+	public Date getExpiredDate() {
+		return expiredDate;
+	}
+
+	public void setExpiredDate(Date expiredDate) {
+		this.expiredDate = expiredDate;
 	}
 
 	@Column(name = "requirement")

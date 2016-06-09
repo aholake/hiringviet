@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Company</title>
+<title><spring:message code="label.company.title"/></title>
 <!-- Local style -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
@@ -30,7 +30,41 @@
 		<div class="row">
 			<div class="col m8">
 				<div class="card-panel">
-					<div class="panel-title">Hoạt động</div>
+					<div class="slider">
+					    <ul class="slides">
+					      <li>
+					        <img src="/resources/images/company_background.jpg"> <!-- random image -->
+					        <div class="caption center-align">
+					          <h3>This is our big Tagline!</h3>
+					          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+					        </div>
+					      </li>
+					      <li>
+					        <img src="/resources/images/company_background.jpg"> <!-- random image -->
+					        <div class="caption left-align">
+					          <h3>Left Aligned Caption</h3>
+					          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+					        </div>
+					      </li>
+					      <li>
+					        <img src="/resources/images/company_background.jpg"> <!-- random image -->
+					        <div class="caption right-align">
+					          <h3>Right Aligned Caption</h3>
+					          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+					        </div>
+					      </li>
+					      <li>
+					        <img src="/resources/images/company_background.jpg"> <!-- random image -->
+					        <div class="caption center-align">
+					          <h3>This is our big Tagline!</h3>
+					          <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+					        </div>
+					      </li>
+					    </ul>
+					  </div>
+				</div>
+				<div class="card-panel">
+					<div class="panel-title"><spring:message code="label.company.title.active"/></div>
 					<div class="row">
 						<div class="input-field col m12">
 							<i class="material-icons prefix">mode_edit</i>
@@ -148,5 +182,13 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		
+		$(document).ready(function() {
+			$('.slider').slider({
+				full_width : true
+			});
+		});
+	</script>
 </body>
 </html>

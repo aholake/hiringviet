@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.service.JobService;
 
 @Service("JobService")
@@ -18,12 +19,12 @@ public class JobServiceImpl implements JobService {
 	private JobDAO jobDAO;
 
 	@Override
-	public List<Job> getJobList(Integer first, Integer max, boolean isJobHot) {
+	public List<Job> getJobList(Integer first, Integer max, boolean isJobHot, List<Skill> skills) {
 
 		if (isJobHot) {
-			return jobDAO.getListJobHot(first, max);
+			return jobDAO.getListJobHot(first, max, skills);
 		} else {
-			return jobDAO.getListJobSuggest(first, max);
+			return jobDAO.getListJobSuggest(first, max, skills);
 		}
 	}
 

@@ -50,4 +50,8 @@ public class LoginController {
 		return (Account) session.getAttribute("account");
 	}
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String login() {
+		return "login_page";
+	}
 }

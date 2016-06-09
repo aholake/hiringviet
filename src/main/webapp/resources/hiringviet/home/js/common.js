@@ -5,6 +5,23 @@ var BORDER_INPUT = '#f44336';
 var SUCCESS = 'success';
 var FAIL = 'fail';
 
+/** Global Constant for CSS pop-up Progressing */
+var popupCss = "background-color: #BCBCBC;\
+	opacity: 0.8;\
+	position: fixed;\
+	top:0;\
+	left:0;\
+	width: 100%;\
+	height: 100%;\
+	z-index: 1001;";
+
+var wrap = "width: 40%;\
+    margin: 20% auto auto auto;\
+    height: 10px;\
+    background: #ffcdd2;";
+
+var process = "background: #e65100;";
+
 $(function() {
 	/* Close all dialog and navbar */
 	$("body").click(function() {
@@ -15,7 +32,7 @@ $(function() {
 	*/
 	// toggle profile box
 	$("body").click(function(e) {
-		console.log(e.target.id);
+
 		if(e.target.id == "menu-btn" || $(e.target).closest("#menu-btn").length){
 			$("#dropdown-menu").toggle();
    			//console.log("1");
@@ -83,10 +100,17 @@ function callAPI(url, method, data, callback, isProgressing, isMobile) {
 
 function enableProgressing(isMobile) {
 
+	var progressingHTML = "<div id='progressingPopupSelector' style='" + popupCss + "'>\
+								<div class='progress' style='" + wrap + "'>\
+								    <div class='indeterminate' style='" + process + "'></div>\
+								</div>\
+							</div>";
+	// Append to screen
+	$("body").append(progressingHTML);
 }
 
 function disableProgressing() {
-
+	$("body").find("#progressingPopupSelector").remove();
 }
 
 function resetErrorMessage(arrs) {
@@ -146,4 +170,12 @@ function refreshPage() {
 /* redirect to page */
 function redirectTo(location) {
 	window.location = location;
+}
+
+function isPotraitMobileMode() {
+
+	if ($(window).width() >= 500) {
+		return false;
+	}
+	return true;
 }

@@ -8,8 +8,8 @@
 </head>
 <body>
 	<div class="company-banner">
-		<img class="company-cover responsive-img"
-			src="<c:url value='/resources/images/company_background.jpg' />" alt="company cover" />
+		<img class="company-cover responsive-img img-full"
+			src="/resources/images/company_background.jpg" alt="company cover" />
 		<div class="social-connect-box">
 			<span class="social-company-name">Axon Active</span> <a href="#"><img
 				src="/resources/images/facebook.png" /></a> <a href="#"><img

@@ -20,6 +20,16 @@
 
 	<div id="introduce-slider"></div>
 
+	<input type="hidden" id="get_job_hot" value="<c:url value='/job/hot' />" />
+	<input type="hidden" id="first_item" value="${firstItem}" />
+	<input type="hidden" id="current_page" value="${currentPage}" />
+
+	<input type="hidden" id="text_company_follow" value="<spring:message code="label.home.button.follow_company" />" />
+	<input type="hidden" id="text_title_salary" value="<spring:message code="label.home.title.salary" />" />
+	<input type="hidden" id="text_title_post_date" value="<spring:message code="label.home.title.post_date"/>" />
+	<input type="hidden" id="text_title_major" value="<spring:message code="label.home.title.major"/>" />
+	<input type="hidden" id="text_total_employee" value="<spring:message code="label.home.title.total_employee"/>" />
+	<input type="hidden" id="text_title_people" value="<spring:message code="label.home.title.people"/>" />
 	<div id="main-container">
 		<div class="row">
 			<div class="col m8 no-padding-on-med-and-down">
@@ -28,54 +38,56 @@
 						<spring:message code="label.home.title.hot_career" />
 					</div>
 					<c:forEach items="${jobList}" var="job">
-						<div class="panel-content">
-							<div class="job-box">
-								<div class="location-sticky orange darken-1">${job.company.address.province}</div>
-								<div class="row none-margin-bottom">
-									<div class="col m3 center hide-on-med-and-down">
-										<img src="${job.company.avatar}" class="responsive-img company-logo">
-										<a href="#" class="btn margin-top-10 orange darken-1">
-											<spring:message code="label.home.button.follow_company" />
-										</a>
-									</div>
-									<div class="col m9">
-										<div class="col m12 p-0">
-											<h1 class="col m9 p-0 title block-with-text">${job.title}</h1>
+						<div id="job-list">
+							<div class="panel-content">
+								<div class="job-box">
+									<div class="location-sticky orange darken-1">${job.company.address.province}</div>
+									<div class="row none-margin-bottom">
+										<div class="col m3 center hide-on-med-and-down">
+											<img src="${job.company.avatar}" class="responsive-img company-logo">
+											<a href="#" class="btn margin-top-10 orange darken-1 waves-effect waves-light">
+												<spring:message code="label.home.button.follow_company" />
+											</a>
 										</div>
-										<a href="#" class="company-name">${job.company.displayName}</a>
-										<p class="work-location"><a href="#">${job.company.address.province}</a></p>
-	
-										<div class="job-info">
-											<div class="row">
-												<div class="col m6 none-padding-left">
-													<p><spring:message code="label.home.title.salary" />: 
-														<span class="info">${job.minSalary} - ${job.maxSalary}</span>
-													</p>
-												</div>
-												<div class="col m6 none-padding-left">
-													<span class="right"><spring:message code="label.home.title.post_date"/>: 
-														<span class="info">${job.postDate}</span>
-													</span>
-												</div>
-												<div class="col m6 none-padding-left">
-													<p><spring:message code="label.home.title.major"/>: 
-														<span class="info">${job.position.displayName}</span>
-													</p>
-												</div>
-												<div class="col m6 none-padding-left">
-													<span class="right"><spring:message code="label.home.title.total_employee"/>: 
-														<span class="info">${job.size} <spring:message code="label.home.title.people"/></span>
-													</span>
-												</div>
+										<div class="col m9">
+											<div class="col m12 p-0">
+												<h1 class="col m9 p-0 title block-with-text">${job.title}</h1>
 											</div>
-											<div class="row">
-												<p class="col m12 none-padding-left text-justify block-with-text">
-													${job.description}
-												</p>
-												<div class="col m12 none-padding-left margin-top-5">
-													<c:forEach items="${job.skillList}" var="skill">
-														<a class="chip">${skill.displayName}</a>
-													</c:forEach>
+											<a href="#" class="company-name">${job.company.displayName}</a>
+											<p class="work-location"><a href="#">${job.company.address.province}</a></p>
+		
+											<div class="job-info">
+												<div class="row">
+													<div class="col m6 none-padding-left">
+														<p><spring:message code="label.home.title.salary" />: 
+															<span class="info">${job.minSalary} - ${job.maxSalary}</span>
+														</p>
+													</div>
+													<div class="col m6 none-padding-left">
+														<span class="right"><spring:message code="label.home.title.post_date"/>: 
+															<span class="info">${job.postDate}</span>
+														</span>
+													</div>
+													<div class="col m6 none-padding-left">
+														<p><spring:message code="label.home.title.major"/>: 
+															<span class="info">${job.position.displayName}</span>
+														</p>
+													</div>
+													<div class="col m6 none-padding-left">
+														<span class="right"><spring:message code="label.home.title.total_employee"/>: 
+															<span class="info">${job.size} <spring:message code="label.home.title.people"/></span>
+														</span>
+													</div>
+												</div>
+												<div class="row">
+													<p class="col m12 none-padding-left text-justify block-with-text">
+														${job.description}
+													</p>
+													<div class="col m12 none-padding-left margin-top-5">
+														<c:forEach items="${job.skillList}" var="skill">
+															<a class="chip">${skill.displayName}</a>
+														</c:forEach>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -84,6 +96,11 @@
 							</div>
 						</div>
 					</c:forEach>
+					<div class="text-align-center">
+						<a id="btn-load-more" class="btn-floating btn-large waves-effect waves-light red">
+							<i class="material-icons">add</i>
+						</a>
+					</div>
 				</div>
 			</div>
 			<div class="col m4">

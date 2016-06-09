@@ -1,16 +1,15 @@
 var VALUE_SEARCH = null;
 var MAX_RECORED = 7;
 var HEIGHT_LI_ITEM = 40;
-var COUNT_LI_ITEM = 0;
+var COUNT_LI_ITEM = 1;
 
 $(function() {
 
 	$('#search-auto-complete').keyup(function(event) {
-		COUNT_RECORED = 0;
-		COUNT_LI_ITEM = 0;
+		COUNT_LI_ITEM = 1;
 		VALUE_SEARCH = $('#search-auto-complete').val();
 		if (VALUE_SEARCH.length > 0) {
-			callSearchAPI("http://localhost:8080/Project-gui/text.txt", "GET", VALUE_SEARCH, "showResult", true);
+			callSearchAPI($('#url_search').val(), "POST", VALUE_SEARCH, "showResult", true);
 		}
 		if (VALUE_SEARCH.length == 0 ) {
 			$('#suggestion-box').hide();
@@ -21,20 +20,91 @@ $(function() {
 /* Show search results */
 function showResult(result) {
 
-	COUNT_RECORED++;
-	$('#suggestion-box ul').html("");
-	for (var index = 0; index < result.data.length; index++) {
-		if (result.data[index].title.includes(VALUE_SEARCH)) {
-			$('#suggestion-box ul').append("<li>" + result.data[index].title + "</li>");
-			COUNT_LI_ITEM++;
-		}
-	}
-	if (COUNT_LI_ITEM > MAX_RECORED) {
-		$('#suggestion-box').attr("style", "height: " + (MAX_RECORED * HEIGHT_LI_ITEM) + "px !important");
+	if (FAIL == result.result) {
+		alert(result.message);
 	} else {
-		$('#suggestion-box').attr("style", "height: " + (COUNT_LI_ITEM * HEIGHT_LI_ITEM) + "px !important");
+		console.log(result);
+		$('#suggestion-box ul').html("");
+
+		var listMember = result.memberResponseDTOs;
+		if (listMember.length > 0) {
+			$('#suggestion-box ul').append("<li><strong><b>Member</b></strong></li>");
+			COUNT_LI_ITEM++;
+			for (var index = 0; index < listMember.length; index++) {
+				var item = "<li class='search-item'>\
+								<img src='/resources/images/profile_photo.jpg' />\
+								<div class='wrapper'>\
+									<p>" + listMember.firstName + " " + listMember.lastName + "</p>\
+									<i>Đại học Nông Lâm</i>\
+								</div>\
+							</li>";
+				$('#suggestion-box ul').append(item);
+				COUNT_LI_ITEM++;
+			}
+		}
+
+		var listCompany = result.companyResponseDTOs;
+		if (listCompany.length > 0) {
+			$('#suggestion-box ul').append("<li><strong><b>Company</b></strong></li>");
+			COUNT_LI_ITEM++;
+			for (var index = 0; index < listCompany.length; index++) {
+				var item = "<li class='search-item'>\
+								<img src='/resources/images/profile_photo.jpg' />\
+								<div class='wrapper'>\
+									<p>" + listCompany.displayName + "</p>\
+									<i>" + listCompany.companySize + " nhân viên</i>\
+								</div>\
+							</li>";
+				$('#suggestion-box ul').append(item);
+				COUNT_LI_ITEM++;
+			}
+		}
+
+		var listJob = result.jobSuggestDTOs;
+		if (listJob.length > 0) {
+			$('#suggestion-box ul').append("<li><strong><b>Job</b></strong></li>");
+			COUNT_LI_ITEM++;
+			for (var index = 0; index < listJob.length; index++) {
+				var item = "<li class='search-item'>\
+								<img src='/resources/images/profile_photo.jpg' />\
+								<div class='wrapper'>\
+									<p>" + listJob.displayName + "</p>\
+									<i></i>\
+								</div>\
+							</li>";
+				$('#suggestion-box ul').append(item);
+				COUNT_LI_ITEM++;
+			}
+		}
+
+		var listSkill = result.skills;
+		if (listSkill.length > 0) {
+			$('#suggestion-box ul').append("<li><strong><b>Skill</b></strong></li>");
+			COUNT_LI_ITEM++;
+			for (var index = 0; index < listSkill.length; index++) {
+				var item = "<li class='search-item'>\
+								<img src='/resources/images/profile_photo.jpg' />\
+								<div class='wrapper'>\
+									<p>" + listSkill.displayName + "</p>\
+									<i></i>\
+								</div>\
+							</li>";
+				$('#suggestion-box ul').append(item);
+				COUNT_LI_ITEM++;
+			}
+		}
+//		$('#suggestion-box ul').append("<li>" + result.data[index].title + "</li>");
+
+		
+		// set width
+		if (COUNT_LI_ITEM > MAX_RECORED) {
+			$('#suggestion-box').attr("style", "height: " + (MAX_RECORED * HEIGHT_LI_ITEM) + "px !important");
+		} else {
+			$('#suggestion-box').attr("style", "height: " + (COUNT_LI_ITEM * HEIGHT_LI_ITEM) + "px !important");
+		}
+		$('#suggestion-box').slideDown(50);
 	}
-	$('#suggestion-box').slideDown(50);
+	
 }
 
 /**

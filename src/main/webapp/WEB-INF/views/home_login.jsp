@@ -25,62 +25,71 @@
 		<div class="row">
 			<div class="col m8 no-padding-on-med-and-down">
 				<div class="card-panel">
-					<div class="panel-title"><spring:message code="label.home.title.suggest_career"/></div>
-					<div class="panel-content">
-						<div class="job-box">
-							<div class="location-sticky">Hồ Chí Minh</div>
-							<div class="row none-margin-bottom">
-								<div class="col m3 center hide-on-med-and-down">
-									<img src="images/Hewlett-Packard-Logo-200x200.png"
-										class="responsive-img company-logo"> <a href="#"
-										class="btn wave-effect wave-light"><spring:message code="label.home.button.follow_company"/></a>
-								</div>
+					<div class="panel-title">
+						<spring:message code="label.home.title.suggest_career" />
+					</div>
+					<c:forEach items="${jobList}" var="job">
+						<div class="panel-content">
+							<div class="job-box">
+								<div class="location-sticky orange darken-1">${job.company.address.province}</div>
+								<div class="row none-margin-bottom">
+									<div class="col m3 center hide-on-med-and-down">
+										<img src="${job.company.avatar}"
+											class="responsive-img company-logo"> <a href="#"
+											class="btn margin-top-10 orange darken-1"><spring:message
+												code="label.home.button.follow_company" /></a>
+									</div>
 
-								<div class="col m9">
-									<h1 class="title">Tuyển 5 .NET Developer</h1>
-									<a href="#" class="company-name">Công ty cổ phần HP
-										Computer</a>
-									<p class="work-location">
-										<a href="#">Hồ Chí Minh</a>
-									</p>
-
-									<div class="job-info">
-										<div class="row">
-											<div class="col m6 none-padding-left">
-												<p>
-													<spring:message code="label.home.title.salary"/>: <span class="info">Thỏa thuận</span>
-												</p>
-											</div>
-											<div class="col m6 none-padding-left">
-												<span class="right"><spring:message code="label.home.title.post_date"/>: <span class="info">20/12/2016</span>
-												</span>
-											</div>
-											<div class="col m6 none-padding-left">
-												<p>
-													<spring:message code="label.home.title.major"/>: <span class="info">Developer</span>
-												</p>
-											</div>
-											<div class="col m6 none-padding-left">
-												<span class="right"><spring:message code="label.home.title.total_employee"/>: <span class="info">5
-														<spring:message code="label.home.title.people"/></span>
-												</span>
-											</div>
+									<div class="col m9">
+										<div class="col m12 p-0">
+											<h1 class="col m9 p-0 title block-with-text">${job.title}</h1>
 										</div>
-										<div class="row">
-											<p class="col m12 none-padding-left">Xây dựng các ứng
-												dụng trên Android cho các hệ thống tài chính, Ngân
-												hàng.Nghiên cứu, tìm kiếm giải pháp...</p>
-											<div class="col m12 none-padding-left">
-												<a class="chip">Java</a> <a class="chip">ASP.NET</a> <a
-													class="chip">SQL</a> <a class="chip">English</a> <a
-													class="chip">University</a>
+										<a href="#" class="company-name">${job.company.displayName}</a>
+										<p class="work-location">
+											<a href="#">${job.company.address.province}</a>
+										</p>
+
+										<div class="job-info">
+											<div class="row">
+												<div class="col m6 none-padding-left">
+													<p>
+														<spring:message code="label.home.title.salary" />
+														: <span class="info">${job.minSalary} -
+															${job.maxSalary}</span>
+													</p>
+												</div>
+												<div class="col m6 none-padding-left">
+													<span class="right"><spring:message
+															code="label.home.title.post_date" />: <span class="info">${job.postDate}</span>
+													</span>
+												</div>
+												<div class="col m6 none-padding-left">
+													<p>
+														<spring:message code="label.home.title.major" />
+														: <span class="info">${job.position.displayName}</span>
+													</p>
+												</div>
+												<div class="col m6 none-padding-left">
+													<span class="right"><spring:message
+															code="label.home.title.total_employee" />: <span
+														class="info">${job.size} <spring:message
+																code="label.home.title.people" /></span> </span>
+												</div>
+											</div>
+											<div class="row">
+												<p class="col m12 none-padding-left text-justify block-with-text">${job.description}</p>
+												<div class="col m12 none-padding-left margin-top-5">
+													<c:forEach items="${job.skillList}" var="skill">
+														<a class="chip">${skill.displayName}</a>
+													</c:forEach>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="col m4 no-padding-on-med-and-down">

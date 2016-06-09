@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -41,6 +44,10 @@ public class Account implements Serializable {
 	private List<Message> inboxMessages;
 
 	private List<Message> sentMessages;
+
+	private List<Follow> fromFollows;
+
+	private List<Follow> toFollows;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,4 +134,25 @@ public class Account implements Serializable {
 	public void setSentMessages(List<Message> sentMessages) {
 		this.sentMessages = sentMessages;
 	}
+
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fromAccount")
+	public List<Follow> getFromFollows() {
+		return fromFollows;
+	}
+
+	public void setFromFollows(List<Follow> fromFollows) {
+		this.fromFollows = fromFollows;
+	}
+
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toAccount")
+	public List<Follow> getToFollows() {
+		return toFollows;
+	}
+
+	public void setToFollows(List<Follow> toFollows) {
+		this.toFollows = toFollows;
+	}
+
 }

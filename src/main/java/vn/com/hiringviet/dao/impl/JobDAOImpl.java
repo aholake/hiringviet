@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.Skill;
+import vn.com.hiringviet.util.Utils;
 
 @Repository
 @Transactional
@@ -39,7 +41,34 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Job> getListJobHot(Integer first, Integer max) {
+	public List<Job> getListJobHot(Integer first, Integer max, List<Skill> skills) {
+
+		StringBuilder hql = new StringBuilder();
+		hql.append("FROM Job as j ");
+		hql.append("WHERE j.changeLog.status = :status ");
+		hql.append("AND expiredDate >= NOW() ");
+
+		if (!Utils.isEmptyList(skills)) {
+			hql.append(generatorQuerySkill(skills));
+		}
+
+		hql.append(generatorQueryOrderBySalary());
+
+		Session session = sessionFactory.getCurrentSession();
+
+		Query query = session.createQuery(hql.toString());
+		query.setFirstResult(first);
+		query.setMaxResults(max);
+
+		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
+
+		List<Job> jobList = query.list();
+		return jobList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getListJobSuggest(Integer first, Integer max, List<Skill> skills) {
 
 		StringBuilder hql = new StringBuilder();
 		hql.append("FROM Job as j ");
@@ -57,24 +86,27 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return jobList;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Job> getListJobSuggest(Integer first, Integer max) {
-
+	public String generatorQueryOrderBySalary() {
 		StringBuilder hql = new StringBuilder();
-		hql.append("FROM Job as j ");
-		hql.append("WHERE j.changeLog.status = :status ");
-		hql.append("ORDER BY j.changeLog.createdAt");
-		Session session = sessionFactory.getCurrentSession();
-
-		Query query = session.createQuery(hql.toString());
-		query.setFirstResult(first);
-		query.setMaxResults(max);
-
-		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
-
-		List<Job> jobList = query.list();
-		return jobList;
+		hql.append("ORDER BY j.changeLog.createdDate DESC, ");
+		hql.append("j.minSalary DESC, ");
+		hql.append("j.maxSalary DESC ");
+		return hql.toString();
 	}
 
+	public String generatorQuerySkill(List<Skill> skills) {
+		StringBuilder hql = new StringBuilder();
+		hql.append("AND j.skillList.displayName IN (");
+		Integer count = 0;
+		for (Skill skill : skills) {
+			count++;
+			if (count == skills.size()) {
+				hql.append(skill.getDisplayName());
+			} else {
+				hql.append(skill.getDisplayName() +", ");
+			}
+		}
+		hql.append(") ");
+		return hql.toString();
+	}
 }

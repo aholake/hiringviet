@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.api.dto.response.JobResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
+import vn.com.hiringviet.constant.ConstantValues;
+import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.service.JobService;
 import vn.com.hiringviet.util.Utils;
@@ -27,12 +30,13 @@ public class JobController {
 		return jobService.getJobById(jobID);
 	}
 
-	@RequestMapping(value = "/job/hot", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody JobResponseDTO getJobHot() {
+	@RequestMapping(value = "/job/hot", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody JobResponseDTO getJobHot(@RequestBody PagingDTO pagingDTO) {
 
 		JobResponseDTO jobResponseDTO = new JobResponseDTO();
 
-		List<Job> jobList = jobService.getJobList(0, 10, true);
+		pagingDTO = Utils.calculatorPaging(pagingDTO);
+		List<Job> jobList = jobService.getJobList(pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, true, null);
 
 		if (Utils.isEmptyList(jobList)) {
 			jobResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
