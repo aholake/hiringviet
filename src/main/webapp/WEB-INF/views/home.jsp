@@ -20,6 +20,16 @@
 
 	<div id="introduce-slider"></div>
 
+	<input type="hidden" id="get_job_hot" value="<c:url value='/job/hot' />" />
+	<input type="hidden" id="first_item" value="${firstItem}" />
+	<input type="hidden" id="current_page" value="${currentPage}" />
+
+	<input type="hidden" id="text_company_follow" value="<spring:message code="label.home.button.follow_company" />" />
+	<input type="hidden" id="text_title_salary" value="<spring:message code="label.home.title.salary" />" />
+	<input type="hidden" id="text_title_post_date" value="<spring:message code="label.home.title.post_date"/>" />
+	<input type="hidden" id="text_title_major" value="<spring:message code="label.home.title.major"/>" />
+	<input type="hidden" id="text_total_employee" value="<spring:message code="label.home.title.total_employee"/>" />
+	<input type="hidden" id="text_title_people" value="<spring:message code="label.home.title.people"/>" />
 	<div id="main-container">
 		<div class="row">
 			<div class="col m8 no-padding-on-med-and-down">
@@ -27,56 +37,57 @@
 					<div class="panel-title">
 						<spring:message code="label.home.title.hot_career" />
 					</div>
-					<c:forEach items="${jobDTOList}" var="jobDTO">
-						<div class="panel-content">
-							<div class="job-box">
-								<div class="location-sticky">${jobDTO}</div>
-								<div class="row none-margin-bottom">
-									<div class="col m3 center hide-on-med-and-down">
-										<img src="images/Hewlett-Packard-Logo-200x200.png" class="responsive-img company-logo">
-										<a href="#" class="btn wave-effect wave-light">
-											<spring:message code="label.home.button.follow_company" />
-										</a>
-									</div>
-	
-									<div class="col m9">
-										<h1 class="title">Tuyển 5 .NET Developer</h1>
-										<a href="#" class="company-name">Công ty cổ phần HP Computer</a>
-										<p class="work-location"><a href="#">Hồ Chí Minh</a></p>
-	
-										<div class="job-info">
-											<div class="row">
-												<div class="col m6 none-padding-left">
-													<p><spring:message code="label.home.title.salary" />: 
-														<span class="info">Thỏa thuận</span>
-													</p>
-												</div>
-												<div class="col m6 none-padding-left">
-													<span class="right"><spring:message code="label.home.title.post_date"/>: 
-														<span class="info">20/12/2016</span>
-													</span>
-												</div>
-												<div class="col m6 none-padding-left">
-													<p><spring:message code="label.home.title.major"/>: 
-														<span class="info">Developer</span>
-													</p>
-												</div>
-												<div class="col m6 none-padding-left">
-													<span class="right"><spring:message code="label.home.title.total_employee"/>: 
-														<span class="info">5 <spring:message code="label.home.title.people"/></span>
-													</span>
-												</div>
+					<c:forEach items="${jobList}" var="job">
+						<div id="job-list">
+							<div class="panel-content">
+								<div class="job-box">
+									<div class="location-sticky orange darken-1">${job.company.address.province}</div>
+									<div class="row none-margin-bottom">
+										<div class="col m3 center hide-on-med-and-down">
+											<img src="${job.company.avatar}" class="responsive-img company-logo">
+											<a href="#" class="btn margin-top-10 orange darken-1 waves-effect waves-light">
+												<spring:message code="label.home.button.follow_company" />
+											</a>
+										</div>
+										<div class="col m9">
+											<div class="col m12 p-0">
+												<h1 class="col m9 p-0 title block-with-text">${job.title}</h1>
 											</div>
-											<div class="row">
-												<p class="col m12 none-padding-left">
-													Xây dựng các ứng dụng trên Android cho các hệ thống tài chính, Ngân hàng.Nghiên cứu, tìm kiếm giải pháp...
-												</p>
-												<div class="col m12 none-padding-left">
-													<a class="chip">Java</a>
-													<a class="chip">ASP.NET</a>
-													<a class="chip">SQL</a>
-													<a class="chip">English</a>
-													<a class="chip">University</a>
+											<a href="#" class="company-name">${job.company.displayName}</a>
+											<p class="work-location"><a href="#">${job.company.address.province}</a></p>
+		
+											<div class="job-info">
+												<div class="row">
+													<div class="col m6 none-padding-left">
+														<p><spring:message code="label.home.title.salary" />: 
+															<span class="info">${job.minSalary} - ${job.maxSalary}</span>
+														</p>
+													</div>
+													<div class="col m6 none-padding-left">
+														<span class="right"><spring:message code="label.home.title.post_date"/>: 
+															<span class="info">${job.postDate}</span>
+														</span>
+													</div>
+													<div class="col m6 none-padding-left">
+														<p><spring:message code="label.home.title.major"/>: 
+															<span class="info">${job.position.displayName}</span>
+														</p>
+													</div>
+													<div class="col m6 none-padding-left">
+														<span class="right"><spring:message code="label.home.title.total_employee"/>: 
+															<span class="info">${job.size} <spring:message code="label.home.title.people"/></span>
+														</span>
+													</div>
+												</div>
+												<div class="row">
+													<p class="col m12 none-padding-left text-justify block-with-text">
+														${job.description}
+													</p>
+													<div class="col m12 none-padding-left margin-top-5">
+														<c:forEach items="${job.skillList}" var="skill">
+															<a class="chip">${skill.displayName}</a>
+														</c:forEach>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -85,6 +96,11 @@
 							</div>
 						</div>
 					</c:forEach>
+					<div class="text-align-center">
+						<a id="btn-load-more" class="btn-floating btn-large waves-effect waves-light red">
+							<i class="material-icons">add</i>
+						</a>
+					</div>
 				</div>
 			</div>
 			<div class="col m4">
@@ -92,39 +108,41 @@
 					<div class="panel-title">
 						<spring:message code="label.home.title.hot_company"/>
 					</div>
-					<div class="panel-content">
-						<div class="company-box">
-							<a href="#" class="follow-sticky">
-								<spring:message code="label.home.button.follow_company"/>
-							</a>
-							<div class="row">
-								<div class="col m9">
-									<h1 class="title">Công ty Tân Hiệp phát</h1>
-									<div class="small-text">
-										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">flag</i><spring:message code="label.home.title.country"/>: 
-											<span class="info">Mỹ</span>
-										</p>
-										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">equalizer</i><spring:message code="label.home.title.company_size"/>: 
-											<span class="info">200-500 <spring:message code="label.home.title.people" /></span>
-										</p>
-										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">web</i><spring:message code="label.home.title.website" />: 
-											<span class="info">www.materialize.com</span>
-										</p>
-										<p class="col s12 none-padding-left">
-											<i class="material-icons prefix-icon">location_on</i><spring:message code="label.home.title.address" />: 
-											<span class="info">4/3 Đồ Sơn, P. 13, Quận Tân Bình, TP.HCM</span>
-										</p>
+					<c:forEach items="${companyList}" var="company">
+						<div class="panel-content">
+							<div class="company-box padding-bottom-10">
+								<a href="#" class="follow-sticky">
+									<spring:message code="label.home.button.follow_company"/>
+								</a>
+								<div class="row">
+									<div class="col m9">
+										<h1 class="title">${company.displayName}</h1>
+										<div class="small-text">
+											<p class="col s12 none-padding-left">
+												<i class="material-icons prefix-icon">flag</i><spring:message code="label.home.title.country"/>: 
+												<span class="info">${company.country}</span>
+											</p>
+											<p class="col s12 none-padding-left">
+												<i class="material-icons prefix-icon">equalizer</i><spring:message code="label.home.title.company_size"/>: 
+												<span class="info">${company.companySize} <spring:message code="label.home.title.people" /></span>
+											</p>
+											<p class="col s12 none-padding-left">
+												<i class="material-icons prefix-icon">web</i><spring:message code="label.home.title.website" />: 
+												<span class="info">${company.website}</span>
+											</p>
+											<p class="col s12 none-padding-left">
+												<i class="material-icons prefix-icon">location_on</i><spring:message code="label.home.title.address" />: 
+												<span class="info">${company.address.streetName}, ${company.address.ward}, ${company.address.district}, ${company.address.province}</span>
+											</p>
+										</div>
 									</div>
-								</div>
-								<div class="col m3 hide-on-med-and-down">
-									<img src="images/Hewlett-Packard-Logo-200x200.png" class="right responsive-img">
+									<div class="col m3 hide-on-med-and-down">
+										<img src="${company.avatar}" class="right responsive-img">
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>		
 		</div>

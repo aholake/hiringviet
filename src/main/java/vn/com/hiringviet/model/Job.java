@@ -56,7 +56,13 @@ public class Job implements Serializable {
 
 	private Date postDate;
 
+	private Date expiredDate;
+
 	private String requirement;
+
+	private String cultureDescription;
+
+	private Integer size;
 
 	private Position position;
 
@@ -92,8 +98,8 @@ public class Job implements Serializable {
 		this.company = company;
 	}
 
-	@Fetch(FetchMode.SELECT)
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Fetch(FetchMode.SUBSELECT)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "job_skill", joinColumns = { @JoinColumn(name = "job_id") }, inverseJoinColumns = { @JoinColumn(name = "skill_id") })
 	public List<Skill> getSkillList() {
 		return skillList;
@@ -167,6 +173,16 @@ public class Job implements Serializable {
 	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
 	}
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "expired_date")
+	public Date getExpiredDate() {
+		return expiredDate;
+	}
+
+	public void setExpiredDate(Date expiredDate) {
+		this.expiredDate = expiredDate;
+	}
 
 	@Column(name = "requirement")
 	public String getRequirement() {
@@ -175,6 +191,24 @@ public class Job implements Serializable {
 
 	public void setRequirement(String requirement) {
 		this.requirement = requirement;
+	}
+
+	@Column(name = "culture_description")
+	public String getCultureDescription() {
+		return cultureDescription;
+	}
+
+	public void setCultureDescription(String cultureDescription) {
+		this.cultureDescription = cultureDescription;
+	}
+
+	@Column(name = "size")
+	public Integer getSize() {
+		return size;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
 	}
 
 	@ManyToOne(cascade = CascadeType.ALL)

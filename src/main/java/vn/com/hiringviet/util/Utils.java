@@ -3,11 +3,10 @@ package vn.com.hiringviet.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.beanutils.BeanUtils;
 
-import vn.com.hiringviet.model.Account;
+import vn.com.hiringviet.constant.ConstantValues;
+import vn.com.hiringviet.dto.PagingDTO;
 
 public class Utils {
 
@@ -135,10 +134,6 @@ public class Utils {
 		}
 	}
 
-	public static Account getMemberSession(HttpSession session) {
-		return (Account) session.getAttribute("account");
-	}
-
 	public static boolean isEmptyObject(Object object) {
 		boolean isEmpty = true;
 
@@ -156,5 +151,10 @@ public class Utils {
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static PagingDTO calculatorPaging(PagingDTO pagingDTO) {
+		pagingDTO.setFirstItem(pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT);
+		return pagingDTO;
 	}
 }

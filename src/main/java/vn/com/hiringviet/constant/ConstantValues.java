@@ -17,4 +17,8 @@ public class ConstantValues {
 	public static final int EXPIRY_TIME_COOKIE = 60 * 60 * 24 * 7;
 
 	public static final String COOKIE_PATH = "/";
+
+	public static final Integer MAX_RECORD_COUNT = 5;
+
+	public static final Integer CURRENT_PAGE = 1;
 }

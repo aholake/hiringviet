@@ -20,6 +20,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "member")
 public class Member implements Serializable {
@@ -54,7 +56,7 @@ public class Member implements Serializable {
 		this.id = id;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "account_id")
 	@Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	public Account getAccount() {
@@ -93,7 +95,7 @@ public class Member implements Serializable {
 		this.birthDate = birthDate;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "member", cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "member", cascade = CascadeType.ALL)
 	public Resume getResume() {
 		return resume;
 	}
@@ -102,6 +104,7 @@ public class Member implements Serializable {
 		this.resume = resume;
 	}
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public List<Apply> getApplyList() {
 		return applyList;
@@ -111,7 +114,7 @@ public class Member implements Serializable {
 		this.applyList = applyList;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
 		return changeLog;
