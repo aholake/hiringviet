@@ -51,5 +51,4 @@ public class LoginController {
 	public static Account getAccountSession(HttpSession session) {
 		return (Account) session.getAttribute("account");
 	}
-
 }
