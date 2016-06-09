@@ -5,7 +5,7 @@
 }
 
 body {
-	background:#E4EEF2;
+	background: #E4EEF2;
 }
 
 header {
@@ -36,9 +36,11 @@ nav {
 .uppercase {
 	text-transform: uppercase;
 }
+
 .capitalize {
 	text-transform: capitalize;
 }
+
 .display-block {
 	display: block;
 }
@@ -55,13 +57,17 @@ nav {
 	margin-top: 10px;
 }
 
+.margin-10 {
+	margin: 0 10px;
+}
+
 .prefix-icon {
 	vertical-align: middle;
 	margin-right: 5px;
 }
 
-hr.fancy-hr {  
-	border: 0; 
+hr.fancy-hr {
+	border: 0;
 	height: 5px;
 	background: linear-gradient(to right, red, yellow, green);
 	margin: 8px 0;
@@ -81,6 +87,7 @@ hr.fancy-hr {
 	cursor: pointer;
 	float: right;
 }
+
 .circle-btn>i.material-icons {
 	font-size: 45px;
 }
@@ -101,14 +108,12 @@ hr.fancy-hr {
 	line-height: 28px;
 }
 
-
 h1.title {
 	font-size: 24px;
 	text-transform: capitalize;
 	margin: 0;
 	margin-bottom: 3px;
 }
-
 
 #footer {
 	height: 50px;
@@ -130,4 +135,5 @@ h1.title {
 .input-field>label {
 	left: 0 !important;
 }
+
 @import url("smart.css");

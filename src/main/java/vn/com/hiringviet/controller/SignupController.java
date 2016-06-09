@@ -1,7 +1,9 @@
 package vn.com.hiringviet.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,9 @@ public class SignupController {
 		return "register-option";
 	}
 
+	private Logger Logger = org.apache.log4j.Logger
+			.getLogger(SignupController.class);
+
 	@RequestMapping(value = "/register/{type}")
 	public ModelAndView goToRegisterPage(@PathVariable("type") String type) {
 		if (type.equals("company")) {
@@ -38,6 +43,17 @@ public class SignupController {
 					new Member());
 		}
 		return null;
+	}
+
+	@RequestMapping(value = "/rest/saveMember", method = RequestMethod.POST)
+	public @ResponseBody String saveNewMember(
+			@ModelAttribute("newMember") Member member) {
+		Logger.info(member);
+		if (memberService.addMember(member) > 0) {
+			return "Added successfully";
+
+		}
+		return "Add failed";
 	}
 
 	@RequestMapping(value = "/rest/checkExistedEmail", method = RequestMethod.POST)

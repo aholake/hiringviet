@@ -27,8 +27,6 @@ public class Position implements Serializable {
 
 	private String displayName;
 
-	private List<EmploymentHistory> employmentHistorySet;
-
 	private List<Job> jobList;
 
 	private ChangeLog changeLog;
@@ -50,17 +48,6 @@ public class Position implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
-	}
-
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "position")
-	public List<EmploymentHistory> getEmploymentHistorySet() {
-		return employmentHistorySet;
-	}
-
-	public void setEmploymentHistorySet(
-			List<EmploymentHistory> employmentHistorySet) {
-		this.employmentHistorySet = employmentHistorySet;
 	}
 
 	@JsonIgnore
@@ -87,9 +74,8 @@ public class Position implements Serializable {
 	@Override
 	public String toString() {
 		return "Position [positionID=" + positionID + ", displayName="
-				+ displayName + ", employmentHistorySet="
-				+ employmentHistorySet + ", jobList=" + jobList
-				+ ", changeLog=" + changeLog + "]";
+				+ displayName + ", employmentHistorySet=" + ", jobList="
+				+ jobList + ", changeLog=" + changeLog + "]";
 	}
 
 }

@@ -57,11 +57,10 @@ public class AccountDAOImpl implements AccountDAO {
 		Query query = session.createQuery(sb.toString());
 		query.setParameter("email", email);
 
-		Account account = (Account) query.uniqueResult();
-		if (account == null) {
+		List<Account> list = query.list();
+		if (list.isEmpty()) {
 			return false;
 		}
 		return true;
 	}
-
 }

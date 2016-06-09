@@ -6,12 +6,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,12 +29,6 @@ public class Account implements Serializable {
 	private Integer roleID;
 
 	private String locale;
-
-	private Integer status;
-
-	private Member member;
-
-	private Company company;
 
 	private List<Message> inboxMessages;
 
@@ -86,26 +78,6 @@ public class Account implements Serializable {
 
 	public void setLocale(String locale) {
 		this.locale = locale;
-	}
-
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "account")
-	public Member getMember() {
-		return member;
-	}
-
-	public void setMember(Member member) {
-		this.member = member;
-	}
-
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "account")
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
 	}
 
 	@JsonIgnore

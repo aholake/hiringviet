@@ -29,10 +29,6 @@ public class Address implements Serializable{
 
 	private String province;
 
-	private Resume resume;
-
-	private Company company;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
@@ -78,25 +74,4 @@ public class Address implements Serializable{
 	public void setProvince(String province) {
 		this.province = province;
 	}
-
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "address")
-	public Resume getResume() {
-		return resume;
-	}
-
-	public void setResume(Resume resume) {
-		this.resume = resume;
-	}
-
-	@JsonIgnore
-	@OneToOne(fetch=FetchType.LAZY, mappedBy = "address")
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-
 }
