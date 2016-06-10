@@ -33,6 +33,9 @@ public class Company implements Serializable {
 
 	private Address address;
 
+	// linh vuc kinh doanh
+	private String businessField;
+
 	private String description;
 
 	private Integer foundedYear;
@@ -65,7 +68,7 @@ public class Company implements Serializable {
 
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="account_id")
+	@JoinColumn(name = "account_id")
 	public Account getAccount() {
 		return account;
 	}
@@ -100,6 +103,15 @@ public class Company implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	@Column(name = "business_field")
+	public String getBusinessField() {
+		return businessField;
+	}
+
+	public void setBusinessField(String businessField) {
+		this.businessField = businessField;
 	}
 
 	@Column(name = "description")
@@ -176,7 +188,8 @@ public class Company implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "company_id")
 	public List<CompanyPhoto> getCompanyPhotoList() {
 		return companyPhotoList;
 	}

@@ -2,7 +2,6 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,11 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "education_history")
@@ -23,8 +19,6 @@ public class EducationHistory implements Serializable {
 	private static final long serialVersionUID = -247002098097375475L;
 
 	private Integer id;
-
-	private Resume resume;
 
 	private String universityName;
 
@@ -46,17 +40,6 @@ public class EducationHistory implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "resume_id")
-	public Resume getResume() {
-		return resume;
-	}
-
-	public void setResume(Resume resume) {
-		this.resume = resume;
 	}
 
 	@Column(name = "university_name")

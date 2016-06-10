@@ -26,9 +26,9 @@ public class Comment implements Serializable {
 
 	private Integer id;
 
-	private Job job;
+	private List<ReplyComment> replyCommentList;
 
-	private List<ReplyComment> replyCommentSet;
+	private Member member;
 
 	private String comment;
 
@@ -45,24 +45,24 @@ public class Comment implements Serializable {
 	}
 
 	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "job_id")
-	public Job getJob() {
-		return job;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "comment_id")
+	public List<ReplyComment> getReplyCommentList() {
+		return replyCommentList;
 	}
 
-	public void setJob(Job job) {
-		this.job = job;
+	public void setReplyCommentList(List<ReplyComment> replyCommentList) {
+		this.replyCommentList = replyCommentList;
 	}
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "comment")
-	public List<ReplyComment> getReplyCommentSet() {
-		return replyCommentSet;
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "member_id")
+	public Member getMember() {
+		return member;
 	}
 
-	public void setReplyCommentSet(List<ReplyComment> replyCommentSet) {
-		this.replyCommentSet = replyCommentSet;
+	public void setMember(Member member) {
+		this.member = member;
 	}
 
 	@Column(name = "comment")

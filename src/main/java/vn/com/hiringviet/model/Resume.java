@@ -70,8 +70,8 @@ public class Resume implements Serializable {
 		this.member = member;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "resume_skill", joinColumns = { @JoinColumn(name = "resume_id") }, inverseJoinColumns = { @JoinColumn(name = "skill_id") })
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "skill_resume", joinColumns = { @JoinColumn(name = "resume_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "skill_id", nullable = false) })
 	public List<Skill> getSkillList() {
 		return skillList;
 	}
@@ -80,7 +80,8 @@ public class Resume implements Serializable {
 		this.skillList = skillList;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resume")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "resume_id")
 	public List<EducationHistory> getEducationHistoryList() {
 		return educationHistoryList;
 	}
@@ -90,7 +91,8 @@ public class Resume implements Serializable {
 		this.educationHistoryList = educationHistorySet;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "resume")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "resume_id")
 	public List<EmploymentHistory> getEmployeeHistorySet() {
 		return employeeHistoryList;
 	}

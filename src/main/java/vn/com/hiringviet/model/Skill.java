@@ -23,8 +23,6 @@ public class Skill implements Serializable {
 
 	private String displayName;
 
-	private List<Resume> resumeList;
-
 	private List<Job> jobList;
 
 	@Id
@@ -44,16 +42,6 @@ public class Skill implements Serializable {
 
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
-	}
-
-	@JsonIgnore
-	@ManyToMany(mappedBy = "skillList")
-	public List<Resume> getResumeList() {
-		return resumeList;
-	}
-
-	public void setResumeList(List<Resume> resumeList) {
-		this.resumeList = resumeList;
 	}
 
 	@JsonIgnore

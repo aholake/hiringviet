@@ -109,7 +109,8 @@ public class Job implements Serializable {
 		this.skillList = skillList;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "job")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "job_id")
 	public List<Comment> getCommentSet() {
 		return commentSet;
 	}

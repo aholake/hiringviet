@@ -24,9 +24,9 @@ public class ReplyComment implements Serializable {
 
 	private Integer id;
 
-	private Comment comment;
-
 	private String replyComment;
+
+	private Account account;
 
 	private ChangeLog changeLog;
 
@@ -40,17 +40,6 @@ public class ReplyComment implements Serializable {
 		this.id = id;
 	}
 
-	@JsonIgnore
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "comment_id")
-	public Comment getComment() {
-		return comment;
-	}
-
-	public void setComment(Comment comment) {
-		this.comment = comment;
-	}
-
 	@Column(name = "reply_comment")
 	public String getReplyComment() {
 		return replyComment;
@@ -58,6 +47,16 @@ public class ReplyComment implements Serializable {
 
 	public void setReplyComment(String replyComment) {
 		this.replyComment = replyComment;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "account_id")
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 
 	@JsonIgnore
