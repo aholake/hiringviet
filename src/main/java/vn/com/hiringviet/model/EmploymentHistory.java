@@ -16,8 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "employment_history")
 public class EmploymentHistory implements Serializable {
@@ -25,8 +23,6 @@ public class EmploymentHistory implements Serializable {
 	private static final long serialVersionUID = 4962308394934505729L;
 
 	private Integer id;
-
-	private Resume resume;
 
 	private Company company;
 
@@ -48,17 +44,6 @@ public class EmploymentHistory implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "resume_id")
-	public Resume getResume() {
-		return resume;
-	}
-
-	public void setResume(Resume resume) {
-		this.resume = resume;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)

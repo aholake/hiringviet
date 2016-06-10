@@ -16,7 +16,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "company")
@@ -33,6 +32,9 @@ public class Company implements Serializable {
 	private Integer companySize;
 
 	private Address address;
+
+	// linh vuc kinh doanh
+	private String businessField;
 
 	private String description;
 
@@ -64,7 +66,7 @@ public class Company implements Serializable {
 
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="account_id")
+	@JoinColumn(name = "account_id")
 	public Account getAccount() {
 		return account;
 	}
@@ -100,6 +102,15 @@ public class Company implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	@Column(name = "business_field")
+	public String getBusinessField() {
+		return businessField;
+	}
+
+	public void setBusinessField(String businessField) {
+		this.businessField = businessField;
 	}
 
 	@Column(name = "description")
@@ -168,7 +179,8 @@ public class Company implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "company_id")
 	public List<CompanyPhoto> getCompanyPhotoList() {
 		return companyPhotoList;
 	}
