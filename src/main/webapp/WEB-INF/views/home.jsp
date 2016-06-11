@@ -108,7 +108,7 @@
 					<div class="panel-title">
 						<spring:message code="label.home.title.hot_company"/>
 					</div>
-					<c:forEach items="${companyList}" var="company">
+					<!--<c:forEach items="${companyList}" var="company">
 						<div class="panel-content">
 							<div class="company-box padding-bottom-10">
 								<a href="#" class="follow-sticky">
@@ -142,7 +142,7 @@
 								</div>
 							</div>
 						</div>
-					</c:forEach>
+					</c:forEach>-->
 				</div>
 			</div>		
 		</div>
