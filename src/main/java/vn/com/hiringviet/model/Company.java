@@ -33,6 +33,8 @@ public class Company implements Serializable {
 
 	private Address address;
 
+	private String hostCountry;
+
 	// linh vuc kinh doanh
 	private String businessField;
 
@@ -65,7 +67,7 @@ public class Company implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_id")
 	public Account getAccount() {
 		return account;
@@ -102,6 +104,15 @@ public class Company implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	@Column(name = "host_country")
+	public String getHostCountry() {
+		return hostCountry;
+	}
+
+	public void setHostCountry(String hostCountry) {
+		this.hostCountry = hostCountry;
 	}
 
 	@Column(name = "business_field")
