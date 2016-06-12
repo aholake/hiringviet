@@ -12,6 +12,14 @@
 		<div class="col m6 offset-m2">
 			<p class="company-name">Axon Active Vietnam</p>
 			<p>45,500 <spring:message code="label.company.header.title.count_follow"/></p>
+			<ul class="menu-banner">
+				<li>
+					<a href="/company" class="active">Home</a>
+				</li>
+				<li>
+					<a href="/company/careers">Careers</a>
+				</li>
+			</ul>
 		</div>
 		<div class="col m4 margin-top-10 right-align">
 			<a class="btn waves-effect waves-light">Message</a> <a

@@ -55,6 +55,10 @@ a.company-name {
 	font-size: 20px;
 }
 
+h1.title {
+	font-size: 20px;
+}
+
 .small-text {
 	font-size: 13px;
 }
@@ -89,4 +93,38 @@ a.company-name {
 
 .work-location {
 	display: none;
+}
+
+.feed-actions {
+	display: inline-flex;
+}
+
+.feed-actions>li {
+	margin: 0 17px;
+    color: #9e9e9e;
+    list-style-type: disc;
+}
+
+.new-job {
+	padding: 5px 10px;
+}
+
+.menu-banner {
+	display: inline-flex;
+	margin-top: 10px;
+}
+
+.menu-banner li{
+	margin-right: 10px;
+}
+
+.menu-banner li a {
+	cursor: pointer;
+}
+
+.menu-banner li a:hover {
+	border-bottom: 1px solid #fb8c00;
+}
+.menu-banner .active {
+	border-bottom: 1px solid #fb8c00;
 }

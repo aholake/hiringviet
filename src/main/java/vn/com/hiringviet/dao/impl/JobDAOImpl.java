@@ -44,7 +44,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 	public List<Job> getListJobHot(Integer first, Integer max, List<Skill> skills) {
 
 		StringBuilder hql = new StringBuilder();
-		hql.append("SELECT * ");
+		hql.append("SELECT job ");
 		hql.append("FROM ");
 		hql.append(generatorQueryJoinTable());
 		hql.append("WHERE change_log.status = :status ");
@@ -110,7 +110,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 	public String generatorQuerySkill(List<Skill> skills) {
 		StringBuilder hql = new StringBuilder();
-		hql.append("AND EXISTS (SELECT * FROM skill WHERE  id IN (");
+		hql.append("AND skill.id IN (");
 		Integer count = 0;
 		for (Skill skill : skills) {
 			count++;

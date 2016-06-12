@@ -1,6 +1,7 @@
 package vn.com.hiringviet.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -157,4 +158,8 @@ public class Utils {
 		pagingDTO.setFirstItem(pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT);
 		return pagingDTO;
 	}
+
+	public static boolean contains(List<?> list, List<?> sublist) {
+	    return Collections.indexOfSubList(list, sublist) != -1;
+	  }
 }

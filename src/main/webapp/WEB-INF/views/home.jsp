@@ -51,7 +51,7 @@
 										</div>
 										<div class="col m9">
 											<div class="col m12 p-0">
-												<h1 class="col m9 p-0 title block-with-text">${job.title}</h1>
+												<h1 class="col m9 p-0 title block-with-text">${job.id} ${job.title}</h1>
 											</div>
 											<a href="#" class="company-name">${job.company.displayName}</a>
 											<p class="work-location"><a href="#">${job.company.address.province}</a></p>
@@ -108,7 +108,7 @@
 					<div class="panel-title">
 						<spring:message code="label.home.title.hot_company"/>
 					</div>
-					<!--<c:forEach items="${companyList}" var="company">
+					<c:forEach items="${companyList}" var="company">
 						<div class="panel-content">
 							<div class="company-box padding-bottom-10">
 								<a href="#" class="follow-sticky">
@@ -142,7 +142,7 @@
 								</div>
 							</div>
 						</div>
-					</c:forEach>-->
+					</c:forEach>
 				</div>
 			</div>		
 		</div>

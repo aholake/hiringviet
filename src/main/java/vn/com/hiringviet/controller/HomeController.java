@@ -18,6 +18,7 @@ import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.JobService;
 import vn.com.hiringviet.service.MemberService;
+import vn.com.hiringviet.service.SkillService;
 import vn.com.hiringviet.util.Utils;
 
 @Controller
@@ -32,6 +33,8 @@ public class HomeController {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	private SkillService skillService;
 	
 	/**
 	 * @param model
@@ -49,9 +52,9 @@ public class HomeController {
 
 		if (Utils.isEmptyObject(account)) {
 			List<Skill> skills = new ArrayList<Skill>();
-			Skill skill1 = new Skill();
-			skill1.setId(1);
-			skills.add(skill1);
+			Skill skill = skillService.getSkillById(1);
+			skills.add(skill);
+
 			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT, true, skills);
 			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, true);
 			result = "home";
