@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
+import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.MemberService;
 
 @Controller
@@ -23,6 +24,9 @@ public class SignupController {
 
 	@Autowired
 	private MemberService memberService;
+
+	@Autowired
+	private CompanyService companyService;
 
 	@RequestMapping(value = "/register")
 	public String goToRegisterOption() {
@@ -62,10 +66,17 @@ public class SignupController {
 	}
 
 	@RequestMapping(value = "/rest/addNewMember", method = RequestMethod.POST)
-	public @ResponseBody int addNewMember(@RequestBody Member member) {
+	public @ResponseBody int addNewMember(
+			@ModelAttribute("newMember") Member member) {
 		System.out.println(member.getAccount().getEmail() + ", "
 				+ member.getAccount().getPassword() + ", "
 				+ member.getFirstName() + ", " + member.getLastName());
 		return memberService.addMember(member);
+	}
+
+	@RequestMapping(value = "/rest/addNewCompany")
+	public @ResponseBody int addNewCompany(@ModelAttribute("newCompany") Company company) {
+		System.out.println(company.getDisplayName());
+		return companyService.addCompany(company);
 	}
 }

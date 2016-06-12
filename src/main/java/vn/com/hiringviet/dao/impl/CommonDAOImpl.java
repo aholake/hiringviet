@@ -12,21 +12,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.dao.CommonDAO;
 
-public abstract class CommonDAOImpl<T extends Serializable> implements CommonDAO<T> {
-	
+public abstract class CommonDAOImpl<T extends Serializable> implements
+		CommonDAO<T> {
+
 	private Class<T> entityClass;
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
+	@SuppressWarnings("unchecked")
 	public CommonDAOImpl() {
-		entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+		entityClass = (Class<T>) ((ParameterizedType) getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
-	
+
 	public Session getSession() {
 		return this.sessionFactory.getCurrentSession();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public T findOne(int id) {
@@ -91,7 +95,7 @@ public abstract class CommonDAOImpl<T extends Serializable> implements CommonDAO
 	@Transactional
 	public boolean deleteById(int id) {
 		T deleteEntity = findOne(id);
-		if(deleteEntity != null) {
+		if (deleteEntity != null) {
 			try {
 				getSession().update(deleteEntity);
 				return true;
@@ -102,5 +106,4 @@ public abstract class CommonDAOImpl<T extends Serializable> implements CommonDAO
 		return false;
 	}
 
-		
 }

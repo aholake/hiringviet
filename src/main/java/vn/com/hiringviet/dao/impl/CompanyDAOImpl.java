@@ -63,5 +63,4 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements CompanyDAO
 		List<Company> companyList = query.list();
 		return companyList;
 	}
-
 }

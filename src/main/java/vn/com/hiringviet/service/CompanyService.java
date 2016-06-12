@@ -2,12 +2,17 @@ package vn.com.hiringviet.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import vn.com.hiringviet.model.Company;
 
-@Service("companyService")
 public interface CompanyService {
+	int addCompany(Company company);
 
-	public List<Company> getListCompany(Integer first, Integer max, boolean isCompanyHot);
+	boolean deleteCompany(Company company);
+
+	boolean updateCompany(Company company);
+	
+	List<Company> getCompanyList();
+	
+	List<Company> getListCompany(Integer first, Integer max, boolean isCompanyHot);
+
 }
