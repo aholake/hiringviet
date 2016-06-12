@@ -4,6 +4,10 @@
 	color: #333333;
 }
 
+.cl-white {
+	color: white !important;
+}
+
 body {
 	background: #E4EEF2;
 }
@@ -45,8 +49,16 @@ nav {
 	display: block;
 }
 
+.display-inline-flex {
+	display: inline-flex;
+}
+
 .margin-right-5 {
 	margin-right: 5px;
+}
+
+.margin-left-5 {
+	margin-left: 5px;
 }
 
 .margin-top-5 {
@@ -179,4 +191,11 @@ h1.title {
 	text-align: center;
 }
 
+.font-size-12 {
+	font-size: 12px;
+}
+
+.overflow-auto {
+	overflow: auto;
+}
 @import url("smart.css");

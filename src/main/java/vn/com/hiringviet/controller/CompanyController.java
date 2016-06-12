@@ -16,6 +16,12 @@ public class CompanyController {
 		return "company";
 	}
 
+	@RequestMapping(value = "/company/careers", method = RequestMethod.GET)
+	public String goCompanyCarrersPage(Model model, HttpSession session) {
+
+		return "company-careers";
+	}
+
 	@RequestMapping(value = "/layouts/companyBanner", method = RequestMethod.GET)
 	public String goCompanyBanner(Model model, HttpSession session) {
 

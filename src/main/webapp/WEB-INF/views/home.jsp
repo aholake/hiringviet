@@ -51,7 +51,7 @@
 										</div>
 										<div class="col m9">
 											<div class="col m12 p-0">
-												<h1 class="col m9 p-0 title block-with-text">${job.title}</h1>
+												<h1 class="col m9 p-0 title block-with-text">${job.id} ${job.title}</h1>
 											</div>
 											<a href="#" class="company-name">${job.company.displayName}</a>
 											<p class="work-location"><a href="#">${job.company.address.province}</a></p>

@@ -44,19 +44,22 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 	public List<Job> getListJobHot(Integer first, Integer max, List<Skill> skills) {
 
 		StringBuilder hql = new StringBuilder();
-		hql.append("FROM Job as j ");
-		hql.append("WHERE j.changeLog.status = :status ");
-		hql.append("AND expiredDate >= NOW() ");
+		hql.append("SELECT job ");
+		hql.append("FROM ");
+		hql.append(generatorQueryJoinTable());
+		hql.append("WHERE change_log.status = :status ");
+		hql.append("AND job.expired_date >= NOW() ");
 
 		if (!Utils.isEmptyList(skills)) {
 			hql.append(generatorQuerySkill(skills));
 		}
 
+		hql.append("GROUP BY job.id ");
 		hql.append(generatorQueryOrderBySalary());
 
 		Session session = sessionFactory.getCurrentSession();
 
-		Query query = session.createQuery(hql.toString());
+		Query query = session.createSQLQuery(hql.toString());
 		query.setFirstResult(first);
 		query.setMaxResults(max);
 
@@ -88,22 +91,33 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 	public String generatorQueryOrderBySalary() {
 		StringBuilder hql = new StringBuilder();
-		hql.append("ORDER BY j.changeLog.createdDate DESC, ");
-		hql.append("j.minSalary DESC, ");
-		hql.append("j.maxSalary DESC ");
+		hql.append("ORDER BY change_log.created_date DESC, ");
+		hql.append("job.min_salary DESC, ");
+		hql.append("job.max_salary DESC ");
+		return hql.toString();
+	}
+
+	public String generatorQueryJoinTable() {
+		StringBuilder hql = new StringBuilder();
+		hql.append("job LEFT JOIN change_log ");
+		hql.append("ON job.change_log_id = change_log.id ");
+		hql.append("LEFT JOIN job_skill ");
+		hql.append("ON job.id = job_skill.job_id ");
+		hql.append("RIGHT JOIN skill ");
+		hql.append("ON job_skill.skill_id = skill.id ");
 		return hql.toString();
 	}
 
 	public String generatorQuerySkill(List<Skill> skills) {
 		StringBuilder hql = new StringBuilder();
-		hql.append("AND j.skillList.displayName IN (");
+		hql.append("AND skill.id IN (");
 		Integer count = 0;
 		for (Skill skill : skills) {
 			count++;
 			if (count == skills.size()) {
-				hql.append(skill.getDisplayName());
+				hql.append(skill.getId());
 			} else {
-				hql.append(skill.getDisplayName() +", ");
+				hql.append(skill.getId() +", ");
 			}
 		}
 		hql.append(") ");

@@ -1,5 +1,6 @@
 package vn.com.hiringviet.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,9 +14,11 @@ import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.JobService;
 import vn.com.hiringviet.service.MemberService;
+import vn.com.hiringviet.service.SkillService;
 import vn.com.hiringviet.util.Utils;
 
 @Controller
@@ -30,6 +33,8 @@ public class HomeController {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	private SkillService skillService;
 	
 	/**
 	 * @param model
@@ -46,7 +51,11 @@ public class HomeController {
 		List<Company> companyList = null;
 
 		if (Utils.isEmptyObject(account)) {
-			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT, true, null);
+			List<Skill> skills = new ArrayList<Skill>();
+			Skill skill = skillService.getSkillById(1);
+			skills.add(skill);
+
+			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT, true, skills);
 			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, true);
 			result = "home";
 		} else {
