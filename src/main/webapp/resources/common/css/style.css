@@ -198,4 +198,8 @@ h1.title {
 .overflow-auto {
 	overflow: auto;
 }
+
+.display-block {
+	display: block !important;
+}
 @import url("smart.css");

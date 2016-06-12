@@ -30,6 +30,128 @@
 			<div class="col m8">
 				<div class="card-panel">
 					<div class="panel-title"><spring:message code="label.company.title.active"/></div>
+					<div class="panel-content">
+							<div class="job-box">
+								<div class="location-action">
+									<a class="btn-menu btn-floating btn-small grey lighten-3 dropdown-button" data-activates='item1'>
+										<i class="large material-icons">menu</i>
+									</a>
+								<!-- Dropdown Structure -->
+								<ul id='item1' class='dropdown-content'>
+									<li><a href="#modal1" class="modal-trigger">Edit</a></li>
+									<li><a href="#!">Delete</a></li>
+									<li class="divider"></li>
+									<li><a href="#!">Publish</a></li>
+								</ul>
+							</div>
+								<div class="row none-margin-bottom">
+									<div class="col m12">
+										<div class="col m12 p-0">
+											<h1 class="col m9 p-0 title block-with-text">10 PHP Developers / Team Leader (Tuyển Gấp)</h1>
+										</div>
+										<a href="#" class="company-name">GMO Runsystem</a>
+										<p class="work-location">
+											<a href="#">TP. Hồ Chí Minh</a>
+										</p>
+
+										<div class="job-info">
+											<div class="row">
+												<div class="col m6 none-padding-left">
+													<p>
+														<spring:message code="label.home.title.salary" />
+														: <span class="info">100.0 - 600.0</span>
+													</p>
+												</div>
+												<div class="col m6 none-padding-left">
+													<span class="right"><spring:message
+															code="label.home.title.post_date" />: <span class="info">2016-06-01</span>
+													</span>
+												</div>
+												<div class="col m6 none-padding-left">
+													<p>
+														<spring:message code="label.home.title.major" />
+														: <span class="info">Developer</span>
+													</p>
+												</div>
+												<div class="col m6 none-padding-left">
+													<span class="right"><spring:message
+															code="label.home.title.total_employee" />: <span
+														class="info">100 <spring:message
+																code="label.home.title.people" /></span> </span>
+												</div>
+											</div>
+											<div class="row">
+												<p class="col m12 none-padding-left text-justify block-with-text">• Chịu trách nhiệm phát triển các ứng dụng web bằng ngôn ngữ PHP. • Tham gia thiết kế, lập trình và phát triển các dự án theo yêu cầu của công ty. • Quản lý team (~5 người) nếu là Team Leader. </p>
+												<div class="col m12 none-padding-left margin-top-5">
+													<a class="chip">Test ABC</a>
+													<a class="chip">Test ABC</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="job-box">
+								<div class="location-action">
+									<a class="btn-menu btn-floating btn-small grey lighten-3 dropdown-button" data-activates='item2'>
+										<i class="large material-icons">menu</i>
+									</a>
+								<!-- Dropdown Structure -->
+								<ul id='item2' class='dropdown-content'>
+									<li><a href="#modal1" class="modal-trigger">Edit</a></li>
+									<li><a href="#!">Delete</a></li>
+									<li class="divider"></li>
+									<li><a href="#!">Publish</a></li>
+								</ul>
+							</div>
+								<div class="row none-margin-bottom">
+									<div class="col m12">
+										<div class="col m12 p-0">
+											<h1 class="col m9 p-0 title block-with-text">10 PHP Developers / Team Leader (Tuyển Gấp)</h1>
+										</div>
+										<a href="#" class="company-name">GMO Runsystem</a>
+										<p class="work-location">
+											<a href="#">TP. Hồ Chí Minh</a>
+										</p>
+
+										<div class="job-info">
+											<div class="row">
+												<div class="col m6 none-padding-left">
+													<p>
+														<spring:message code="label.home.title.salary" />
+														: <span class="info">100.0 - 600.0</span>
+													</p>
+												</div>
+												<div class="col m6 none-padding-left">
+													<span class="right"><spring:message
+															code="label.home.title.post_date" />: <span class="info">2016-06-01</span>
+													</span>
+												</div>
+												<div class="col m6 none-padding-left">
+													<p>
+														<spring:message code="label.home.title.major" />
+														: <span class="info">Developer</span>
+													</p>
+												</div>
+												<div class="col m6 none-padding-left">
+													<span class="right"><spring:message
+															code="label.home.title.total_employee" />: <span
+														class="info">100 <spring:message
+																code="label.home.title.people" /></span> </span>
+												</div>
+											</div>
+											<div class="row">
+												<p class="col m12 none-padding-left text-justify block-with-text">• Chịu trách nhiệm phát triển các ứng dụng web bằng ngôn ngữ PHP. • Tham gia thiết kế, lập trình và phát triển các dự án theo yêu cầu của công ty. • Quản lý team (~5 người) nếu là Team Leader. </p>
+												<div class="col m12 none-padding-left margin-top-5">
+													<a class="chip">Test ABC</a>
+													<a class="chip">Test ABC</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 				</div>
 			</div>
 			<div class="col m4">
@@ -99,6 +221,17 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<!-- Modal Structure -->
+	<div id="modal1" class="modal bottom-sheet">
+		<div class="modal-content">
+			<h4>Modal Header</h4>
+			<p>A bunch of text</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#!"
+				class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 		</div>
 	</div>
 	<script type="text/javascript">
