@@ -22,6 +22,7 @@
 
 	<input type="hidden" id="get_job_hot" value="<c:url value='/job/hot' />" />
 	<input type="hidden" id="first_item" value="${firstItem}" />
+	<input type="hidden" id="max_item" value="${maxItem}" />
 	<input type="hidden" id="current_page" value="${currentPage}" />
 
 	<input type="hidden" id="text_company_follow" value="<spring:message code="label.home.button.follow_company" />" />
@@ -37,21 +38,30 @@
 					<div class="panel-title">
 						<spring:message code="label.home.title.hot_career" />
 					</div>
-					<c:forEach items="${jobList}" var="job">
-						<div id="job-list">
-							<div class="panel-content">
+					<div id="job-list">
+						<c:forEach items="${jobList}" var="job">
+							<div class="">
 								<div class="job-box">
 									<div class="location-sticky orange darken-1">${job.company.address.province}</div>
 									<div class="row none-margin-bottom">
 										<div class="col m3 center hide-on-med-and-down">
-											<img src="${job.company.avatar}" class="responsive-img company-logo">
+											<a href="/company/${job.company.id}"><img src="${job.company.avatar}" class="responsive-img company-logo"></a>
 											<a href="#" class="btn margin-top-10 orange darken-1 waves-effect waves-light">
 												<spring:message code="label.home.button.follow_company" />
 											</a>
 										</div>
 										<div class="col m9">
 											<div class="col m12 p-0">
-												<h1 class="col m9 p-0 title block-with-text">${job.id} ${job.title}</h1>
+												<h1 class="col m9 p-0 title block-with-text">
+													<c:choose>
+														<c:when test="${job.company.isVip == 1}">
+															<a class="hot" href="<c:url value='/company/careers/${job.id}' />">${job.title}</a>
+														</c:when>
+														<c:otherwise>
+															<a class="not-hot" href="<c:url value='/company/careers/${job.id}' />">${job.title}</a>
+														</c:otherwise>
+													</c:choose>
+												</h1>
 											</div>
 											<a href="#" class="company-name">${job.company.displayName}</a>
 											<p class="work-location"><a href="#">${job.company.address.province}</a></p>
@@ -59,24 +69,24 @@
 											<div class="job-info">
 												<div class="row">
 													<div class="col m6 none-padding-left">
-														<p><spring:message code="label.home.title.salary" />: 
+														<p><i class="material-icons prefix-icon">attach_money</i><spring:message code="label.home.title.salary" />: 
 															<span class="info">${job.minSalary} - ${job.maxSalary}</span>
 														</p>
 													</div>
 													<div class="col m6 none-padding-left">
-														<span class="right"><spring:message code="label.home.title.post_date"/>: 
+														<p class="right"><i class="material-icons prefix-icon">date_range</i><spring:message code="label.home.title.post_date"/>: 
 															<span class="info">${job.postDate}</span>
-														</span>
+														</p>
 													</div>
 													<div class="col m6 none-padding-left">
-														<p><spring:message code="label.home.title.major"/>: 
+														<p><i class="material-icons prefix-icon">loyalty</i><spring:message code="label.home.title.major"/>: 
 															<span class="info">${job.position.displayName}</span>
 														</p>
 													</div>
 													<div class="col m6 none-padding-left">
-														<span class="right"><spring:message code="label.home.title.total_employee"/>: 
+														<p class="right"><i class="material-icons prefix-icon">people</i><spring:message code="label.home.title.total_employee"/>: 
 															<span class="info">${job.size} <spring:message code="label.home.title.people"/></span>
-														</span>
+														</p>
 													</div>
 												</div>
 												<div class="row">
@@ -94,12 +104,21 @@
 									</div>
 								</div>
 							</div>
-						</div>
-					</c:forEach>
-					<div class="text-align-center">
-						<a id="btn-load-more" class="btn-floating btn-large waves-effect waves-light red">
-							<i class="material-icons">add</i>
-						</a>
+						</c:forEach>
+					</div>
+					<div class="text-align-center margin-top-10">
+						<c:choose>
+							<c:when test="${isDisabledLoadJob == true}">
+								<a id="btn-load-more" class="btn-floating btn-large waves-effect waves-light red disabled" disabled="disabled">
+									<i class="material-icons">add</i>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a id="btn-load-more" class="btn-floating btn-large waves-effect waves-light red">
+									<i class="material-icons">add</i>
+								</a>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

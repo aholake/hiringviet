@@ -1,6 +1,5 @@
 package vn.com.hiringviet.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.service.JobService;
 import vn.com.hiringviet.util.Utils;
 
@@ -39,13 +37,7 @@ public class JobController {
 
 		pagingDTO = Utils.calculatorPaging(pagingDTO);
 
-		List<Skill> skills = new ArrayList<Skill>();
-		Skill skill = new Skill();
-		skill.setId(1);
-		skills.add(skill);
-		skill.setId(4);
-		skills.add(skill);
-		List<Job> jobList = jobService.getJobList(pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, true, skills);
+		List<Job> jobList = jobService.getJobList(pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, true, null);
 
 		if (Utils.isEmptyList(jobList)) {
 			jobResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());

@@ -68,6 +68,8 @@ public class Job implements Serializable {
 
 	private ChangeLog changeLog;
 
+	private Integer isPublish;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
@@ -231,4 +233,14 @@ public class Job implements Serializable {
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
 	}
+
+	@Column(name = "is_publish")
+	public Integer getIsPublish() {
+		return isPublish;
+	}
+
+	public void setIsPublish(Integer isPublish) {
+		this.isPublish = isPublish;
+	}
+
 }

@@ -2,10 +2,12 @@ package vn.com.hiringviet.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Skill;
+import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.Utils;
 
 @Repository
@@ -41,86 +43,65 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Job> getListJobHot(Integer first, Integer max, List<Skill> skills) {
-
-		StringBuilder hql = new StringBuilder();
-		hql.append("SELECT job ");
-		hql.append("FROM ");
-		hql.append(generatorQueryJoinTable());
-		hql.append("WHERE change_log.status = :status ");
-		hql.append("AND job.expired_date >= NOW() ");
-
-		if (!Utils.isEmptyList(skills)) {
-			hql.append(generatorQuerySkill(skills));
-		}
-
-		hql.append("GROUP BY job.id ");
-		hql.append(generatorQueryOrderBySalary());
+	public List<Job> getListJobHot(Integer first, Integer max, List<Integer> skills) {
 
 		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Job.class, "job");
+		criteria.createAlias("job.changeLog", "changeLog");
+		criteria.createAlias("job.company", "company");
 
-		Query query = session.createSQLQuery(hql.toString());
-		query.setFirstResult(first);
-		query.setMaxResults(max);
+		if (!Utils.isEmptyList(skills)) {
+			criteria.createAlias("job.skillList", "skillList");
+		}
 
-		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
+		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 
-		List<Job> jobList = query.list();
+		if (!Utils.isEmptyList(skills)) {
+			criteria.add(Restrictions.in("skillList.id", skills));
+		}
+
+		criteria.addOrder(Order.desc("company.isVip"));
+		criteria.addOrder(Order.desc("changeLog.createdDate"));
+		criteria.addOrder(Order.desc("job.minSalary"));
+		criteria.addOrder(Order.desc("job.maxSalary"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		criteria.setFirstResult(first);
+		criteria.setMaxResults(max);
+
+		List<Job> jobList = criteria.list();
 		return jobList;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Job> getListJobSuggest(Integer first, Integer max, List<Skill> skills) {
+	public List<Job> getListJobSuggest(Integer first, Integer max, List<Integer> skills) {
 
-		StringBuilder hql = new StringBuilder();
-		hql.append("FROM Job as j ");
-		hql.append("WHERE j.changeLog.status = :status ");
-		hql.append("ORDER BY j.changeLog.createdDate");
 		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Job.class, "job");
+		criteria.createAlias("job.changeLog", "changeLog");
+		criteria.createAlias("job.company", "company");
 
-		Query query = session.createQuery(hql.toString());
-		query.setFirstResult(first);
-		query.setMaxResults(max);
-
-		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
-
-		List<Job> jobList = query.list();
-		return jobList;
-	}
-
-	public String generatorQueryOrderBySalary() {
-		StringBuilder hql = new StringBuilder();
-		hql.append("ORDER BY change_log.created_date DESC, ");
-		hql.append("job.min_salary DESC, ");
-		hql.append("job.max_salary DESC ");
-		return hql.toString();
-	}
-
-	public String generatorQueryJoinTable() {
-		StringBuilder hql = new StringBuilder();
-		hql.append("job LEFT JOIN change_log ");
-		hql.append("ON job.change_log_id = change_log.id ");
-		hql.append("LEFT JOIN job_skill ");
-		hql.append("ON job.id = job_skill.job_id ");
-		hql.append("RIGHT JOIN skill ");
-		hql.append("ON job_skill.skill_id = skill.id ");
-		return hql.toString();
-	}
-
-	public String generatorQuerySkill(List<Skill> skills) {
-		StringBuilder hql = new StringBuilder();
-		hql.append("AND skill.id IN (");
-		Integer count = 0;
-		for (Skill skill : skills) {
-			count++;
-			if (count == skills.size()) {
-				hql.append(skill.getId());
-			} else {
-				hql.append(skill.getId() +", ");
-			}
+		if (!Utils.isEmptyList(skills)) {
+			criteria.createAlias("job.skillList", "skillList");
 		}
-		hql.append(") ");
-		return hql.toString();
+
+		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
+
+		if (!Utils.isEmptyList(skills)) {
+			criteria.add(Restrictions.in("skillList.id", skills));
+		}
+
+		criteria.addOrder(Order.desc("company.isVip"));
+		criteria.addOrder(Order.desc("changeLog.createdDate"));
+		criteria.addOrder(Order.desc("job.minSalary"));
+		criteria.addOrder(Order.desc("job.maxSalary"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		criteria.setFirstResult(first);
+		criteria.setMaxResults(max);
+
+		List<Job> jobList = criteria.list();
+		return jobList;
 	}
 }

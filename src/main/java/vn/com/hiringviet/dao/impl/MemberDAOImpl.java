@@ -1,8 +1,9 @@
 package vn.com.hiringviet.dao.impl;
 
-import org.hibernate.Query;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,18 +25,16 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 
 	@Override
 	public Member getMemberByAccountId(Integer accountId) {
+
 		Session session = this.sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Member.class, "member");
+		criteria.createAlias("member.changeLog", "changeLog");
+		criteria.createAlias("member.account", "account");
+		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("account.id", accountId));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-		StringBuilder hql = new StringBuilder();
-		hql.append("FROM Member as m ");
-		hql.append("WHERE m.changeLog.status = :status ");
-		hql.append("AND m.account.id = :accountId ");
-
-		Query query = session.createQuery(hql.toString());
-		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
-		query.setParameter("accountId", accountId);
-
-		Member result = (Member) query.uniqueResult();
+		Member result = (Member) criteria.uniqueResult();
 
 		return result;
 	}

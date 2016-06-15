@@ -52,11 +52,15 @@ public class Company implements Serializable {
 
 	private String country;
 
+	private Integer isVip;
+
 	private ChangeLog changeLog;
 
 	private List<CompanyPhoto> companyPhotoList;
 
 	private List<Job> jobList;
+
+	private List<Posts> jobPosts;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -188,6 +192,15 @@ public class Company implements Serializable {
 		this.country = country;
 	}
 
+	@Column(name = "is_vip")
+	public Integer getIsVip() {
+		return isVip;
+	}
+
+	public void setIsVip(Integer isVip) {
+		this.isVip = isVip;
+	}
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
@@ -219,4 +232,15 @@ public class Company implements Serializable {
 		this.jobList = jobList;
 	}
 
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
+	public List<Posts> getJobPosts() {
+		return jobPosts;
+	}
+
+	public void setJobPosts(List<Posts> jobPosts) {
+		this.jobPosts = jobPosts;
+	}
+
+	
 }

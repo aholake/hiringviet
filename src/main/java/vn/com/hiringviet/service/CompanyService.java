@@ -5,6 +5,7 @@ import java.util.List;
 import vn.com.hiringviet.model.Company;
 
 public interface CompanyService {
+
 	int addCompany(Company company);
 
 	boolean deleteCompany(Company company);
@@ -15,4 +16,5 @@ public interface CompanyService {
 	
 	List<Company> getListCompany(Integer first, Integer max, boolean isCompanyHot);
 
+	public Company findOne(Integer id);
 }

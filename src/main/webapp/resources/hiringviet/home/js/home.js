@@ -12,12 +12,12 @@ $(function() {
 
 function showResultJobHot(response) {
 
-	console.log(response);
 	if (FAIL == response.result) {
 		alert(response.message);
 	} else {
 		var jobList = $('#job-list');
-
+		$('#first_item').val(parseInt($('#first_item').val()) + MAX_RECORED);
+		$('#current_page').val(parseInt($('#current_page').val()) + 1);
 		var html = "";
 		var jobListResponse = response.jobList;
 		for (var index = 0; index < jobListResponse.length; index++) {
@@ -27,43 +27,52 @@ function showResultJobHot(response) {
 			for (var i = 0; i < skills.length; i++) {
 				tempItem += '<a class="chip">'+ skills[i].displayName + '</a>';
 			}
-			var item = '<div class="panel-content">\
+
+			var nameClass = "";
+			if (jobListResponse[index].company.isVip == VIP) {
+				nameClass = HOT;
+			} else {
+				nameClass = NOT_HOT;
+			}
+			var item = '<div class="">\
 							<div class="job-box">\
 								<div class="location-sticky orange darken-1">' + jobListResponse[index].company.address.province + '</div>\
 									<div class="row none-margin-bottom">\
 									<div class="col m3 center hide-on-med-and-down">\
-										<img src="' + jobListResponse[index].company.avatar + '" class="responsive-img company-logo">\
+									<a href="/company/' + jobListResponse[index].company.id + '"><img src="' + jobListResponse[index].company.avatar + '" class="responsive-img company-logo"></a>\
 										<a href="#" class="btn margin-top-10 orange darken-1 waves-effect waves-light">\
 											' + $('#text_company_follow').val() + '\
 										</a>\
 									</div>\
 									<div class="col m9">\
 										<div class="col m12 p-0">\
-											<h1 class="col m9 p-0 title block-with-text">' + jobListResponse[index].title + '</h1>\
+											<h1 class="col m9 p-0 title block-with-text">\
+												<a class="' + nameClass + '" href="/company/careers/' + jobListResponse[index].id + '">' + jobListResponse[index].title + '</a>\
+											</h1>\
 										</div>\
 										<a href="#" class="company-name">' + jobListResponse[index].company.displayName + '</a>\
 										<p class="work-location"><a href="#">' + jobListResponse[index].company.address.province + '</a></p>\
 										<div class="job-info">\
 											<div class="row">\
 												<div class="col m6 none-padding-left">\
-													<p>' + $('#text_title_salary').val() + ': \
+													<p><i class="material-icons prefix-icon">attach_money</i>' + $('#text_title_salary').val() + ': \
 														<span class="info">' + jobListResponse[index].minSalary + ' - ' + jobListResponse[index].maxSalary + '</span>\
 													</p>\
 												</div>\
 												<div class="col m6 none-padding-left">\
-													<span class="right">' + $('#text_title_post_date').val() + ': \
+													<p class="right"><i class="material-icons prefix-icon">date_range</i>' + $('#text_title_post_date').val() + ': \
 														<span class="info">' + jobListResponse[index].postDate + '</span>\
-													</span>\
+													</p>\
 												</div>\
 												<div class="col m6 none-padding-left">\
-													<p>' + $('#text_title_major').val() + ': \
+													<p><i class="material-icons prefix-icon">loyalty</i>' + $('#text_title_major').val() + ': \
 														<span class="info">' + jobListResponse[index].position.displayName + '</span>\
 													</p>\
 												</div>\
 												<div class="col m6 none-padding-left">\
-													<span class="right">' + $('#text_total_employee').val() + ': \
+													<p class="right"><i class="material-icons prefix-icon">people</i>' + $('#text_total_employee').val() + ': \
 														<span class="info">' + jobListResponse[index].size + $('#text_title_people').val() + '</span>\
-													</span>\
+													</p>\
 												</div>\
 											</div>\
 											<div class="row">\
@@ -82,5 +91,10 @@ function showResultJobHot(response) {
 			html += item;
 		}
 		jobList.append(html);
+
+		if (parseInt($('#max_item').val()) > jobListResponse.length) {
+			$('#btn-load-more').attr('disabled', 'disabled');
+			$('#btn-load-more').addClass('disabled');
+		}
 	}
 }

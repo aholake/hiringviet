@@ -1,9 +1,12 @@
-
 var MAX_TOTAL_ITEM_7 = 7;
 var MAX_LENGTH_VALUE_100 = 100;
 var BORDER_INPUT = '#f44336';
 var SUCCESS = 'success';
 var FAIL = 'fail';
+var VIP = 1;
+var NORMAL = 0;
+var HOT = "hot";
+var NOT_HOT = "not-hot";
 
 /** Global Constant for CSS pop-up Progressing */
 var popupCss = "background-color: #BCBCBC;\

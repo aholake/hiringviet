@@ -11,6 +11,7 @@ import vn.com.hiringviet.service.CompanyService;
 
 @Service("companyService")
 public class CompanyServiceImpl implements CompanyService {
+
 	@Autowired
 	private CompanyDAO companyDAO;
 
@@ -48,4 +49,8 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 	}
 
+	public Company findOne(Integer id) {
+
+		return companyDAO.findOne(id);
+	}
 }
