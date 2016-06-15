@@ -2,16 +2,19 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "address")
-public class Address implements Serializable{
+public class Address implements Serializable {
 
 	private static final long serialVersionUID = -7566847492913663184L;
 
@@ -19,11 +22,11 @@ public class Address implements Serializable{
 
 	private String streetName;
 
-	private String ward;
+	private Ward ward;
 
-	private String district;
+	private District district;
 
-	private String province;
+	private Province province;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,30 +47,34 @@ public class Address implements Serializable{
 		this.streetName = streetName;
 	}
 
-	@Column(name = "ward")
-	public String getWard() {
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ward_id")
+	public Ward getWard() {
 		return ward;
 	}
 
-	public void setWard(String ward) {
+	public void setWard(Ward ward) {
 		this.ward = ward;
 	}
 
-	@Column(name = "district")
-	public String getDistrict() {
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "district_id")
+	public District getDistrict() {
 		return district;
 	}
 
-	public void setDistrict(String district) {
+	public void setDistrict(District district) {
 		this.district = district;
 	}
 
-	@Column(name = "province")
-	public String getProvince() {
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "province_id")
+	public Province getProvince() {
 		return province;
 	}
 
-	public void setProvince(String province) {
+	public void setProvince(Province province) {
 		this.province = province;
 	}
+
 }
