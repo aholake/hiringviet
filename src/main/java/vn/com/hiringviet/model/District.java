@@ -1,5 +1,6 @@
 package vn.com.hiringviet.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,9 +15,14 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "district")
-public class District {
+public class District implements Serializable {
+
+	private static final long serialVersionUID = 2897165655843882015L;
+
 	private int id;
+
 	private String districtName;
+
 	private List<Ward> wards;
 
 	@Id
@@ -39,7 +45,7 @@ public class District {
 	}
 
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "district_id")
+	@JoinColumn(name = "ward_id")
 	public List<Ward> getWards() {
 		return wards;
 	}

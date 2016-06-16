@@ -11,14 +11,21 @@
 		<img class="company-cover responsive-img img-full"
 			src="/resources/images/company_background.jpg" alt="company cover" />
 		<div class="social-connect-box">
-			<span class="social-company-name">Axon Active</span> <a href="#"><img
-				src="/resources/images/facebook.png" /></a> <a href="#"><img
-				src="/resources/images/linkedin.png" /></a> <a href="#"><img
-				src="/resources/images/twitter.png" /></a>
+			<span class="social-company-name">
+				${company.displayName}
+			</span> 
+			<a href="#">
+				<img src="/resources/images/facebook.png" />
+			</a> 
+			<a href="#">
+				<img src="/resources/images/linkedin.png" />
+			</a> 
+			<a href="#">
+				<img src="/resources/images/twitter.png" />
+			</a>
 		</div>
 		<div class="company-logo">
-			<img class="responsive-img" src="/resources/images/logofsoft.png"
-				alt="company logo" />
+			<img class="responsive-img img-full" src="${company.avatar}" alt="company logo" />
 		</div>
 	</div>
 </body>

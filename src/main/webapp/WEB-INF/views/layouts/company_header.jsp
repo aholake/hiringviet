@@ -10,20 +10,28 @@
 <body>
 	<div class="row company-header">
 		<div class="col m6 offset-m2">
-			<p class="company-name">Axon Active Vietnam</p>
+			<p class="company-name"><a href="<c:url value='/company/${company.id}' />"></a></p>
 			<p>45,500 <spring:message code="label.company.header.title.count_follow"/></p>
 			<ul class="menu-banner">
 				<li>
-					<a href="/company" class="active">Home</a>
+					<a href="/company/${company.id}" class="active">
+						<spring:message code="label.company.title.home"/>
+					</a>
 				</li>
 				<li>
-					<a href="/company/careers">Careers</a>
+					<a href="/company/${company.id}/job">
+						<spring:message code="label.company.title.careers"/>
+					</a>
 				</li>
 			</ul>
 		</div>
 		<div class="col m4 margin-top-10 right-align">
-			<a class="btn waves-effect waves-light">Message</a> <a
-				class="btn waves-effect waves-light orange">Subscribe</a>
+			<a class="btn waves-effect waves-light">
+				<spring:message code="label.company.title.message"/>
+			</a> 
+			<a class="btn waves-effect waves-light orange">
+				<spring:message code="label.company.title.subscribe"/>
+			</a>
 		</div>
 	</div>
 </body>

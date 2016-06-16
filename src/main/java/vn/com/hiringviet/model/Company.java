@@ -35,7 +35,6 @@ public class Company implements Serializable {
 
 	private String hostCountry;
 
-	// linh vuc kinh doanh
 	private String businessField;
 
 	private String description;
@@ -50,17 +49,13 @@ public class Company implements Serializable {
 
 	private String location;
 
-	private String country;
+	private Country country;
 
 	private Integer isVip;
 
 	private ChangeLog changeLog;
 
 	private List<CompanyPhoto> companyPhotoList;
-
-	private List<Job> jobList;
-
-	private List<Posts> jobPosts;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -183,12 +178,13 @@ public class Company implements Serializable {
 		this.location = location;
 	}
 
-	@Column(name = "country")
-	public String getCountry() {
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "country_id")
+	public Country getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
 	}
 
@@ -211,8 +207,7 @@ public class Company implements Serializable {
 		this.changeLog = changeLog;
 	}
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "company_id")
 	public List<CompanyPhoto> getCompanyPhotoList() {
 		return companyPhotoList;
@@ -222,25 +217,4 @@ public class Company implements Serializable {
 		this.companyPhotoList = companyPhotoList;
 	}
 
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
-	public List<Job> getJobList() {
-		return jobList;
-	}
-
-	public void setJobList(List<Job> jobList) {
-		this.jobList = jobList;
-	}
-
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
-	public List<Posts> getJobPosts() {
-		return jobPosts;
-	}
-
-	public void setJobPosts(List<Posts> jobPosts) {
-		this.jobPosts = jobPosts;
-	}
-
-	
 }

@@ -30,164 +30,119 @@
 			<div class="col m8">
 				<div class="card-panel">
 					<div class="panel-title"><spring:message code="label.company.title.active"/></div>
-					<div class="panel-content">
-							<div class="job-box">
-								<div class="location-action">
-									<a class="btn-menu btn-floating btn-small grey lighten-3 dropdown-button" data-activates='item1'>
-										<i class="large material-icons">menu</i>
-									</a>
-								<!-- Dropdown Structure -->
-								<ul id='item1' class='dropdown-content'>
-									<li><a href="#modal1" class="modal-trigger">Edit</a></li>
-									<li><a href="#!">Delete</a></li>
-									<li class="divider"></li>
-									<li><a href="#!">Publish</a></li>
-								</ul>
-							</div>
-								<div class="row none-margin-bottom">
-									<div class="col m12">
-										<div class="col m12 p-0">
-											<h1 class="col m9 p-0 title block-with-text">10 PHP Developers / Team Leader (Tuyển Gấp)</h1>
-										</div>
-										<a href="#" class="company-name">GMO Runsystem</a>
-										<p class="work-location">
-											<a href="#">TP. Hồ Chí Minh</a>
-										</p>
-
-										<div class="job-info">
-											<div class="row">
-												<div class="col m6 none-padding-left">
-													<p>
-														<spring:message code="label.home.title.salary" />
-														: <span class="info">100.0 - 600.0</span>
-													</p>
-												</div>
-												<div class="col m6 none-padding-left">
-													<span class="right"><spring:message
-															code="label.home.title.post_date" />: <span class="info">2016-06-01</span>
-													</span>
-												</div>
-												<div class="col m6 none-padding-left">
-													<p>
-														<spring:message code="label.home.title.major" />
-														: <span class="info">Developer</span>
-													</p>
-												</div>
-												<div class="col m6 none-padding-left">
-													<span class="right"><spring:message
-															code="label.home.title.total_employee" />: <span
-														class="info">100 <spring:message
-																code="label.home.title.people" /></span> </span>
-												</div>
+						<div class="panel-content">
+							<div id="job-list">
+							<c:forEach items="${jobList}" var="job">
+								<div class="job-box">
+									<div class="location-action">
+										<a class="btn-menu btn-floating btn-small grey lighten-3 dropdown-button" data-activates='item${job.id}'>
+											<i class="large material-icons">menu</i>
+										</a>
+									<!-- Dropdown Structure -->
+									<ul id='item${job.id}' class='dropdown-content'>
+										<li><a href="#modal1" class="modal-trigger"><spring:message code="label.company.title.edit" /></a></li>
+										<li><a href="#!"><spring:message code="label.company.title.delete" /></a></li>
+										<li class="divider"></li>
+										<li><a href="#!"><spring:message code="label.company.title.publish" /></a></li>
+									</ul>
+								</div>
+									<div class="row none-margin-bottom">
+										<div class="col m12">
+											<div class="col m12 p-0">
+												<h1 class="col m9 p-0 title block-with-text">
+													<a class="not-hot" href="<c:url value='/company/${company.id}/careers/${job.id}' />">${job.title}</a>
+												</h1>
 											</div>
-											<div class="row">
-												<p class="col m12 none-padding-left text-justify block-with-text">• Chịu trách nhiệm phát triển các ứng dụng web bằng ngôn ngữ PHP. • Tham gia thiết kế, lập trình và phát triển các dự án theo yêu cầu của công ty. • Quản lý team (~5 người) nếu là Team Leader. </p>
-												<div class="col m12 none-padding-left margin-top-5">
-													<a class="chip">Test ABC</a>
-													<a class="chip">Test ABC</a>
+											<a href="#" class="company-name">${job.company.displayName}</a>
+											<p class="work-location">
+												<a href="#">${job.company.address.province.provinceName}</a>
+											</p>
+	
+											<div class="job-info">
+												<div class="row">
+													<div class="col m6 none-padding-left">
+														<p>
+															<i class="material-icons prefix-icon">attach_money</i>
+															<spring:message code="label.home.title.salary" />
+															: <span class="info">${job.minSalary} - ${job.maxSalary}</span>
+														</p>
+													</div>
+													<div class="col m6 none-padding-left">
+														<p class="right">
+															<i class="material-icons prefix-icon">date_range</i>
+															<spring:message code="label.home.title.post_date" />: 
+															<span class="info">${job.postDate}</span>
+														</p>
+													</div>
+													<div class="col m6 none-padding-left">
+														<p>
+															<i class="material-icons prefix-icon">loyalty</i>
+															<spring:message code="label.home.title.major" />
+															: <span class="info">${job.position.displayName}</span>
+														</p>
+													</div>
+													<div class="col m6 none-padding-left">
+														<p class="right">
+															<i class="material-icons prefix-icon">people</i>
+															<spring:message code="label.home.title.total_employee" />: 
+															<span class="info">${job.size} 
+															<spring:message code="label.home.title.people" /></span> 
+														</p>
+													</div>
+												</div>
+												<div class="row">
+													<p class="col m12 none-padding-left text-justify block-with-text">
+														${job.description}
+													</p>
+													<div class="col m12 none-padding-left margin-top-5">
+														<c:forEach items="${job.skillList}" var="skill">
+															<a class="chip">${skill.displayName}</a>
+														</c:forEach>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="job-box">
-								<div class="location-action">
-									<a class="btn-menu btn-floating btn-small grey lighten-3 dropdown-button" data-activates='item2'>
-										<i class="large material-icons">menu</i>
-									</a>
-								<!-- Dropdown Structure -->
-								<ul id='item2' class='dropdown-content'>
-									<li><a href="#modal1" class="modal-trigger">Edit</a></li>
-									<li><a href="#!">Delete</a></li>
-									<li class="divider"></li>
-									<li><a href="#!">Publish</a></li>
-								</ul>
-							</div>
-								<div class="row none-margin-bottom">
-									<div class="col m12">
-										<div class="col m12 p-0">
-											<h1 class="col m9 p-0 title block-with-text">10 PHP Developers / Team Leader (Tuyển Gấp)</h1>
-										</div>
-										<a href="#" class="company-name">GMO Runsystem</a>
-										<p class="work-location">
-											<a href="#">TP. Hồ Chí Minh</a>
-										</p>
-
-										<div class="job-info">
-											<div class="row">
-												<div class="col m6 none-padding-left">
-													<p>
-														<spring:message code="label.home.title.salary" />
-														: <span class="info">100.0 - 600.0</span>
-													</p>
-												</div>
-												<div class="col m6 none-padding-left">
-													<span class="right"><spring:message
-															code="label.home.title.post_date" />: <span class="info">2016-06-01</span>
-													</span>
-												</div>
-												<div class="col m6 none-padding-left">
-													<p>
-														<spring:message code="label.home.title.major" />
-														: <span class="info">Developer</span>
-													</p>
-												</div>
-												<div class="col m6 none-padding-left">
-													<span class="right"><spring:message
-															code="label.home.title.total_employee" />: <span
-														class="info">100 <spring:message
-																code="label.home.title.people" /></span> </span>
-												</div>
-											</div>
-											<div class="row">
-												<p class="col m12 none-padding-left text-justify block-with-text">• Chịu trách nhiệm phát triển các ứng dụng web bằng ngôn ngữ PHP. • Tham gia thiết kế, lập trình và phát triển các dự án theo yêu cầu của công ty. • Quản lý team (~5 người) nếu là Team Leader. </p>
-												<div class="col m12 none-padding-left margin-top-5">
-													<a class="chip">Test ABC</a>
-													<a class="chip">Test ABC</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							</c:forEach>
 						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col m4">
 				<div class="card-panel">
-					<div class="panel-title">THÔNG TIN CÔNG TY</div>
+					<div class="panel-title"><spring:message code="label.company.title.company_information"/></div>
 					<div class="panel-content">
 						<div class="company-box overflow-auto">
 							<div class="row">
 								<div class="col m9">
-									<h1 class="title">Tan Hiep Phat</h1>
+									<h1 class="title">${company.displayName}</h1>
 									<div class="small-text">
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">flag</i>
 											<spring:message code="label.home.title.country" />
-											: <span class="info">My</span>
+											: <span class="info">${company.country.countryName}</span>
 										</p>
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">equalizer</i>
 											<spring:message code="label.home.title.company_size" />
-											: <span class="info">500 <spring:message
-													code="label.home.title.people" /></span>
+											: <span class="info">${company.companySize} 
+											<spring:message code="label.home.title.people" /></span>
 										</p>
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">web</i>
 											<spring:message code="label.home.title.website" />
-											: <span class="info">www.google.com</span>
+											: <span class="info">${company.website}</span>
 										</p>
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">location_on</i>
 											<spring:message code="label.home.title.address" />
-											: <span class="info">TP.HCHCM</span>
+											: <span class="info">${company.address.province.provinceName}</span>
 										</p>
 									</div>
 								</div>
 								<div class="col m3 hide-on-med-and-down">
-									<img src="/resources/images/profile_photo.jpg" class="right responsive-img">
+									<img src="${company.avatar}" class="right responsive-img img-full">
 								</div>
 							</div>
 							<div class="col m12">

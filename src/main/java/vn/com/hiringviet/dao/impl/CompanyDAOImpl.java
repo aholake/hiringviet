@@ -6,15 +6,18 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.hiringviet.common.PublishResponseEnum;
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.CompanyDAO;
 import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.Posts;
 
 @Repository
 @Transactional
@@ -67,39 +70,41 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements CompanyDAO
 		return companyList;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Company getCompany(boolean loadJob) {
+	public List<Posts> getListPosts(Integer first, Integer max,
+			Integer companyId) {
 
 		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Posts.class, "post");
+		criteria.createAlias("post.company", "company");
+		criteria.createAlias("post.changeLog", "changeLog");
+		criteria.add(Restrictions.eq("company.id", companyId));
+		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.setFirstResult(first);
+		criteria.setMaxResults(max);
+		criteria.addOrder(Order.desc("changeLog.updatedDate"));
 
-		Criteria criteria = session.createCriteria(Company.class, "company");
+		List<Posts> result = (List<Posts>) criteria.list();
+		return result;
+	}
 
-		ProjectionList projections = Projections.projectionList();
-		projections.add(Projections.property("company.id"));
-		projections.add(Projections.property("company.displayName"));
-		projections.add(Projections.property("company.companySize"));
-		projections.add(Projections.property("company.address"));
-		projections.add(Projections.property("company.hostCountry"));
-		projections.add(Projections.property("company.businessField"));
-		projections.add(Projections.property("company.description"));
-		projections.add(Projections.property("company.foundedYear"));
-		projections.add(Projections.property("company.avatar"));
-		projections.add(Projections.property("company.coverImage"));
-		projections.add(Projections.property("company.website"));
-		projections.add(Projections.property("company.country"));
-		projections.add(Projections.property("company.isVip"));
-		projections.add(Projections.property("company.changeLog"));
-		projections.add(Projections.property("company.companyPhotoList"));
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Job> getListJob(Integer first, Integer max, Integer companyId) {
 
-		if (loadJob) {
-			projections.add(Projections.property("company.jobList"));
-		} else {
-			projections.add(Projections.property("company.jobPosts"));
-		}
+		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Job.class, "job");
+		criteria.createAlias("job.company", "company");
+		criteria.createAlias("job.changeLog", "changeLog");
+		criteria.add(Restrictions.eq("company.id", companyId));
+		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("job.isPublish", PublishResponseEnum.PUBLISH.getValue()));
+		criteria.setFirstResult(first);
+		criteria.setMaxResults(max);
+		criteria.addOrder(Order.desc("changeLog.updatedDate"));
 
-		criteria.setProjection(projections);
-
-		Company company = (Company) criteria.uniqueResult();
-		return company;
+		List<Job> result = (List<Job>) criteria.list();
+		return result;
 	}
 }

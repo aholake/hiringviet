@@ -19,17 +19,35 @@ import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.service.JobService;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JobController.
+ */
 @Controller
 public class JobController {
+	
+	/** The job service. */
 	@Autowired
 	private JobService jobService;
 	
+	/**
+	 * Gets the job.
+	 *
+	 * @param jobID the job id
+	 * @return the job
+	 */
 	@RequestMapping(value = "/job/{jobID}", method = RequestMethod.GET)
 	public @ResponseBody Job getJob(@PathVariable("jobID") Integer jobID) {
 
 		return jobService.getJobById(jobID);
 	}
 
+	/**
+	 * Gets the job hot.
+	 *
+	 * @param pagingDTO the paging dto
+	 * @return the job hot
+	 */
 	@RequestMapping(value = "/job/hot", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody JobResponseDTO getJobHot(@RequestBody PagingDTO pagingDTO) {
 

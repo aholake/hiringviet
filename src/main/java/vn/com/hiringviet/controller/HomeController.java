@@ -21,27 +21,38 @@ import vn.com.hiringviet.service.ResumeService;
 import vn.com.hiringviet.service.SkillService;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HomeController.
+ */
 @Controller
 public class HomeController {
 
+	/** The job service. */
 	@Autowired
 	private JobService jobService;
 
+	/** The company service. */
 	@Autowired
 	private CompanyService companyService;
 
+	/** The member service. */
 	@Autowired
 	private MemberService memberService;
 
+	/** The skill service. */
 	@Autowired
 	private SkillService skillService;
 
+	/** The resume service. */
 	@Autowired
 	private ResumeService resumeService;
 	
 	/**
-	 * @param model
-	 * @param session
+	 * Go home page.
+	 *
+	 * @param model the model
+	 * @param session the session
 	 * @return home page
 	 */
 	@RequestMapping(value = "home")
