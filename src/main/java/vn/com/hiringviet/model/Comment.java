@@ -34,6 +34,8 @@ public class Comment implements Serializable {
 
 	private ChangeLog changeLog;
 
+	private Posts posts;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
@@ -55,6 +57,7 @@ public class Comment implements Serializable {
 		this.replyCommentList = replyCommentList;
 	}
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "member_id")
 	public Member getMember() {
@@ -74,8 +77,7 @@ public class Comment implements Serializable {
 		this.comment = comment;
 	}
 
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
 		return changeLog;
@@ -84,4 +86,16 @@ public class Comment implements Serializable {
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
 	}
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "posts_id")
+	public Posts getPosts() {
+		return posts;
+	}
+
+	public void setPosts(Posts posts) {
+		this.posts = posts;
+	}
+
 }

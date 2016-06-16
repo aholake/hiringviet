@@ -21,6 +21,7 @@ $(document).ready(function() {
 		complete : function() {
 		} // Callback for Modal close
 	});
+
 });
 
 function showComment(id) {

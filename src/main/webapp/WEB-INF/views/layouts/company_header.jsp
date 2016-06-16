@@ -10,8 +10,8 @@
 <body>
 	<div class="row company-header">
 		<div class="col m6 offset-m2">
-			<p class="company-name"><a href="<c:url value='/company/${company.id}' />"></a></p>
-			<p>45,500 <spring:message code="label.company.header.title.count_follow"/></p>
+			<p class="company-name"><a href="<c:url value='/company/${company.id}' />">${company.displayName}</a></p>
+			<p>${numberFollower} <spring:message code="label.company.header.title.count_follow"/></p>
 			<ul class="menu-banner">
 				<li>
 					<a href="/company/${company.id}" class="active">

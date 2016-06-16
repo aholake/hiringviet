@@ -156,7 +156,7 @@
 										</div>
 									</div>
 									<div class="col m3 hide-on-med-and-down">
-										<img src="${company.avatar}" class="right responsive-img">
+										<img src="${company.avatar}" class="right responsive-img company-logo-1">
 									</div>
 								</div>
 							</div>

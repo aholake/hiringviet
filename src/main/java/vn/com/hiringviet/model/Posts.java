@@ -1,6 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,6 +31,8 @@ public class Posts implements Serializable {
 	private String description;
 
 	private ChangeLog changeLog;
+
+	private Set<Comment> commentSet;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,5 +80,15 @@ public class Posts implements Serializable {
 
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "posts_id")
+	public Set<Comment> getCommentSet() {
+		return commentSet;
+	}
+
+	public void setCommentSet(Set<Comment> commentSet) {
+		this.commentSet = commentSet;
 	}
 }

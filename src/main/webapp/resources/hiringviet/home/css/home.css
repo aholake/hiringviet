@@ -18,6 +18,13 @@
 	padding:10px;
 }
 
+.company-logo-1 {
+	width: 70px !important;
+	height: 70px !important;
+	border: 1px solid #c2c2c2;
+	padding: 2px;
+}
+
 a.company-name {
 	color: #02A8F3;
 	font-weight: bold;
