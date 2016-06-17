@@ -36,8 +36,6 @@ public class Company implements Serializable {
 
 	private Address address;
 
-	private String hostCountry;
-
 	private String businessField;
 
 	private String description;
@@ -107,15 +105,6 @@ public class Company implements Serializable {
 
 	public void setAddress(Address address) {
 		this.address = address;
-	}
-
-	@Column(name = "host_country")
-	public String getHostCountry() {
-		return hostCountry;
-	}
-
-	public void setHostCountry(String hostCountry) {
-		this.hostCountry = hostCountry;
 	}
 
 	@Column(name = "business_field")
