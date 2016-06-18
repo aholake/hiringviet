@@ -27,38 +27,65 @@
 					<div class="panel-content">
 						<form:form modelAttribute="newCompany" cssClass="margin-10"
 							action="/rest/addNewCompany" method="POST">
-							<div class="input-field">
-								<form:input path="displayName" id="displayName"
-									cssClass="validate" type="text" required="required" />
-								<label for="displayName">Company name</label>
-							</div>
+							<div id="company-info">
+								<h5>Thông tin công ty</h5>
+								<div class="input-field">
+									<form:input path="displayName" id="displayName"
+										cssClass="validate" type="text" required="required" />
+									<label for="displayName">Company name</label>
+								</div>
 
-							<div class="input-field">
-								<form:input path="businessField" id="businessField"
-									cssClass="validate" type="text" required="required" />
-								<label for="country">Business field</label>
-							</div>
+								<div class="input-field">
+									<form:input path="businessField" id="businessField"
+										cssClass="validate" type="text" required="required" />
+									<label for="country">Business field</label>
+								</div>
 
-							<div class="input-field">
-								<form:input path="account.email" id="email" cssClass="validate"
-									type="email" required="required" />
-								<label for="email">Email</label>
+								<div class="input-field">
+									<form:select path="country">
+										<form:option value="NONE" label="Choose your option" disabled="true"></form:option>
+										<form:options items="${countries }" itemValue="id"></form:options>
+									</form:select>
+									<label>Thuộc quốc gia</label>
+								</div>
+								
+								<h6>Địa chỉ</h6>
+								<div class="input-field">
+									<form:select path="address.province">
+										<form:option value="NONE" label="Choose your option" disabled="true"></form:option>
+										<form:options items="${countries }" itemValue="id"></form:options>
+									</form:select>
+									<label>Thuộc quốc gia</label>
+								</div>
+								
+								<div class="input-field center">
+									<button type="button" class="btn waves-effect waves-light">Next</button>
+								</div>
 							</div>
+							<div id="account-info">
+								<div class="input-field">
+									<form:input path="account.email" id="email" cssClass="validate"
+										type="email" required="required" />
+									<label for="email">Email</label>
+								</div>
 
-							<div class="input-field">
-								<form:input path="account.password" id="password"
-									cssClass="validate" type="password" required="required" />
-								<label for="password">Password</label>
-							</div>
-							<div class="input-field">
-								<input id="rePassword" class="validate" type="password"
-									required="required" /> <label for="rePassword">Confirm
-									password</label>
-							</div>
-							<div class="input-field center">
-								<button type="submit" class="btn waves-effect waves-light">Đăng
-									ký</button>
-								<button type="reset" class="btn waves-effect waves-light">Hủy</button>
+								<div class="input-field">
+									<form:input path="account.password" id="password"
+										cssClass="validate" type="password" required="required" />
+									<label for="password">Password</label>
+								</div>
+								<div class="input-field">
+									<input id="rePassword" class="validate" type="password"
+										required="required" /> <label for="rePassword">Confirm
+										password</label>
+								</div>
+
+								<div class="input-field center">
+									<button id="back" type="button"
+										class="btn waves-effect waves-light">Back</button>
+									<button type="submit" class="btn waves-effect waves-light">Đăng
+										ký</button>
+								</div>
 							</div>
 						</form:form>
 					</div>
@@ -72,5 +99,8 @@
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="/resources/hiringviet/register/js/validate.js"></script>
+	<script type="text/javascript">
+		$("#account-info").hide();
+	</script>
 </body>
 </html>

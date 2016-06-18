@@ -51,7 +51,7 @@ public class Company implements Serializable {
 
 	private String location;
 
-	private Country country;
+	private Country hostCountry;
 
 	private Integer isVip;
 
@@ -173,19 +173,21 @@ public class Company implements Serializable {
 	}
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "country_id")
-	public Country getCountry() {
-		return country;
+	@JoinColumn(name = "host_country_id")
+	public Country getHostCountry() {
+		return hostCountry;
+	}
+	
+	public void setHostCountry(Country hostCountry) {
+		this.hostCountry = hostCountry;
 	}
 
-	public void setCountry(Country country) {
-		this.country = country;
-	}
 
 	@Column(name = "is_vip")
 	public Integer getIsVip() {
 		return isVip;
 	}
+
 
 	public void setIsVip(Integer isVip) {
 		this.isVip = isVip;

@@ -32,12 +32,6 @@ public class Address implements Serializable {
 	/** The ward. */
 	private Ward ward;
 
-	/** The district. */
-	private District district;
-
-	/** The province. */
-	private Province province;
-
 	/**
 	 * Gets the id.
 	 *
@@ -52,7 +46,8 @@ public class Address implements Serializable {
 	/**
 	 * Sets the id.
 	 *
-	 * @param id the new id
+	 * @param id
+	 *            the new id
 	 */
 	public void setId(int id) {
 		this.id = id;
@@ -71,7 +66,8 @@ public class Address implements Serializable {
 	/**
 	 * Sets the street name.
 	 *
-	 * @param streetName the new street name
+	 * @param streetName
+	 *            the new street name
 	 */
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
@@ -91,7 +87,8 @@ public class Address implements Serializable {
 	/**
 	 * Sets the ward.
 	 *
-	 * @param ward the new ward
+	 * @param ward
+	 *            the new ward
 	 */
 	public void setWard(Ward ward) {
 		this.ward = ward;
@@ -102,39 +99,4 @@ public class Address implements Serializable {
 	 *
 	 * @return the district
 	 */
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "district_id")
-	public District getDistrict() {
-		return district;
-	}
-
-	/**
-	 * Sets the district.
-	 *
-	 * @param district the new district
-	 */
-	public void setDistrict(District district) {
-		this.district = district;
-	}
-
-	/**
-	 * Gets the province.
-	 *
-	 * @return the province
-	 */
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "province_id")
-	public Province getProvince() {
-		return province;
-	}
-
-	/**
-	 * Sets the province.
-	 *
-	 * @param province the new province
-	 */
-	public void setProvince(Province province) {
-		this.province = province;
-	}
-
 }

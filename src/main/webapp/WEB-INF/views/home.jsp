@@ -20,17 +20,8 @@
 </head>
 <body>
 	<jsp:include page="/layouts/navbar"></jsp:include>
+	<jsp:include page="/layouts/introduce-slider"></jsp:include>
 
-	<div id="introduce-slider">
-		<div class="slider">
-			<ul class="slides">
-				<li><img src='<c:url value="/resources/common/images/slider/slider_img.jpg"></c:url>'></li>
-				<li><img src="<c:url value="/resources/common/images/slider/slider_img-1.jpg"></c:url>"></li>
-				<li><img src="<c:url value="/resources/common/images/slider/slider_img.jpg"></c:url>"></li>
-				<li><img src="<c:url value="/resources/common/images/slider/slider_img-1.jpg"></c:url>"></li>
-			</ul>
-		</div>
-	</div>
 
 	<input type="hidden" id="get_job_hot"
 		value="<c:url value='/job/hot' />" />
@@ -217,14 +208,5 @@
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="<c:url value='/resources/hiringviet/home/js/home.js'/>"></script>
-	<script type="text/javascript">
-		$(function() {
-			$('.slider').slider({
-				height:200,
-				indicators:false,
-				transition:1000
-			});
-		});
-	</script>
 </body>
 </html>

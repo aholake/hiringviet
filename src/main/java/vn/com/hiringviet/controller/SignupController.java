@@ -1,8 +1,11 @@
 package vn.com.hiringviet.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Country;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.CompanyService;
+import vn.com.hiringviet.service.CountryService;
 import vn.com.hiringviet.service.MemberService;
 
 @Controller
@@ -28,6 +33,9 @@ public class SignupController {
 	@Autowired
 	private CompanyService companyService;
 
+	@Autowired
+	private CountryService countryService;
+
 	@RequestMapping(value = "/register")
 	public String goToRegisterOption() {
 		return "register-option";
@@ -37,8 +45,11 @@ public class SignupController {
 			.getLogger(SignupController.class);
 
 	@RequestMapping(value = "/register/{type}")
-	public ModelAndView goToRegisterPage(@PathVariable("type") String type) {
+	public ModelAndView goToRegisterPage(@PathVariable("type") String type,
+			Model model) {
 		if (type.equals("company")) {
+			List<Country> countries = countryService.getCountryList();
+			model.addAttribute("countries", countries);
 			return new ModelAndView("company-register", "newCompany",
 					new Company());
 		}
@@ -75,7 +86,8 @@ public class SignupController {
 	}
 
 	@RequestMapping(value = "/rest/addNewCompany")
-	public @ResponseBody int addNewCompany(@ModelAttribute("newCompany") Company company) {
+	public @ResponseBody int addNewCompany(
+			@ModelAttribute("newCompany") Company company) {
 		System.out.println(company.getDisplayName());
 		return companyService.addCompany(company);
 	}
