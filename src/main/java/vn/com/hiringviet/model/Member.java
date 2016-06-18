@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,7 +42,7 @@ public class Member implements Serializable {
 
 	private Resume resume;
 
-	private List<Apply> applyList;
+	private Set<Apply> applySet;
 
 	private ChangeLog changeLog;
 
@@ -106,12 +106,12 @@ public class Member implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	public List<Apply> getApplyList() {
-		return applyList;
+	public Set<Apply> getApplySet() {
+		return applySet;
 	}
 
-	public void setApplyList(List<Apply> applyList) {
-		this.applyList = applyList;
+	public void setApplySet(Set<Apply> applySet) {
+		this.applySet = applySet;
 	}
 
 	@OneToOne(fetch = FetchType.EAGER)

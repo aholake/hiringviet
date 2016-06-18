@@ -16,7 +16,7 @@ import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.model.Comment;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Posts;
+import vn.com.hiringviet.model.Post;
 import vn.com.hiringviet.service.CommentService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.FollowService;
@@ -50,7 +50,7 @@ public class CompanyController {
 	public String goCompanyPage(@PathVariable("companyId") Integer companyId, Model model, HttpSession session) {
 
 		Company company = companyService.findOne(companyId);
-		List<Posts> postsList = companyService.getListPosts(0, ConstantValues.MAX_RECORD_COUNT, companyId);
+		List<Post> postsList = companyService.getListPosts(0, ConstantValues.MAX_RECORD_COUNT, companyId);
 		Long numberFollower = followService.countNumberOfFollower(company.getAccount().getId());
 
 		if (ConstantValues.MAX_RECORD_COUNT > postsList.size()) {

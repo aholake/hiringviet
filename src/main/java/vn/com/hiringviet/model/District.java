@@ -1,7 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "district")
 public class District implements Serializable {
@@ -23,7 +25,7 @@ public class District implements Serializable {
 
 	private String districtName;
 
-	private List<Ward> wards;
+	private Set<Ward> wards;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,13 +46,14 @@ public class District implements Serializable {
 		this.districtName = districtName;
 	}
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ward_id")
-	public List<Ward> getWards() {
+	public Set<Ward> getWards() {
 		return wards;
 	}
 
-	public void setWards(List<Ward> wards) {
+	public void setWards(Set<Ward> wards) {
 		this.wards = wards;
 	}
 

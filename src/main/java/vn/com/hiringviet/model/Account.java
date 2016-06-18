@@ -1,7 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,16 +44,16 @@ public class Account implements Serializable {
 	private String locale;
 
 	/** The inbox messages. */
-	private List<Message> inboxMessages;
+	private Set<Message> inboxMessages;
 
 	/** The sent messages. */
-	private List<Message> sentMessages;
+	private Set<Message> sentMessages;
 
 	/** The from follows. */
-	private List<Follow> fromFollows;
+	private Set<Follow> fromFollows;
 
 	/** The to follows. */
-	private List<Follow> toFollows;
+	private Set<Follow> toFollows;
 
 	/**
 	 * Gets the id.
@@ -158,7 +158,7 @@ public class Account implements Serializable {
 	 */
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerAccount")
-	public List<Message> getInboxMessages() {
+	public Set<Message> getInboxMessages() {
 		return inboxMessages;
 	}
 
@@ -167,7 +167,7 @@ public class Account implements Serializable {
 	 *
 	 * @param inboxMessages the new inbox messages
 	 */
-	public void setInboxMessages(List<Message> inboxMessages) {
+	public void setInboxMessages(Set<Message> inboxMessages) {
 		this.inboxMessages = inboxMessages;
 	}
 
@@ -178,7 +178,7 @@ public class Account implements Serializable {
 	 */
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "senderAccount")
-	public List<Message> getSentMessages() {
+	public Set<Message> getSentMessages() {
 		return sentMessages;
 	}
 
@@ -187,7 +187,7 @@ public class Account implements Serializable {
 	 *
 	 * @param sentMessages the new sent messages
 	 */
-	public void setSentMessages(List<Message> sentMessages) {
+	public void setSentMessages(Set<Message> sentMessages) {
 		this.sentMessages = sentMessages;
 	}
 
@@ -198,7 +198,7 @@ public class Account implements Serializable {
 	 */
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fromAccount")
-	public List<Follow> getFromFollows() {
+	public Set<Follow> getFromFollows() {
 		return fromFollows;
 	}
 
@@ -207,7 +207,7 @@ public class Account implements Serializable {
 	 *
 	 * @param fromFollows the new from follows
 	 */
-	public void setFromFollows(List<Follow> fromFollows) {
+	public void setFromFollows(Set<Follow> fromFollows) {
 		this.fromFollows = fromFollows;
 	}
 
@@ -218,7 +218,7 @@ public class Account implements Serializable {
 	 */
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toAccount")
-	public List<Follow> getToFollows() {
+	public Set<Follow> getToFollows() {
 		return toFollows;
 	}
 
@@ -227,7 +227,7 @@ public class Account implements Serializable {
 	 *
 	 * @param toFollows the new to follows
 	 */
-	public void setToFollows(List<Follow> toFollows) {
+	public void setToFollows(Set<Follow> toFollows) {
 		this.toFollows = toFollows;
 	}
 

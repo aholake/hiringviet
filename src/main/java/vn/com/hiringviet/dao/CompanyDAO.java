@@ -4,7 +4,7 @@ import java.util.List;
 
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Posts;
+import vn.com.hiringviet.model.Post;
 
 public interface CompanyDAO extends CommonDAO<Company> {
 
@@ -12,7 +12,7 @@ public interface CompanyDAO extends CommonDAO<Company> {
 
 	public List<Company> getListCompanySuggest(Integer first, Integer max);
 
-	public List<Posts> getListPosts(Integer first, Integer max ,Integer companyId);
+	public List<Post> getListPosts(Integer first, Integer max ,Integer companyId);
 
 	public List<Job> getListJob(Integer first, Integer max ,Integer companyId);
 }

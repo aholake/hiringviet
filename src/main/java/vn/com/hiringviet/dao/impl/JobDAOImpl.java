@@ -36,7 +36,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 		Job job = (Job) session.get(Job.class, jobId);
 
-		Hibernate.initialize(job.getSkillList());
+		Hibernate.initialize(job.getSkillSet());
 
 		return job;
 	}

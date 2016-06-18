@@ -2,7 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,7 +24,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -41,11 +39,7 @@ public class Job implements Serializable {
 
 	private Company company;
 
-	private List<Skill> skillList;
-
-	private List<Comment> commentSet;
-
-	private List<Apply> applyList;
+	private Set<Skill> skillSet;
 
 	private String title;
 
@@ -106,32 +100,12 @@ public class Job implements Serializable {
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "job_skill", joinColumns = { @JoinColumn(name = "job_id") }, inverseJoinColumns = { @JoinColumn(name = "skill_id") })
-	public List<Skill> getSkillList() {
-		return skillList;
+	public Set<Skill> getSkillSet() {
+		return skillSet;
 	}
 
-	public void setSkillList(List<Skill> skillList) {
-		this.skillList = skillList;
-	}
-
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "job_id")
-	public List<Comment> getCommentSet() {
-		return commentSet;
-	}
-
-	public void setCommentSet(List<Comment> commentSet) {
-		this.commentSet = commentSet;
-	}
-
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "job")
-	public List<Apply> getApplyList() {
-		return applyList;
-	}
-
-	public void setApplyList(List<Apply> applyList) {
-		this.applyList = applyList;
+	public void setSkillSet(Set<Skill> skillSet) {
+		this.skillSet = skillSet;
 	}
 
 	@Column(name = "title")
