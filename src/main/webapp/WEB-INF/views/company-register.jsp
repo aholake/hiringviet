@@ -10,7 +10,7 @@
 <title>Home</title>
 <!-- Local style -->
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
+	href="<c:url value='/resources/hiringviet/register/css/company-register.css'/>">
 <!-- CSS media query on a link element -->
 <link rel="stylesheet"
 	href="/resources/hiringviet/home/css/smart-home.css" />
@@ -21,7 +21,7 @@
 
 	<div id="main-container">
 		<div class="row">
-			<div class="col m4 offset-m4">
+			<div class="col m6 offset-m3">
 				<div class="card-panel">
 					<div class="panel-title">ĐĂNG KÝ DOANH NGHIỆP</div>
 					<div class="panel-content">
@@ -37,12 +37,6 @@
 								<form:input path="businessField" id="businessField"
 									cssClass="validate" type="text" required="required" />
 								<label for="country">Business field</label>
-							</div>
-
-							<div class="input-field">
-								<form:input path="hostCountry" id="hostCountry"
-									cssClass="validate" type="text" required="required" />
-								<label for="hostCountry">Host country</label>
 							</div>
 
 							<div class="input-field">

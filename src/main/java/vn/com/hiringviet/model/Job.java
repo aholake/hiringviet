@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -69,6 +70,8 @@ public class Job implements Serializable {
 	private ChangeLog changeLog;
 
 	private Integer isPublish;
+
+	private Address workAddress;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -176,7 +179,7 @@ public class Job implements Serializable {
 	public void setPostDate(Date postDate) {
 		this.postDate = postDate;
 	}
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "expired_date")
 	public Date getExpiredDate() {
@@ -241,6 +244,17 @@ public class Job implements Serializable {
 
 	public void setIsPublish(Integer isPublish) {
 		this.isPublish = isPublish;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "work_address_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	public Address getWorkAddress() {
+		return workAddress;
+	}
+
+	public void setWorkAddress(Address workAddress) {
+		this.workAddress = workAddress;
 	}
 
 }

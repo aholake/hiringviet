@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Posts;
 import vn.com.hiringviet.service.CompanyService;
+import vn.com.hiringviet.util.Utils;
 
 @Service("companyService")
 public class CompanyServiceImpl implements CompanyService {
@@ -19,25 +21,25 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public int addCompany(Company company) {
-		// TODO Auto-generated method stub
+		ChangeLog changeLog = Utils.createDefaultChangeLog();
+		company.setChangeLog(changeLog);
 		return companyDAO.create(company);
 	}
 
 	@Override
 	public boolean deleteCompany(Company company) {
-		// TODO Auto-generated method stub
 		return companyDAO.delete(company);
 	}
 
 	@Override
 	public boolean updateCompany(Company company) {
-		// TODO Auto-generated method stub
+		
 		return companyDAO.update(company);
 	}
 
 	@Override
 	public List<Company> getCompanyList() {
-		// TODO Auto-generated method stub
+		
 		return companyDAO.findAll();
 	}
 
@@ -59,13 +61,13 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public List<Posts> getListPosts(Integer first, Integer max,
 			Integer companyId) {
-		// TODO Auto-generated method stub
+		
 		return companyDAO.getListPosts(first, max, companyId);
 	}
 
 	@Override
 	public List<Job> getListJob(Integer first, Integer max, Integer companyId) {
-		// TODO Auto-generated method stub
+		
 		return companyDAO.getListJob(first, max, companyId);
 	}
 

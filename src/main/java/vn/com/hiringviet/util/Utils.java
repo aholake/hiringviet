@@ -6,8 +6,10 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.PagingDTO;
+import vn.com.hiringviet.model.ChangeLog;
 
 public class Utils {
 
@@ -80,7 +82,8 @@ public class Utils {
 		return isEmpty;
 	}
 
-	/** init value for integer if its value is null
+	/**
+	 * init value for integer if its value is null
 	 * 
 	 * @param value
 	 * @return its value
@@ -101,19 +104,20 @@ public class Utils {
 	 * @return page current
 	 * @author AnhNT
 	 */
-	public static int getPageCurrent(int totalRecord, int numberRecordInpage, int pageCurrent) {
+	public static int getPageCurrent(int totalRecord, int numberRecordInpage,
+			int pageCurrent) {
 		// get max page
 		int pages = (int) Math.ceil((double) totalRecord / numberRecordInpage);
 		// check page overlimit
 		if (pageCurrent > pages) {
 			pageCurrent = pages;
 		}
-		
+
 		// check if page is zero
 		if (pageCurrent == 0) {
 			pageCurrent = 1;
 		}
-		
+
 		return pageCurrent;
 	}
 
@@ -145,7 +149,7 @@ public class Utils {
 
 		return isEmpty;
 	}
-	
+
 	public static void copyProperties(Object source, Object target) {
 		try {
 			BeanUtils.copyProperties(source, target);
@@ -155,11 +159,22 @@ public class Utils {
 	}
 
 	public static PagingDTO calculatorPaging(PagingDTO pagingDTO) {
-		pagingDTO.setFirstItem(pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT);
+		pagingDTO.setFirstItem(pagingDTO.getCurrentPage()
+				* ConstantValues.MAX_RECORD_COUNT);
 		return pagingDTO;
 	}
 
 	public static boolean contains(List<?> list, List<?> sublist) {
-	    return Collections.indexOfSubList(list, sublist) != -1;
-	  }
+		return Collections.indexOfSubList(list, sublist) != -1;
+	}
+
+	public static ChangeLog createDefaultChangeLog() {
+		ChangeLog changeLog = new ChangeLog();
+		changeLog.setStatus(StatusRecordEnum.ACTIVE.getValue());
+		changeLog.setCreatedDate(DateUtil.now());
+		changeLog.setUpdatedDate(DateUtil.now());
+		return changeLog;
+	}
+	
+	
 }

@@ -58,7 +58,7 @@ public class Member implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "account_id")
-	@Cascade(value = {org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Account getAccount() {
 		return account;
 	}
@@ -116,6 +116,7 @@ public class Member implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "change_log_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public ChangeLog getChangeLog() {
 		return changeLog;
 	}

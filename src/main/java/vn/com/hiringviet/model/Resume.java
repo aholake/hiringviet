@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -112,6 +114,7 @@ public class Resume implements Serializable {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "address_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Address getAddress() {
 		return address;
 	}
@@ -158,6 +161,7 @@ public class Resume implements Serializable {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "change_log_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public ChangeLog getChangeLog() {
 		return changeLog;
 	}

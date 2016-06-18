@@ -46,9 +46,11 @@
 	<input type="hidden" id="url_search" value="<c:url value='/search/suggest' />" />
 	<nav>
 		<ul id="slide-out" class="side-nav">
-			<li class="mobile-search center"><input type="text"
+			<li class="mobile-search center">
+				<input type="text"
 				placeholder="Tìm kiếm công việc, công ty, người dùng,..."> <a
-				href="#" class="btn">Tìm kiếm</a></li>
+				href="#" class="btn">Tìm kiếm</a>
+			</li>
 			<li><a href="#!">Đăng nhập</a></li>
 			<li><a href="#!">Đăng ký</a></li>
 		</ul>

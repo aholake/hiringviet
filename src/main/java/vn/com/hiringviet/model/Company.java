@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -99,6 +100,7 @@ public class Company implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "address_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Address getAddress() {
 		return address;
 	}
@@ -191,6 +193,7 @@ public class Company implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "change_log_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public ChangeLog getChangeLog() {
 		return changeLog;
 	}

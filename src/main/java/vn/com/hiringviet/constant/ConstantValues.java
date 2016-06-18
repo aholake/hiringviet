@@ -21,4 +21,8 @@ public class ConstantValues {
 	public static final Integer MAX_RECORD_COUNT = 5;
 
 	public static final Integer CURRENT_PAGE = 1;
+
+	public static final String VN_LOCALE = "VN";
+
+	public static final String EN_LOCALE = "EN";
 }
