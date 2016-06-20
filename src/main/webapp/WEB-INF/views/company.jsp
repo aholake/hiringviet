@@ -18,6 +18,14 @@
 <script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </head>
 <body>
+
+	<input type="hidden" id="url_get_post_comments" value="<c:url value='/company/post/comments' />" />
+	<input type="hidden" id="url_get_post_replyComments" value="<c:url value='/company/post/replyComments' />" />
+	<input type="hidden" id="url_redirect_member" value="<c:url value='/member/' />" />
+	<input type="hidden" id="reply_comment" value='<spring:message code="label.company.title.reply_comment"/>' />
+	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
+	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
+
 	<jsp:include page="/layouts/navbar"></jsp:include>
 
 	<jsp:include page="/layouts/companyBanner"></jsp:include>
@@ -31,102 +39,57 @@
 				<div class="card-panel">
 					<div class="slider">
 						<ul class="slides">
-							<c:forEach items="${company.companyPhotoList}" var="companyPhotoList">
-								<li><img src="${companyPhotoList.photo}">
+							<c:forEach items="${company.companyPhotoSet}" var="companyPhotoSet">
+								<li><img src="${companyPhotoSet.photo}">
 									<!-- random image -->
 									<div class="caption center-align">
-										<h3>${companyPhotoList.title}</h3>
-										<h5 class="light grey-text text-lighten-3">${companyPhotoList.description}</h5>
+										<h3>${companyPhotoSet.title}</h3>
+										<h5 class="light grey-text text-lighten-3">${companyPhotoSet.description}</h5>
 									</div>
 								</li>
 							</c:forEach>
 						</ul>
 					</div>
 				</div>
-				<div class="card-panel">
-					<div class="panel-title"><spring:message code="label.company.title.active"/></div>
-					<div class="row" style="display: none;">
-						<div class="col m6">
-							<ul class="tabs">
-								<li class="tab col m3"><a class="active" href="#tabTitle">Title</a></li>
-								<li class="tab col m3"><a href="#tabDescription">Description</a></li>
-							</ul>
-						</div>
-						<div id="tabTitle">
-							<div class="input-field col m12">
-								<textarea id="txtTitle" class="materialize-textarea"></textarea>
-							</div>
-							<div class="col m12 right-align margin-top-5">
-								<a class="btn btn-next waves-effect waves-light orange">Next <i class="material-icons right cl-white">send</i></a>
-							</div>
-						</div>
-					    <div id="tabDescription">
-					    	<div class="input-field col m12">
-								<textarea id="txtDescription" class="materialize-textarea"></textarea>
-							</div>
-							<div class="col m12 right-align margin-top-5">
-								<a class="btn btn-post waves-effect waves-light orange">Post <i class="material-icons right cl-white">cloud</i></a>
-							</div>
-					    </div>
-					</div>
-					<c:forEach items="${postsList}" var="posts">
-						<div class="row activity">
+				<c:forEach items="${postList}" var="post">
+					<div class="card-panel padding-10">
+					<input type="hidden" id="firstItem-comment-${post.id}" value="0" />
+					<input type="hidden" id="currentPage-comment-${post.id}" value="1" />
+						<div class="row">
 							<div class="col m12">
 								<h1 class="title">
-									${posts.title}
+									${post.title}
 								</h1>
 							</div>
-							<div class="col m12">
-								${posts.description}
+							<div class="col m12 small-text">
+								${post.description}
 							</div>
 							<div class="col m12">
 								<div class="feed-item-meta">
 									<ul class="feed-actions">
-										<li class="feed-comment comment-${posts.id}" onclick="javascript:showComment(${posts.id});"><spring:message code="label.company.title.comment"/> (6)</li>
-										<li class="feed-postDate">${posts.changeLog.createdDate}</li>
+										<li class="feed-comment comment-${post.id}" onclick="javascript:showComment(${post.id});">
+										<a class="a-text-color small-text display-inline-flex"><i class="material-icons small-icon">comment</i><spring:message code="label.company.title.comment"/> (6)</a>
+										</li>
+										<li class="feed-postDate small-text display-inline-flex"><i class="material-icons small-icon">date_range</i>${post.changeLog.createdDate}</li>
 									</ul>
 								</div>
-								<div class="comments comments-${posts.id}"  style="display: none;">
-									<ul class="collection">
+								<div class="comments comments-${post.id} comment-bg"  style="display: none;">
+									<ul class="collection commentList-${post.id} remove-border">
 										<li class="display-inline-flex">
-											<i class="material-icons">comment</i>
-											<a href="#" class="margin-left-5 small-text"><spring:message code="label.company.title.load_more_comment"/></a>
-										</li>
-										<li class="collection-item avatar">
-											<img src="/resources/images/profile_photo.jpg" alt="" class="circle"> 
-											<span class="title"><a href="#">Võ Tấn Lộc</a> I just keen on having an invitation to start my Internship with you that will be very kick off on my family life.</span>
-											<p  class="small-text">12-06-2016</p>
-											<p  class="small-text"><a>reply</a></p>
-											<ul class="collection">
-												<li class="display-inline-flex">
-													<i class="material-icons">comment</i>
-													<a href="#" class="margin-left-5 small-text">See previous comments</a>
-												</li>
-												<li class="collection-item avatar">
-													<img src="/resources/images/profile_photo.jpg" alt="" class="circle"> 
-													<span class="title"><a href="#">Võ Tấn Lộc</a> I just keen on having an invitation to start my Internship with you that will be very kick off on my family life.</span>
-													<p class="small-text">12-06-2016</p> 
-												</li>
-											</ul>
-										</li>
-										<li class="collection-item avatar">
-											<img src="/resources/images/profile_photo.jpg" alt="" class="circle"> 
-											<span class="title"><a href="#">Võ Tấn Lộc</a> I just keen on having an invitation to start my Internship with you that will be very kick off on my family life.</span>
-											<p  class="small-text">12-06-2016</p> 
-											<p  class="small-text"><a>reply</a></p> 
+											<a class="margin-left-5 small-text a-text-color"><spring:message code="label.company.title.load_more_comment"/></a>
 										</li>
 									</ul>
 									<div class="post-comment">
 										<div class="input-field col m12">
-											<input id="last_name" type="text" class="validate" placeholder="Write comment">
+											<input id="last_name" type="text" class="validate" placeholder="<spring:message code='label.company.title.write_comment'/>">
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</c:forEach>
-					<!-- End row activity -->
-				</div>
+					</div>
+				</c:forEach>
+				<!-- End row activity -->
 			</div>
 			<div class="col m4">
 				<div class="card-panel">
@@ -198,11 +161,6 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		
-		CKEDITOR.replace('txtTitle');
-		CKEDITOR.replace('txtDescription');
-		CKEDITOR.addCss('textarea{display:block}');
-		CKEDITOR.addCss('code{border:solid 1px #fb8c00 !important}');
 
 		$(document).ready(function() {
 			$('.slider').slider({

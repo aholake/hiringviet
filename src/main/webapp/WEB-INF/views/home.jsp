@@ -23,8 +23,7 @@
 	<jsp:include page="/layouts/introduce-slider"></jsp:include>
 
 
-	<input type="hidden" id="get_job_hot"
-		value="<c:url value='/job/hot' />" />
+	<input type="hidden" id="get_job_hot" value="<c:url value='/job/hot' />" />
 	<input type="hidden" id="first_item" value="${firstItem}" />
 	<input type="hidden" id="max_item" value="${maxItem}" />
 	<input type="hidden" id="current_page" value="${currentPage}" />
@@ -120,7 +119,7 @@
 														class="col m12 none-padding-left text-justify block-with-text">
 														${job.description}</p>
 													<div class="col m12 none-padding-left margin-top-5">
-														<c:forEach items="${job.skillList}" var="skill">
+														<c:forEach items="${job.skillSet}" var="skill">
 															<a class="chip">${skill.displayName}</a>
 														</c:forEach>
 													</div>

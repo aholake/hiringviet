@@ -53,7 +53,7 @@ public class JobController {
 
 		JobResponseDTO jobResponseDTO = new JobResponseDTO();
 
-		pagingDTO = Utils.calculatorPaging(pagingDTO);
+		pagingDTO = Utils.calculatorPaging(pagingDTO, false);
 
 		List<Job> jobList = jobService.getJobList(pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, true, null);
 

@@ -1,7 +1,6 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,15 +24,15 @@ public class Comment implements Serializable {
 
 	private Integer id;
 
-	private List<ReplyComment> replyCommentList;
-
 	private Member member;
 
 	private String comment;
 
 	private ChangeLog changeLog;
 
-	private Posts posts;
+	private Post post;
+
+	private Job job;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,17 +42,6 @@ public class Comment implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "comment_id")
-	public List<ReplyComment> getReplyCommentList() {
-		return replyCommentList;
-	}
-
-	public void setReplyCommentList(List<ReplyComment> replyCommentList) {
-		this.replyCommentList = replyCommentList;
 	}
 
 	@JsonIgnore
@@ -89,13 +76,24 @@ public class Comment implements Serializable {
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "posts_id")
-	public Posts getPosts() {
-		return posts;
+	@JoinColumn(name = "post_id")
+	public Post getPost() {
+		return post;
 	}
 
-	public void setPosts(Posts posts) {
-		this.posts = posts;
+	public void setPost(Post post) {
+		this.post = post;
+	}
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "job_id")
+	public Job getJob() {
+		return job;
+	}
+
+	public void setJob(Job job) {
+		this.job = job;
 	}
 
 }

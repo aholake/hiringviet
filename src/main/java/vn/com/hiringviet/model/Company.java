@@ -1,7 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -57,7 +57,7 @@ public class Company implements Serializable {
 
 	private ChangeLog changeLog;
 
-	private List<CompanyPhoto> companyPhotoList;
+	private Set<CompanyPhoto> companyPhotoSet;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -207,12 +207,12 @@ public class Company implements Serializable {
 	@Fetch(value = FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "company_id")
-	public List<CompanyPhoto> getCompanyPhotoList() {
-		return companyPhotoList;
+	public Set<CompanyPhoto> getCompanyPhotoSet() {
+		return companyPhotoSet;
 	}
 
-	public void setCompanyPhotoList(List<CompanyPhoto> companyPhotoList) {
-		this.companyPhotoList = companyPhotoList;
+	public void setCompanyPhotoSet(Set<CompanyPhoto> companyPhotoSet) {
+		this.companyPhotoSet = companyPhotoSet;
 	}
 
 }

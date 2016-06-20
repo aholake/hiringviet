@@ -78,3 +78,8 @@
 .fixed-action-btn.horizontal ul {
 	top: 40%;
 }
+
+.comment-bg {
+	background: #fafafa !important;
+	overflow: auto;
+}

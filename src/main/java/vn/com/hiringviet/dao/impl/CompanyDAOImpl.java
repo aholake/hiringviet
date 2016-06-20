@@ -17,7 +17,7 @@ import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.CompanyDAO;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Posts;
+import vn.com.hiringviet.model.Post;
 
 @Repository
 @Transactional
@@ -72,11 +72,11 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements CompanyDAO
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Posts> getListPosts(Integer first, Integer max,
+	public List<Post> getListPosts(Integer first, Integer max,
 			Integer companyId) {
 
 		Session session = sessionFactory.getCurrentSession();
-		Criteria criteria = session.createCriteria(Posts.class, "post");
+		Criteria criteria = session.createCriteria(Post.class, "post");
 		criteria.createAlias("post.company", "company");
 		criteria.createAlias("post.changeLog", "changeLog");
 		criteria.add(Restrictions.eq("company.id", companyId));
@@ -85,7 +85,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements CompanyDAO
 		criteria.setMaxResults(max);
 		criteria.addOrder(Order.desc("changeLog.updatedDate"));
 
-		List<Posts> result = (List<Posts>) criteria.list();
+		List<Post> result = (List<Post>) criteria.list();
 		return result;
 	}
 

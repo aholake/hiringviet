@@ -158,9 +158,21 @@ public class Utils {
 		}
 	}
 
-	public static PagingDTO calculatorPaging(PagingDTO pagingDTO) {
-		pagingDTO.setFirstItem(pagingDTO.getCurrentPage()
-				* ConstantValues.MAX_RECORD_COUNT);
+	public static PagingDTO calculatorPaging(PagingDTO pagingDTO, boolean fromStart) {
+
+		if (fromStart) {
+			if (pagingDTO.getFirstItem() == ConstantValues.FIRST_RECORD) {
+				pagingDTO.setFirstItem(ConstantValues.FIRST_RECORD);
+				pagingDTO.setCurrentPage(ConstantValues.CURRENT_PAGE);
+			} else {
+				pagingDTO.setFirstItem(pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT);
+				pagingDTO.setCurrentPage(pagingDTO.getCurrentPage() + 1);
+			}
+		} else {
+			pagingDTO.setFirstItem(pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT);
+			pagingDTO.setCurrentPage(pagingDTO.getCurrentPage() + 1);
+		}
+
 		return pagingDTO;
 	}
 

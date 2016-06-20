@@ -1,7 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,11 +31,11 @@ public class Resume implements Serializable {
 
 	private Member member;
 
-	private List<Skill> skillList;
+	private Set<Skill> skillSet;
 
-	private List<EducationHistory> educationHistoryList;
+	private Set<EducationHistory> educationHistorySet;
 
-	private List<EmploymentHistory> employeeHistoryList;
+	private Set<EmploymentHistory> employeeHistorySet;
 
 	private String phoneNumber;
 
@@ -74,33 +74,33 @@ public class Resume implements Serializable {
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "skill_resume", joinColumns = { @JoinColumn(name = "resume_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "skill_id", nullable = false) })
-	public List<Skill> getSkillList() {
-		return skillList;
+	public Set<Skill> getSkillSet() {
+		return skillSet;
 	}
 
-	public void setSkillList(List<Skill> skillList) {
-		this.skillList = skillList;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "resume_id")
-	public List<EducationHistory> getEducationHistoryList() {
-		return educationHistoryList;
-	}
-
-	public void setEducationHistoryList(
-			List<EducationHistory> educationHistorySet) {
-		this.educationHistoryList = educationHistorySet;
+	public void setSkillSet(Set<Skill> skillSet) {
+		this.skillSet = skillSet;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
-	public List<EmploymentHistory> getEmployeeHistorySet() {
-		return employeeHistoryList;
+	public Set<EducationHistory> getEducationHistorySet() {
+		return educationHistorySet;
 	}
 
-	public void setEmployeeHistorySet(List<EmploymentHistory> employeeHistorySet) {
-		this.employeeHistoryList = employeeHistorySet;
+	public void setEducationHistorySet(
+			Set<EducationHistory> educationHistorySet) {
+		this.educationHistorySet = educationHistorySet;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "resume_id")
+	public Set<EmploymentHistory> getEmployeeHistorySet() {
+		return employeeHistorySet;
+	}
+
+	public void setEmployeeHistorySet(Set<EmploymentHistory> employeeHistorySet) {
+		this.employeeHistorySet = employeeHistorySet;
 	}
 
 	@Column(name = "phone_number")

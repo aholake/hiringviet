@@ -9,7 +9,7 @@ import vn.com.hiringviet.dao.CompanyDAO;
 import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Posts;
+import vn.com.hiringviet.model.Post;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.util.Utils;
 
@@ -59,7 +59,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Posts> getListPosts(Integer first, Integer max,
+	public List<Post> getListPosts(Integer first, Integer max,
 			Integer companyId) {
 		
 		return companyDAO.getListPosts(first, max, companyId);

@@ -23,7 +23,7 @@ function showResultJobHot(response) {
 		for (var index = 0; index < jobListResponse.length; index++) {
 
 			var tempItem = "";
-			var skills = jobListResponse[index].skillList;
+			var skills = jobListResponse[index].skillSet;
 			for (var i = 0; i < skills.length; i++) {
 				tempItem += '<a class="chip">'+ skills[i].displayName + '</a>';
 			}

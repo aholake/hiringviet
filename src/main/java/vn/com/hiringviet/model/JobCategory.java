@@ -1,7 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,7 +27,7 @@ public class JobCategory implements Serializable {
 
 	private String categoryName;
 
-	private List<Job> jobList;
+	private Set<Job> jobSet;
 
 	private ChangeLog changeLog;
 
@@ -52,12 +52,12 @@ public class JobCategory implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "jobCategory")
-	public List<Job> getJobList() {
-		return jobList;
+	public Set<Job> getJobSet() {
+		return jobSet;
 	}
 
-	public void setJobList(List<Job> jobList) {
-		this.jobList = jobList;
+	public void setJobSet(Set<Job> jobSet) {
+		this.jobSet = jobSet;
 	}
 
 	@JsonIgnore
