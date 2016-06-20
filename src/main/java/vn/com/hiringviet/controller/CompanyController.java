@@ -8,18 +8,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import vn.com.hiringviet.api.dto.request.CommentRequestDTO;
+import vn.com.hiringviet.api.dto.request.ReplyCommentRequestDTO;
+import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
+import vn.com.hiringviet.api.dto.response.ReplyCommentResponseDTO;
+import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
-import vn.com.hiringviet.model.Comment;
+import vn.com.hiringviet.dto.CommentDTO;
+import vn.com.hiringviet.dto.PagingDTO;
+import vn.com.hiringviet.dto.ReplyCommentDTO;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Post;
 import vn.com.hiringviet.service.CommentService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.FollowService;
+import vn.com.hiringviet.service.ReplyCommentService;
+import vn.com.hiringviet.util.Utils;
 
 /**
  * The Class CompanyController.
@@ -38,6 +48,8 @@ public class CompanyController {
 	@Autowired
 	private CommentService commentService;
 
+	@Autowired
+	private ReplyCommentService replyCommentService;
 	/**
 	 * Go company page.
 	 *
@@ -50,14 +62,14 @@ public class CompanyController {
 	public String goCompanyPage(@PathVariable("companyId") Integer companyId, Model model, HttpSession session) {
 
 		Company company = companyService.findOne(companyId);
-		List<Post> postsList = companyService.getListPosts(0, ConstantValues.MAX_RECORD_COUNT, companyId);
+		List<Post> postList = companyService.getListPosts(0, ConstantValues.MAX_RECORD_COUNT, companyId);
 		Long numberFollower = followService.countNumberOfFollower(company.getAccount().getId());
 
-		if (ConstantValues.MAX_RECORD_COUNT > postsList.size()) {
+		if (ConstantValues.MAX_RECORD_COUNT > postList.size()) {
 			model.addAttribute("isDisabledLoadPosts", true);
 		}
 
-		model.addAttribute("postsList", postsList);
+		model.addAttribute("postList", postList);
 		model.addAttribute("company", company);
 		model.addAttribute("numberFollower", numberFollower);
 		return "company";
@@ -125,9 +137,56 @@ public class CompanyController {
 		return "job-detail";
 	}
 
-	@RequestMapping(value = "/company/post/{postId}/comments", method = RequestMethod.GET)
-	public @ResponseBody List<Comment> goJobDetailPage(@PathVariable("postId") Integer postId, Model model, HttpSession session) {
+	@RequestMapping(value = "/company/post/comments", method = RequestMethod.POST)
+	public @ResponseBody CommentResponseDTO getCommentOfPostByPage(@RequestBody CommentRequestDTO commentRequestDTO, HttpSession session) {
 
-		return commentService.getListCommentByPostId(postId);
+		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
+
+		PagingDTO pagingDTO = Utils.calculatorPaging(commentRequestDTO.getPagingDTO(), true);
+		List<CommentDTO> commentDTOs = commentService.getListCommentByPostId(
+				pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
+				commentRequestDTO.getPostId());
+
+		if (Utils.isEmptyList(commentDTOs)) {
+			commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+			return commentResponseDTO;
+		}
+
+		if (commentDTOs.size() < ConstantValues.MAX_RECORD_COUNT) {
+			commentResponseDTO.setLoadable(false);
+		}
+
+		commentResponseDTO.setCommentDTOs(commentDTOs);
+		commentResponseDTO.setPagingDTO(pagingDTO);
+		commentResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+		return commentResponseDTO;
+	}
+
+	@RequestMapping(value = "/company/post/replyComments", method = RequestMethod.POST)
+	public @ResponseBody ReplyCommentResponseDTO getReplyCommentOfPostByPage(
+			@RequestBody ReplyCommentRequestDTO replyCommentRequestDTO,
+			HttpSession session) {
+
+		ReplyCommentResponseDTO replyCommentResponseDTO = new ReplyCommentResponseDTO();
+
+		PagingDTO pagingDTO = Utils.calculatorPaging(replyCommentRequestDTO.getPagingDTO(), true);
+		List<ReplyCommentDTO> replyCommentDTOs = replyCommentService
+				.getListCommentByPostId(pagingDTO.getFirstItem(),
+						ConstantValues.MAX_RECORD_COUNT,
+						replyCommentRequestDTO.getCommentId());
+
+		if (Utils.isEmptyList(replyCommentDTOs)) {
+			replyCommentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+			return replyCommentResponseDTO;
+		}
+
+		if (replyCommentDTOs.size() < ConstantValues.MAX_RECORD_COUNT) {
+			replyCommentResponseDTO.setLoadable(false);
+		}
+
+		replyCommentResponseDTO.setReplyCommentDTOs(replyCommentDTOs);
+		replyCommentResponseDTO.setPagingDTO(pagingDTO);
+		replyCommentResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+		return replyCommentResponseDTO;
 	}
 }

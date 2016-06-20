@@ -1,7 +1,6 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,8 +23,6 @@ public class Comment implements Serializable {
 	private static final long serialVersionUID = 9219480321037261930L;
 
 	private Integer id;
-
-	private Set<ReplyComment> replyCommentSet;
 
 	private Member member;
 
@@ -46,17 +42,6 @@ public class Comment implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "comment_id")
-	public Set<ReplyComment> getReplyCommentSet() {
-		return replyCommentSet;
-	}
-
-	public void setReplyCommentSet(Set<ReplyComment> replyCommentSet) {
-		this.replyCommentSet = replyCommentSet;
 	}
 
 	@JsonIgnore

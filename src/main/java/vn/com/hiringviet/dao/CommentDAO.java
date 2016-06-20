@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.com.hiringviet.model.Comment;
+import vn.com.hiringviet.dto.CommentDTO;
 
 @Repository
 @Transactional
 public interface CommentDAO {
 
-	public List<Comment> getListCommentByPostId(Integer postId);
+	public List<CommentDTO> getListCommentByPostId(Integer first, Integer max, Integer postId);
 }

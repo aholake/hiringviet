@@ -25,12 +25,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "member")
 public class Member implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
-	private int id;
+	private Integer id;
 
 	private Account account;
 
@@ -48,11 +46,11 @@ public class Member implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

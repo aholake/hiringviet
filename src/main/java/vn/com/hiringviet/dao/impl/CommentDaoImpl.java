@@ -29,25 +29,29 @@ public class CommentDaoImpl implements CommentDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Comment> getListCommentByPostId(Integer postId) {
+	public List<CommentDTO> getListCommentByPostId(Integer first, Integer max, Integer postId) {
 
 		Session session = sessionFactory.getCurrentSession();
 
 		Criteria criteria = session.createCriteria(Comment.class, "comment");
 		criteria.createAlias("comment.member", "member");
 		criteria.createAlias("comment.member.resume", "resume");
-		criteria.createAlias("comment.replyCommentList", "replyCommentList");
-		criteria.createAlias("comment.posts", "posts");
+		criteria.createAlias("comment.post", "post");
+		criteria.createAlias("comment.changeLog", "changeLog");
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.property("member.id").as("memberId"))
 				.add(Projections.property("comment.id").as("commentId"))
-				.add(Projections.property("comment.id").as("replyCommentId"))
+				.add(Projections.property("resume.avatarImage").as("avatarImage"))
+				.add(Projections.property("changeLog").as("changeLog"))
+				.add(Projections.property("comment.comment").as("comment"))
 				.add(Projections.property("member.firstName").as("firstName"))
 				.add(Projections.property("member.lastName").as("lastName")));
-		criteria.add(Restrictions.eq("posts.id", postId));
+		criteria.add(Restrictions.eq("post.id", postId));
+		criteria.setFirstResult(first);
+		criteria.setMaxResults(max);
 		criteria.setResultTransformer(Transformers.aliasToBean(CommentDTO.class));
 
-		List<Comment> comments = (List<Comment>) criteria.list();
+		List<CommentDTO> comments = (List<CommentDTO>) criteria.list();
 		return comments;
 	}
 

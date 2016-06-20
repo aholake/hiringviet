@@ -18,6 +18,8 @@ public class ConstantValues {
 
 	public static final String COOKIE_PATH = "/";
 
+	public static final Integer FIRST_RECORD = 0;
+
 	public static final Integer MAX_RECORD_COUNT = 5;
 
 	public static final Integer CURRENT_PAGE = 1;

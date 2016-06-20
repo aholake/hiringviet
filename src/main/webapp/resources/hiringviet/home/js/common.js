@@ -1,3 +1,4 @@
+
 var MAX_TOTAL_ITEM_7 = 7;
 var MAX_LENGTH_VALUE_100 = 100;
 var BORDER_INPUT = '#f44336';

@@ -94,7 +94,6 @@
 						</div>
 					</div>
 				</div>
-
 				<div class="card-panel">
 					<div class="row">
 						<div class="col m12">
@@ -118,6 +117,30 @@
 						</div>
 					</div>
 				</div>
+				<div class="card-panel">
+				<div class="row">
+					<div class="col m12">
+						<h5>Bình luận</h5>
+						<hr>
+						<ul class="collection commentList-1 remove-border">
+							<li class="display-inline-flex">
+								<a class="margin-left-5 small-text a-text-color"><spring:message code="label.company.title.load_more_comment"/></a>
+							</li>
+							<li class="collection-item avatar">
+								<img src="/resources/images/profile_photo.jpg" alt="" class="circle">
+								<span class="title"><a href="#">Võ Tấn Lộc</a> I just
+									keen on having an invitation to start my Internship with you
+									that will be very kick off on my family life.</span>
+								<p class="small-text">12-06-2016</p></li>
+						</ul>
+						<div class="post-comment">
+							<div class="input-field col m12">
+								<input id="last_name" type="text" class="validate" placeholder="<spring:message code='label.company.title.write_comment'/>">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			</div>
 			<div class="col m4">
 				<div class="card-panel">

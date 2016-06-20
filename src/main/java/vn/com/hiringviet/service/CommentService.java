@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import vn.com.hiringviet.model.Comment;
+import vn.com.hiringviet.dto.CommentDTO;
 
 @Service("commentService")
 public interface CommentService {
 
-	public List<Comment> getListCommentByPostId(Integer postId);
+	public List<CommentDTO> getListCommentByPostId(Integer first, Integer max, Integer postId);
 }
