@@ -121,7 +121,7 @@
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">flag</i>
 											<spring:message code="label.home.title.country" />
-											: <span class="info">${company.country.countryName}</span>
+											: <span class="info">${company.hostCountry.countryName}</span>
 										</p>
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">equalizer</i>
