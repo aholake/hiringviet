@@ -9,10 +9,10 @@
 <body>
 	<div class="profile-banner">
 		<img class="profile-cover responsive-img img-full"
-			src="/resources/images/company_background.jpg" alt="company cover" />
+			src="/resources/images/company_background.jpg" alt="profile cover" />
 		<div class="social-connect-box">
 			<span class="social-company-name">
-				${company.displayName}
+				${member.firstName} ${member.lastName}
 			</span> 
 			<a href="#">
 				<img src="/resources/images/facebook.png" />
@@ -24,8 +24,8 @@
 				<img src="/resources/images/twitter.png" />
 			</a>
 		</div>
-		<div class="company-logo">
-			<img class="responsive-img img-full" src="${company.avatar}" alt="company logo" />
+		<div class="profile-logo">
+			<img class="responsive-img img-full" src="${member.resume.avatarImage}" alt="profile logo" />
 		</div>
 	</div>
 </body>

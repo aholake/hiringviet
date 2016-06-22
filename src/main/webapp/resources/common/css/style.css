@@ -8,6 +8,10 @@
 	color: white !important;
 }
 
+.cl-black {
+	color: #212121 !important;
+}
+
 body {
 	background: #E4EEF2;
 }
@@ -213,7 +217,7 @@ h1.title {
 }
 
 .chip {
-	margin-right: 5px;
+	margin: 2px 5px 2px 0px;
 }
 
 .disabled[disabled] {
@@ -223,13 +227,13 @@ h1.title {
 }
 
 .a-text-color {
-	color: #bdbdbd;
+	color: #bdbdbd !important;
 	cursor: pointer;
 }
 
 .a-text-color:hover {
-	color: #039be5;
-	text-decoration: underline;
+	color: #039be5 !important;
+	text-decoration: underline !important;
 }
 
 .remove-border {
@@ -240,5 +244,9 @@ h1.title {
 	font-size: 18px;
 	opacity: .5;
 	margin-right: 2px;
+}
+
+.opacity-7 {
+	opacity: .7;
 }
 @import url("smart.css");
