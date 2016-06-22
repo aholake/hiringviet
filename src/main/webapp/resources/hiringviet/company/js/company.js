@@ -49,10 +49,15 @@ function showPostComments(response) {
 		alert(response.message);
 	} else {
 		var commentList = $('.commentList-' + currentPostId);
-
+		commentList.html("");
 		var commentDTOs = response.commentDTOs;
 		var html = "";
 		for (var index = 0; index < commentDTOs.length; index++) {
+			if (index == 0) {
+			html += '<li class="display-inline-flex">\
+						<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
+					</li>';
+			}
 			html += '<li class="collection-item avatar comment-bg">\
 						<img src="' + commentDTOs[index].avatarImage + '" alt="" class="circle"> \
 						<p class="title"><a href="' + $('#url_redirect_member').val() + commentDTOs[index].memberId + '">' + commentDTOs[index].firstName + ' ' + commentDTOs[index].lastName + '</a>\
@@ -105,11 +110,16 @@ function showPostReplyComments(response) {
 		var companyPhoto = $('.company-logo img').attr('src');
 		var companyName = $('.company-name a').html();
 		var replyCommentList = $('#replyCommentList-' + currentCommentId);
-
+		replyCommentList.html("");
 		var replyCommentDTOs = response.replyCommentDTOs;
 		var html = "";
 		for (var index = 0; index < replyCommentDTOs.length; index++) {
 
+			if (index == 0) {
+				html += '<li class="display-inline-flex">\
+							<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
+						</li>';
+			}
 			if (replyCommentDTOs[index].memberId != null) {
 				html += '<li class="collection-item avatar comment-bg">\
 							<img src="' + replyCommentDTOs[index].avatarImage + '" alt="" class="circle"> \
@@ -119,11 +129,11 @@ function showPostReplyComments(response) {
 						</li>';
 			} else {
 				html += '<li class="collection-item avatar comment-bg">\
-					<img src="' + companyPhoto + '" alt="" class="circle"> \
-					<p class="title"><a href="#">' + companyName + '</a>\
-					<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(replyCommentDTOs[index].changeLog.createdDate).toLocaleString() + '</span></p>\
-					<p class="small-text">' + replyCommentDTOs[index].replyComment + '</p> \
-				</li>';
+							<img src="' + companyPhoto + '" alt="" class="circle"> \
+							<p class="title"><a href="#">' + companyName + '</a>\
+							<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(replyCommentDTOs[index].changeLog.createdDate).toLocaleString() + '</span></p>\
+							<p class="small-text">' + replyCommentDTOs[index].replyComment + '</p> \
+						</li>';
 			}
 		}
 

@@ -103,7 +103,7 @@
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">flag</i>
 											<spring:message code="label.home.title.country" />
-											: <span class="info">${company.country.countryName}</span>
+											: <span class="info">${company.hostCountry.countryName}</span>
 										</p>
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">equalizer</i>
@@ -119,7 +119,7 @@
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">location_on</i>
 											<spring:message code="label.home.title.address" />
-											: <span class="info">${company.address.province.provinceName}</span>
+											: <span class="info">${company.address.ward.district.province.provinceName}</span>
 										</p>
 									</div>
 								</div>

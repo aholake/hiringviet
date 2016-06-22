@@ -1,7 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "country")
 public class Country implements Serializable {
@@ -24,7 +26,7 @@ public class Country implements Serializable {
 
 	private String countryName;
 
-	private List<Province> provinces;
+	private Set<Province> provinces;
 
 	private String flag;
 
@@ -47,13 +49,14 @@ public class Country implements Serializable {
 		this.countryName = countryName;
 	}
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "country_id")
-	public List<Province> getProvinces() {
+	public Set<Province> getProvinces() {
 		return provinces;
 	}
 
-	public void setProvinces(List<Province> provinces) {
+	public void setProvinces(Set<Province> provinces) {
 		this.provinces = provinces;
 	}
 

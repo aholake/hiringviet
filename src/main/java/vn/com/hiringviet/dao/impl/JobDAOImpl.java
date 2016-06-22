@@ -51,14 +51,14 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		criteria.createAlias("job.company", "company");
 
 		if (!Utils.isEmptyList(skills)) {
-			criteria.createAlias("job.skillList", "skillList");
+			criteria.createAlias("job.skillSet", "skillSet");
 		}
 
 		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 
 		if (!Utils.isEmptyList(skills)) {
-			criteria.add(Restrictions.in("skillList.id", skills));
+			criteria.add(Restrictions.in("skillSet.id", skills));
 		}
 
 		criteria.addOrder(Order.desc("company.isVip"));
@@ -83,14 +83,14 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		criteria.createAlias("job.company", "company");
 
 		if (!Utils.isEmptyList(skills)) {
-			criteria.createAlias("job.skillList", "skillList");
+			criteria.createAlias("job.skillSet", "skillSet");
 		}
 
 		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 
 		if (!Utils.isEmptyList(skills)) {
-			criteria.add(Restrictions.in("skillList.id", skills));
+			criteria.add(Restrictions.in("skillSet.id", skills));
 		}
 
 		criteria.addOrder(Order.desc("company.isVip"));

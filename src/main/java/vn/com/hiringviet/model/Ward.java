@@ -43,7 +43,7 @@ public class Ward implements Serializable {
 		this.wardName = wardName;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "district_id")
 	public District getDistrict() {
 		return district;
