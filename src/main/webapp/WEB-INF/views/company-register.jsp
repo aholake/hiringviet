@@ -42,22 +42,46 @@
 								</div>
 
 								<div class="input-field">
-									<form:select path="country">
-										<form:option value="NONE" label="Choose your option" disabled="true"></form:option>
-										<form:options items="${countries }" itemValue="id"></form:options>
-									</form:select>
-									<label>Thuộc quốc gia</label>
+									<form:input path="address.streetName" />
+									<label>Đường</label>
 								</div>
-								
-								<h6>Địa chỉ</h6>
-								<div class="input-field">
-									<form:select path="address.province">
-										<form:option value="NONE" label="Choose your option" disabled="true"></form:option>
-										<form:options items="${countries }" itemValue="id"></form:options>
-									</form:select>
-									<label>Thuộc quốc gia</label>
+
+								<div class="row">
+									<div class="input-field col m6">
+										<form:select id="countryAddress"
+											path="address.ward.district.province.country">
+											<form:option value="NONE" label="Choose your option"
+												disabled="true"></form:option>
+											<form:options items="${countries }" itemValue="id" />
+										</form:select>
+										<label>Quốc gia</label>
+									</div>
+									<div class="input-field col m6">
+										<form:select id="provinceAddress"
+											path="address.ward.district.province">
+											<form:option value="NONE" label="Choose your option"
+												disabled="true"></form:option>
+										</form:select>
+										<label>Tỉnh/Thành phô</label>
+									</div>
+
+									<div class="input-field col m6">
+										<form:select id="districtAddress" path="address.ward.district">
+											<form:option value="NONE" label="Choose your option"
+												disabled="true"></form:option>
+										</form:select>
+										<label>Quận/Huyện</label>
+									</div>
+									<div class="input-field col m6">
+										<form:select id="wardAddress" path="address.ward">
+											<form:option value="NONE" label="Choose your option"
+												disabled="true"></form:option>
+										</form:select>
+										<label>Phường</label>
+									</div>
+
 								</div>
-								
+
 								<div class="input-field center">
 									<button type="button" class="btn waves-effect waves-light">Next</button>
 								</div>
@@ -101,6 +125,31 @@
 		src="/resources/hiringviet/register/js/validate.js"></script>
 	<script type="text/javascript">
 		$("#account-info").hide();
+
+		var provinces = [ {
+			"id" : 1,
+			"provinceName" : "Hồ Chí Minh"
+		}, {
+			"id" : 2,
+			"provinceName" : "Hà Nội"
+		}, {
+			"id" : 3,
+			"provinceName" : "Đà Nẵng"
+		} ];
+		
+		$("#countryAddress").change(function() {
+			var data = this.val();
+			console.log(data);
+			$.post("/rest/getProvinceList", data, function(data, status) {
+				$.each(provinces, function(i, province) {
+					$("#provinceAddress").append($('<option>', {
+						value : province.id,
+						text : province.provinceName
+					}));
+				});
+			});
+		});
+		
 	</script>
 </body>
 </html>
