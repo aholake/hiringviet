@@ -62,4 +62,5 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 		MemberDTO memberDTO = (MemberDTO) criteria.uniqueResult();
 		return memberDTO;
 	}
+
 }

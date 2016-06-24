@@ -249,4 +249,8 @@ h1.title {
 .opacity-7 {
 	opacity: .7;
 }
+
+.border-error {
+	border: #fb4639 1px solid !important
+}
 @import url("smart.css");

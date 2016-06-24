@@ -23,30 +23,37 @@
 
 	<div id="main-container">
 
-		<jsp:include page="/layouts/profileHeader"></jsp:include>
+	<jsp:include page="/layouts/profileHeader"></jsp:include>
+
+	<input type="hidden" id="url_suggest_skill" value="<c:url value='/search/suggestSkill'/>"/>
+	<input type="hidden" id="url_add_skills" value="<c:url value='/profile/addSkills'/>"/>
 
 		<div class="row">
 			<div class="col m8">
-				<div class="card-panel padding-10 light-blue darken-3 overflow-auto hoverable">
+				<div class="card-panel padding-10 light-blue darken-3 hoverable">
 					<h1 class="title cl-white"><spring:message code="label.profile.title.addSkill"/></h1>
 					<p class="cl-white small-text"><spring:message code="label.profile.title.value_statement"/></p>
 					<div class="chip-inputs">
 						<div class="chip-inputs-wrapper">
 							<div class="list-skill-chip">
 								<c:forEach items="${member.resume.skillSet}" var="skill">
-									<div class="chip">
+									<div class="chip current_skill chip_${skill.displayName}">
+										<input type="hidden" class="temp" id="${skill.id}" value="${skill.displayName}" />
 									    ${skill.displayName}
 									    <i class="material-icons">close</i>
 									</div>
 								</c:forEach>
 								<div class="chip add-chip">
-								    <input type="text" id="addNewSkill" placeHolder="<spring:message  code='label.profile.title.add_skill' />"/>
+								    <input type="text" class="margin-0" id="addNewSkill" placeHolder="<spring:message  code='label.profile.title.add_skill' />"/>
+								    <div class="suggestSearch">
+								    	<ul></ul>
+								    </div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col m12 margin-top-5 p-0">
-						<a class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </a>
+					<div class="margin-top-5 p-0">
+						<a id="btn_save_skill_list" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </a>
 						<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
 						<a href="" class="cl-white a-text-color"><spring:message code="label.profile.title.add_skill.done_add"/></a>
 					</div>

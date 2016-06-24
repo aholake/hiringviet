@@ -72,6 +72,7 @@ public class Resume implements Serializable {
 		this.member = member;
 	}
 
+	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "skill_resume", joinColumns = { @JoinColumn(name = "resume_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "skill_id", nullable = false) })
 	public Set<Skill> getSkillSet() {

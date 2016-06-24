@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.dao.SkillDAO;
+import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.service.SkillService;
 
@@ -49,6 +50,12 @@ public class SkillServiceImpl implements SkillService {
 	public boolean updateSkill(Skill skill) {
 		// TODO Auto-generated method stub
 		return skillDAO.update(skill);
+	}
+
+	@Override
+	public List<SkillDTO> searchSkillByKeyWord(String keyWord) {
+		// TODO Auto-generated method stub
+		return skillDAO.searchSkillByKeyWord(keyWord);
 	}
 
 }

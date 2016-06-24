@@ -57,6 +57,7 @@
 	width: 150px;
 	background: none !important;
     border: none !important;
+    position: relative;
 }
 
 .chip-inputs-wrapper .add-chip:hover {
@@ -65,4 +66,24 @@
 .chip-inputs-wrapper .add-chip input {
 	height: 30px !important;
 	border: none !important;
+}
+.chip-inputs-wrapper .add-chip .suggestSearch {
+	position: absolute;
+	left: 10px;
+	width: 200px;
+    background: #f8f8f8;
+    display: none;
+    margin-top: 1px;
+    z-index: 10;
+}
+
+.add-chip .suggestSearch ul {
+	list-style-type: none;
+}
+.add-chip .suggestSearch ul li {
+	 padding: 5px;
+}
+
+.add-chip .suggestSearch ul li:hover {
+	background: #dadada;
 }

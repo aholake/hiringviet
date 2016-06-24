@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,10 +18,15 @@ import vn.com.hiringviet.api.dto.response.JobSuggestDTO;
 import vn.com.hiringviet.api.dto.response.MemberResponseDTO;
 import vn.com.hiringviet.api.dto.response.SearchSuggestResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
+import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Skill;
+import vn.com.hiringviet.service.SkillService;
 
 @Controller
 public class SearchController {
+
+	@Autowired
+	private SkillService skillService;
 
 	@RequestMapping(value = "/search/suggest", method = RequestMethod.POST)
 	public @ResponseBody SearchSuggestResponseDTO getSuggest(Model model, HttpSession session) {
@@ -60,5 +67,11 @@ public class SearchController {
 		response.setJobSuggestDTOs(jobSuggestDTOs);
 		response.setSkills(skills);
 		return response;
+	}
+
+	@RequestMapping(value = "/search/suggestSkill", method = RequestMethod.POST)
+	public @ResponseBody List<SkillDTO> suggestSkill(@RequestBody String keyWord, HttpSession session) {
+
+		return skillService.searchSkillByKeyWord(keyWord);
 	}
 }
