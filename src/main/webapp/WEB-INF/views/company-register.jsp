@@ -48,42 +48,41 @@
 
 								<div class="row">
 									<div class="input-field col m6">
-										<form:select id="countryAddress"
-											path="address.ward.district.province.country">
-											<form:option value="NONE" label="Choose your option"
-												disabled="true"></form:option>
-											<form:options items="${countries }" itemValue="id" />
-										</form:select>
-										<label>Quốc gia</label>
+										<select id="countryAddress">
+											<option value="" disabled selected>Choose your
+												option</option>
+											<c:if test="${not empty countries }">
+												<c:forEach items="${countries }" var="country">
+													<option value="${country.id }">${country.countryName }</option>
+												</c:forEach>
+											</c:if>
+										</select> <label>Quốc gia</label>
 									</div>
 									<div class="input-field col m6">
-										<form:select id="provinceAddress"
-											path="address.ward.district.province">
-											<form:option value="NONE" label="Choose your option"
-												disabled="true"></form:option>
-										</form:select>
-										<label>Tỉnh/Thành phô</label>
+										<select id="provinceAddress">
+											<option value="" disabled selected>Choose your
+												option</option>
+										</select> <label>Tỉnh/Thành phô</label>
 									</div>
 
 									<div class="input-field col m6">
-										<form:select id="districtAddress" path="address.ward.district">
-											<form:option value="NONE" label="Choose your option"
-												disabled="true"></form:option>
-										</form:select>
-										<label>Quận/Huyện</label>
+										<select id="districtAddress">
+											<option value="" disabled selected>Choose your
+												option</option>
+										</select> <label>Quận/Huyện</label>
 									</div>
 									<div class="input-field col m6">
-										<form:select id="wardAddress" path="address.ward">
-											<form:option value="NONE" label="Choose your option"
+										<form:select id="wardAddress" path="address.ward.id">
+											<form:option value="-1" label="Choose your option"
 												disabled="true"></form:option>
 										</form:select>
 										<label>Phường</label>
 									</div>
-
 								</div>
 
 								<div class="input-field center">
-									<button type="button" class="btn waves-effect waves-light">Next</button>
+									<button id="nextButton" type="button"
+										class="btn waves-effect waves-light">Next</button>
 								</div>
 							</div>
 							<div id="account-info">
@@ -105,10 +104,10 @@
 								</div>
 
 								<div class="input-field center">
-									<button id="back" type="button"
+									<button id="backButton" type="button"
 										class="btn waves-effect waves-light">Back</button>
-									<button type="submit" class="btn waves-effect waves-light">Đăng
-										ký</button>
+									<button type="submit"
+										class="btn waves-effect waves-light orange">Đăng ký</button>
 								</div>
 							</div>
 						</form:form>
@@ -126,30 +125,108 @@
 	<script type="text/javascript">
 		$("#account-info").hide();
 
-		var provinces = [ {
-			"id" : 1,
-			"provinceName" : "Hồ Chí Minh"
-		}, {
-			"id" : 2,
-			"provinceName" : "Hà Nội"
-		}, {
-			"id" : 3,
-			"provinceName" : "Đà Nẵng"
-		} ];
-		
-		$("#countryAddress").change(function() {
-			var data = this.val();
-			console.log(data);
-			$.post("/rest/getProvinceList", data, function(data, status) {
-				$.each(provinces, function(i, province) {
-					$("#provinceAddress").append($('<option>', {
-						value : province.id,
-						text : province.provinceName
-					}));
+		$("#countryAddress").change(
+				function() {
+					var data = $(this).val();
+					callAPI('/rest/getProvincesByCountry', 'POST', data,
+							'processGetProvinces', false);
 				});
+
+		$("#provinceAddress").change(
+				function() {
+					var data = $(this).val();
+					callAPI('/rest/getDistrictsByProvince', 'POST', data,
+							'processGetDistricts', false);
+				});
+
+		$("#districtAddress").change(
+				function() {
+					var data = $(this).val();
+					callAPI('/rest/getWardsByDistrict', 'POST', data,
+							'processGetWards', false);
+				});
+
+		function processGetProvinces(response) {
+			console.log(response);
+			$("#provinceAddress")
+					.empty()
+					.append(
+							"<option value='' disabled selected>Choose your option</option>");
+			$.each(response, function(i, province) {
+				console.log("Province: " + province);
+				$("#provinceAddress").append($('<option>', {
+					value : province.id,
+					text : province.provinceName
+				}));
 			});
-		});
-		
+			$('#provinceAddress').material_select();
+		}
+
+		function processGetDistricts(response) {
+			console.log(response);
+			$("#districtAddress")
+					.empty()
+					.append(
+							"<option value='' disabled selected>Choose your option</option>");
+			$.each(response, function(i, district) {
+				console.log("District: " + district);
+				$("#districtAddress").append($('<option>', {
+					value : district.id,
+					text : district.districtName
+				}));
+			});
+			$('#districtAddress').material_select();
+		}
+
+		function processGetWards(response) {
+			console.log(response);
+			$("#wardAddress")
+					.empty()
+					.append(
+							"<option value='' disabled selected>Choose your option</option>");
+			$.each(response, function(i, ward) {
+				console.log("Ward: " + ward);
+				$("#wardAddress").append($('<option>', {
+					value : ward.id,
+					text : ward.wardName
+				}));
+			});
+			$('#wardAddress').material_select();
+		}
+
+		$("#nextButton").click(
+				function() {
+					//validateAllDropdownList();
+					if (!$("#newCompany")[0].checkValidity()) {
+						$("#newCompany").find(':submit').click()
+					} else {
+						if ($("#company-info").is(":visible")
+								&& !$("#account-info").is(":visible")) {
+							$("#company-info").hide();
+							$("#account-info").show();
+						}
+					}
+				});
+
+		$("#backButton").click(
+				function() {
+					if ($("#account-info").is(":visible")
+							&& !$("#company-info").is(":visible")) {
+						$("#account-info").hide();
+						$("#company-info").show();
+					}
+				});
+
+		function validateAllDropdownList() {
+			$("select").each(function(index, element) {
+				console.log(index + " | " + element.value);
+				if (element.value == null || element.value == -1) {
+					element.setValidity("You should select an option");
+				} else {
+					element.setValidity("");
+				}
+			});
+		}
 	</script>
 </body>
 </html>

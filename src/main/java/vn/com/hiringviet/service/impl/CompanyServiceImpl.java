@@ -67,7 +67,6 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public List<Job> getListJob(Integer first, Integer max, Integer companyId) {
-		
 		return companyDAO.getListJob(first, max, companyId);
 	}
 

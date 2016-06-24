@@ -44,6 +44,6 @@ password.change(function() {
 	validatePassword();
 });
 
-password.keyup(function() {
+confirm_password.keyup(function() {
 	validatePassword();
 });

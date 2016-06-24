@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "district")
 public class District implements Serializable {
@@ -45,6 +47,7 @@ public class District implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "province_id")
+	@JsonIgnore
 	public Province getProvince() {
 		return province;
 	}

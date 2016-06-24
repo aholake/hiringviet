@@ -72,6 +72,7 @@ public class Company implements Serializable {
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Account getAccount() {
 		return account;
 	}
@@ -177,17 +178,15 @@ public class Company implements Serializable {
 	public Country getHostCountry() {
 		return hostCountry;
 	}
-	
+
 	public void setHostCountry(Country hostCountry) {
 		this.hostCountry = hostCountry;
 	}
-
 
 	@Column(name = "is_vip")
 	public Integer getIsVip() {
 		return isVip;
 	}
-
 
 	public void setIsVip(Integer isVip) {
 		this.isVip = isVip;

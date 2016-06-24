@@ -58,8 +58,6 @@ public class Province implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Province [id=" + id + ", provinceName=" + provinceName
-				+ ", country=" + country + "]";
+		return "Province [id=" + id + ", provinceName=" + provinceName + "]";
 	}
-	
 }
