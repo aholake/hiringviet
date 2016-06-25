@@ -2,6 +2,7 @@ package vn.com.hiringviet.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.ResumeDAO;
+import vn.com.hiringviet.dto.ResumeDTO;
 import vn.com.hiringviet.model.Resume;
 
 @Repository
@@ -42,6 +44,28 @@ public class ResumeDAOImpl implements ResumeDAO {
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Integer> skills = criteria.list();
 		return skills;
+	}
+
+	@Override
+	public boolean deleteSkillOfProfile(ResumeDTO resumeDTO) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		StringBuilder hql = new StringBuilder();
+		hql.append("DELETE FROM hiringviet.skill_resume ");
+		hql.append("WHERE resume_id = :resumeId ");
+		hql.append("AND skill_id = :skillId");
+
+		Query query = session.createSQLQuery(hql.toString());
+		query.setParameter("resumeId", resumeDTO.getResumeId());
+		query.setParameter("skillId", resumeDTO.getSkillId());
+
+		Integer result = query.executeUpdate();
+
+		if (result > 0) {
+			return true;
+		}
+		return false;
 	}
 
 }

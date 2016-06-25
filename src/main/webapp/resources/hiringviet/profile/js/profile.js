@@ -95,3 +95,18 @@ function checkSkill(value) {
 	});
 	return result;
 }
+
+function deleteSkillOfResume(accountId, resumeId, skillId) {
+
+	var data = {
+		accountId: accountId,
+		resumeId: resumeId,
+		skillId: skillId
+	}
+
+	callAPI($('#url_delete_skill_of_resume').val(), 'POST', data, 'processDeleteSkillOfResume', false);
+}
+
+function processDeleteSkillOfResume(responses) {
+	console.log(responses);
+}
