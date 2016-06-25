@@ -7,21 +7,20 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.com.hiringviet.dao.ProvinceDAO;
-import vn.com.hiringviet.model.Province;
+import vn.com.hiringviet.dao.DistrictDAO;
+import vn.com.hiringviet.model.District;
 
 @Repository
-public class ProvinceDAOImpl extends CommonDAOImpl<Province> implements
-		ProvinceDAO {
+public class DistrictDAOImpl extends CommonDAOImpl<District> implements DistrictDAO{
 
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<Province> getProvinceListByCountry(int countryID) {
-		String hql = "FROM Province P WHERE P.country.id = :countryID ORDER BY P.provinceName";
+	public List<District> getDistrictByProvince(int provinceID) {
+		String hql = "FROM District D WHERE D.province.id = :provinceID ORDER BY D.districtName";
 		Session session = getSession();
 		Query hqlQuery = session.createQuery(hql);
-		hqlQuery.setParameter("countryID", countryID);
+		hqlQuery.setParameter("provinceID", provinceID);
 		return hqlQuery.list();
 	}
 

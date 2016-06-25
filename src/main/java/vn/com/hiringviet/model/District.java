@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "district")
 public class District implements Serializable {
@@ -63,6 +65,7 @@ public class District implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "province_id")
+	@JsonIgnore
 	public Province getProvince() {
 		return province;
 	}

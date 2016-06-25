@@ -20,4 +20,10 @@ public class ProvinceServiceImpl implements ProvinceService {
 		return provinceDAO.findAll();
 	}
 
+	@Override
+	public List<Province> getProvinceListByCountry(int countryID) {
+		// TODO Auto-generated method stub
+		return provinceDAO.getProvinceListByCountry(countryID);
+	}
+
 }

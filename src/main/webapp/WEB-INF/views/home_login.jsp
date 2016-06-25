@@ -18,8 +18,7 @@
 </head>
 <body>
 	<jsp:include page="/layouts/navbar"></jsp:include>
-
-	<div id="introduce-slider"></div>
+	<jsp:include page="/layouts/introduce-slider"></jsp:include>
 
 	<input type="hidden" id="get_job_hot" value="<c:url value='/job/hot' />" />
 	<input type="hidden" id="first_item" value="${firstItem}" />

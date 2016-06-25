@@ -6,4 +6,6 @@ import vn.com.hiringviet.model.Province;
 
 public interface ProvinceService {
 	public List<Province> getProvinceList();
+
+	public List<Province> getProvinceListByCountry(int countryID);
 }
