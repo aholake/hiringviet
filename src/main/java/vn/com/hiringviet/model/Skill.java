@@ -1,17 +1,13 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "skill")
@@ -23,7 +19,7 @@ public class Skill implements Serializable {
 
 	private String displayName;
 
-	private Set<Job> jobSet;
+//	private Set<Job> jobSet;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,14 +40,14 @@ public class Skill implements Serializable {
 		this.displayName = displayName;
 	}
 
-	@JsonIgnore
-	@ManyToMany(mappedBy = "skillSet")
-	public Set<Job> getJobSet() {
-		return jobSet;
-	}
-
-	public void setJobSet(Set<Job> jobSet) {
-		this.jobSet = jobSet;
-	}
+//	@JsonIgnore
+//	@ManyToMany(mappedBy = "skillSet")
+//	public Set<Job> getJobSet() {
+//		return jobSet;
+//	}
+//
+//	public void setJobSet(Set<Job> jobSet) {
+//		this.jobSet = jobSet;
+//	}
 
 }

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><spring:message code="label.company.title"/></title>
+<title><spring:message code="label.profile.title"/></title>
 <!-- Local style -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
@@ -37,11 +37,11 @@
 					<div class="chip-inputs">
 						<div class="chip-inputs-wrapper">
 							<div class="list-skill-chip">
-								<c:forEach items="${member.resume.skillSet}" var="skill">
-									<div class="chip current_skill chip_${skill.displayName}">
-										<input type="hidden" class="temp" id="${skill.id}" value="${skill.displayName}" />
-									    ${skill.displayName}
-									    <i class="material-icons" onclick="javascript:deleteSkillOfResume(${member.account.id}, ${member.resume.id}, ${skill.id});">close</i>
+								<c:forEach items="${member.resume.skillResumeSet}" var="skillResume">
+									<div class="chip current_skill chip_${skillResume.skill.displayName}">
+										<input type="hidden" class="temp" id="${skillResume.skill.id}" value="${skillResume.skill.displayName}" />
+									    ${skillResume.skill.displayName}
+									    <i class="material-icons" onclick="javascript:deleteSkillOfResume(${member.account.id}, ${member.resume.id}, ${skillResume.skill.id});">close</i>
 									</div>
 								</c:forEach>
 								<div class="chip add-chip">
@@ -64,44 +64,50 @@
 					<p class="small-text"><spring:message code="label.profile.endorse.title.top_skills"/></p>
 					<div class="profile-skills">
 		    		<ul class="skills-section">
-		    			<li class="endorse-item">
-		    				<span class="skill-pill">
-		    					<a href="javascript:void(0)" class="endorse-count" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">
-		    						<span class="num-endorsements num-endorsements-1 cl-white">6</span>
-		    					</a>
-		    					<span class="endorse-item-name">
-		    						<a href="" class="endorse-item-name-text">Java</a>
-		    					</span>
-		    				</span>
-		    				<div class="endorsers-container">
-		    					<a class="endorse-button">
-		    						<span class="endorsing">
-		    							<i class="material-icons small-icon margin-top-3px icon_add_endorse_1" onmouseover="onMouseOverEndorsingEvent('add_endorse_title_1', 1);" onmouseout="onMouseOutEndorsingEvent('add_endorse_title_1',1);" onclick="onClickEndorsingEvent(true, 1);">add</i>
-		    							<i style="display: none;" class="material-icons small-icon margin-top-3px icon_remove_endorse_1 display-none" onmouseover="onMouseOverEndorsingEvent('remove_endorse_title_1', 1);" onmouseout="onMouseOutEndorsingEvent('remove_endorse_title_1', 1);" onclick="onClickEndorsingEvent(false, 1);">remove</i>
-		    							<span id="add_endorse_title_1" class="display-none">Endorse</span>
-		    							<span id="remove_endorse_title_1" class="display-none">Remove Endorse</span>
-		    						</span>
-		    						<span class="line-container">
-		    							<hr />
-		    						</span>
-		    					</a>
-		    					<ul class="endorsers-pics endorsers-pics-1">
-		    						<li>
-		    							<a href="#">
-		    								<img class="img-full" src="http://all4desktop.com/data_images/original/4247810-girl.jpg">
-		    							</a>
-		    						</li>
-		    						<li>
-		    							<a href="#">
-		    								<img class="img-full" src="http://all4desktop.com/data_images/original/4247810-girl.jpg">
-		    							</a>
-		    						</li>
-		    						<li class="endorsers-action">
-		    							<i class="material-icons">keyboard_arrow_right</i>
-		    						</li>
-		    					</ul>
-		    				</div>
-		    			</li>
+		    			<c:forEach items="${member.resume.skillResumeSet}" var="skillResume">
+			    			<li class="endorse-item">
+			    				<span class="skill-pill">
+			    					<a href="javascript:void(0)" class="endorse-count">
+			    						<span class="num-endorsements num-endorsements-${skillResume.skill.id} cl-white">${skillResume.numberEndorse}</span>
+			    					</a>
+			    					<span class="endorse-item-name">
+			    						<a href="" class="endorse-item-name-text">${skillResume.skill.displayName}</a>
+			    					</span>
+			    				</span>
+			    				<div class="endorsers-container">
+			    					<a class="endorse-button">
+			    						<span class="endorsing"> 
+			    							<i class="material-icons small-icon margin-top-3px icon_add_endorse_${skillResume.skill.id}"
+												onmouseover="onMouseOverEndorsingEvent('add_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
+												onmouseout="onMouseOutEndorsingEvent('add_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
+												onclick="onClickEndorsingEvent(true, '${skillResume.skill.id}');">add</i>
+											<i style="display: none;"
+												class="material-icons small-icon margin-top-3px icon_remove_endorse_${skillResume.skill.id} display-none"
+												onmouseover="onMouseOverEndorsingEvent('remove_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
+												onmouseout="onMouseOutEndorsingEvent('remove_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
+												onclick="onClickEndorsingEvent(false, '${skillResume.skill.id}');">remove</i>
+											<span id="add_endorse_title_${skillResume.skill.id}" class="display-none">Endorse</span>
+			    							<span id="remove_endorse_title_${skillResume.skill.id}" class="display-none">Remove Endorse</span>
+			    						</span>
+			    						<span class="line-container">
+			    							<hr />
+			    						</span>
+			    					</a>
+			    					<ul class="endorsers-pics endorsers-pics-${skillResume.skill.id}">
+			    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="item">
+			    							<li class="endorse_${endorse.id}">
+				    							<a href="#">
+				    								<img class="img-full" src="${endorse.account.avatarImage}">
+				    							</a>
+			    							</li>
+			    						</c:forEach>
+			    						<li class="endorsers-action">
+			    							<i class="material-icons">keyboard_arrow_right</i>
+			    						</li>
+			    					</ul>
+			    				</div>
+			    			</li>
+		    			</c:forEach>
 		    		</ul>
 		    		<!-- Skill different -->
 		    	</div>

@@ -37,10 +37,10 @@ public class ResumeDAOImpl implements ResumeDAO {
 		Criteria criteria = session.createCriteria(Resume.class, "resume");
 		criteria.createAlias("resume.member", "member");
 		criteria.createAlias("resume.changeLog", "changeLog");
-		criteria.createAlias("resume.skillSet", "skillSet");
+		criteria.createAlias("resume.skillResumeSet", "skillResumeSet");
 		criteria.add(Restrictions.eq("member.id", memberId));
 		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
-		criteria.setProjection(Projections.projectionList().add(Projections.property("skillSet.id")));
+		criteria.setProjection(Projections.projectionList().add(Projections.property("skillResumeSet.skill.id")));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Integer> skills = criteria.list();
 		return skills;
