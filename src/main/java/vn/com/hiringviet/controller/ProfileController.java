@@ -16,16 +16,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
 import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
+import vn.com.hiringviet.dto.ResumeDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.MemberService;
+import vn.com.hiringviet.service.ResumeService;
 
 @Controller
 public class ProfileController {
 
 	@Autowired
 	private MemberService memberService;
+
+	@Autowired
+	private ResumeService resumeService;
 
 	@RequestMapping(value = "/layouts/profileBanner", method = RequestMethod.GET)
 	public String goProfileBanner(Model model, HttpSession session) {
@@ -58,6 +63,23 @@ public class ProfileController {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 		}
 		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+		return commonResponseDTO;
+	}
+
+	@RequestMapping(value = "/profile/deleteSkillOfProfile", method = RequestMethod.POST)
+	public @ResponseBody CommonResponseDTO deleteSkillOfProfile(@RequestBody ResumeDTO resumeDTO, HttpSession session) {
+
+		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
+
+		Account account = LoginController.getAccountSession(session);
+
+		if (account.getId().equals(resumeDTO.getAccountId())) {
+			if (resumeService.deleteSkillOfProfile(resumeDTO)) {
+				commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+			}
+		}
+
+		commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 		return commonResponseDTO;
 	}
 }

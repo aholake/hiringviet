@@ -27,6 +27,7 @@
 
 	<input type="hidden" id="url_suggest_skill" value="<c:url value='/search/suggestSkill'/>"/>
 	<input type="hidden" id="url_add_skills" value="<c:url value='/profile/addSkills'/>"/>
+	<input type="hidden" id="url_delete_skill_of_resume" value="<c:url value='/profile/deleteSkillOfProfile'/>"/>
 
 		<div class="row">
 			<div class="col m8">
@@ -40,7 +41,7 @@
 									<div class="chip current_skill chip_${skill.displayName}">
 										<input type="hidden" class="temp" id="${skill.id}" value="${skill.displayName}" />
 									    ${skill.displayName}
-									    <i class="material-icons">close</i>
+									    <i class="material-icons" onclick="javascript:deleteSkillOfResume(${member.account.id}, ${member.resume.id}, ${skill.id});">close</i>
 									</div>
 								</c:forEach>
 								<div class="chip add-chip">
@@ -57,6 +58,53 @@
 						<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
 						<a href="" class="cl-white a-text-color"><spring:message code="label.profile.title.add_skill.done_add"/></a>
 					</div>
+				</div>
+				<div class="card-panel padding-10 hoverable">
+					<h1 class="title"><spring:message code="label.profile.endorse.title.skills"/></h1>
+					<p class="small-text"><spring:message code="label.profile.endorse.title.top_skills"/></p>
+					<div class="profile-skills">
+		    		<ul class="skills-section">
+		    			<li class="endorse-item">
+		    				<span class="skill-pill">
+		    					<a href="javascript:void(0)" class="endorse-count" data-position="bottom" data-delay="50" data-tooltip="I am tooltip">
+		    						<span class="num-endorsements num-endorsements-1 cl-white">6</span>
+		    					</a>
+		    					<span class="endorse-item-name">
+		    						<a href="" class="endorse-item-name-text">Java</a>
+		    					</span>
+		    				</span>
+		    				<div class="endorsers-container">
+		    					<a class="endorse-button">
+		    						<span class="endorsing">
+		    							<i class="material-icons small-icon margin-top-3px icon_add_endorse_1" onmouseover="onMouseOverEndorsingEvent('add_endorse_title_1', 1);" onmouseout="onMouseOutEndorsingEvent('add_endorse_title_1',1);" onclick="onClickEndorsingEvent(true, 1);">add</i>
+		    							<i style="display: none;" class="material-icons small-icon margin-top-3px icon_remove_endorse_1 display-none" onmouseover="onMouseOverEndorsingEvent('remove_endorse_title_1', 1);" onmouseout="onMouseOutEndorsingEvent('remove_endorse_title_1', 1);" onclick="onClickEndorsingEvent(false, 1);">remove</i>
+		    							<span id="add_endorse_title_1" class="display-none">Endorse</span>
+		    							<span id="remove_endorse_title_1" class="display-none">Remove Endorse</span>
+		    						</span>
+		    						<span class="line-container">
+		    							<hr />
+		    						</span>
+		    					</a>
+		    					<ul class="endorsers-pics endorsers-pics-1">
+		    						<li>
+		    							<a href="#">
+		    								<img class="img-full" src="http://all4desktop.com/data_images/original/4247810-girl.jpg">
+		    							</a>
+		    						</li>
+		    						<li>
+		    							<a href="#">
+		    								<img class="img-full" src="http://all4desktop.com/data_images/original/4247810-girl.jpg">
+		    							</a>
+		    						</li>
+		    						<li class="endorsers-action">
+		    							<i class="material-icons">keyboard_arrow_right</i>
+		    						</li>
+		    					</ul>
+		    				</div>
+		    			</li>
+		    		</ul>
+		    		<!-- Skill different -->
+		    	</div>
 				</div>
 			</div>
 			<div class="col m4">
@@ -77,5 +125,6 @@
 		</div>
 	</div>
 	<script src="<c:url value='/resources/hiringviet/profile/js/profile.js'/>"></script>
+	<script src="<c:url value='/resources/hiringviet/profile/js/endorse.js'/>"></script>
 </body>
 </html>

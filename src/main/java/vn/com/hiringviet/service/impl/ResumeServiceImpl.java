@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.dao.ResumeDAO;
+import vn.com.hiringviet.dto.ResumeDTO;
 import vn.com.hiringviet.service.ResumeService;
 
 @Service("resumeService")
@@ -18,6 +19,12 @@ public class ResumeServiceImpl implements ResumeService {
 	public List<Integer> getListSkillByMemberId(Integer memberId) {
 
 		return resumeDAO.getListSkillByMemberId(memberId);
+	}
+
+	@Override
+	public boolean deleteSkillOfProfile(ResumeDTO resumeDTO) {
+
+		return resumeDAO.deleteSkillOfProfile(resumeDTO);
 	}
 
 }
