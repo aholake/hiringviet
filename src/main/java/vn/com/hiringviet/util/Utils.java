@@ -3,6 +3,7 @@ package vn.com.hiringviet.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -54,6 +55,23 @@ public class Utils {
 	 * @author AnhNT
 	 */
 	public static boolean isEmptyList(List<?> list) {
+		boolean isEmpty = true;
+
+		// check list not empty
+		if (list != null && list.size() > 0) {
+			isEmpty = false;
+		}
+
+		return isEmpty;
+	}
+
+	/**
+	 * Checks if is empty set.
+	 *
+	 * @param list the list
+	 * @return true, if is empty set
+	 */
+	public static boolean isEmptySet(Set<?> list) {
 		boolean isEmpty = true;
 
 		// check list not empty

@@ -3,11 +3,10 @@ package vn.com.hiringviet.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.com.hiringviet.model.Endorse;
+import vn.com.hiringviet.model.SkillResume;
 
 @Repository
 @Transactional
-public interface EndorseDAO extends CommonDAO<Endorse> {
+public interface SkillResumeDAO extends CommonDAO<SkillResume> {
 
-	public boolean deleteByAccountId(Integer accountId, Integer skillResumeId);
 }

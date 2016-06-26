@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "endorse")
 public class Endorse implements Serializable {
@@ -52,7 +54,7 @@ public class Endorse implements Serializable {
 	}
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "account_id")
 	public Account getAccount() {
 		return account;
 	}
@@ -63,6 +65,7 @@ public class Endorse implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "skill_resume_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public SkillResume getSkillResume() {
 		return skillResume;
 	}

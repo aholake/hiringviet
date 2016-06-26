@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,8 +31,6 @@ public class SkillResume implements Serializable {
 	private Skill skill;
 
 	private Set<Endorse> endorseSet;
-
-	private Integer numberEndorse;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,15 +74,6 @@ public class SkillResume implements Serializable {
 
 	public void setEndorseSet(Set<Endorse> endorseSet) {
 		this.endorseSet = endorseSet;
-	}
-
-	@Column(name = "number_endorse")
-	public Integer getNumberEndorse() {
-		return endorseSet.size();
-	}
-
-	public void setNumberEndorse(Integer numberEndorse) {
-		this.numberEndorse = numberEndorse;
 	}
 
 }
