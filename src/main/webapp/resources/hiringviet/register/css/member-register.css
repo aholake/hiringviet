@@ -1,0 +1,6 @@
+@CHARSET "UTF-8";
+
+body {
+	background: url("employee_register_bg.jpg") no-repeat !important;
+	background-size: cover;
+}
