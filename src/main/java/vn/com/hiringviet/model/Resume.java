@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -31,7 +29,7 @@ public class Resume implements Serializable {
 
 	private Member member;
 
-	private Set<Skill> skillSet;
+//	private Set<Skill> skillSet;
 
 	private Set<EducationHistory> educationHistorySet;
 
@@ -50,6 +48,8 @@ public class Resume implements Serializable {
 	private String coverImage;
 
 	private ChangeLog changeLog;
+
+	private Set<SkillResume> skillResumeSet;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,16 +72,16 @@ public class Resume implements Serializable {
 		this.member = member;
 	}
 
-	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "skill_resume", joinColumns = { @JoinColumn(name = "resume_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "skill_id", nullable = false) })
-	public Set<Skill> getSkillSet() {
-		return skillSet;
-	}
-
-	public void setSkillSet(Set<Skill> skillSet) {
-		this.skillSet = skillSet;
-	}
+//	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
+//	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinTable(name = "skill_resume", joinColumns = { @JoinColumn(name = "resume_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "skill_id", nullable = false) })
+//	public Set<Skill> getSkillSet() {
+//		return skillSet;
+//	}
+//
+//	public void setSkillSet(Set<Skill> skillSet) {
+//		this.skillSet = skillSet;
+//	}
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
@@ -169,6 +169,17 @@ public class Resume implements Serializable {
 
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@JoinColumn(name = "resume_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	public Set<SkillResume> getSkillResumeSet() {
+		return skillResumeSet;
+	}
+
+	public void setSkillResumeSet(Set<SkillResume> skillResumeSet) {
+		this.skillResumeSet = skillResumeSet;
 	}
 
 }

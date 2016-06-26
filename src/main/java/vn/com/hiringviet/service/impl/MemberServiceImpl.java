@@ -13,6 +13,7 @@ import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.model.Skill;
+import vn.com.hiringviet.model.SkillResume;
 import vn.com.hiringviet.service.MemberService;
 import vn.com.hiringviet.util.Utils;
 
@@ -54,16 +55,19 @@ public class MemberServiceImpl implements MemberService {
 
 		Member member = memberDAO.getMemberByAccountId(accountId);
 
-		Set<Skill> skillSet = new HashSet<Skill>();
+		Set<SkillResume> skillResumeSet = new HashSet<SkillResume>();
 		if (!Utils.isEmptyObject(member)) {
 
 			for (SkillDTO skillDTO : skills) {
 				Skill skill = new Skill();
 				skill.setId(skillDTO.getId());
 				skill.setDisplayName(skillDTO.getDisplayName());
-				skillSet.add(skill);
+				SkillResume skillResume = new SkillResume();
+				skillResume.setResume(member.getResume());
+				skillResume.setSkill(skill);
+				skillResumeSet.add(skillResume);
 			}
-			member.getResume().getSkillSet().addAll(skillSet);
+			member.getResume().getSkillResumeSet().addAll(skillResumeSet);
 
 			if (memberDAO.update(member)) {
 				return true;

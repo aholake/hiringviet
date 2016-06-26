@@ -8,4 +8,5 @@ public interface MemberDAO extends CommonDAO<Member> {
 	public Member getMemberByAccountId(Integer accountId);
 
 	public MemberDTO getMemberByAccount(Integer accountId);
+
 }

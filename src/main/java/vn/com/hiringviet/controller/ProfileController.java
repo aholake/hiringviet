@@ -82,4 +82,10 @@ public class ProfileController {
 		commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 		return commonResponseDTO;
 	}
+
+	@RequestMapping(value = "/profile/get/{id}", method = RequestMethod.GET)
+	public @ResponseBody Member addSkills(@PathVariable("id") Integer id) {
+		return memberService.getMemberByID(id);
+	}
+
 }

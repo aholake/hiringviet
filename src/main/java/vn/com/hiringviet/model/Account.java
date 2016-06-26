@@ -37,6 +37,12 @@ public class Account implements Serializable {
 	/** The password. */
 	private String password;
 
+	/** The avatar image. */
+	private String avatarImage;
+
+	/** The cover image. */
+	private String coverImage;
+
 	/** The role id. */
 	private Integer roleID;
 
@@ -151,6 +157,24 @@ public class Account implements Serializable {
 		this.locale = locale;
 	}
 
+	@Column(name = "avatar_image")
+	public String getAvatarImage() {
+		return avatarImage;
+	}
+
+	public void setAvatarImage(String avatarImage) {
+		this.avatarImage = avatarImage;
+	}
+
+	@Column(name = "cover_image")
+	public String getCoverImage() {
+		return coverImage;
+	}
+
+	public void setCoverImage(String coverImage) {
+		this.coverImage = coverImage;
+	}
+
 	/**
 	 * Gets the inbox messages.
 	 *
@@ -196,6 +220,7 @@ public class Account implements Serializable {
 	 *
 	 * @return the from follows
 	 */
+	@JsonIgnore
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fromAccount")
 	public Set<Follow> getFromFollows() {
@@ -216,6 +241,7 @@ public class Account implements Serializable {
 	 *
 	 * @return the to follows
 	 */
+	@JsonIgnore
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toAccount")
 	public Set<Follow> getToFollows() {
