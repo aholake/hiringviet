@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title><decorator:title default="Hiring Viet"></decorator:title></title>
+<title><decorator:title default="HiringViet"></decorator:title></title>
 
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -29,7 +29,9 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/includes/header.jsp"%>
-	<decorator:body />
+	<div class="content">
+		<decorator:body />
+	</div>
 	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
 </body>
 </html>
