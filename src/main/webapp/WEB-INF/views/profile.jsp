@@ -18,8 +18,6 @@
 <link rel="stylesheet" href="/resources/hiringviet/profile/css/profile.css" />
 </head>
 <body>
-	<jsp:include page="/layouts/navbar"></jsp:include>
-
 	<jsp:include page="/layouts/profileBanner"></jsp:include>
 
 	<div id="main-container">

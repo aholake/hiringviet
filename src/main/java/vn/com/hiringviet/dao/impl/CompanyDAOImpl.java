@@ -15,13 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.common.PublishResponseEnum;
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Post;
 
 @Repository
 @Transactional
-public class CompanyDAOImpl extends CommonDAOImpl<Company> implements CompanyDAO {
+public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
+		CompanyDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -72,15 +74,15 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements CompanyDAO
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Post> getListPosts(Integer first, Integer max,
-			Integer companyId) {
+	public List<Post> getListPosts(Integer first, Integer max, Integer companyId) {
 
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Post.class, "post");
 		criteria.createAlias("post.company", "company");
 		criteria.createAlias("post.changeLog", "changeLog");
 		criteria.add(Restrictions.eq("company.id", companyId));
-		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status",
+				StatusRecordEnum.ACTIVE.getValue()));
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);
 		criteria.addOrder(Order.desc("changeLog.updatedDate"));
@@ -98,13 +100,26 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements CompanyDAO
 		criteria.createAlias("job.company", "company");
 		criteria.createAlias("job.changeLog", "changeLog");
 		criteria.add(Restrictions.eq("company.id", companyId));
-		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
-		criteria.add(Restrictions.eq("job.isPublish", PublishResponseEnum.PUBLISH.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status",
+				StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("job.isPublish",
+				PublishResponseEnum.PUBLISH.getValue()));
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);
 		criteria.addOrder(Order.desc("changeLog.updatedDate"));
 
 		List<Job> result = (List<Job>) criteria.list();
 		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Company getCompanyByAccount(Account account) {
+		String hql = "FROM Company WHERE account=:account";
+		Session session = getSession();
+		Query query = session.createQuery(hql);
+		query.setParameter("account", account);
+		List<Company> list = query.list();
+		return list.isEmpty() ? null : list.get(0);
 	}
 }

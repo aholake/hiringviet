@@ -26,8 +26,6 @@
 	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
 	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
 
-	<jsp:include page="/layouts/navbar"></jsp:include>
-
 	<jsp:include page="/layouts/companyBanner"></jsp:include>
 
 	<div id="main-container">
