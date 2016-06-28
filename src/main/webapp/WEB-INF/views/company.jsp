@@ -26,11 +26,11 @@
 	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
 	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
 
-	<jsp:include page="/layouts/companyBanner"></jsp:include>
+	<jsp:include page="/WEB-INF/views/layouts/company_banner.jsp" />
 
 	<div id="main-container">
 
-		<jsp:include page="/layouts/companyHeader"></jsp:include>
+	<jsp:include page="/WEB-INF/views/layouts/company_header.jsp" />
 
 		<div class="row">
 			<div class="col m8">

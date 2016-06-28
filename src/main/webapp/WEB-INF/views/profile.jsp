@@ -18,11 +18,11 @@
 <link rel="stylesheet" href="/resources/hiringviet/profile/css/profile.css" />
 </head>
 <body>
-	<jsp:include page="/layouts/profileBanner"></jsp:include>
+	<jsp:include page="/WEB-INF/views/layouts/profile_banner.jsp" />
 
 	<div id="main-container">
 
-	<jsp:include page="/layouts/profileHeader"></jsp:include>
+	<jsp:include page="/WEB-INF/views/layouts/profile_header.jsp" />
 
 	<input type="hidden" id="url_suggest_skill" value="<c:url value='/search/suggestSkill'/>"/>
 	<input type="hidden" id="url_add_skills" value="<c:url value='/profile/addSkills'/>"/>

@@ -18,11 +18,11 @@
 <script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </head>
 <body>
-	<jsp:include page="/layouts/companyBanner"></jsp:include>
+	<jsp:include page="/WEB-INF/views/layouts/company_banner.jsp" />
 
 	<div id="main-container">
 
-		<jsp:include page="/layouts/companyHeader"></jsp:include>
+		<jsp:include page="/WEB-INF/views/layouts/company_header.jsp" />
 
 		<div class="row">
 			<div class="col m8">
