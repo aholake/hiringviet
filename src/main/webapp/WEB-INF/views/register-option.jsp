@@ -10,7 +10,7 @@
 <title><spring:message code="label.home.title" /></title>
 </head>
 <body>
-	<div class="main-container">
+	<div id="main-container">
 		<div class="row">
 			<div class="col m4 offset-m2">
 				<div class="card">
