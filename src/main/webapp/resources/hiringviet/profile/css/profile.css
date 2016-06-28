@@ -1,3 +1,6 @@
+body {
+	position: relative;
+}
 .profile-banner {
     height: 200px;
     width: 100%;
@@ -217,4 +220,42 @@
 
 .line-container hr {
 	margin-top: 11px;
+}
+
+/*===========================================*/
+.tooltil-show-member {
+	position: absolute !important;
+	top: 10px;
+	left: 200px;
+	background: #fbfbfb;
+	width: 250px;
+	height: 100px;
+	border-radius: 5px;
+	padding: 5px;
+	border: 1px solid #bdbdbd;
+	position: relative;
+	display: none;
+	text-align: center;
+}
+
+.tooltil-show-member .btn {
+	height: 30px !important;
+	line-height: 30px;
+	width: 100px !important;
+	font-size: 12px !important;
+	padding: 0;
+}
+.tooltil-show-member .triangle {
+	position: absolute;
+	bottom: -15px;
+	left: 115px;
+	width: 15px;
+	height: 15px;
+	border-top: 15px solid #eeeeee;
+	border-left: 10px solid transparent; 
+	border-right: 10px solid transparent; 
+}
+.tooltil-show-member img {
+	width: 50px;
+	height: 50px;
 }

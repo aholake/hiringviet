@@ -33,6 +33,8 @@
 	<input type="hidden" id="avatar_image_of_account" value="${sessionScope.account.avatarImage}"/>
 	<input type="hidden" id="id_of_account" value="${sessionScope.account.id}"/>
 	<input type="hidden" id="url_remove_endorse" value="<c:url value='/profile/endorse/remove'/>"/>
+	<input type="hidden" id="url_count_member_of_follwer" value="<c:url value='/profile/countNumberOfFollower'/>"/>
+	<input type="hidden" id="redirect_member_page" value="<c:url value='/profile?accountId='/>"/>
 
 		<div class="row">
 			<div class="col m8">
@@ -103,27 +105,33 @@
 			    						</span>
 			    					</a>
 			    					<ul class="endorsers-pics endorsers-pics-${skillResume.skill.id}">
-			    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="item">
+			    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="theCount">
 			    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
 				    						<c:choose>
-				    							<c:when test="${sessionScope.account.id == endorse.account.id}">
+				    							<c:when test="${not empty sessionScope.account && sessionScope.account.id == endorse.account.id}">
+					    							<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}" onmouseenter="showTooltip(this);">
+						    							<a href="#">
+						    								<img class="img-full" src="${endorse.account.avatarImage}">
+						    							</a>
+					    							</li>
 					    							<script type="text/javascript">
 					    								var skillResumeId = $('.skill_resume_' + ${skillResume.skill.id}).val();
 					    								$('.icon_add_endorse_' + skillResumeId).hide();
 					    								$('.icon_remove_endorse_' + skillResumeId).show();
+					    								var first = $('ul.endorsers-pics-' + skillResumeId + ' li').first().html();    
+					    							    var special = $('ul.endorsers-pics-' + skillResumeId + ' li.special').html(); 
+					    							    $('ul.endorsers-pics-' + skillResumeId + ' li').first().html(special);
+					    							    $('ul.endorsers-pics-' + skillResumeId + ' li.special').html(first);
 					    							</script>
-					    							<li class="endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}">
-						    							<a href="#">
-						    								<img class="img-full" src="${endorse.account.avatarImage}">
-						    							</a>
-					    							</li>
 				    							</c:when>
 				    							<c:otherwise>
-				    								<li class="endorse_${endorse.id}">
-						    							<a href="#">
-						    								<img class="img-full" src="${endorse.account.avatarImage}">
-						    							</a>
-					    							</li>
+				    								<c:if test="${theCount.count <= 9}">
+					    								<li class="endorse_${endorse.id}" onmouseenter="showTooltip(this, '${endorse.account.id}');">
+							    							<a href="#">
+							    								<img class="img-full" src="${endorse.account.avatarImage}">
+							    							</a>
+						    							</li>
+					    							</c:if>
 				    							</c:otherwise>
 				    						</c:choose>
 			    						</c:forEach>
@@ -156,6 +164,26 @@
 				class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 		</div>
 	</div>
+	<div class="tooltil-show-member">
+    	<div class="row">
+    		<div class="col m4 mp0">
+    			<a href="#">
+		    		<img src="">
+		    	</a>
+    		</div>
+    		<div class="col m8" style="text-align: left;">
+    			<a href="" class="endorse-item-name-text"></a>
+    			<p class="mp0 small-text"><span class="number-followers"></span> follower</p>
+    		</div>
+    		<div class="col m12 mp0 margin-top-10">
+	    		<a href="" class="btn-connect waves-effect waves-light btn"><spring:message code="label.profile.tooltip.title.connect"/></a>
+	    		<a class="btn-profile waves-effect waves-light btn grey"><spring:message code="label.profile.tooltip.title.profile"/></a>
+    		</div>
+    		<div class="triangle">
+    			
+    		</div>
+    	</div>
+    </div>
 	<script src="<c:url value='/resources/hiringviet/profile/js/profile.js'/>"></script>
 	<script src="<c:url value='/resources/hiringviet/profile/js/endorse.js'/>"></script>
 </body>

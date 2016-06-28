@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.MemberDAO;
+import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.model.Skill;
@@ -19,6 +20,7 @@ import vn.com.hiringviet.util.Utils;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
+
 	@Autowired
 	private MemberDAO memberDAO;
 
@@ -75,5 +77,11 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		return false;
+	}
+
+	@Override
+	public MemberDTO getMemberByAccount(Integer accountId) {
+
+		return memberDAO.getMemberByAccount(accountId);
 	}
 }

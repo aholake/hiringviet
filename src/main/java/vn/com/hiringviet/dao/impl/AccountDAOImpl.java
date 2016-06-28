@@ -15,7 +15,7 @@ import vn.com.hiringviet.model.Account;
 
 @Repository
 @Transactional
-public class AccountDAOImpl implements AccountDAO {
+public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;

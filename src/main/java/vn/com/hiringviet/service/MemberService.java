@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Member;
 
@@ -20,6 +21,8 @@ public interface MemberService {
 	public Member getMemberByID(Integer memberID);
 
 	public Member getMemberByAccountId(Integer accountId);
+
+	public MemberDTO getMemberByAccount(Integer accountId);
 
 	public boolean addSkillsOfMember(Integer accountId, Set<SkillDTO> skills);
 }

@@ -18,11 +18,13 @@ import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
 import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.dto.EndorseDTO;
+import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.ResumeDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.EndorseService;
+import vn.com.hiringviet.service.FollowService;
 import vn.com.hiringviet.service.MemberService;
 import vn.com.hiringviet.service.ResumeService;
 import vn.com.hiringviet.util.Utils;
@@ -38,6 +40,9 @@ public class ProfileController {
 
 	@Autowired
 	private EndorseService endorseService;
+
+	@Autowired
+	private FollowService followService;
 
 	@RequestMapping(value = "/layouts/profileBanner", method = RequestMethod.GET)
 	public String goProfileBanner(Model model, HttpSession session) {
@@ -139,5 +144,21 @@ public class ProfileController {
 		}
 
 		return commonResponseDTO;
+	}
+
+
+	@RequestMapping(value = "/profile/countNumberOfFollower", method = RequestMethod.POST)
+	public @ResponseBody MemberDTO countNumberOfFollower(@RequestBody Integer accountId) {
+
+		MemberDTO memberDTO = memberService.getMemberByAccount(accountId);
+		if (!Utils.isEmptyObject(memberDTO)) {
+			if (followService.countNumberOfFollower(accountId) > 0) {
+				memberDTO.setNumberFollower(followService.countNumberOfFollower(accountId));
+			} else {
+				memberDTO.setNumberFollower(0L);
+			}
+		}
+
+		return memberDTO;
 	}
 }

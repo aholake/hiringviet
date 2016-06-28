@@ -16,6 +16,8 @@ public class MemberDTO implements Serializable {
 
 	private Integer status;
 
+	private Long numberFollower;
+
 	public Integer getId() {
 		return id;
 	}
@@ -54,6 +56,14 @@ public class MemberDTO implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Long getNumberFollower() {
+		return numberFollower;
+	}
+
+	public void setNumberFollower(Long numberFollower) {
+		this.numberFollower = numberFollower;
 	}
 
 }

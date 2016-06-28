@@ -48,13 +48,12 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Member.class, "member");
 		criteria.createAlias("member.changeLog", "changeLog");
-		criteria.createAlias("member.resume", "resume");
 		criteria.createAlias("member.account", "account");
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.property("member.id").as("id"))
 				.add(Projections.property("member.firstName").as("firstName"))
 				.add(Projections.property("member.lastName").as("lastName"))
-				.add(Projections.property("resume.avatarImage").as("avatarImage"))
+				.add(Projections.property("account.avatarImage").as("avatarImage"))
 				.add(Projections.property("changeLog.status").as("status")));
 		criteria.add(Restrictions.eq("account.id", accountId));
 		criteria.setResultTransformer(Transformers.aliasToBean(MemberDTO.class));

@@ -220,7 +220,6 @@ public class Account implements Serializable {
 	 *
 	 * @return the from follows
 	 */
-	@JsonIgnore
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fromAccount")
 	public Set<Follow> getFromFollows() {
@@ -241,7 +240,6 @@ public class Account implements Serializable {
 	 *
 	 * @return the to follows
 	 */
-	@JsonIgnore
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toAccount")
 	public Set<Follow> getToFollows() {
