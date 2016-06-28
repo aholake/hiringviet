@@ -11,14 +11,9 @@
 <!-- Local style -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/hiringviet/register/css/company-register.css'/>">
-<!-- CSS media query on a link element -->
-<link rel="stylesheet"
-	href="/resources/hiringviet/home/css/smart-home.css" />
 
 </head>
 <body>
-	<jsp:include page="/layouts/navbar"></jsp:include>
-
 	<div id="main-container">
 		<div class="row">
 			<div class="col m6 offset-m3">
@@ -139,9 +134,6 @@
 			</div>
 		</div>
 	</div>
-	<div id="footer">Copyright 2016 by Nong Lam University, all right
-		reserved.</div>
-
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="/resources/hiringviet/register/js/validate.js"></script>

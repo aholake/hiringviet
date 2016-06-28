@@ -18,8 +18,6 @@
 <script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </head>
 <body>
-	<jsp:include page="/layouts/navbar"></jsp:include>
-
 	<jsp:include page="/layouts/companyBanner"></jsp:include>
 
 	<div id="main-container">

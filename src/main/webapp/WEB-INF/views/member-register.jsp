@@ -1,10 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-
 <html>
 <head>
 <title><spring:message code="label.register.member.title"></spring:message></title>
@@ -14,8 +11,6 @@
 </head>
 
 <body>
-	<jsp:include page="/layouts/navbar"></jsp:include>
-
 	<div id="main-container">
 		<div class="row">
 			<div class="col m6 offset-m3">
@@ -72,9 +67,6 @@
 			</div>
 		</div>
 	</div>
-	<div id="footer">Copyright 2016 by Nong Lam University, all right
-		reserved.</div>
-
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="/resources/hiringviet/register/js/validate.js"></script>

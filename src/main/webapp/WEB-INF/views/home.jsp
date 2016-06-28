@@ -19,10 +19,6 @@
 
 </head>
 <body>
-	<jsp:include page="/layouts/navbar"></jsp:include>
-	<jsp:include page="/layouts/introduce-slider"></jsp:include>
-
-
 	<input type="hidden" id="get_job_hot" value="<c:url value='/job/hot' />" />
 	<input type="hidden" id="first_item" value="${firstItem}" />
 	<input type="hidden" id="max_item" value="${maxItem}" />
@@ -40,6 +36,21 @@
 		value="<spring:message code="label.home.title.total_employee"/>" />
 	<input type="hidden" id="text_title_people"
 		value="<spring:message code="label.home.title.people"/>" />
+
+	<div id="introduce-slider">
+		<div class="slider">
+			<ul class="slides">
+				<li><img
+					src='<c:url value="/resources/common/images/slider/slider_img.jpg"></c:url>'></li>
+				<li><img
+					src="<c:url value="/resources/common/images/slider/slider_img-1.jpg"></c:url>"></li>
+				<li><img
+					src="<c:url value="/resources/common/images/slider/slider_img.jpg"></c:url>"></li>
+				<li><img
+					src="<c:url value="/resources/common/images/slider/slider_img-1.jpg"></c:url>"></li>
+			</ul>
+		</div>
+	</div>
 	<div id="main-container">
 		<div class="row">
 			<div class="col m8 no-padding-on-med-and-down">
@@ -203,7 +214,6 @@
 		</div>
 	</div>
 
-	<jsp:include page="/layouts/footer"></jsp:include>
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="<c:url value='/resources/hiringviet/home/js/home.js'/>"></script>

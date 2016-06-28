@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vn.com.hiringviet.common.MemberRoleEnum;
+import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
@@ -23,6 +26,8 @@ public class CompanyServiceImpl implements CompanyService {
 	public int addCompany(Company company) {
 		ChangeLog changeLog = Utils.createDefaultChangeLog();
 		company.setChangeLog(changeLog);
+		company.getAccount().setRoleID(MemberRoleEnum.COMPANY.getValue());
+		company.getAccount().setLocale(ConstantValues.VN_LOCALE);
 		return companyDAO.create(company);
 	}
 
@@ -33,18 +38,19 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public boolean updateCompany(Company company) {
-		
+
 		return companyDAO.update(company);
 	}
 
 	@Override
 	public List<Company> getCompanyList() {
-		
+
 		return companyDAO.findAll();
 	}
 
 	@Override
-	public List<Company> getListCompany(Integer first, Integer max, boolean isCompanyHot) {
+	public List<Company> getListCompany(Integer first, Integer max,
+			boolean isCompanyHot) {
 
 		if (isCompanyHot) {
 			return companyDAO.getListCompanyHot(first, max);
@@ -59,15 +65,20 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Post> getListPosts(Integer first, Integer max,
-			Integer companyId) {
-		
+	public List<Post> getListPosts(Integer first, Integer max, Integer companyId) {
+
 		return companyDAO.getListPosts(first, max, companyId);
 	}
 
 	@Override
 	public List<Job> getListJob(Integer first, Integer max, Integer companyId) {
 		return companyDAO.getListJob(first, max, companyId);
+	}
+
+	@Override
+	public Company getCompanyByAccount(Account account) {
+		// TODO Auto-generated method stub
+		return companyDAO.getCompanyByAccount(account);
 	}
 
 }
