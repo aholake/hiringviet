@@ -16,14 +16,9 @@
 <!-- CSS media query on a link element -->
 <link rel="stylesheet" href="/resources/hiringviet/home/css/smart-home.css" />
 <link rel="stylesheet" href="/resources/hiringviet/profile/css/profile.css" />
+<script type="text/javascript" src="<c:url value='/resources/hiringviet/login/js/login.js'/>" ></script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/layouts/profile_banner.jsp" />
-
-	<div id="main-container">
-
-	<jsp:include page="/WEB-INF/views/layouts/profile_header.jsp" />
-
 	<input type="hidden" id="url_suggest_skill" value="<c:url value='/search/suggestSkill'/>"/>
 	<input type="hidden" id="url_add_skills" value="<c:url value='/profile/addSkills'/>"/>
 	<input type="hidden" id="url_delete_skill_of_resume" value="<c:url value='/profile/deleteSkillOfProfile'/>"/>
@@ -66,6 +61,33 @@
 						</div>
 					</div>
 				</c:if>
+				<!-- Begin resume -->
+				<div class="card-panel padding-10 hoverable position-relative">
+					<div class="location-action">
+						  <a class="btn-floating btn-large waves-effect waves-light grey lighten-1"><i class="material-icons">add</i></a>
+					</div>
+					<h1 class="title"><spring:message code="label.profile.title.edu_history.title"/></h1>
+					<div class="panel-content">
+						<c:forEach items="${member.resume.educationHistorySet}" var="educationHistory">
+						<div class="margin-top-5 position-relative">
+							<h1 class="big-text university-name-${educationHistory.id} mp0">${educationHistory.universityName}</h1>
+							<p class="major-name-${educationHistory.id}">${educationHistory.majorName}</p>
+							<p class="">
+								<span class="begin-year-${educationHistory.id}">${educationHistory.beginYear}</span> - 
+								<span class="end-year-${educationHistory.id}">${educationHistory.endYear}</span>
+							</p>
+							<p class="">Đại Học</p>
+							<p class="social-activity-${educationHistory.id}">${educationHistory.socialActivity}</p>
+							<ul class="education-media display-inline-flex">
+								<li><i class="material-icons">description</i><span> Document</span></li>
+								<li><i class="material-icons">photo_camera</i><span> Photo</span></li>
+								<li><i class="material-icons">link</i><span> Link</span></li>
+							</ul>
+						</div>
+					</c:forEach>
+					</div>
+				</div>
+				<!-- End resume -->
 				<div class="card-panel padding-10 hoverable">
 					<h1 class="title"><spring:message code="label.profile.endorse.title.skills"/></h1>
 					<p class="small-text"><spring:message code="label.profile.endorse.title.top_skills"/></p>
@@ -142,7 +164,7 @@
 		    			</c:forEach>
 		    		</ul>
 		    		<!-- Skill different -->
-		    	</div>
+		    		</div>
 				</div>
 			</div>
 			<div class="col m4">
@@ -173,15 +195,14 @@
     			<a href="" class="endorse-item-name-text"></a>
     			<p class="mp0 small-text"><span class="number-followers"></span> follower</p>
     		</div>
-    		<div class="col m12 mp0 margin-top-10">
-	    		<a href="" class="btn-connect waves-effect waves-light btn"><spring:message code="label.profile.tooltip.title.connect"/></a>
+    		<div class="col m12 margin-top-5">
+	    		<a href="" class="btn-connect waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.tooltip.title.connect"/></a>
 	    		<a class="btn-profile waves-effect waves-light btn grey"><spring:message code="label.profile.tooltip.title.profile"/></a>
     		</div>
     		<div class="triangle">
     			
     		</div>
     	</div>
-    </div>
 	<script src="<c:url value='/resources/hiringviet/profile/js/profile.js'/>"></script>
 	<script src="<c:url value='/resources/hiringviet/profile/js/endorse.js'/>"></script>
 </body>

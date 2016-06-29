@@ -259,3 +259,32 @@ body {
 	width: 50px;
 	height: 50px;
 }
+
+.location-action {
+	position: absolute;
+    right: 0;
+    top: 5px;
+    height: 45px;
+    line-height: 45px;
+    padding: 0 5px;
+}
+
+.education-media li {
+	display: inline-flex;
+	margin-right: 10px;
+	background: #eceff1;
+	padding: 5px 5px;
+	cursor: pointer;
+}
+
+.education-media li:hover {
+	background: #0277bd;
+}
+
+.education-media li:hover span, .education-media li:hover i {
+	color: #fff !important;
+}
+
+.education-media li span {
+	margin-left: 5px;
+}

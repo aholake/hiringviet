@@ -4,6 +4,11 @@
 	color: #333333;
 }
 
+.mp0 {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
 .cl-white {
 	color: white !important;
 }
@@ -287,5 +292,11 @@ h1.title {
 	padding: 10px 0px 0px 0px !important;
 }
 
+.position-relative {
+	position: relative;
+}
 
+.big-text {
+	font-size: 20px !important;
+}
 @import url("smart.css");

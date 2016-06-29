@@ -83,7 +83,7 @@ public class Resume implements Serializable {
 //		this.skillSet = skillSet;
 //	}
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
 	public Set<EducationHistory> getEducationHistorySet() {
 		return educationHistorySet;
