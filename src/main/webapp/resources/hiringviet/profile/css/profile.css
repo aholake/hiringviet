@@ -299,3 +299,29 @@ body {
 .education-history .prefix-icon-r {
 	display: none;
 }
+
+.edu-his-item .prefix-icon-r:hover {
+	background: #0277bd !important;
+	cursor: pointer;
+}
+
+.add-media-education {
+	padding: 10px 10px;
+	margin: 10px 0;
+	background: #eeeeee;
+	overflow: auto;
+	position: relative;
+	border: 1px solid #bdbdbd;
+}
+
+.btn-add-footer {
+	padding: 10px 0px;
+    background: #eeeeee;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-add-footer:hover {
+	 background: #e0e0e0;
+	 color: #039be5;
+}

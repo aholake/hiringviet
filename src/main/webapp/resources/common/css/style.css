@@ -314,4 +314,8 @@ h1.title {
 .big-text {
 	font-size: 20px !important;
 }
+
+.cursor {
+	cursor: pointer;
+}
 @import url("smart.css");

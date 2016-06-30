@@ -8,7 +8,7 @@ var VIP = 1;
 var NORMAL = 0;
 var HOT = "hot";
 var NOT_HOT = "not-hot";
-var BACKGROUND_EDIT = '#0277bd';
+var BACKGROUND_EDIT = '#9e9e9e';
 var COLOR_EDIT = '#FFF';
 var BACKGROUND_DEFAULT = '#FFF';
 var COLOR_DEFAULT = '#333333';
@@ -190,14 +190,14 @@ function isPotraitMobileMode() {
 
 function showIconEdit(select) {
 
-	$(select + ' .edit span').css({'background-color': BACKGROUND_EDIT, 'color': COLOR_EDIT});
+	$(select + ' .edit span').css({'background-color': BACKGROUND_EDIT, 'color': COLOR_EDIT, 'opacity': 0.5});
 	$(select + ' .edit .prefix-icon-r').css({'background-color': BACKGROUND_EDIT, 'color': COLOR_EDIT});
 	$(select + ' .edit .prefix-icon-r').show();
 }
 
 function hideIconEdit(select) {
 
-	$(select + ' .edit span').css({'background-color': BACKGROUND_DEFAULT, 'color': COLOR_DEFAULT});
+	$(select + ' .edit span').css({'background-color': BACKGROUND_DEFAULT, 'color': COLOR_DEFAULT, 'opacity': 1});
 	$(select + ' .edit .prefix-icon-r').css({'background-color': BACKGROUND_DEFAULT, 'color': COLOR_DEFAULT});
 	$(select + ' .edit .prefix-icon-r').hide();
 }

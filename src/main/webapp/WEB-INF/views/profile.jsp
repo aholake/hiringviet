@@ -66,41 +66,118 @@
 					<h1 class="title"><spring:message code="label.profile.title.edu_history.title"/></h1>
 					<div class="panel-content">
 						<c:forEach items="${member.resume.educationHistorySet}" var="educationHistory">
-						<div class="margin-top-30 position-relative edu-his-item-${educationHistory.id}"
-							onmouseover="showIconEdit('.edu-his-item-${educationHistory.id}');"
-							onmouseout="hideIconEdit('.edu-his-item-${educationHistory.id}');">
-							<h1 class="big-text mp0 edit">
-								<span class="university-name-${educationHistory.id}">${educationHistory.universityName}</span>
-								<i class="material-icons prefix-icon-r">mode_edit</i>
-							</h1>
-							<p class="edit">
-								<span class="major-name-${educationHistory.id}">${educationHistory.majorName}</span>
-								<i class="material-icons prefix-icon-r">mode_edit</i>
-							</p>
-							<p class="edit">
-								<span class="begin-year-${educationHistory.id}">${educationHistory.beginYear}</span><span>
-									- </span> <span class="end-year-${educationHistory.id}">${educationHistory.endYear}</span>
-								<i class="material-icons prefix-icon-r">mode_edit</i>
-							</p>
-							<p class="edit">
-								<span class="">Đại Học</span> <i
-									class="material-icons prefix-icon-r">mode_edit</i>
-							</p>
-							<p class="edit">
-								<span><spring:message
-										code="label.profile.title.edu_history.social_activity" />: </span> <span
-									class="social-activity-${educationHistory.id}">${educationHistory.socialActivity}</span>
-								<i class="material-icons prefix-icon-r">mode_edit</i>
-							</p>
+							<div class="margin-top-30 position-relative edu-his-item edu-his-item-${educationHistory.id}"
+								onmouseover="showIconEdit('.edu-his-item-${educationHistory.id}');"
+								onmouseout="hideIconEdit('.edu-his-item-${educationHistory.id}');">
+								<h1 class="big-text mp0 edit">
+									<span class="university-name-${educationHistory.id}">${educationHistory.universityName}</span>
+									<i class="material-icons prefix-icon-r">mode_edit</i>
+								</h1>
+								<p class="edit">
+									<span class="major-name-${educationHistory.id}">${educationHistory.majorName}</span>
+									<i class="material-icons prefix-icon-r">mode_edit</i>
+								</p>
+								<p class="edit">
+									<span class="begin-year-${educationHistory.id}">${educationHistory.beginYear}</span><span>
+										- </span> <span class="end-year-${educationHistory.id}">${educationHistory.endYear}</span>
+									<i class="material-icons prefix-icon-r">mode_edit</i>
+								</p>
+								<p class="edit">
+									<span class="">Đại Học</span> <i
+										class="material-icons prefix-icon-r">mode_edit</i>
+								</p>
+								<p class="edit">
+									<span><spring:message code="label.profile.title.edu_history.social_activity" />: </span> 
+									<span class="social-activity-${educationHistory.id}"> ${educationHistory.socialActivity}</span>
+									<i class="material-icons prefix-icon-r">mode_edit</i>
+								</p>
+							</div>
+							<p class="opacity-7 margin-top-10">Add media</p>
 							<ul class="education-media display-inline-flex margin-top-5">
-								<li><i class="material-icons">description</i><span>
-										Document</span></li>
-								<li><i class="material-icons">photo_camera</i><span>
-										Photo</span></li>
-								<li><i class="material-icons">link</i><span> Link</span></li>
+								<li><i class="material-icons">description</i>
+									<span><spring:message code="label.profile.title.edu_history.document" /></span></li>
+								<li><i class="material-icons">photo_camera</i>
+									<span><spring:message code="label.profile.title.edu_history.photo" /></span></li>
+								<li><i class="material-icons">link</i>
+									<span><spring:message code="label.profile.title.edu_history.link" /></span></li>
 							</ul>
+							<div class="add-media-education">
+								<div class="input-field col m12 p-0">
+									<select>
+										<option value="" disabled selected>Choose your option</option>
+										<option value="1">Nông Lâm University</option>
+									</select> 
+									<label><spring:message code="label.profile.title.edu_history.add_to_education"/></label>
+								</div>
+								<div class="input-field col m12 p-0">
+									<form action="#">
+										<div class="file-field input-field">
+											<div class="btn grey">
+												<span class="cl-white">File</span> <input type="file">
+											</div>
+											<div class="file-path-wrapper">
+												<input class="file-path validate" type="text">
+											</div>
+										</div>
+									</form>
+								</div>
+								<div class="col m12 p-0 margin-top-10">
+									<a class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.edu_history.upload"/></a>
+									<a class="waves-effect waves-light grey darken-2 btn margin-right-5"><spring:message code="label.profile.title.edu_history.cancel"/></a>
+								</div>
+							</div>
+						</c:forEach>
+						<div class="btn-add-footer">
+							Add Education
 						</div>
-					</c:forEach>
+					</div>
+					<div class="panel-content">
+						<div class="row">
+						<div class="input-field col m12 p-0">
+							<input id="university_name" type="text" class="validate">
+							<label for="first_name"><spring:message code="label.profile.title.edu_history.university_name"/></label>
+						</div>
+						<div class="input-field col m12 p-0">
+							<input id="university_name" type="text" class="validate">
+							<label for="first_name"><spring:message code="label.profile.title.edu_history.major"/></label>
+						</div>
+						<div class="input-field col m5 p-0">
+							<select>
+								<option value="" disabled selected>Choose your option</option>
+								<option value="2013">2013</option>
+								<option value="2014">2014</option>
+								<option value="2015">2015</option>
+							</select> 
+							<label><spring:message code="label.profile.title.edu_history.begin_year"/></label>
+						</div>
+						<div class="input-field col m5 p-0 offset-m2">
+							<select>
+								<option value="" disabled selected>Choose your option</option>
+								<option value="2013">2013</option>
+								<option value="2014">2014</option>
+								<option value="2015">2015</option>
+							</select> 
+							<label><spring:message code="label.profile.title.edu_history.end_year"/></label>
+						</div>
+						<div class="input-field col m12 p-0">
+							<select>
+								<option value="" disabled selected>Choose your option</option>
+								<option value="1">Đại Học</option>
+								<option value="2">Cao Đẳng</option>
+								<option value="3">Trung Cấp</option>
+							</select> 
+							<label><spring:message code="label.profile.title.edu_history.degree"/></label>
+						</div>
+						<div class="input-field col m12 p-0">
+							<textarea id="textarea1" class="materialize-textarea"></textarea>
+							<label for="textarea1"><spring:message code="label.profile.title.edu_history.social_activity"/></label>
+						</div>
+						<div class="col m12 p-0 margin-top-10">
+							<a class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.edu_history.save"/></a>
+							<a class="waves-effect waves-light grey darken-2 btn margin-right-5"><spring:message code="label.profile.title.edu_history.cancel"/></a>
+							<a href="" class="cl-white a-text-color margin-right-5"><spring:message code="label.profile.title.edu_history.remove"/></a>
+						</div>
+						</div>
 					</div>
 				</div>
 				<!-- End resume -->
@@ -172,7 +249,7 @@
 				    						</c:choose>
 			    						</c:forEach>
 			    						<li class="endorsers-action">
-			    							<i class="material-icons padding-top-4	">keyboard_arrow_right</i>
+			    							<i class="material-icons padding-top-4">keyboard_arrow_right</i>
 			    						</li>
 			    					</ul>
 			    				</div>
@@ -216,9 +293,9 @@
 	    		<a class="btn-profile waves-effect waves-light btn grey"><spring:message code="label.profile.tooltip.title.profile"/></a>
     		</div>
     		<div class="triangle">
-    			
     		</div>
     	</div>
+    </div>
 	<script src="<c:url value='/resources/hiringviet/profile/js/profile.js'/>"></script>
 	<script src="<c:url value='/resources/hiringviet/profile/js/endorse.js'/>"></script>
 </body>
