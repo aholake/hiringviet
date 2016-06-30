@@ -16,7 +16,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/hiringviet?characterEncoding=UTF-8" />
+			value="jdbc:mysql://127.0.0.1:3306/hiringviet?characterEncoding=UTF-8" />
 		<property name="username" value="root" />
 		<property name="password" value="11221122" />
 		<!-- <property name="url" value="jdbc:google:mysql://hiringviet:gae-project/javatraining?user=root" 

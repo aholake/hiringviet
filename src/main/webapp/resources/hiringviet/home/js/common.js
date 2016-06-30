@@ -8,6 +8,10 @@ var VIP = 1;
 var NORMAL = 0;
 var HOT = "hot";
 var NOT_HOT = "not-hot";
+var BACKGROUND_EDIT = '#0277bd';
+var COLOR_EDIT = '#FFF';
+var BACKGROUND_DEFAULT = '#FFF';
+var COLOR_DEFAULT = '#333333';
 
 /** Global Constant for CSS pop-up Progressing */
 var popupCss = "background-color: #BCBCBC;\
@@ -182,4 +186,18 @@ function isPotraitMobileMode() {
 		return false;
 	}
 	return true;
+}
+
+function showIconEdit(select) {
+
+	$(select + ' .edit span').css({'background-color': BACKGROUND_EDIT, 'color': COLOR_EDIT});
+	$(select + ' .edit .prefix-icon-r').css({'background-color': BACKGROUND_EDIT, 'color': COLOR_EDIT});
+	$(select + ' .edit .prefix-icon-r').show();
+}
+
+function hideIconEdit(select) {
+
+	$(select + ' .edit span').css({'background-color': BACKGROUND_DEFAULT, 'color': COLOR_DEFAULT});
+	$(select + ' .edit .prefix-icon-r').css({'background-color': BACKGROUND_DEFAULT, 'color': COLOR_DEFAULT});
+	$(select + ' .edit .prefix-icon-r').hide();
 }

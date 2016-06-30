@@ -60,7 +60,7 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 	@Transactional
 	public int create(T entity) {
 		try {
-			return (int) getSession().save(entity);
+			return  (Integer) getSession().save(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

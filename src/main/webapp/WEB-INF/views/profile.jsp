@@ -62,25 +62,41 @@
 					</div>
 				</c:if>
 				<!-- Begin resume -->
-				<div class="card-panel padding-10 hoverable position-relative">
-					<div class="location-action">
-						  <a class="btn-floating btn-large waves-effect waves-light grey lighten-1"><i class="material-icons">add</i></a>
-					</div>
+				<div class="card-panel padding-10 hoverable position-relative education-history">
 					<h1 class="title"><spring:message code="label.profile.title.edu_history.title"/></h1>
 					<div class="panel-content">
 						<c:forEach items="${member.resume.educationHistorySet}" var="educationHistory">
-						<div class="margin-top-5 position-relative">
-							<h1 class="big-text university-name-${educationHistory.id} mp0">${educationHistory.universityName}</h1>
-							<p class="major-name-${educationHistory.id}">${educationHistory.majorName}</p>
-							<p class="">
-								<span class="begin-year-${educationHistory.id}">${educationHistory.beginYear}</span> - 
-								<span class="end-year-${educationHistory.id}">${educationHistory.endYear}</span>
+						<div class="margin-top-30 position-relative edu-his-item-${educationHistory.id}"
+							onmouseover="showIconEdit('.edu-his-item-${educationHistory.id}');"
+							onmouseout="hideIconEdit('.edu-his-item-${educationHistory.id}');">
+							<h1 class="big-text mp0 edit">
+								<span class="university-name-${educationHistory.id}">${educationHistory.universityName}</span>
+								<i class="material-icons prefix-icon-r">mode_edit</i>
+							</h1>
+							<p class="edit">
+								<span class="major-name-${educationHistory.id}">${educationHistory.majorName}</span>
+								<i class="material-icons prefix-icon-r">mode_edit</i>
 							</p>
-							<p class="">Đại Học</p>
-							<p class="social-activity-${educationHistory.id}">${educationHistory.socialActivity}</p>
-							<ul class="education-media display-inline-flex">
-								<li><i class="material-icons">description</i><span> Document</span></li>
-								<li><i class="material-icons">photo_camera</i><span> Photo</span></li>
+							<p class="edit">
+								<span class="begin-year-${educationHistory.id}">${educationHistory.beginYear}</span><span>
+									- </span> <span class="end-year-${educationHistory.id}">${educationHistory.endYear}</span>
+								<i class="material-icons prefix-icon-r">mode_edit</i>
+							</p>
+							<p class="edit">
+								<span class="">Đại Học</span> <i
+									class="material-icons prefix-icon-r">mode_edit</i>
+							</p>
+							<p class="edit">
+								<span><spring:message
+										code="label.profile.title.edu_history.social_activity" />: </span> <span
+									class="social-activity-${educationHistory.id}">${educationHistory.socialActivity}</span>
+								<i class="material-icons prefix-icon-r">mode_edit</i>
+							</p>
+							<ul class="education-media display-inline-flex margin-top-5">
+								<li><i class="material-icons">description</i><span>
+										Document</span></li>
+								<li><i class="material-icons">photo_camera</i><span>
+										Photo</span></li>
 								<li><i class="material-icons">link</i><span> Link</span></li>
 							</ul>
 						</div>
@@ -156,7 +172,7 @@
 				    						</c:choose>
 			    						</c:forEach>
 			    						<li class="endorsers-action">
-			    							<i class="material-icons">keyboard_arrow_right</i>
+			    							<i class="material-icons padding-top-4	">keyboard_arrow_right</i>
 			    						</li>
 			    					</ul>
 			    				</div>

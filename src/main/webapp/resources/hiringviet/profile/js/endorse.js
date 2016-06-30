@@ -67,7 +67,7 @@ function showTooltip(event, accountId) {
 }
 
 function processCountNumberOfFollower(responses) {
-	console.log(responses);
+
 	$('.tooltil-show-member img').prop('src', responses.avatarImage);
 	$('.tooltil-show-member .endorse-item-name-text').text(responses.firstName + ' ' + responses.lastName);
 	$('.tooltil-show-member .number-followers').text(responses.numberFollower);

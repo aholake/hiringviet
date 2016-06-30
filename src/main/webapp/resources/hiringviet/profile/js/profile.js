@@ -66,6 +66,8 @@ $(function() {
 	$('#btn_save_skill_list').on('click', function() {
 		callAPI($('#url_add_skills').val(), 'POST', listSkillNew, 'processAddSkill', true);
 	});
+
+	
 });
 
 function processSuggestSkill(responses) {
@@ -74,7 +76,7 @@ function processSuggestSkill(responses) {
 		var suggestSearch =  $('.suggestSearch ul');
 		suggestSearch.html("");
 		var html = "";
-		$.each(responses, function(i, skill){
+		$.each(responses, function(i, skill) {
 			html += '<li id="' + skill.id + '">' + skill.displayName + '</li>';
 		});
 		suggestSearch.append(html);
