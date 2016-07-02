@@ -15,8 +15,6 @@
 <!-- CSS media query on a link element -->
 <link rel="stylesheet"
 	href="/resources/hiringviet/home/css/smart-home.css" />
-
-
 </head>
 <body>
 	<input type="hidden" id="get_job_hot" value="<c:url value='/job/hot' />" />
@@ -51,6 +49,7 @@
 			</ul>
 		</div>
 	</div>
+	
 	<div id="main-container">
 		<div class="row">
 			<div class="col m8 no-padding-on-med-and-down">
@@ -213,7 +212,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="<c:url value='/resources/hiringviet/home/js/home.js'/>"></script>
