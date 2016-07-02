@@ -9,11 +9,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title><spring:message code="label.company.title"/></title>
-<!-- Local style -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
-<!-- CSS media query on a link element -->
-<link rel="stylesheet" href="/resources/hiringviet/home/css/smart-home.css" />
 <link rel="stylesheet" href="/resources/hiringviet/company/css/company.css" />
 <script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </head>
@@ -25,12 +20,6 @@
 	<input type="hidden" id="reply_comment" value='<spring:message code="label.company.title.reply_comment"/>' />
 	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
 	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
-
-	<jsp:include page="/WEB-INF/views/layouts/company_banner.jsp" />
-
-	<div id="main-container">
-
-	<jsp:include page="/WEB-INF/views/layouts/company_header.jsp" />
 
 		<div class="row">
 			<div class="col m8">
@@ -157,7 +146,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<script type="text/javascript">
 
 		$(document).ready(function() {
