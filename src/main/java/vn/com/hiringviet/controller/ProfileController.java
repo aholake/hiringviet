@@ -62,6 +62,7 @@ public class ProfileController {
 		Member member = memberService.getMemberByID(memberId);
 		model.addAttribute("member", member);
 
+		model.addAttribute("years", Utils.generatorListYear());
 		return "/profile";
 	}
 

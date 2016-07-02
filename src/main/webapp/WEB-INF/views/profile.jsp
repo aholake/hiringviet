@@ -101,7 +101,7 @@
 								<li><i class="material-icons">link</i>
 									<span><spring:message code="label.profile.title.edu_history.link" /></span></li>
 							</ul>
-							<div class="add-media-education">
+							<div class="add-media-education display-none">
 								<div class="input-field col m12 p-0">
 									<select>
 										<option value="" disabled selected>Choose your option</option>
@@ -127,7 +127,7 @@
 								</div>
 							</div>
 						</c:forEach>
-						<div class="btn-add-footer">
+						<div class="btn-add-footer margin-top-30">
 							Add Education
 						</div>
 					</div>
@@ -144,18 +144,18 @@
 						<div class="input-field col m5 p-0">
 							<select>
 								<option value="" disabled selected>Choose your option</option>
-								<option value="2013">2013</option>
-								<option value="2014">2014</option>
-								<option value="2015">2015</option>
+								<c:forEach items="${years}" var="year">
+									<option value="${year}">${year}</option>
+								</c:forEach>
 							</select> 
 							<label><spring:message code="label.profile.title.edu_history.begin_year"/></label>
 						</div>
 						<div class="input-field col m5 p-0 offset-m2">
 							<select>
 								<option value="" disabled selected>Choose your option</option>
-								<option value="2013">2013</option>
-								<option value="2014">2014</option>
-								<option value="2015">2015</option>
+								<c:forEach items="${years}" var="year">
+									<option value="${year}">${year}</option>
+								</c:forEach>
 							</select> 
 							<label><spring:message code="label.profile.title.edu_history.end_year"/></label>
 						</div>
