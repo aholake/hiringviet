@@ -42,6 +42,8 @@ public class LoginController {
 		}
 
 		session.setAttribute("account", account);
+
+//		if ()
 		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		return commonResponseDTO;
 	}
