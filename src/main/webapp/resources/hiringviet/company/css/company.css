@@ -83,3 +83,23 @@
 	background: #fafafa !important;
 	overflow: auto;
 }
+
+.menu-banner {
+	display: inline-flex;
+	margin-top: 10px;
+}
+
+.menu-banner li{
+	margin-right: 10px;
+}
+
+.menu-banner li a {
+	cursor: pointer;
+}
+
+.menu-banner li a:hover {
+	border-bottom: 1px solid #fb8c00;
+}
+.menu-banner .active {
+	border-bottom: 1px solid #fb8c00;
+}

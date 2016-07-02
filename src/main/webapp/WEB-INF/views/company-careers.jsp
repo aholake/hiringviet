@@ -18,12 +18,6 @@
 <script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/layouts/company_banner.jsp" />
-
-	<div id="main-container">
-
-		<jsp:include page="/WEB-INF/views/layouts/company_header.jsp" />
-
 		<div class="row">
 			<div class="col m8">
 				<div class="card-panel">
@@ -175,7 +169,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<!-- Modal Structure -->
 	<div id="modal1" class="modal bottom-sheet">
 		<div class="modal-content">

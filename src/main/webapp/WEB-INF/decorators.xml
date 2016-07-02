@@ -10,4 +10,7 @@
 	<decorator name="profile" page="profile-layout.jsp">
 		<pattern>/profile</pattern>
 	</decorator>
+	<decorator name="profile" page="company-layout.jsp">
+		<pattern>/company/*</pattern>
+	</decorator>
 </decorators>
