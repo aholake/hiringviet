@@ -1,6 +1,7 @@
 package vn.com.hiringviet.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -205,6 +206,19 @@ public class Utils {
 		changeLog.setUpdatedDate(DateUtil.now());
 		return changeLog;
 	}
-	
-	
+
+	@SuppressWarnings("deprecation")
+	public static List<Integer> generatorListYear() {
+
+		Integer currentYear = (DateUtil.now().getYear() + 1900);
+
+		List<Integer> list = new ArrayList<Integer>();
+
+		currentYear += 10;
+		for (int i = 40; i >= 0; i--) {
+			list.add(currentYear--);
+		}
+
+		return list;
+	}
 }
