@@ -75,8 +75,6 @@
 		</bean>
 	</mvc:interceptors>
 
-	<bean id="modelMapper" class="org.modelmapper.ModelMapper"></bean>
-
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">

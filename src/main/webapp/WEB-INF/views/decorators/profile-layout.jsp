@@ -30,9 +30,9 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/includes/header.jsp"%>
-	<%@ include file="/WEB-INF/views/layouts/profile_banner.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/profile_banner.jsp"%>
 	<div id="main-container">
-		<%@ include file="/WEB-INF/views/layouts/profile_header.jsp"%>
+		<%@ include file="/WEB-INF/views/includes/profile_header.jsp"%>
 		<decorator:body />
 	</div>
 	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
