@@ -12,6 +12,8 @@ public class ResumeDTO implements Serializable {
 
 	private Integer skillId;
 
+	private Integer resumeSkillId;
+
 	public Integer getAccountId() {
 		return accountId;
 	}
@@ -34,6 +36,14 @@ public class ResumeDTO implements Serializable {
 
 	public void setSkillId(Integer skillId) {
 		this.skillId = skillId;
+	}
+
+	public Integer getResumeSkillId() {
+		return resumeSkillId;
+	}
+
+	public void setResumeSkillId(Integer resumeSkillId) {
+		this.resumeSkillId = resumeSkillId;
 	}
 
 }

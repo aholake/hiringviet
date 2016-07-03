@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -65,9 +66,10 @@ public class SkillResume implements Serializable {
 		this.skill = skill;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "skill_resume_id")
-	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
+	@OrderBy("createdDate DESC")
 	public Set<Endorse> getEndorseSet() {
 		return endorseSet;
 	}

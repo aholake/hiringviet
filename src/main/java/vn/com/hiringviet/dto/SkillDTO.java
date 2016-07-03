@@ -16,6 +16,8 @@ public class SkillDTO implements Serializable {
 	/** The display name. */
 	private String displayName;
 
+	private Integer addingNumber;
+
 	/**
 	 * Gets the id.
 	 *
@@ -28,7 +30,8 @@ public class SkillDTO implements Serializable {
 	/**
 	 * Sets the id.
 	 *
-	 * @param id the new id
+	 * @param id
+	 *            the new id
 	 */
 	public void setId(Integer id) {
 		this.id = id;
@@ -46,10 +49,19 @@ public class SkillDTO implements Serializable {
 	/**
 	 * Sets the display name.
 	 *
-	 * @param displayName the new display name
+	 * @param displayName
+	 *            the new display name
 	 */
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	public Integer getAddingNumber() {
+		return addingNumber;
+	}
+
+	public void setAddingNumber(Integer addingNumber) {
+		this.addingNumber = addingNumber;
 	}
 
 }

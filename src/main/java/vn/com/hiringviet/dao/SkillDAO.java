@@ -8,4 +8,8 @@ import vn.com.hiringviet.model.Skill;
 public interface SkillDAO extends CommonDAO<Skill> {
 
 	public List<SkillDTO> searchSkillByKeyWord(String keyWord);
+
+	public boolean subAddingNumber(Integer skillId);
+
+	public Skill getSkillByDisplayName(String displayName);
 }

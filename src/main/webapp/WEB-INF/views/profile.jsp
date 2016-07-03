@@ -41,8 +41,9 @@
 									<c:forEach items="${member.resume.skillResumeSet}" var="skillResume">
 										<div class="chip current_skill chip_${skillResume.skill.displayName}">
 											<input type="hidden" class="temp" id="${skillResume.skill.id}" value="${skillResume.skill.displayName}" />
+											<input type="hidden" class="addingCount" value="${skillResume.skill.addingNumber}" />
 										    ${skillResume.skill.displayName}
-										    <i class="material-icons" onclick="javascript:deleteSkillOfResume(${member.account.id}, ${member.resume.id}, ${skillResume.skill.id});">close</i>
+										    <i class="material-icons" onclick="javascript:deleteSkillOfResume(${member.account.id}, ${skillResume.id});">close</i>
 										</div>
 									</c:forEach>
 									<div class="chip add-chip">
@@ -64,119 +65,187 @@
 				<!-- Begin resume -->
 				<div class="card-panel padding-10 hoverable position-relative education-history">
 					<h1 class="title"><spring:message code="label.profile.title.edu_history.title"/></h1>
-					<div class="panel-content">
-						<c:forEach items="${member.resume.educationHistorySet}" var="educationHistory">
-							<div class="margin-top-30 position-relative edu-his-item edu-his-item-${educationHistory.id}"
-								onmouseover="showIconEdit('.edu-his-item-${educationHistory.id}');"
-								onmouseout="hideIconEdit('.edu-his-item-${educationHistory.id}');">
-								<h1 class="big-text mp0 edit">
-									<span class="university-name-${educationHistory.id}">${educationHistory.universityName}</span>
-									<i class="material-icons prefix-icon-r">mode_edit</i>
-								</h1>
-								<p class="edit">
-									<span class="major-name-${educationHistory.id}">${educationHistory.majorName}</span>
-									<i class="material-icons prefix-icon-r">mode_edit</i>
-								</p>
-								<p class="edit">
-									<span class="begin-year-${educationHistory.id}">${educationHistory.beginYear}</span><span>
-										- </span> <span class="end-year-${educationHistory.id}">${educationHistory.endYear}</span>
-									<i class="material-icons prefix-icon-r">mode_edit</i>
-								</p>
-								<p class="edit">
-									<span class="">Đại Học</span> <i
-										class="material-icons prefix-icon-r">mode_edit</i>
-								</p>
-								<p class="edit">
-									<span><spring:message code="label.profile.title.edu_history.social_activity" />: </span> 
-									<span class="social-activity-${educationHistory.id}"> ${educationHistory.socialActivity}</span>
-									<i class="material-icons prefix-icon-r">mode_edit</i>
-								</p>
+					<div class="panel-content list-education">
+						<c:choose>
+						<c:when test="${sessionScope.account.id == member.account.id}">
+							<c:forEach items="${member.resume.educationHistorySet}" var="educationHistory">
+								<div class="margin-top-30 position-relative edu-his-item edu-his-item-${educationHistory.id}"
+									onmouseover="showIconEdit('.edu-his-item-${educationHistory.id}');"
+									onmouseout="hideIconEdit('.edu-his-item-${educationHistory.id}');">
+									<h1 class="big-text mp0 edit">
+										<span class="university-name-${educationHistory.id}" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtUniversityName');">${educationHistory.universityName}</span>
+										<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtUniversityName');">mode_edit</i>
+									</h1>
+									<p class="edit">
+										<span class="major-name-${educationHistory.id}" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtMajorName');">${educationHistory.majorName}</span>
+										<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtMajorName');">mode_edit</i>
+									</p>
+									<c:if test="${not empty educationHistory.beginYear && not empty educationHistory.endYear}">
+									<p class="edit">
+										<span class="begin-year-${educationHistory.id}" onclick="javascript:setValueSettingEducation('${educationHistory.id}', null);">${educationHistory.beginYear}</span><span>
+											- </span> <span class="end-year-${educationHistory.id}" onclick="javascript:setValueSettingEducation('${educationHistory.id}', null);">${educationHistory.endYear}</span>
+										<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEducation('${educationHistory.id}', null);">mode_edit</i>
+									</p>
+									</c:if>
+									<c:if test="${not empty educationHistory.degree}">
+									<p class="edit">
+										<c:forEach items="${degreeMap}" var="degree">
+												<c:if test="${degree.key == educationHistory.degree}">
+													<span class="degree-${educationHistory.id}" id="${degree.key}" onclick="javascript:setValueSettingEducation('${educationHistory.id}', null);">${degree.value}</span>
+												</c:if>
+										</c:forEach>
+										<i class="material-icons prefix-icon-r">mode_edit</i>
+									</p>
+									</c:if>
+									<c:if test="${not empty educationHistory.socialActivity}">
+									<p class="edit">
+										<span><spring:message code="label.profile.title.edu_history.social_activity" />:&nbsp;</span> 
+										<span class="social-activity-${educationHistory.id}" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtSocialActivity');"> ${educationHistory.socialActivity}</span>
+										<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtSocialActivity');">mode_edit</i>
+									</p>
+									</c:if>
+								</div>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${member.resume.educationHistorySet}" var="educationHistory">
+								<div class="margin-top-30 position-relative edu-his-item">
+									<h1 class="big-text mp0 edit">
+										<span>${educationHistory.universityName}</span>
+									</h1>
+									<p class="edit">
+										<span>${educationHistory.majorName}</span>
+									</p>
+									<c:if test="${not empty educationHistory.beginYear && not empty educationHistory.endYear}">
+									<p class="edit">
+										<span>${educationHistory.beginYear}</span><span>&nbsp;-&nbsp;</span> <span>${educationHistory.endYear}</span>
+									</p>
+									</c:if>
+									<c:if test="${not empty educationHistory.degree}">
+									<p class="edit">
+										<c:forEach items="${degreeMap}" var="degree">
+												<c:if test="${degree.key == educationHistory.degree}">
+													<span>${degree.value}</span>
+												</c:if>
+										</c:forEach>
+									</p>
+									</c:if>
+									<c:if test="${not empty educationHistory.socialActivity}">
+									<p class="edit">
+										<span><spring:message code="label.profile.title.edu_history.social_activity" />:&nbsp;</span> 
+										<span> ${educationHistory.socialActivity}</span>
+									</p>
+									</c:if>
+								</div>
+							</c:forEach>
+						</c:otherwise>
+						</c:choose>
+							<c:if test="${sessionScope.account.id == member.account.id}">
+								<hr class="margin-top-10" />
+								<p class="opacity-7 margin-top-10">Add media</p>
+								<ul class="education-media display-inline-flex margin-top-5">
+									<li onclick="javascript:addEducationDocument();"><i class="material-icons">description</i>
+										<span><spring:message code="label.profile.title.edu_history.document" /></span></li>
+									<li><i class="material-icons">photo_camera</i>
+										<span><spring:message code="label.profile.title.edu_history.photo" /></span></li>
+									<li><i class="material-icons">link</i>
+										<span><spring:message code="label.profile.title.edu_history.link" /></span></li>
+								</ul>
+								<!-- add document -->
+								<div class="add-media-education display-none overflow-auto">
+									<div class="input-field col m12 p-0">
+										<select>
+											<option value="" disabled selected>Choose your option</option>
+											<c:forEach items="${member.resume.educationHistorySet}" var="educationHistory">
+												<option value="${educationHistory.id}">${educationHistory.universityName}</option>
+											</c:forEach>
+										</select> 
+										<label><spring:message code="label.profile.title.edu_history.add_to_education"/></label>
+									</div>
+									<div class="input-field col m12 p-0">
+										<form action="#">
+											<div class="file-field input-field">
+												<div class="btn grey">
+													<span class="cl-white">File</span> <input type="file">
+												</div>
+												<div class="file-path-wrapper">
+													<input class="file-path validate" type="text">
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="col m12 p-0 margin-top-10">
+										<a class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.edu_history.upload"/></a>
+										<a class="waves-effect waves-light grey darken-2 btn margin-right-5" href="javascript:cancelEducationDocument();"><spring:message code="label.profile.title.edu_history.cancel"/></a>
+									</div>
+								</div>
+							</c:if>
+						<c:if test="${sessionScope.account.id == member.account.id}">
+							<div class="btn-add-footer margin-top-30" onclick="javascript:showPopupAddEducation();">
+								<spring:message code="label.profile.title.edu_history.add_education" />
 							</div>
-							<p class="opacity-7 margin-top-10">Add media</p>
-							<ul class="education-media display-inline-flex margin-top-5">
-								<li><i class="material-icons">description</i>
-									<span><spring:message code="label.profile.title.edu_history.document" /></span></li>
-								<li><i class="material-icons">photo_camera</i>
-									<span><spring:message code="label.profile.title.edu_history.photo" /></span></li>
-								<li><i class="material-icons">link</i>
-									<span><spring:message code="label.profile.title.edu_history.link" /></span></li>
-							</ul>
-							<div class="add-media-education display-none">
+						</c:if>
+					</div>
+					<div class="panel-content panel-setting-education display-none">
+						<div class="row">
+							<form:form id="saveEducation" action="/profile/createEducation" method="POST" modelAttribute="educationHistory">
+								<input type="hidden" id="filterMemberId" name="filterMemberId" value="${param.memberId}"/>
+								<form:input type="hidden" id="education-id" path="id"/>
 								<div class="input-field col m12 p-0">
-									<select>
-										<option value="" disabled selected>Choose your option</option>
-										<option value="1">Nông Lâm University</option>
-									</select> 
-									<label><spring:message code="label.profile.title.edu_history.add_to_education"/></label>
+									<form:input type="hidden" id="universityName" path="universityName"/>
+								<input oninvalid="this.setCustomValidity('<spring:message code='label.profile.error.edu_history.university_name.required'/>')"
+									required oninput="setCustomValidity('')"
+									placeholder="<spring:message code='label.profile.title.edu_history.placeholder.university_name'/>"
+									id="txtUniversityName" type="text" class="validate"> <label for="txtUniversityName"><spring:message code="label.profile.title.edu_history.university_name"/></label>
 								</div>
 								<div class="input-field col m12 p-0">
-									<form action="#">
-										<div class="file-field input-field">
-											<div class="btn grey">
-												<span class="cl-white">File</span> <input type="file">
-											</div>
-											<div class="file-path-wrapper">
-												<input class="file-path validate" type="text">
-											</div>
-										</div>
-									</form>
+									<form:input type="hidden" id="majorName" path="majorName"/>
+								<input oninvalid="this.setCustomValidity('<spring:message code='label.profile.error.edu_history.major.required'/>')"
+									required oninput="setCustomValidity('')"
+									placeholder="<spring:message code='label.profile.title.edu_history.placeholder.major'/>"
+									id="txtMajorName" type="text" class="validate"> <label for="txtMajorName"><spring:message code="label.profile.title.edu_history.major"/></label>
+								</div>
+								<div class="input-field col m5 p-0">
+									<form:input type="hidden" id="beginYear" path="beginYear"/>
+									<select id="cbxBeginYear">
+										<option value="" disabled selected>Choose your option</option>
+										<c:forEach items="${years}" var="year">
+											<option value="${year}">${year}</option>
+										</c:forEach>
+									</select> 
+									<label><spring:message code="label.profile.title.edu_history.begin_year"/></label>
+								</div>
+								<div class="input-field col m5 p-0 offset-m2">
+									<form:input type="hidden" id="endYear" path="endYear"/>
+									<select id="cbxEndYear">
+										<option value="" disabled selected>Choose your option</option>
+										<c:forEach items="${years}" var="year">
+											<option value="${year}">${year}</option>
+										</c:forEach>
+									</select> 
+									<label><spring:message code="label.profile.title.edu_history.end_year"/></label>
+								</div>
+								<div class="input-field col m12 p-0">
+									<form:input type="hidden" id="degree" path="degree"/>
+									<select id="cbxDegree">
+										<option value="" disabled selected>Choose your option</option>
+										<c:forEach items="${degreeMap}" var="degree">
+											<option value="${degree.key}">${degree.value}</option>
+										</c:forEach>
+									</select> 
+									<label><spring:message code="label.profile.title.edu_history.degree"/></label>
+								</div>
+								<div class="input-field col m12 p-0">
+									<form:input type="hidden" id="socialActivity" path="socialActivity"/>
+									<textarea placeholder="<spring:message code='label.profile.title.edu_history.placeholder.social_activity'/>" id="txtSocialActivity" class="materialize-textarea"></textarea>
+									<label for="txtSocialActivity"><spring:message code="label.profile.title.edu_history.social_activity"/></label>
 								</div>
 								<div class="col m12 p-0 margin-top-10">
-									<a class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.edu_history.upload"/></a>
-									<a class="waves-effect waves-light grey darken-2 btn margin-right-5"><spring:message code="label.profile.title.edu_history.cancel"/></a>
+									<button type="submit" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.edu_history.save"/></button>
+									<a class="waves-effect waves-light grey darken-2 btn margin-right-5" href="javascript:cancelSettingEducation();"><spring:message code="label.profile.title.edu_history.cancel"/></a>
+									<a href="" class="cl-white a-text-color margin-right-5"><spring:message code="label.profile.title.edu_history.remove"/></a>
 								</div>
-							</div>
-						</c:forEach>
-						<div class="btn-add-footer margin-top-30">
-							Add Education
-						</div>
-					</div>
-					<div class="panel-content">
-						<div class="row">
-						<div class="input-field col m12 p-0">
-							<input id="university_name" type="text" class="validate">
-							<label for="first_name"><spring:message code="label.profile.title.edu_history.university_name"/></label>
-						</div>
-						<div class="input-field col m12 p-0">
-							<input id="university_name" type="text" class="validate">
-							<label for="first_name"><spring:message code="label.profile.title.edu_history.major"/></label>
-						</div>
-						<div class="input-field col m5 p-0">
-							<select>
-								<option value="" disabled selected>Choose your option</option>
-								<c:forEach items="${years}" var="year">
-									<option value="${year}">${year}</option>
-								</c:forEach>
-							</select> 
-							<label><spring:message code="label.profile.title.edu_history.begin_year"/></label>
-						</div>
-						<div class="input-field col m5 p-0 offset-m2">
-							<select>
-								<option value="" disabled selected>Choose your option</option>
-								<c:forEach items="${years}" var="year">
-									<option value="${year}">${year}</option>
-								</c:forEach>
-							</select> 
-							<label><spring:message code="label.profile.title.edu_history.end_year"/></label>
-						</div>
-						<div class="input-field col m12 p-0">
-							<select>
-								<option value="" disabled selected>Choose your option</option>
-								<option value="1">Đại Học</option>
-								<option value="2">Cao Đẳng</option>
-								<option value="3">Trung Cấp</option>
-							</select> 
-							<label><spring:message code="label.profile.title.edu_history.degree"/></label>
-						</div>
-						<div class="input-field col m12 p-0">
-							<textarea id="textarea1" class="materialize-textarea"></textarea>
-							<label for="textarea1"><spring:message code="label.profile.title.edu_history.social_activity"/></label>
-						</div>
-						<div class="col m12 p-0 margin-top-10">
-							<a class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.edu_history.save"/></a>
-							<a class="waves-effect waves-light grey darken-2 btn margin-right-5"><spring:message code="label.profile.title.edu_history.cancel"/></a>
-							<a href="" class="cl-white a-text-color margin-right-5"><spring:message code="label.profile.title.edu_history.remove"/></a>
-						</div>
+							</form:form>
 						</div>
 					</div>
 				</div>
@@ -187,76 +256,115 @@
 					<div class="profile-skills">
 		    		<ul class="skills-section">
 		    			<c:forEach items="${member.resume.skillResumeSet}" var="skillResume">
-			    			<li class="endorse-item">
-			    				<span class="skill-pill">
-			    					<a href="javascript:void(0)" class="endorse-count">
-			    						<span class="num-endorsements num-endorsements-${skillResume.skill.id} cl-white">${fn:length(skillResume.endorseSet)}</span>
-			    					</a>
-			    					<span class="endorse-item-name">
-			    						<a href="" class="endorse-item-name-text">${skillResume.skill.displayName}</a>
-			    					</span>
-			    				</span>
-			    				<div class="endorsers-container">
-			    					<a class="endorse-button">
-			    						<c:if test="${not empty sessionScope.account && sessionScope.account.id != member.account.id}">
-				    						<span class="endorsing">
-				    							<i class="material-icons small-icon margin-top-3px icon_add_endorse_${skillResume.skill.id}"
-													onmouseover="onMouseOverEndorsingEvent('add_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
-													onmouseout="onMouseOutEndorsingEvent('add_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
-													onclick="onClickEndorsingEvent(true, '${skillResume.skill.id}', '${skillResume.id}');">add</i>
-												<i style="display: none;"
-													class="material-icons small-icon margin-top-3px icon_remove_endorse_${skillResume.skill.id} display-none"
-													onmouseover="onMouseOverEndorsingEvent('remove_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
-													onmouseout="onMouseOutEndorsingEvent('remove_endorse_title_${skillResume.skill.id}', '${skillResume.id}');"
-													onclick="onClickEndorsingEvent(false, '${skillResume.skill.id}', '${skillResume.id}');">remove</i>
-												<span id="add_endorse_title_${skillResume.skill.id}" class="display-none">Endorse</span>
-				    							<span id="remove_endorse_title_${skillResume.skill.id}" class="display-none">Remove Endorse</span>
+		    				<c:if test="${skillResume.skill.type == 1 && fn:length(skillResume.endorseSet) > 0}">
+				    			<li class="endorse-item">
+				    				<span class="skill-pill">
+				    					<a href="javascript:void(0)" class="endorse-count">
+				    						<span class="num-endorsements num-endorsements-${skillResume.skill.id} cl-white">${fn:length(skillResume.endorseSet)}</span>
+				    					</a>
+				    					<span class="endorse-item-name">
+				    						<a href="" class="endorse-item-name-text">${skillResume.skill.displayName}</a>
+				    					</span>
+				    				</span>
+				    				<div class="endorsers-container">
+				    					<a class="endorse-button">
+				    						<c:if test="${not empty sessionScope.account && sessionScope.account.id != member.account.id}">
+					    						<span class="endorsing">
+					    							<i class="material-icons small-icon margin-top-3px icon_add_endorse_${skillResume.skill.id}"
+														onmouseover="onMouseOverEndorsingEvent('add_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
+														onmouseout="onMouseOutEndorsingEvent('add_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
+														onclick="onClickEndorsingEvent(true, '${skillResume.skill.id}', '${skillResume.id}');">add</i>
+													<i style="display: none;"
+														class="material-icons small-icon margin-top-3px icon_remove_endorse_${skillResume.skill.id} display-none"
+														onmouseover="onMouseOverEndorsingEvent('remove_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
+														onmouseout="onMouseOutEndorsingEvent('remove_endorse_title_${skillResume.skill.id}', '${skillResume.id}');"
+														onclick="onClickEndorsingEvent(false, '${skillResume.skill.id}', '${skillResume.id}');">remove</i>
+													<span id="add_endorse_title_${skillResume.skill.id}" class="display-none">Endorse</span>
+					    							<span id="remove_endorse_title_${skillResume.skill.id}" class="display-none">Remove Endorse</span>
+					    						</span>
+				    						</c:if>
+				    						<span class="line-container">
+				    							<hr />
 				    						</span>
-			    						</c:if>
-			    						<span class="line-container">
-			    							<hr />
-			    						</span>
-			    					</a>
-			    					<ul class="endorsers-pics endorsers-pics-${skillResume.skill.id}">
-			    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="theCount">
-			    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
-				    						<c:choose>
-				    							<c:when test="${not empty sessionScope.account && sessionScope.account.id == endorse.account.id}">
-					    							<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}" onmouseenter="showTooltip(this);">
-						    							<a href="#">
-						    								<img class="img-full" src="${endorse.account.avatarImage}">
-						    							</a>
-					    							</li>
-					    							<script type="text/javascript">
-					    								var skillResumeId = $('.skill_resume_' + ${skillResume.skill.id}).val();
-					    								$('.icon_add_endorse_' + skillResumeId).hide();
-					    								$('.icon_remove_endorse_' + skillResumeId).show();
-					    								var first = $('ul.endorsers-pics-' + skillResumeId + ' li').first().html();    
-					    							    var special = $('ul.endorsers-pics-' + skillResumeId + ' li.special').html(); 
-					    							    $('ul.endorsers-pics-' + skillResumeId + ' li').first().html(special);
-					    							    $('ul.endorsers-pics-' + skillResumeId + ' li.special').html(first);
-					    							</script>
-				    							</c:when>
-				    							<c:otherwise>
-				    								<c:if test="${theCount.count <= 9}">
-					    								<li class="endorse_${endorse.id}" onmouseenter="showTooltip(this, '${endorse.account.id}');">
+				    					</a>
+				    					<ul class="endorsers-pics endorsers-pics-${skillResume.skill.id}">
+				    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="theCount">
+				    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
+					    						<c:choose>
+					    							<c:when test="${not empty sessionScope.account && sessionScope.account.id == endorse.account.id}">
+						    							<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}" onmouseenter="showTooltip(this, ${endorse.account.id});">
 							    							<a href="#">
 							    								<img class="img-full" src="${endorse.account.avatarImage}">
 							    							</a>
 						    							</li>
-					    							</c:if>
-				    							</c:otherwise>
-				    						</c:choose>
-			    						</c:forEach>
-			    						<li class="endorsers-action">
-			    							<i class="material-icons padding-top-4">keyboard_arrow_right</i>
-			    						</li>
-			    					</ul>
-			    				</div>
-			    			</li>
+						    							<script type="text/javascript">
+						    								var skillResumeId = $('.skill_resume_' + ${skillResume.skill.id}).val();
+						    								$('.icon_add_endorse_' + skillResumeId).hide();
+						    								$('.icon_remove_endorse_' + skillResumeId).show();
+						    								var first = $('ul.endorsers-pics-' + skillResumeId + ' li').first().html();    
+						    							    var special = $('ul.endorsers-pics-' + skillResumeId + ' li.special').html(); 
+						    							    $('ul.endorsers-pics-' + skillResumeId + ' li').first().html(special);
+						    							    $('ul.endorsers-pics-' + skillResumeId + ' li.special').html(first);
+						    							</script>
+					    							</c:when>
+					    							<c:otherwise>
+					    								<c:if test="${theCount.count <= 9}">
+						    								<li class="endorse_${endorse.id}" onmouseenter="showTooltip(this, ${endorse.account.id});">
+								    							<a href="#">
+								    								<img class="img-full" src="${endorse.account.avatarImage}">
+								    							</a>
+							    							</li>
+						    							</c:if>
+					    							</c:otherwise>
+					    						</c:choose>
+				    						</c:forEach>
+				    						<li class="endorsers-action">
+				    							<i class="material-icons padding-top-4">keyboard_arrow_right</i>
+				    						</li>
+				    					</ul>
+				    				</div>
+				    			</li>
+			    			</c:if>
 		    			</c:forEach>
 		    		</ul>
 		    		<!-- Skill different -->
+		    		<p class="small-text margin-top-30"><spring:message code="label.profile.endorse.title.diffrent_skills"/></p>
+		    		<ul class="skill-selection-different">
+		    			<c:forEach items="${member.resume.skillResumeSet}" var="skillResume">
+		    				<c:if test="${skillResume.skill.type == 0 || fn:length(skillResume.endorseSet) == 0}">
+					    		<li>
+					    			<span class="skill-pill">
+				    					<a href="javascript:void(0)" class="endorse-count">
+				    						<span class="num-endorsements num-endorsements-${skillResume.skill.id} cl-white">${fn:length(skillResume.endorseSet)}</span>
+				    					</a>
+				    					<span class="endorse-item-name">
+				    						<a href="" class="endorse-item-name-text">${skillResume.skill.displayName}</a>
+				    					</span>
+				    					<c:if test="${not empty sessionScope.account && sessionScope.account.id != member.account.id}">
+				    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="theCount">
+				    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
+								    			<a class="icon-endorse">
+								    				<i class="material-icons small-icon icon_add_endorse_${skillResume.skill.id}"
+													onclick="onClickEndorsingDifferentEvent(true, '${skillResume.skill.id}', '${skillResume.id}');">add</i>
+												</a>
+								    			<a class="icon-endorse">
+								    				<i class="material-icons small-icon display-none icon_remove_endorse_${skillResume.skill.id}"
+													onclick="onClickEndorsingDifferentEvent(false, '${skillResume.skill.id}', '${skillResume.id}');">remove</i>
+												</a>
+					    						<c:if test="${sessionScope.account.id == endorse.account.id}">
+					    							<script type="text/javascript">
+						    							var skillResumeId = $('.skill_resume_' + ${skillResume.skill.id}).val();
+						    							$('.icon_add_endorse_' + skillResumeId).hide();
+						    							$('.icon_remove_endorse_' + skillResumeId).show();
+						    						</script>
+						    					</c:if>
+					    					</c:forEach>
+				    					</c:if>
+				    				</span>
+					    		</li>
+				    		</c:if>
+			    		</c:forEach>
+			    	</ul>
 		    		</div>
 				</div>
 			</div>

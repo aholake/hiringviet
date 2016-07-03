@@ -3,11 +3,13 @@ package vn.com.hiringviet.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import vn.com.hiringviet.common.DegreeEnum;
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.PagingDTO;
@@ -220,5 +222,23 @@ public class Utils {
 		}
 
 		return list;
+	}
+
+	public static ChangeLog generatorChangeLog() {
+		ChangeLog changeLog = new ChangeLog();
+		changeLog.setCreatedDate(DateUtil.now());
+		changeLog.setUpdatedDate(DateUtil.now());
+		changeLog.setStatus(StatusRecordEnum.ACTIVE.getValue());
+		return changeLog;
+	}
+
+	public static HashMap<String, String> generatorDegree() {
+		HashMap<String, String> maps = new HashMap<String, String>();
+		maps.put(DegreeEnum.D1.getStatus(), DegreeEnum.D1.getValue());
+		maps.put(DegreeEnum.D2.getStatus(), DegreeEnum.D2.getValue());
+		maps.put(DegreeEnum.D3.getStatus(), DegreeEnum.D3.getValue());
+		maps.put(DegreeEnum.D4.getStatus(), DegreeEnum.D4.getValue());
+		maps.put(DegreeEnum.D5.getStatus(), DegreeEnum.D5.getValue());
+		return maps;
 	}
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.ResumeDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
+import vn.com.hiringviet.model.EducationHistory;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.EndorseService;
 import vn.com.hiringviet.service.FollowService;
@@ -63,6 +65,8 @@ public class ProfileController {
 		model.addAttribute("member", member);
 
 		model.addAttribute("years", Utils.generatorListYear());
+		model.addAttribute("educationHistory", new EducationHistory());
+		model.addAttribute("degreeMap", Utils.generatorDegree());
 		return "/profile";
 	}
 
@@ -72,7 +76,7 @@ public class ProfileController {
 		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
 
 		Account account = LoginController.getAccountSession(session);
-		if (!memberService.addSkillsOfMember(account.getId(), skillDTOs)) {
+		if (!memberService.addSkillsOfMember(account, skillDTOs)) {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 		}
 		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
@@ -151,7 +155,7 @@ public class ProfileController {
 	@RequestMapping(value = "/profile/countNumberOfFollower", method = RequestMethod.POST)
 	public @ResponseBody MemberDTO countNumberOfFollower(@RequestBody Integer accountId) {
 
-		MemberDTO memberDTO = memberService.getMemberByAccount(accountId);
+		MemberDTO memberDTO = memberService.getMemberByAccountId(accountId);
 		if (!Utils.isEmptyObject(memberDTO)) {
 			if (followService.countNumberOfFollower(accountId) > 0) {
 				memberDTO.setNumberFollower(followService.countNumberOfFollower(accountId));
@@ -161,5 +165,18 @@ public class ProfileController {
 		}
 
 		return memberDTO;
+	}
+
+	@RequestMapping(value = "/profile/createEducation", method = RequestMethod.POST)
+	public String createEducation(Model model,
+			@ModelAttribute("educationHistory") EducationHistory educationHistory,
+			@RequestParam("filterMemberId") String filterMemberId,
+			HttpSession session) {
+
+		Member member = LoginController.getMemberSession(session);
+		if (!resumeService.saveEducation(member.getResume(), educationHistory)) {
+			model.addAttribute("errorMessage", "");
+		}
+		return "redirect:/profile?memberId=" + filterMemberId;
 	}
 }

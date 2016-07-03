@@ -41,9 +41,6 @@ public class SignupController {
 		return "register-option";
 	}
 
-	private Logger Logger = org.apache.log4j.Logger
-			.getLogger(SignupController.class);
-
 	@RequestMapping(value = "/register/{type}")
 	public ModelAndView goToRegisterPage(@PathVariable("type") String type,
 			Model model) {
@@ -63,7 +60,6 @@ public class SignupController {
 	@RequestMapping(value = "/rest/saveMember", method = RequestMethod.POST)
 	public @ResponseBody String saveNewMember(
 			@ModelAttribute("newMember") Member member) {
-		Logger.info(member);
 		if (memberService.addMember(member) > 0) {
 			return "Added successfully";
 
@@ -79,16 +75,12 @@ public class SignupController {
 	@RequestMapping(value = "/rest/addNewMember", method = RequestMethod.POST)
 	public @ResponseBody int addNewMember(
 			@ModelAttribute("newMember") Member member) {
-		System.out.println(member.getAccount().getEmail() + ", "
-				+ member.getAccount().getPassword() + ", "
-				+ member.getFirstName() + ", " + member.getLastName());
 		return memberService.addMember(member);
 	}
 
 	@RequestMapping(value = "/rest/addNewCompany")
 	public @ResponseBody int addNewCompany(
 			@ModelAttribute("newCompany") Company company) {
-		System.out.println(company.getDisplayName());
 		return companyService.addCompany(company);
 	}
 }
