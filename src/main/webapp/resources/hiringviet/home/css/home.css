@@ -112,15 +112,6 @@ h1.title {
 	display: none;
 }
 
-.feed-actions {
-	display: inline-flex;
-}
-
-.feed-actions>li {
-	margin: 0 10px 0 0;
-    color: #9e9e9e;
-}
-
 .new-job {
 	padding: 5px 10px;
 }

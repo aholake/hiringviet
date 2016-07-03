@@ -27,7 +27,7 @@
 					<div class="slider">
 						<ul class="slides">
 							<c:forEach items="${company.companyPhotoSet}" var="companyPhotoSet">
-								<li><img src="${companyPhotoSet.photo}">
+								<li><img class="materialboxed" data-caption="${companyPhotoSet.photo}" src="${companyPhotoSet.photo}">
 									<!-- random image -->
 									<div class="caption center-align">
 										<h3>${companyPhotoSet.title}</h3>
@@ -42,7 +42,7 @@
 					<div class="card-panel padding-10">
 					<input type="hidden" id="firstItem-comment-${post.id}" value="0" />
 					<input type="hidden" id="currentPage-comment-${post.id}" value="1" />
-						<div class="row">
+						<div class="row mp0">
 							<div class="col m12">
 								<h1 class="title">
 									${post.title}
