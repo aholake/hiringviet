@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.model.District;
 import vn.com.hiringviet.model.Province;
-import vn.com.hiringviet.model.Ward;
+import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.service.DistrictService;
 import vn.com.hiringviet.service.ProvinceService;
-import vn.com.hiringviet.service.WardService;
+import vn.com.hiringviet.service.SkillService;
 
 @Controller
 public class RestController {
@@ -21,8 +21,9 @@ public class RestController {
 	private ProvinceService provinceService;
 	@Autowired
 	private DistrictService districtService;
+
 	@Autowired
-	private WardService wardService;
+	private SkillService skillService;
 
 	@RequestMapping("/rest/getProvincesByCountry")
 	public @ResponseBody List<Province> getListProvinceByCountry(
@@ -36,9 +37,8 @@ public class RestController {
 		return districtService.getDistrictByProvince(provinceID);
 	}
 
-	@RequestMapping("/rest/getWardsByDistrict")
-	public @ResponseBody List<Ward> getWardListByDistrict(
-			@RequestBody int districtID) {
-		return wardService.getWardListByDistrict(districtID);
+	@RequestMapping("/rest/getSkillList")
+	public @ResponseBody List<Skill> getSkills() {
+		return skillService.getSkillList();
 	}
 }

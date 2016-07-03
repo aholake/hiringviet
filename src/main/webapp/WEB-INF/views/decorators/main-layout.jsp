@@ -30,7 +30,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/includes/header.jsp"%>
-	<div class="content">
+	<div id="main-container">
 		<decorator:body />
 	</div>
 	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>

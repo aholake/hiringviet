@@ -26,13 +26,12 @@
 <!--Common Style-->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/common/css/style.css'/>">
-<decorator:head></decorator:head>
+<decorator:head />
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/includes/header.jsp"%>
-	<%@ include file="/WEB-INF/views/includes/company_banner.jsp"%>
+	<%@include file="/WEB-INF/views/includes/introduce-slider.jsp"%>
 	<div id="main-container">
-		<%@ include file="/WEB-INF/views/includes/company_header.jsp"%>
 		<decorator:body />
 	</div>
 	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>

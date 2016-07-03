@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -26,77 +27,38 @@ public class Address implements Serializable {
 	/** The id. */
 	private int id;
 
-	/** The street name. */
-	private String streetName;
+	/** The explicit address. */
+	private String explicitAddress;
 
-	/** The ward. */
-	private Ward ward;
+	/** District */
+	private District district;
 
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
 
-	/**
-	 * Sets the id.
-	 *
-	 * @param id
-	 *            the new id
-	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	/**
-	 * Gets the street name.
-	 *
-	 * @return the street name
-	 */
-	@Column(name = "street_name")
-	public String getStreetName() {
-		return streetName;
+	@Column(name = "explicit_address")
+	public String getExplicitAddress() {
+		return explicitAddress;
 	}
 
-	/**
-	 * Sets the street name.
-	 *
-	 * @param streetName
-	 *            the new street name
-	 */
-	public void setStreetName(String streetName) {
-		this.streetName = streetName;
+	public void setExplicitAddress(String explicitAddress) {
+		this.explicitAddress = explicitAddress;
 	}
 
-	/**
-	 * Gets the ward.
-	 *
-	 * @return the ward
-	 */
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name = "ward_id")
-	public Ward getWard() {
-		return ward;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "district_id")
+	public District getDistrict() {
+		return district;
 	}
 
-	/**
-	 * Sets the ward.
-	 *
-	 * @param ward
-	 *            the new ward
-	 */
-	public void setWard(Ward ward) {
-		this.ward = ward;
+	public void setDistrict(District district) {
+		this.district = district;
 	}
-
-	/**
-	 * Gets the district.
-	 *
-	 * @return the district
-	 */
 }
