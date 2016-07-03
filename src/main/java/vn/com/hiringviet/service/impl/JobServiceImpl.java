@@ -18,7 +18,8 @@ public class JobServiceImpl implements JobService {
 	private JobDAO jobDAO;
 
 	@Override
-	public List<Job> getJobList(Integer first, Integer max, boolean isJobHot, List<Integer> skills) {
+	public List<Job> getJobList(Integer first, Integer max, boolean isJobHot,
+			List<Integer> skills) {
 
 		if (isJobHot) {
 			return jobDAO.getListJobHot(first, max, skills);
@@ -33,5 +34,9 @@ public class JobServiceImpl implements JobService {
 		return jobDAO.findOne(id);
 	}
 
-	
+	@Override
+	public int addJob(Job job) {
+		// TODO Auto-generated method stub
+		return jobDAO.create(job);
+	}
 }

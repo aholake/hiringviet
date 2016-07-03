@@ -42,15 +42,14 @@
 							</div>
 
 							<div class="input-field">
-								<form:input id="streetName" type="text"
-									path="address.streetName" cssClass="validate"
+								<form:input id="explicitAddress" type="text"
+									path="address.explicitAddress" cssClass="validate"
 									required="required" />
 								<label><spring:message
-										code="label.register.company.input.street_name"></spring:message></label>
+										code="label.register.company.input.address"></spring:message></label>
 							</div>
-
 							<div class="row">
-								<div class="input-field col m6">
+								<div class="input-field col m4 p-0">
 									<select id="countryAddress">
 										<option value="-1" disabled selected><spring:message
 												code="label.default.dropdown.none_value"></spring:message></option>
@@ -62,7 +61,7 @@
 									</select><label><spring:message
 											code="label.register.company.input.country"></spring:message></label>
 								</div>
-								<div class="input-field col m6">
+								<div class="input-field col m4 p-0">
 									<select id="provinceAddress">
 										<option value="-1" disabled selected><spring:message
 												code="label.default.dropdown.none_value"></spring:message></option>
@@ -70,22 +69,15 @@
 											code="label.register.company.input.province"></spring:message></label>
 								</div>
 
-								<div class="input-field col m6">
-									<select id="districtAddress">
-										<option value="-1" disabled selected><spring:message
-												code="label.default.dropdown.none_value"></spring:message></option>
-									</select> <label><spring:message
-											code="label.register.company.input.district"></spring:message></label>
-								</div>
-								<div class="input-field col m6">
+								<div class="input-field col m4 p-0">
 									<spring:message code="label.default.dropdown.none_value"
 										var="dropdown_none_value"></spring:message>
-									<form:select id="wardAddress" path="address.ward.id">
+									<form:select id="districtAddress" path="address.district.id">
 										<form:option value="-1" label="${dropdown_none_value}"
 											disabled="true"></form:option>
 									</form:select>
 									<label><spring:message
-											code="label.register.company.input.ward"></spring:message></label>
+											code="label.register.company.input.district"></spring:message></label>
 								</div>
 							</div>
 
@@ -191,22 +183,6 @@
 			$('#districtAddress').material_select();
 		}
 
-		function processGetWards(response) {
-			console.log(response);
-			$("#wardAddress")
-					.empty()
-					.append(
-							"<option value='' disabled selected><spring:message code="label.default.dropdown.none_value"></spring:message></option>");
-			$.each(response, function(i, ward) {
-				console.log("Ward: " + ward);
-				$("#wardAddress").append($('<option>', {
-					value : ward.id,
-					text : ward.wardName
-				}));
-			});
-			$('#wardAddress').material_select();
-		}
-
 		$("#nextButton").click(
 				function() {
 					if (checkCompanyInfoValidate()) {
@@ -223,13 +199,14 @@
 		function checkCompanyInfoValidate() {
 			var displayNameValidate = $("#displayName")[0].checkValidity();
 			var businessFieldValidate = $("#businessField")[0].checkValidity();
-			var streetNameValidate = $("#streetName")[0].checkValidity();
+			var explicitAddressValidate = $("#explicitAddress")[0]
+					.checkValidity();
 			var checkDropdownList = validateAllDropdownList();
 
 			//console.log(validateAllDropdownList());
 
 			if (!displayNameValidate || !businessFieldValidate
-					|| !streetNameValidate || !checkDropdownList) {
+					|| !explicitAddressValidate || !checkDropdownList) {
 				return false;
 			}
 			return true;
