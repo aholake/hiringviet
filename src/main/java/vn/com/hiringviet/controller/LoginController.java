@@ -51,9 +51,4 @@ public class LoginController {
 	public static Account getAccountSession(HttpSession session) {
 		return (Account) session.getAttribute("account");
 	}
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String login() {
-		return "login_page";
-	}
 }

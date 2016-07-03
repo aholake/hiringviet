@@ -47,15 +47,17 @@ public class HomeController {
 	/** The resume service. */
 	@Autowired
 	private ResumeService resumeService;
-	
+
 	/**
 	 * Go home page.
 	 *
-	 * @param model the model
-	 * @param session the session
+	 * @param model
+	 *            the model
+	 * @param session
+	 *            the session
 	 * @return home page
 	 */
-	@RequestMapping(value = "home")
+	@RequestMapping(value = { "/", "home" })
 	public String goHomePage(Model model, HttpSession session) {
 
 		String result = null;
@@ -66,15 +68,20 @@ public class HomeController {
 
 		if (Utils.isEmptyObject(account)) {
 
-			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT, true, null);
-			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, true);
+			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT,
+					true, null);
+			companyList = companyService.getListCompany(0,
+					ConstantValues.MAX_RECORD_COUNT, true);
 			result = "home";
 		} else {
 
 			Member member = memberService.getMemberByAccountId(account.getId());
-			List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
-			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
-			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, false);
+			List<Integer> skillIds = resumeService
+					.getListSkillByMemberId(member.getId());
+			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT,
+					false, skillIds);
+			companyList = companyService.getListCompany(0,
+					ConstantValues.MAX_RECORD_COUNT, false);
 			model.addAttribute("account", account);
 			result = "home_login";
 		}

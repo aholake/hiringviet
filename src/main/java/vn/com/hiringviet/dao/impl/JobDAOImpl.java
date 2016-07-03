@@ -21,18 +21,10 @@ import vn.com.hiringviet.util.Utils;
 @Repository
 @Transactional
 public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
-
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
 	@Override
 	public Job getJobByID(Integer jobId) {
 
-		Session session = sessionFactory.getCurrentSession();
+		Session session = getSession();
 
 		Job job = (Job) session.get(Job.class, jobId);
 
@@ -45,7 +37,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 	@Override
 	public List<Job> getListJobHot(Integer first, Integer max, List<Integer> skills) {
 
-		Session session = sessionFactory.getCurrentSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Job.class, "job");
 		criteria.createAlias("job.changeLog", "changeLog");
 		criteria.createAlias("job.company", "company");
@@ -77,7 +69,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 	@Override
 	public List<Job> getListJobSuggest(Integer first, Integer max, List<Integer> skills) {
 
-		Session session = sessionFactory.getCurrentSession();
+		Session session = getSession();
 		Criteria criteria = session.createCriteria(Job.class, "job");
 		criteria.createAlias("job.changeLog", "changeLog");
 		criteria.createAlias("job.company", "company");
