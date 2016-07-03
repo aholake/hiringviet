@@ -106,7 +106,7 @@
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">location_on</i>
 											<spring:message code="label.home.title.address" />
-											: <span class="info">${company.address.ward.district.province.provinceName}</span>
+											: <span class="info">${company.address.district.province.provinceName}</span>
 										</p>
 									</div>
 								</div>

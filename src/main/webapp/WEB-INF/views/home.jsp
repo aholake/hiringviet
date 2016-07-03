@@ -39,7 +39,7 @@
 					<c:forEach items="${jobList}" var="job">
 						<div class="">
 							<div class="job-box">
-								<div class="location-sticky orange darken-1">${job.company.address.ward.district.province.provinceName}</div>
+								<div class="location-sticky orange darken-1">${job.company.address.district.province.provinceName}</div>
 								<div class="row none-margin-bottom">
 									<div class="col m3 center hide-on-med-and-down">
 										<a href="/company/${job.company.id}"><img
@@ -66,7 +66,7 @@
 										</div>
 										<a href="#" class="company-name">${job.company.displayName}</a>
 										<p class="work-location">
-											<a href="#">${job.company.address.ward.district.province.provinceName}</a>
+											<a href="#">${job.company.address.district.province.provinceName}</a>
 										</p>
 
 										<div class="job-info">
@@ -171,10 +171,9 @@
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">location_on</i>
 											<spring:message code="label.home.title.address" />
-											: <span class="info">${company.address.streetName},
-												${company.address.ward.wardName},
-												${company.address.ward.district.districtName},
-												${company.address.ward.district.province.provinceName}</span>
+											: <span class="info">${company.address.explicitAddress},
+												${company.address.district.districtName},
+												${company.address.district.province.provinceName}</span>
 										</p>
 									</div>
 								</div>
