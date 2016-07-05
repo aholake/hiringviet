@@ -22,6 +22,20 @@ $(document).ready(function() {
 		} // Callback for Modal close
 	});
 
+	$(".txtComment").keyup(function(event) {
+		if (event.keyCode === 13) {
+
+			var postId = $(this).prop('id');
+			var commentValue = $(this).val();
+			if (commentValue != null || commentValue != "") {
+				var data = {
+					comment: commentValue,
+					postId: postId
+				}
+				callAPI($('#url_post_comment').val(), 'POST', data, 'processAddComment', false);
+			}
+		}
+	});
 });
 var currentPostId = 0;
 function showComment(postId) {
@@ -160,4 +174,13 @@ function hideReplyComment(commentId) {
 function blockReplyComment(commentId) {
 	$('.reply-comment-' + commentId).show('Blind');
 	$('.reply-' + commentId).attr('onclick', 'javascript:hideReplyComment(' + commentId + ')');
+}
+
+function addPostComment(event, value) {
+	console.log("addPostComment");
+	
+}
+
+function processAddComment(response) {
+	alert(response.result);
 }

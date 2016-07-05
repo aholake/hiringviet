@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/hiringviet/home/css/navbar.css'/>">
+<script type="text/javascript" src="<c:url value='/resources/hiringviet/login/js/login.js'/>" ></script>
 </head>
 <body>
 	<input type="hidden" id="url_redirect_page"

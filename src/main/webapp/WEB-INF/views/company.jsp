@@ -20,6 +20,7 @@
 	<input type="hidden" id="reply_comment" value='<spring:message code="label.company.title.reply_comment"/>' />
 	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
 	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
+	<input type="hidden" id="url_post_comment" value="<c:url value='/company/post/addComment' />" />
 
 		<div class="row">
 			<div class="col m8">
@@ -68,7 +69,7 @@
 									</ul>
 									<div class="post-comment">
 										<div class="input-field col m12">
-											<input id="last_name" type="text" class="validate" placeholder="<spring:message code='label.company.title.write_comment'/>">
+											<input id="${post.id}" type="text" class="validate txtComment" placeholder="<spring:message code='label.company.title.write_comment'/>">
 										</div>
 									</div>
 								</div>

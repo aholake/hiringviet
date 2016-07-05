@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
@@ -18,7 +19,7 @@ import vn.com.hiringviet.model.Comment;
 
 @Repository
 @Transactional
-public class CommentDaoImpl implements CommentDAO {
+public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -47,6 +48,7 @@ public class CommentDaoImpl implements CommentDAO {
 				.add(Projections.property("member.firstName").as("firstName"))
 				.add(Projections.property("member.lastName").as("lastName")));
 		criteria.add(Restrictions.eq("post.id", postId));
+		criteria.addOrder(Order.asc("changeLog.createdDate"));
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);
 		criteria.setResultTransformer(Transformers.aliasToBean(CommentDTO.class));

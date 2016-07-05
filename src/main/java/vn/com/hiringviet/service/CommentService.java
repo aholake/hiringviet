@@ -10,4 +10,6 @@ import vn.com.hiringviet.dto.CommentDTO;
 public interface CommentService {
 
 	public List<CommentDTO> getListCommentByPostId(Integer first, Integer max, Integer postId);
+
+	public Integer create(CommentDTO commentDTO);
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import vn.com.hiringviet.api.dto.request.CommentRequestDTO;
 import vn.com.hiringviet.api.dto.request.ReplyCommentRequestDTO;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
+import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.api.dto.response.ReplyCommentResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
@@ -24,6 +25,7 @@ import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.dto.ReplyCommentDTO;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.model.Post;
 import vn.com.hiringviet.service.CommentService;
 import vn.com.hiringviet.service.CompanyService;
@@ -188,5 +190,23 @@ public class CompanyController {
 		replyCommentResponseDTO.setPagingDTO(pagingDTO);
 		replyCommentResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		return replyCommentResponseDTO;
+	}
+
+	@RequestMapping(value = "/company/post/addComment", method = RequestMethod.POST)
+	public @ResponseBody CommonResponseDTO addComment(@RequestBody CommentDTO commentDTO, HttpSession session) {
+
+		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
+
+		Member member = LoginController.getMemberSession(session);
+
+		commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+		if (!Utils.isEmptyObject(member)) {
+			commentDTO.setMember(member);
+			if (!Utils.isEmptyNumber(commentService.create(commentDTO))) {
+				commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+			}
+		}
+
+		return commonResponseDTO;
 	}
 }
