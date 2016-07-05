@@ -9,18 +9,17 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
+	<context:property-placeholder location="classpath:*.properties" />
+
 	<context:component-scan base-package="vn.com.hiringviet"></context:component-scan>
 
 	<!-- declare datasource bean -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url"
-			value="jdbc:mysql://127.0.0.1:3306/hiringviet?characterEncoding=UTF-8" />
-		<property name="username" value="root" />
-		<property name="password" value="11221122" />
-		<!-- <property name="url" value="jdbc:google:mysql://hiringviet:gae-project/javatraining?user=root" 
-			/> -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+		<property name="url" value="${jdbc.url}" />
 	</bean>
 
 	<!-- Hibernate Session Factory -->
@@ -34,12 +33,12 @@
 		</property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.connection.charSet">utf8</prop>
-				<prop key="hibernate.connection.characterEncoding">utf8</prop>
-				<prop key="hibernate.connection.useUnicode">true</prop>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.connection.charSet">${hibernate.connection.charSet}</prop>
+				<prop key="hibernate.connection.characterEncoding">${hibernate.connection.characterEncoding}</prop>
+				<prop key="hibernate.connection.useUnicode">${hibernate.connection.useUnicode}</prop>
 			</props>
 		</property>
 	</bean>

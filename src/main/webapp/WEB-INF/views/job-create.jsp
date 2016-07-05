@@ -37,11 +37,10 @@
 						<label for="tags">Các kỹ năng</label><input type="text"
 							name="tags" id="skills" value="" data-role="materialtags" />
 					</div>
-					<div class="input-field col s12">
-						<textarea id="description" class="materialize-textarea"></textarea>
-						<label for="description">Mô tả công việc</label>
+					<h5 class="center">Mô tả công việc</h5>
+					<div class="input-field col m12">
+						<textarea id="description" rows="10" cols="80"></textarea>
 					</div>
-				</div>
 			</form:form>
 		</div>
 	</div>
@@ -50,7 +49,8 @@
 		src="/resources/common/js/materialize-tags.js"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script>
-
+	<script type="text/javascript"
+		src="/resources/common/js/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
 		var skills = new Bloodhound({
 			datumTokenizer : Bloodhound.tokenizers.obj
@@ -69,6 +69,10 @@
 				displayKey : 'displayName',
 				source : skills.ttAdapter()
 			}
+		});
+		CKEDITOR.replace("description", {
+			customConfig : '\resources\common\js\ck_toolbar_basic.js',
+			uiColor : '#9AB8F3'
 		});
 	</script>
 </body>
