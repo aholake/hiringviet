@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Post;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.util.Utils;
 
@@ -65,7 +65,7 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Post> getListPosts(Integer first, Integer max, Integer companyId) {
+	public List<PostDTO> getListPosts(Integer first, Integer max, Integer companyId) {
 
 		return companyDAO.getListPosts(first, max, companyId);
 	}

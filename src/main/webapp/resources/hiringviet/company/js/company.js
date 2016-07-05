@@ -33,6 +33,7 @@ $(document).ready(function() {
 					postId: postId
 				}
 				callAPI($('#url_post_comment').val(), 'POST', data, 'processAddComment', false);
+
 			}
 		}
 	});
@@ -74,6 +75,7 @@ function showPostComments(response) {
 		for (var index = 0; index < commentDTOs.length; index++) {
 			if (index == 0) {
 			html += '<li class="display-inline-flex">\
+						<a class="margin-left-5 small-text a-text-color">' + $('#hide_comment').val() + '</a>\
 						<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
 					</li>';
 			}
@@ -183,4 +185,13 @@ function addPostComment(event, value) {
 
 function processAddComment(response) {
 	alert(response.result);
+
+	var html = "";
+	html += '<li class="collection-item avatar comment-bg">\
+				<img src="' + response.avatarImage + '" alt="" class="circle"> \
+				<p class="title"><a href="' + $('#url_redirect_member').val() + response.memberId + '">' + response.firstName + ' ' + response.lastName + '</a>\
+				<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(response.now).toLocaleString() + '</span></p>\
+				<p class="small-text">' + response.comment + '</p> \
+			</li>';
+	$('.commentList-' + response.postId).append(html);
 }
