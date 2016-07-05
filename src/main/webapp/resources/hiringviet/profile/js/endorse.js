@@ -35,6 +35,17 @@ function onClickEndorsingEvent(isAdd, value, skillResumeId) {
 	}
 }
 
+function onClickEndorsingDifferentEvent(isAdd, value, skillResumeId) {
+	if (isAdd) {
+		$('.num-endorsements-' + value).html(parseInt($('.num-endorsements-' + value).html()) + 1);
+		callAPI($('#url_add_endorse').val(), 'POST', skillResumeId, 'processAddEndorse', false);
+	} else {
+		$('.num-endorsements-' + value).html(parseInt($('.num-endorsements-' + value).html()) - 1);
+		callAPI($('#url_remove_endorse').val(), 'POST', skillResumeId, 'processRemoveEndorse', false);
+	}
+}
+
+
 function processAddEndorse(responses) {
 	if (SUCCESS == responses.result) {
 

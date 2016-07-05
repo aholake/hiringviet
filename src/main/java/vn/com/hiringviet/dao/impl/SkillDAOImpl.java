@@ -3,6 +3,7 @@ package vn.com.hiringviet.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.hiringviet.common.SkillTypeEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.SkillDAO;
 import vn.com.hiringviet.dto.SkillDTO;
@@ -37,14 +39,45 @@ public class SkillDAOImpl extends CommonDAOImpl<Skill> implements SkillDAO {
 		Criteria criteria = session.createCriteria(Skill.class, "skill");
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.property("id"), "id")
-				.add(Projections.property("displayName"), "displayName"));
+				.add(Projections.property("displayName"), "displayName")
+				.add(Projections.property("addingNumber"), "addingNumber"));
 		criteria.add(Restrictions.like("displayName", keyWord.replace("\"", "") + "%"));
+		criteria.add(Restrictions.eq("type", SkillTypeEnum.TOP.getValue()));
 		criteria.setMaxResults(ConstantValues.MAX_RECORD_COUNT);
 		criteria.setResultTransformer(Transformers.aliasToBean(SkillDTO.class));
 
 		List<SkillDTO> skillDTOs = (List<SkillDTO>) criteria.list();
 
 		return skillDTOs;
+	}
+
+	@Override
+	public boolean subAddingNumber(Integer skillId) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		StringBuilder hql = new StringBuilder();
+		hql.append("UPDATE Skill SET addingNumber = (addingNumber - 1) WHERE id = :skillId");
+		Query query = session.createSQLQuery(hql.toString());
+		query.setParameter("skillId", skillId);
+
+		if (query.executeUpdate() > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public Skill getSkillByDisplayName(String displayName) {
+
+		Session session = sessionFactory.getCurrentSession();
+
+		Criteria criteria = session.createCriteria(Skill.class, "skill");
+		criteria.add(Restrictions.eq("displayName", displayName));
+
+		Skill skill = (Skill) criteria.uniqueResult();
+		return skill;
 	}
 
 }

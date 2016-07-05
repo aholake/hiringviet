@@ -222,6 +222,22 @@ body {
 	margin-top: 11px;
 }
 
+.skill-selection-different {
+	height: 25px;
+	line-height: 25px;
+	cursor: pointer;
+	display: inline;
+}
+.skill-selection-different li {
+	margin: 2px 10px 2px 0;
+	display: inline-flex;
+}
+.skill-selection-different .icon-endorse {
+	position: relative;
+	padding-top: 3px;
+	height: 20px;
+	line-height: 20px;
+}
 /*===========================================*/
 .tooltil-show-member {
 	position: absolute !important;

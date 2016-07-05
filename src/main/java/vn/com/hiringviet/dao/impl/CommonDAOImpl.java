@@ -97,7 +97,7 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 		T deleteEntity = findOne(id);
 		if (deleteEntity != null) {
 			try {
-				getSession().update(deleteEntity);
+				getSession().delete(deleteEntity);
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();

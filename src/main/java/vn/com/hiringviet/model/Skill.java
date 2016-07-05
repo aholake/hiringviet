@@ -19,7 +19,9 @@ public class Skill implements Serializable {
 
 	private String displayName;
 
-//	private Set<Job> jobSet;
+	private Integer addingNumber;
+
+	private Integer type;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,14 +42,22 @@ public class Skill implements Serializable {
 		this.displayName = displayName;
 	}
 
-//	@JsonIgnore
-//	@ManyToMany(mappedBy = "skillSet")
-//	public Set<Job> getJobSet() {
-//		return jobSet;
-//	}
-//
-//	public void setJobSet(Set<Job> jobSet) {
-//		this.jobSet = jobSet;
-//	}
+	@Column(name = "adding_number")
+	public Integer getAddingNumber() {
+		return addingNumber;
+	}
+
+	public void setAddingNumber(Integer addingNumber) {
+		this.addingNumber = addingNumber;
+	}
+
+	@Column(name = "type")
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
 
 }

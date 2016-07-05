@@ -161,6 +161,8 @@ h1.title {
 	text-transform: capitalize;
 	margin: 0;
 	margin-bottom: 3px;
+	opacity:.7;
+	font-weight: bold;
 }
 
 #footer {

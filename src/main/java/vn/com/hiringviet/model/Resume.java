@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -28,8 +29,6 @@ public class Resume implements Serializable {
 	private Integer id;
 
 	private Member member;
-
-//	private Set<Skill> skillSet;
 
 	private Set<EducationHistory> educationHistorySet;
 
@@ -72,25 +71,15 @@ public class Resume implements Serializable {
 		this.member = member;
 	}
 
-//	@Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-//	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	@JoinTable(name = "skill_resume", joinColumns = { @JoinColumn(name = "resume_id", nullable = false) }, inverseJoinColumns = { @JoinColumn(name = "skill_id", nullable = false) })
-//	public Set<Skill> getSkillSet() {
-//		return skillSet;
-//	}
-//
-//	public void setSkillSet(Set<Skill> skillSet) {
-//		this.skillSet = skillSet;
-//	}
-
+	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
+	@OrderBy("beginYear ASC")
 	public Set<EducationHistory> getEducationHistorySet() {
 		return educationHistorySet;
 	}
 
-	public void setEducationHistorySet(
-			Set<EducationHistory> educationHistorySet) {
+	public void setEducationHistorySet(Set<EducationHistory> educationHistorySet) {
 		this.educationHistorySet = educationHistorySet;
 	}
 
@@ -174,6 +163,7 @@ public class Resume implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	@OrderBy("endorseSet DESC")
 	public Set<SkillResume> getSkillResumeSet() {
 		return skillResumeSet;
 	}

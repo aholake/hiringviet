@@ -1,3 +1,4 @@
+
 package vn.com.hiringviet.controller;
 
 import java.util.List;
@@ -75,13 +76,10 @@ public class HomeController {
 			result = "home";
 		} else {
 
-			Member member = memberService.getMemberByAccountId(account.getId());
-			List<Integer> skillIds = resumeService
-					.getListSkillByMemberId(member.getId());
-			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT,
-					false, skillIds);
-			companyList = companyService.getListCompany(0,
-					ConstantValues.MAX_RECORD_COUNT, false);
+			Member member = memberService.getMemberByAccount(account);
+			List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
+			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
+			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, false);
 			model.addAttribute("account", account);
 			result = "home_login";
 		}

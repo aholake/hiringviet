@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dto.MemberDTO;
+import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Member;
 
 @Repository
@@ -27,14 +28,14 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 	}
 
 	@Override
-	public Member getMemberByAccountId(Integer accountId) {
+	public Member getMemberByAccount(Account account) {
 
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Member.class, "member");
 		criteria.createAlias("member.changeLog", "changeLog");
 		criteria.createAlias("member.account", "account");
 		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
-		criteria.add(Restrictions.eq("account.id", accountId));
+		criteria.add(Restrictions.eq("account", account));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 		Member result = (Member) criteria.uniqueResult();
@@ -43,7 +44,7 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 	}
 
 	@Override
-	public MemberDTO getMemberByAccount(Integer accountId) {
+	public MemberDTO getMemberByAccountId(Integer accountId) {
 
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Member.class, "member");

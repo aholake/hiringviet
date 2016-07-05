@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 @Entity
 @Table(name = "education_history")
 public class EducationHistory implements Serializable {
@@ -27,6 +29,8 @@ public class EducationHistory implements Serializable {
 	private Integer beginYear;
 
 	private Integer endYear;
+
+	private String degree;
 
 	private String socialActivity;
 
@@ -78,6 +82,15 @@ public class EducationHistory implements Serializable {
 		this.endYear = endYear;
 	}
 
+	@Column(name = "degree")
+	public String getDegree() {
+		return degree;
+	}
+
+	public void setDegree(String degree) {
+		this.degree = degree;
+	}
+
 	@Column(name = "social_activity")
 	public String getSocialActivity() {
 		return socialActivity;
@@ -87,7 +100,8 @@ public class EducationHistory implements Serializable {
 		this.socialActivity = socialActivity;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
 		return changeLog;

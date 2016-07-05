@@ -3,13 +3,15 @@ var listSkill = new Array();
 var listSkillNew = new Array();
 var skillId = null;
 var skillName = null;
+var addingNumber = 0;
 $(function() { 
 
 	/* set current skill to list */
 	$(".list-skill-chip .current_skill").each(function() {
 		skillId = $(this).children('.temp').attr('id');
 		skillName = $(this).children('.temp').attr('value');
-		listSkill.push({id: skillId, displayName: skillName});
+		addingNumber = $(this).children('.addingCount').attr('value');
+		listSkill.push({id: skillId, displayName: skillName, addingNumber: addingNumber});
 	});
 
 	/* Add event to Enter key after input new skill.*/
@@ -32,11 +34,11 @@ $(function() {
 			if (newSkill.length > 0) {
 				if (checkSkill(newSkill)) {
 					if (skillName === newSkill) {
-						listSkill.push({id: skillId, displayName: skillName});
-						listSkillNew.push({id: skillId, displayName: skillName});
+						listSkill.push({id: skillId, displayName: skillName, addingNumber: (addingNumber + 1)});
+						listSkillNew.push({id: skillId, displayName: skillName, addingNumber: (addingNumber + 1)});
 					} else {
-						listSkill.push({id: null, displayName: newSkill});
-						listSkillNew.push({id: null, displayName: newSkill});
+						listSkill.push({id: null, displayName: newSkill, addingNumber: 1});
+						listSkillNew.push({id: null, displayName: newSkill, addingNumber: 1});
 						skillName = newSkill;
 					}
 					var html = '<div class="chip chip_' + skillName + '">\
@@ -60,6 +62,7 @@ $(function() {
 		$('.suggestSearch').hide();
 		skillId = parseInt($(this).attr('id'));
 		skillName = $(this).html();
+		addingNumber = parseInt($(this).attr('class'));
 		$('#addNewSkill').focus();
 	});
 
@@ -67,7 +70,22 @@ $(function() {
 		callAPI($('#url_add_skills').val(), 'POST', listSkillNew, 'processAddSkill', true);
 	});
 
-	
+	$( "#saveEducation" ).submit(function( event ) {
+
+		$('#universityName').val($('#txtUniversityName').val());
+		$('#majorName').val($('#txtMajorName').val());
+		$('#beginYear').val($('#cbxBeginYear').val());
+		$('#endYear').val($('#cbxEndYear').val());
+		$('#degree').val($('#cbxDegree').val());
+		$('#socialActivity').val($('#txtSocialActivity').val());
+		
+		if(!$("#txtUniversityName").checkValidity()){
+			$("#txtUniversityName").setCustomValidity("Hello May Cung");
+		} else {
+			$("#txtUniversityName").setCustomValidity("");
+		}
+		return false;
+	});
 });
 
 function processSuggestSkill(responses) {
@@ -77,7 +95,7 @@ function processSuggestSkill(responses) {
 		suggestSearch.html("");
 		var html = "";
 		$.each(responses, function(i, skill) {
-			html += '<li id="' + skill.id + '">' + skill.displayName + '</li>';
+			html += '<li id="' + skill.id + '" class="' + skill.addingNumber + '">' + skill.displayName + '</li>';
 		});
 		suggestSearch.append(html);
 		$('.suggestSearch').show();
@@ -98,12 +116,11 @@ function checkSkill(value) {
 	return result;
 }
 
-function deleteSkillOfResume(accountId, resumeId, skillId) {
+function deleteSkillOfResume(accountId, resumeSkillId) {
 
 	var data = {
 		accountId: accountId,
-		resumeId: resumeId,
-		skillId: skillId
+		resumeSkillId: resumeSkillId
 	}
 
 	callAPI($('#url_delete_skill_of_resume').val(), 'POST', data, 'processDeleteSkillOfResume', false);
@@ -111,4 +128,61 @@ function deleteSkillOfResume(accountId, resumeId, skillId) {
 
 function processDeleteSkillOfResume(responses) {
 	console.log(responses);
+}
+
+function setValueSettingEducation(value, select) {
+	var universityName = $('.university-name-' + value).text();
+	var majorName = $('.major-name-' + value).text();
+	var beginYear = $('.begin-year-' + value).text();
+	var endYear = $('.end-year-' + value).text();
+	var degree = $('.degree-' + value).prop('id');
+	var socialActivity = $('.social-activity-' + value).text();
+
+	$('#education-id').val(value);
+	$('#txtUniversityName').val(universityName);
+	$('#txtMajorName').val(majorName);
+	$('#txtSocialActivity').val(socialActivity);
+	$('#cbxDegree').val(degree);
+	$('#cbxDegree').material_select();
+	$('#cbxBeginYear').val(beginYear);
+	$('#cbxBeginYear').material_select();
+	$('#cbxEndYear').val(endYear);
+	$('#cbxEndYear').material_select();
+
+	$('.panel-setting-education').show();
+	$('.list-education').hide();
+	$(select).focus();
+
+}
+
+function cancelSettingEducation() {
+
+	$('#education-id').val('');
+	$('#txtUniversityName').val('');
+	$('#txtMajorName').val('');
+	$('#txtSocialActivity').val('');
+	$('#cbxDegree').val('');
+	$('#cbxDegree').material_select();
+	$('#cbxBeginYear').val('');
+	$('#cbxBeginYear').material_select();
+	$('#cbxEndYear').val('');
+	$('#cbxEndYear').material_select();
+
+	$('.panel-setting-education input').removeClass('valid');
+	$('.panel-setting-education').hide();
+	$('.list-education').show();
+}
+
+function showPopupAddEducation() {
+	$('.panel-setting-education').show();
+	$('.list-education').hide();
+	$('#txtUniversityName').focus();
+}
+
+function addEducationDocument(value) {
+	$('.add-media-education').show();
+}
+
+function cancelEducationDocument(value) {
+	$('.add-media-education').hide();
 }

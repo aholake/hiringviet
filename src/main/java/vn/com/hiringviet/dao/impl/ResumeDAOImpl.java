@@ -14,15 +14,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.ResumeDAO;
+import vn.com.hiringviet.dao.SkillDAO;
 import vn.com.hiringviet.dto.ResumeDTO;
 import vn.com.hiringviet.model.Resume;
 
 @Repository
 @Transactional
-public class ResumeDAOImpl implements ResumeDAO {
+public class ResumeDAOImpl extends CommonDAOImpl<Resume> implements ResumeDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+
+	@Autowired
+	private SkillDAO SkillDAO;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -46,26 +50,27 @@ public class ResumeDAOImpl implements ResumeDAO {
 		return skills;
 	}
 
-	@Override
-	public boolean deleteSkillOfProfile(ResumeDTO resumeDTO) {
-
-		Session session = this.sessionFactory.getCurrentSession();
-
-		StringBuilder hql = new StringBuilder();
-		hql.append("DELETE FROM hiringviet.skill_resume ");
-		hql.append("WHERE resume_id = :resumeId ");
-		hql.append("AND skill_id = :skillId");
-
-		Query query = session.createSQLQuery(hql.toString());
-		query.setParameter("resumeId", resumeDTO.getResumeId());
-		query.setParameter("skillId", resumeDTO.getSkillId());
-
-		Integer result = query.executeUpdate();
-
-		if (result > 0) {
-			return true;
-		}
-		return false;
-	}
+//	@Override
+//	public boolean deleteSkillOfProfile(ResumeDTO resumeDTO) {
+//
+//		Session session = this.sessionFactory.getCurrentSession();
+//
+//		StringBuilder hql = new StringBuilder();
+//		hql.append("DELETE FROM hiringviet.skill_resume ");
+//		hql.append("WHERE resume_id = :resumeId ");
+//		hql.append("AND skill_id = :skillId");
+//
+//		Query query = session.createSQLQuery(hql.toString());
+//		query.setParameter("resumeId", resumeDTO.getResumeId());
+//		query.setParameter("skillId", resumeDTO.getSkillId());
+//
+//		Integer result = query.executeUpdate();
+//
+//		if (result > 0) {
+//			SkillDAO.subAddingNumber(resumeDTO.getSkillId());
+//			return true;
+//		}
+//		return false;
+//	}
 
 }
