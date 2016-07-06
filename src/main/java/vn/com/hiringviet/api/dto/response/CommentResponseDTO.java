@@ -34,6 +34,10 @@ public class CommentResponseDTO extends CommonResponseDTO implements
 
 	private Integer postId;
 
+	private Integer companyId;
+
+	private Integer roleId;
+
 	public List<CommentDTO> getCommentDTOs() {
 		return commentDTOs;
 	}
@@ -120,6 +124,22 @@ public class CommentResponseDTO extends CommonResponseDTO implements
 
 	public void setPostId(Integer postId) {
 		this.postId = postId;
+	}
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+	public Integer getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Integer roleId) {
+		this.roleId = roleId;
 	}
 
 }

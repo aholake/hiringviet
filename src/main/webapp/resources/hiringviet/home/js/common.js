@@ -13,6 +13,10 @@ var COLOR_EDIT = '#FFF';
 var BACKGROUND_DEFAULT = '#FFF';
 var COLOR_DEFAULT = '#333333';
 
+var ADMIN = 0;
+var USER = 1;
+var COMPANY = 2;
+
 /** Global Constant for CSS pop-up Progressing */
 var popupCss = "background-color: #BCBCBC;\
 	opacity: 0.8;\

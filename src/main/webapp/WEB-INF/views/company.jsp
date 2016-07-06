@@ -21,7 +21,8 @@
 	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
 	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
 	<input type="hidden" id="hide_comment" value='<spring:message code="label.company.title.hide_comment"/>' />
-	<input type="hidden" id="url_post_comment" value="<c:url value='/company/post/addComment' />" />
+	<input type="hidden" id="url_post_comment" value="<c:url value='/company/addComment' />" />
+	<input type="hidden" id="url_post_reply_comment" value="<c:url value='/company/addReplyComment' />" />
 
 		<div class="row">
 			<div class="col m8">

@@ -18,7 +18,7 @@ import vn.com.hiringviet.model.ReplyComment;
 
 @Repository
 @Transactional
-public class ReplyCommentDAOImpl implements ReplyCommentDAO {
+public class ReplyCommentDAOImpl extends CommonDAOImpl<ReplyComment> implements ReplyCommentDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;

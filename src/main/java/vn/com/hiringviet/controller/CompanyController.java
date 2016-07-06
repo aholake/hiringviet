@@ -17,6 +17,7 @@ import vn.com.hiringviet.api.dto.request.CommentRequestDTO;
 import vn.com.hiringviet.api.dto.request.ReplyCommentRequestDTO;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
 import vn.com.hiringviet.api.dto.response.ReplyCommentResponseDTO;
+import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.CommentDTO;
@@ -27,7 +28,6 @@ import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Member;
-import vn.com.hiringviet.model.Post;
 import vn.com.hiringviet.service.CommentService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.FollowService;
@@ -194,7 +194,7 @@ public class CompanyController {
 		return replyCommentResponseDTO;
 	}
 
-	@RequestMapping(value = "/company/post/addComment", method = RequestMethod.POST)
+	@RequestMapping(value = "/company/addComment", method = RequestMethod.POST)
 	public @ResponseBody CommentResponseDTO addComment(@RequestBody CommentDTO commentDTO, HttpSession session) {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
@@ -219,4 +219,55 @@ public class CompanyController {
 
 		return commentResponseDTO;
 	}
+
+	@RequestMapping(value = "/company/addReplyComment", method = RequestMethod.POST)
+	public @ResponseBody CommentResponseDTO addComment(@RequestBody ReplyCommentDTO replyCommentDTO, HttpSession session) {
+
+		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
+
+		Account account = LoginController.getAccountSession(session);
+
+		commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+
+		if (!Utils.isEmptyObject(account)) {
+			commentResponseDTO.setMessage("Please login to continue");
+			return commentResponseDTO;
+		}
+
+		replyCommentDTO.setAccount(account);
+
+		Member member = null;
+		Company company = null;
+
+		if (MemberRoleEnum.USER.getValue() == account.getRoleID()) {
+			member = LoginController.getMemberSession(session);
+		}
+
+		if (MemberRoleEnum.COMPANY.getValue() == account.getRoleID()) {
+			company = LoginController.getCompanySession(session);
+		}
+
+		if (!Utils.isEmptyNumber(replyCommentService.createReplyComment(replyCommentDTO))) {
+			commentResponseDTO.setAvatarImage(account.getAvatarImage());
+			commentResponseDTO.setNow(DateUtil.now());
+			commentResponseDTO.setComment(replyCommentDTO.getReplyComment());
+			commentResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+			commentResponseDTO.setRoleId(account.getRoleID());
+			commentResponseDTO.setCommentId(replyCommentDTO.getCommentId());
+
+			if (MemberRoleEnum.USER.getValue() == account.getRoleID()) {
+				commentResponseDTO.setFirstName(member.getFirstName());
+				commentResponseDTO.setLastName(member.getLastName());
+				commentResponseDTO.setMemberId(member.getId());
+			}
+
+			if (MemberRoleEnum.COMPANY.getValue() == account.getRoleID()) {
+				commentResponseDTO.setFirstName(company.getDisplayName());
+				commentResponseDTO.setCompanyId(company.getId());
+			}
+		}
+
+		return commentResponseDTO;
+	}
+
 }

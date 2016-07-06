@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.common.MemberRoleEnum;
+import vn.com.hiringviet.dao.CommentDAO;
 import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dao.ReplyCommentDAO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.ReplyCommentDTO;
+import vn.com.hiringviet.model.Comment;
+import vn.com.hiringviet.model.ReplyComment;
 import vn.com.hiringviet.service.ReplyCommentService;
 import vn.com.hiringviet.util.Utils;
 
@@ -21,6 +24,9 @@ public class ReplyCommentServiceImpl implements ReplyCommentService{
 
 	@Autowired
 	private MemberDAO memberDAO;
+
+	@Autowired
+	private CommentDAO commentDAO;
 
 	@Override
 	public List<ReplyCommentDTO> getListCommentByPostId(Integer first, Integer max, Integer commentId) {
@@ -41,6 +47,20 @@ public class ReplyCommentServiceImpl implements ReplyCommentService{
 		}
 
 		return replyCommentDTOs;
+	}
+
+	@Override
+	public Integer createReplyComment(ReplyCommentDTO replyCommentDTO) {
+
+		Comment comment = commentDAO.findOne(replyCommentDTO.getCommentId());
+
+		ReplyComment replyComment = new ReplyComment();
+		replyComment.setAccount(replyCommentDTO.getAccount());
+		replyComment.setComment(comment);
+		replyComment.setChangeLog(Utils.generatorChangeLog());
+		replyComment.setReplyComment(replyCommentDTO.getReplyComment());
+
+		return replyCommentDAO.create(replyComment);
 	}
 
 }
