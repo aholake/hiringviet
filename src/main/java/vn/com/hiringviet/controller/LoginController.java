@@ -77,9 +77,4 @@ public class LoginController {
 	public static Company getCompanySession(HttpSession session) {
 		return (Company) session.getAttribute("companySession");
 	}
-
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String login() {
-		return "login_page";
-	}
 }

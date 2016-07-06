@@ -103,3 +103,16 @@
 .menu-banner .active {
 	border-bottom: 1px solid #fb8c00;
 }
+
+.feed-actions {
+	display: inline-flex !important;
+}
+
+.feed-actions>li {
+	margin: 0 10px 0 0;
+    color: #9e9e9e;
+}
+
+.small-text {
+	font-size: 13px;
+}

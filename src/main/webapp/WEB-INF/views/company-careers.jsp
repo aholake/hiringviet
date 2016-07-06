@@ -47,7 +47,7 @@
 											</div>
 											<a href="#" class="company-name">${job.company.displayName}</a>
 											<p class="work-location">
-												<a href="#">${job.company.address.ward.district.province.provinceName}</a>
+												<a href="#">${job.company.address.district.province.provinceName}</a>
 											</p>
 	
 											<div class="job-info">
@@ -129,7 +129,7 @@
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">location_on</i>
 											<spring:message code="label.home.title.address" />
-											: <span class="info">${company.address.ward.district.province.provinceName}</span>
+											: <span class="info">${company.address.district.province.provinceName}</span>
 										</p>
 									</div>
 								</div>

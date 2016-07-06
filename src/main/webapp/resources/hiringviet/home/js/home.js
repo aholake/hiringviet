@@ -45,7 +45,7 @@ function showResultJobHot(response) {
 			}
 			var item = '<div class="">\
 							<div class="job-box">\
-								<div class="location-sticky orange darken-1">' + jobListResponse[index].company.address.ward.district.province.provinceName + '</div>\
+								<div class="location-sticky orange darken-1">' + jobListResponse[index].company.address.district.province.provinceName + '</div>\
 									<div class="row none-margin-bottom">\
 									<div class="col m3 center hide-on-med-and-down">\
 									<a href="/company/' + jobListResponse[index].company.id + '"><img src="' + jobListResponse[index].company.avatar + '" class="responsive-img company-logo"></a>\
@@ -59,7 +59,7 @@ function showResultJobHot(response) {
 											</h1>\
 										</div>\
 										<a href="#" class="company-name">' + jobListResponse[index].company.displayName + '</a>\
-										<p class="work-location"><a href="#">' + jobListResponse[index].company.address.ward.district.province.provinceName + '</a></p>\
+										<p class="work-location"><a href="#">' + jobListResponse[index].company.address.district.province.provinceName + '</a></p>\
 										<div class="job-info">\
 											<div class="row">\
 												<div class="col m6 none-padding-left">\

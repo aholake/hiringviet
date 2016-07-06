@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
@@ -67,7 +68,7 @@ public class HomeController {
 		List<Job> jobList = null;
 		List<Company> companyList = null;
 
-		if (Utils.isEmptyObject(account)) {
+		if (Utils.isEmptyObject(account) || MemberRoleEnum.COMPANY.getValue() == account.getRoleID()) {
 
 			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT,
 					true, null);

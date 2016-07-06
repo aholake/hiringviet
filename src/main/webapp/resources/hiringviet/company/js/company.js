@@ -22,6 +22,20 @@ $(document).ready(function() {
 		} // Callback for Modal close
 	});
 
+	$(".txtComment").keyup(function(event) {
+		if (event.keyCode === 13) {
+
+			var postId = $(this).prop('id');
+			var commentValue = $(this).val();
+			if (commentValue != null || commentValue != "") {
+				var data = {
+					comment: commentValue,
+					postId: postId
+				}
+				callAPI($('#url_post_comment').val(), 'POST', data, 'processAddComment', false);
+			}
+		}
+	});
 });
 var currentPostId = 0;
 function showComment(postId) {
@@ -40,7 +54,12 @@ function showComment(postId) {
 
 function hideComment(postId) {
 	$('.comments-' + postId).hide('Blind');
-	$('.comment-' + postId).attr('onclick', 'javascript:showComment(' + postId + ')');
+	$('.comment-' + postId).attr('onclick', 'javascript:blockComment(' + postId + ')');
+}
+
+function blockComment(postId) {
+	$('.comments-' + postId).show('Blind');
+	$('.comment-' + postId).attr('onclick', 'javascript:hideComment(' + postId + ')');
 }
 
 function showPostComments(response) {
@@ -63,7 +82,7 @@ function showPostComments(response) {
 						<p class="title"><a href="' + $('#url_redirect_member').val() + commentDTOs[index].memberId + '">' + commentDTOs[index].firstName + ' ' + commentDTOs[index].lastName + '</a>\
 						<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(commentDTOs[index].changeLog.createdDate).toLocaleString() + '</span></p>\
 						<p class="small-text">' + commentDTOs[index].comment + '</p> \
-						<p class="small-text display-inline-flex"><i class="material-icons small-icon">subdirectory_arrow_right</i><a class="a-text-color" onclick="showReplyComment(' + commentDTOs[index].commentId + ');">' + $('#reply_comment').val() + '</a></p>\
+						<p class="small-text display-inline-flex"><i class="material-icons small-icon">subdirectory_arrow_right</i><a class="a-text-color reply-' + commentDTOs[index].commentId + '" onclick="showReplyComment(' + commentDTOs[index].commentId + ');">' + $('#reply_comment').val() + '</a></p>\
 						<div class="reply-comment-' + commentDTOs[index].commentId + '" style="display: none;">\
 							<input type="hidden" id="firstItem-reply-' + commentDTOs[index].commentId + '" value="0" />\
 							<input type="hidden" id="currentPage-reply-' + commentDTOs[index].commentId + '" value="1" />\
@@ -72,7 +91,7 @@ function showPostComments(response) {
 									<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
 								</li>\
 							</ul>\
-							<div class="input-field col m12">\
+							<div class="input-field col m12 p-0">\
 								<input id="last_name" type="text" class="validate" placeholder="' + $('#write_comment').val() + '">\
 							</div>\
 						</div>\
@@ -99,6 +118,8 @@ function showReplyComment(commentId) {
 			}
 	}
 	callAPI($('#url_get_post_replyComments').val(), 'POST', data, 'showPostReplyComments', true);
+	$('.reply-' + commentId).attr('onclick', 'javascript:hideReplyComment(' + commentId + ')');
+
 }
 
 function showPostReplyComments(response) {
@@ -138,8 +159,28 @@ function showPostReplyComments(response) {
 		}
 
 		replyCommentList.append(html);
-		$('.reply-comment-' + currentCommentId).show();
+		$('.reply-comment-' + currentCommentId).show('Blind');
 		$('#firstItem-reply-' + currentCommentId).val(response.pagingDTO.firstItem);
 		$('#currentPage-reply-' + currentCommentId).val(response.pagingDTO.currentPage);
 	}
+}
+
+
+function hideReplyComment(commentId) {
+	$('.reply-comment-' + commentId).hide('Blind');
+	$('.reply-' + commentId).attr('onclick', 'javascript:blockReplyComment(' + commentId + ')');
+}
+
+function blockReplyComment(commentId) {
+	$('.reply-comment-' + commentId).show('Blind');
+	$('.reply-' + commentId).attr('onclick', 'javascript:hideReplyComment(' + commentId + ')');
+}
+
+function addPostComment(event, value) {
+	console.log("addPostComment");
+	
+}
+
+function processAddComment(response) {
+	alert(response.result);
 }

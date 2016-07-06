@@ -35,7 +35,7 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 		criteria.createAlias("member.changeLog", "changeLog");
 		criteria.createAlias("member.account", "account");
 		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
-		criteria.add(Restrictions.eq("account", account));
+		criteria.add(Restrictions.eq("account.id", account.getId()));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 		Member result = (Member) criteria.uniqueResult();

@@ -16,7 +16,7 @@
 <!-- CSS media query on a link element -->
 <link rel="stylesheet" href="/resources/hiringviet/home/css/smart-home.css" />
 <link rel="stylesheet" href="/resources/hiringviet/profile/css/profile.css" />
-<script type="text/javascript" src="<c:url value='/resources/hiringviet/login/js/login.js'/>" ></script>
+
 </head>
 <body>
 	<input type="hidden" id="url_suggest_skill" value="<c:url value='/search/suggestSkill'/>"/>

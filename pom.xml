@@ -277,6 +277,13 @@
 	<profiles>
 		<profile>
 			<id>deploy</id>
+			<build>
+				<resources>
+					<resource>
+						<directory>/src/main/resources/deploy</directory>
+					</resource>
+				</resources>
+			</build>
 			<properties>
 				<build.profile.id>deploy</build.profile.id>
 			</properties>
@@ -284,15 +291,6 @@
 	</profiles>
 
 	<build>
-		<filters>
-			 <filter>${build.profile.id}/config.properties</filter>
-		</filters>
-		<resources>
-			<resource>
-				<filtering>true</filtering>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
 		<!-- for hot reload of the web application -->
 		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 		<pluginManagement>

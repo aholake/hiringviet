@@ -3,6 +3,8 @@ package vn.com.hiringviet.dto;
 import java.io.Serializable;
 
 import vn.com.hiringviet.model.ChangeLog;
+import vn.com.hiringviet.model.Member;
+
 
 /**
  * The Class CommentDTO.
@@ -33,6 +35,15 @@ public class CommentDTO implements Serializable {
 	/** The change log. */
 	private ChangeLog changeLog;
 
+	/** The member. */
+	private Member member;
+
+	/** The post. */
+	private Integer postId;
+
+	/** The job. */
+	private Integer jobId;
+
 	/**
 	 * Gets the member id.
 	 *
@@ -45,7 +56,8 @@ public class CommentDTO implements Serializable {
 	/**
 	 * Sets the member id.
 	 *
-	 * @param memberId the new member id
+	 * @param memberId
+	 *            the new member id
 	 */
 	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
@@ -63,7 +75,8 @@ public class CommentDTO implements Serializable {
 	/**
 	 * Sets the comment id.
 	 *
-	 * @param commentId the new comment id
+	 * @param commentId
+	 *            the new comment id
 	 */
 	public void setCommentId(Integer commentId) {
 		this.commentId = commentId;
@@ -81,7 +94,8 @@ public class CommentDTO implements Serializable {
 	/**
 	 * Sets the first name.
 	 *
-	 * @param firstName the new first name
+	 * @param firstName
+	 *            the new first name
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -99,7 +113,8 @@ public class CommentDTO implements Serializable {
 	/**
 	 * Sets the last name.
 	 *
-	 * @param lastName the new last name
+	 * @param lastName
+	 *            the new last name
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -117,7 +132,8 @@ public class CommentDTO implements Serializable {
 	/**
 	 * Sets the comment.
 	 *
-	 * @param comment the new comment
+	 * @param comment
+	 *            the new comment
 	 */
 	public void setComment(String comment) {
 		this.comment = comment;
@@ -135,7 +151,8 @@ public class CommentDTO implements Serializable {
 	/**
 	 * Sets the avatar image.
 	 *
-	 * @param avatarImage the new avatar image
+	 * @param avatarImage
+	 *            the new avatar image
 	 */
 	public void setAvatarImage(String avatarImage) {
 		this.avatarImage = avatarImage;
@@ -153,10 +170,68 @@ public class CommentDTO implements Serializable {
 	/**
 	 * Sets the change log.
 	 *
-	 * @param changeLog the new change log
+	 * @param changeLog
+	 *            the new change log
 	 */
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
+	}
+
+	/**
+	 * Gets the member.
+	 *
+	 * @return the member
+	 */
+	public Member getMember() {
+		return member;
+	}
+
+	/**
+	 * Sets the member.
+	 *
+	 * @param member
+	 *            the new member
+	 */
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
+	/**
+	 * Gets the post id.
+	 *
+	 * @return the post id
+	 */
+	public Integer getPostId() {
+		return postId;
+	}
+
+	/**
+	 * Sets the post id.
+	 *
+	 * @param postId
+	 *            the new post id
+	 */
+	public void setPostId(Integer postId) {
+		this.postId = postId;
+	}
+
+	/**
+	 * Gets the job id.
+	 *
+	 * @return the job id
+	 */
+	public Integer getJobId() {
+		return jobId;
+	}
+
+	/**
+	 * Sets the job id.
+	 *
+	 * @param jobId
+	 *            the new job id
+	 */
+	public void setJobId(Integer jobId) {
+		this.jobId = jobId;
 	}
 
 }

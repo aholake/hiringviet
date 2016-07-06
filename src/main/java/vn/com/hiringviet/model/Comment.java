@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -66,6 +68,7 @@ public class Comment implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "change_log_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public ChangeLog getChangeLog() {
 		return changeLog;
 	}
