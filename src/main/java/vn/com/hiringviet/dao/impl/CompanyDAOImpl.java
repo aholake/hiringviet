@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -83,7 +84,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		Criteria criteria = session.createCriteria(Post.class, "post");
 		criteria.createAlias("post.company", "company");
 		criteria.createAlias("post.changeLog", "changeLog");
-		criteria.createAlias("post.commentSet", "commentSet");
+		criteria.createAlias("post.commentSet", "commentSet", JoinType.LEFT_OUTER_JOIN);
 		criteria.add(Restrictions.eq("company.id", companyId));
 		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
 		criteria.setProjection(Projections.projectionList()

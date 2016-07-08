@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,10 +40,10 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 		criteria.createAlias("comment.member.resume", "resume");
 		criteria.createAlias("comment.post", "post");
 		criteria.createAlias("comment.changeLog", "changeLog");
-		criteria.createAlias("comment.replyCommentSet", "replyCommentSet");
+		criteria.createAlias("comment.replyCommentSet", "replyCommentSet", JoinType.LEFT_OUTER_JOIN);
 		criteria.setProjection(Projections.projectionList()
-				.add(Projections.property("member.id").as("memberId"))
-				.add(Projections.property("comment.id").as("commentId"))
+				.add(Projections.groupProperty("member.id").as("memberId"))
+				.add(Projections.groupProperty("comment.id").as("commentId"))
 				.add(Projections.property("resume.avatarImage").as("avatarImage"))
 				.add(Projections.property("changeLog").as("changeLog"))
 				.add(Projections.property("comment.comment").as("comment"))
@@ -50,7 +51,7 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 				.add(Projections.property("member.lastName").as("lastName"))
 				.add(Projections.count("replyCommentSet.id").as("numberReplyComment")));
 		criteria.add(Restrictions.eq("post.id", postId));
-		criteria.addOrder(Order.asc("changeLog.createdDate"));
+		criteria.addOrder(Order.desc("changeLog.createdDate"));
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);
 		criteria.setResultTransformer(Transformers.aliasToBean(CommentDTO.class));

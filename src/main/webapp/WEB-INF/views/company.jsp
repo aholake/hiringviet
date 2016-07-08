@@ -70,9 +70,7 @@
 								</div>
 								<div class="comments comments-${post.id} comment-bg"  style="display: none;">
 									<ul class="collection commentList-${post.id} remove-border">
-										<li class="display-inline-flex">
-											<a class="margin-left-5 small-text a-text-color"><spring:message code="label.company.title.load_more_comment"/></a>
-										</li>
+										
 									</ul>
 									<div class="post-comment">
 										<div class="input-field col m12">

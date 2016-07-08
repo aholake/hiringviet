@@ -67,7 +67,7 @@ function blockComment(postId) {
 function showPostComments(response) {
 
 	if (FAIL == response.result) {
-		alert(response.message);
+		
 	} else {
 		var commentList = $('.commentList-' + currentPostId);
 		commentList.html("");
@@ -85,7 +85,7 @@ function showPostComments(response) {
 						</li>';
 				if (numberComment > currentNumberComment) {
 					html += '<li class="display-inline-flex" style="width: 100%;">\
-								<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
+								<a class="margin-left-5 small-text a-text-color" onclick="javascript:showComment(' + currentPostId + ');">' + $('#load_more_comment').val() + '</a>\
 							</li>';
 				}
 			}
@@ -94,7 +94,12 @@ function showPostComments(response) {
 						<p class="title"><a href="' + $('#url_redirect_member').val() + commentDTOs[index].memberId + '">' + commentDTOs[index].firstName + ' ' + commentDTOs[index].lastName + '</a>\
 						<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(commentDTOs[index].changeLog.createdDate).toLocaleString() + '</span></p>\
 						<p class="small-text">' + commentDTOs[index].comment + '</p> \
-						<p class="small-text display-inline-flex"><i class="material-icons small-icon">subdirectory_arrow_right</i><a class="a-text-color reply-' + commentDTOs[index].commentId + '" onclick="showReplyComment(' + commentDTOs[index].commentId + ');">' + $('#reply_comment').val() + '<span class="a-text-color"> (' + commentDTOs[index].numberReplyComment + ')</span></a></p>\
+						<p class="small-text display-inline-flex"><i class="material-icons small-icon">subdirectory_arrow_right</i>\
+							<a class="a-text-color reply-' + commentDTOs[index].commentId + '" \
+							onclick="showReplyComment(' + commentDTOs[index].commentId + ');">' + $('#reply_comment').val() + ' \
+							(<span class="a-text-color numberReplyComment-' + commentDTOs[index].commentId + '">' + commentDTOs[index].numberReplyComment + '</span>)</a>\
+							<input type="hidden" class="currentNumberReplyComment-' + commentDTOs[index].commentId + '" value="0"/>\
+						</p>\
 						<div class="reply-comment-' + commentDTOs[index].commentId + '" style="display: none;">\
 							<input type="hidden" id="firstItem-reply-' + commentDTOs[index].commentId + '" value="0" />\
 							<input type="hidden" id="currentPage-reply-' + commentDTOs[index].commentId + '" value="1" />\
@@ -108,9 +113,9 @@ function showPostComments(response) {
 		}
 
 		commentList.append(html);
+		$('#firstItem-comment-' + currentPostId).val(response.pagingDTO.firstItem);
+		$('#currentPage-comment-' + currentPostId).val(response.pagingDTO.currentPage);
 	}
-	$('#firstItem-comment-' + currentPostId).val(response.pagingDTO.firstItem);
-	$('#currentPage-comment-' + currentPostId).val(response.pagingDTO.currentPage);
 	$('.comments-' + currentPostId).show('Blind');
 	$('.comment-' + currentPostId).attr('onclick', 'javascript:hideComment(' + currentPostId + ')');
 }
@@ -152,15 +157,23 @@ function showPostReplyComments(response) {
 		replyCommentList.html("");
 		var replyCommentDTOs = response.replyCommentDTOs;
 		var html = "";
+
+		var numberReplyComment = parseInt($('.numberReplyComment-' + currentCommentId).text());
+		var currentNumberReplyComment = parseInt($('.currentNumberReplyComment-' + currentCommentId).val());
+		$('.currentNumberReplyComment-' + currentCommentId).val(currentNumberReplyComment + replyCommentDTOs.length);
+		var currentNumberReplyComment = parseInt($('.currentNumberReplyComment-' + currentCommentId).val());
+
 		for (var index = 0; index < replyCommentDTOs.length; index++) {
 
 			if (index == 0) {
 				html += '<li class="display-inline-flex" style="width: 100%;">\
 							<a class="margin-left-5 small-text a-text-color" onclick="javascript:hideReplyComment(' + currentCommentId + ')">' + $('#hide_comment').val() + '</a>\
-						</li>\
-						<li class="display-inline-flex">\
-							<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
 						</li>';
+				if (numberReplyComment > currentNumberReplyComment) {
+					html += '<li class="display-inline-flex">\
+								<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
+							</li>';
+				}
 			}
 			if (replyCommentDTOs[index].memberId != null) {
 				html += '<li class="collection-item avatar comment-bg" style="padding-right: 0px;">\
@@ -205,7 +218,7 @@ function addPostComment(event, value) {
 function processAddComment(response) {
 
 	if (FAIL == response.result) {
-		
+		alert(FAIL);
 	} else {
 		var html = "";
 		html += '<li class="collection-item avatar comment-bg">\
@@ -216,6 +229,9 @@ function processAddComment(response) {
 				</li>';
 		$('.commentList-' + response.postId).append(html);
 		$('.txtComment-' + response.postId).val("");
+		var numberComment = parseInt($('.numberComment-' + response.postId).text()) + 1;
+		$('.numberComment-' + response.postId).text(numberComment);
+		
 	}
 }
 
@@ -252,6 +268,8 @@ function processAddReplyComment(response) {
 		var replyCommentList = $('#replyCommentList-' + response.commentId);
 		replyCommentList.append(html);
 		$('#txtReplyComment-' + response.commentId).val('');
+		var numberReplyComment = parseInt($('.numberReplyComment-' +  response.commentId).text()) + 1;
+		$('.numberReplyComment-' +  response.commentId).text(numberReplyComment);
 	}
 }
 

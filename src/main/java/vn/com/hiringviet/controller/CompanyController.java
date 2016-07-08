@@ -146,7 +146,11 @@ public class CompanyController {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
 
-		PagingDTO pagingDTO = Utils.calculatorPaging(commentRequestDTO.getPagingDTO(), true);
+		PagingDTO pagingDTO = null;
+		if (ConstantValues.CURRENT_PAGE == commentRequestDTO.getPagingDTO().getCurrentPage()) {
+			pagingDTO = Utils.calculatorPaging(commentRequestDTO.getPagingDTO(), true);
+		}
+
 		List<CommentDTO> commentDTOs = commentService.getListCommentByPostId(
 				pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
 				commentRequestDTO.getPostId());
@@ -160,6 +164,8 @@ public class CompanyController {
 			commentResponseDTO.setLoadable(false);
 		}
 
+
+		pagingDTO = Utils.calculatorPaging(commentRequestDTO.getPagingDTO(), false);
 		commentResponseDTO.setCommentDTOs(commentDTOs);
 		commentResponseDTO.setPagingDTO(pagingDTO);
 		commentResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
