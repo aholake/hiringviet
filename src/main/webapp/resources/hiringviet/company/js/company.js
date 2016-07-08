@@ -70,7 +70,12 @@ function showPostComments(response) {
 		
 	} else {
 		var commentList = $('.commentList-' + currentPostId);
-		commentList.html("");
+
+		var currentPage = $('#currentPage-comment-' + currentPostId).val();
+		if (FIRST_PAGE == currentPage) {
+			commentList.html("");
+		}
+
 		var commentDTOs = response.commentDTOs;
 		var html = "";
 		var numberComment = parseInt($('.numberComment-' + currentPostId).text());
@@ -78,15 +83,21 @@ function showPostComments(response) {
 		$('.currentNumberComment-' + currentPostId).val(currentNumberComment + commentDTOs.length);
 		var currentNumberComment = parseInt($('.currentNumberComment-' + currentPostId).val());
 
+		if (numberComment <= currentNumberComment) {
+			$('.show-more-comment-' + currentPostId).hide();
+		}
+
 		for (var index = 0; index < commentDTOs.length; index++) {
-			if (index == 0) {
-				html += '<li class="display-inline-flex" style="width: 100%;">\
-							<a class="margin-left-5 small-text a-text-color" onclick="javascript:hideComment(' + currentPostId + ')">' + $('#hide_comment').val() + '</a>\
-						</li>';
-				if (numberComment > currentNumberComment) {
+			if (FIRST_PAGE == currentPage) {
+				if (index == 0) {
 					html += '<li class="display-inline-flex" style="width: 100%;">\
-								<a class="margin-left-5 small-text a-text-color" onclick="javascript:showComment(' + currentPostId + ');">' + $('#load_more_comment').val() + '</a>\
+								<a class="margin-left-5 small-text a-text-color" onclick="javascript:hideComment(' + currentPostId + ')">' + $('#hide_comment').val() + '</a>\
 							</li>';
+					if (numberComment > currentNumberComment) {
+						html += '<li class="display-inline-flex" style="width: 100%;">\
+									<a class="margin-left-5 small-text a-text-color show-more-comment-' + currentPostId + '" onclick="javascript:showComment(' + currentPostId + ');">' + $('#load_more_comment').val() + '</a>\
+								</li>';
+					}
 				}
 			}
 			html += '<li class="collection-item avatar comment-bg">\
@@ -154,7 +165,12 @@ function showPostReplyComments(response) {
 		var replyCommentList = $('#replyCommentList-' + currentCommentId);
 		var companyPhoto = $('.company-logo img').attr('src');
 		var companyName = $('.company-name a').html();
-		replyCommentList.html("");
+
+		var currentPage = $('#currentPage-reply-' + currentCommentId).val();
+		if (FIRST_PAGE == currentPage) {
+			replyCommentList.html("");
+		}
+
 		var replyCommentDTOs = response.replyCommentDTOs;
 		var html = "";
 
@@ -163,16 +179,22 @@ function showPostReplyComments(response) {
 		$('.currentNumberReplyComment-' + currentCommentId).val(currentNumberReplyComment + replyCommentDTOs.length);
 		var currentNumberReplyComment = parseInt($('.currentNumberReplyComment-' + currentCommentId).val());
 
+		if (numberReplyComment <= currentNumberReplyComment) {
+			$('.show-more-reply-' + currentCommentId).hide();
+		}
+
 		for (var index = 0; index < replyCommentDTOs.length; index++) {
 
-			if (index == 0) {
-				html += '<li class="display-inline-flex" style="width: 100%;">\
-							<a class="margin-left-5 small-text a-text-color" onclick="javascript:hideReplyComment(' + currentCommentId + ')">' + $('#hide_comment').val() + '</a>\
-						</li>';
-				if (numberReplyComment > currentNumberReplyComment) {
-					html += '<li class="display-inline-flex">\
-								<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
+			if (FIRST_PAGE == currentPage) {
+				if (index == 0) {
+					html += '<li class="display-inline-flex" style="width: 100%;">\
+								<a class="margin-left-5 small-text a-text-color" onclick="javascript:hideReplyComment(' + currentCommentId + ')">' + $('#hide_comment').val() + '</a>\
 							</li>';
+					if (numberReplyComment > currentNumberReplyComment) {
+						html += '<li class="display-inline-flex">\
+									<a class="margin-left-5 small-text a-text-color show-more-reply-' + currentCommentId + '" onclick="javascript:showReplyComment(' + currentCommentId + ')">' + $('#load_more_comment').val() + '</a>\
+								</li>';
+					}
 				}
 			}
 			if (replyCommentDTOs[index].memberId != null) {

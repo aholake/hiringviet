@@ -17,6 +17,8 @@ var ADMIN = 0;
 var USER = 1;
 var COMPANY = 2;
 
+var FIRST_PAGE = 1;
+
 /** Global Constant for CSS pop-up Progressing */
 var popupCss = "background-color: #BCBCBC;\
 	opacity: 0.8;\

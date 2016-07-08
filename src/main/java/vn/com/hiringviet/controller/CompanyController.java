@@ -149,6 +149,8 @@ public class CompanyController {
 		PagingDTO pagingDTO = null;
 		if (ConstantValues.CURRENT_PAGE == commentRequestDTO.getPagingDTO().getCurrentPage()) {
 			pagingDTO = Utils.calculatorPaging(commentRequestDTO.getPagingDTO(), true);
+		} else {
+			pagingDTO = commentRequestDTO.getPagingDTO();
 		}
 
 		List<CommentDTO> commentDTOs = commentService.getListCommentByPostId(
@@ -179,7 +181,13 @@ public class CompanyController {
 
 		ReplyCommentResponseDTO replyCommentResponseDTO = new ReplyCommentResponseDTO();
 
-		PagingDTO pagingDTO = Utils.calculatorPaging(replyCommentRequestDTO.getPagingDTO(), true);
+		PagingDTO pagingDTO = null;
+		if (ConstantValues.CURRENT_PAGE == replyCommentRequestDTO.getPagingDTO().getCurrentPage()) {
+			pagingDTO = Utils.calculatorPaging(replyCommentRequestDTO.getPagingDTO(), true);
+		} else {
+			pagingDTO = replyCommentRequestDTO.getPagingDTO();
+		}
+
 		List<ReplyCommentDTO> replyCommentDTOs = replyCommentService.getListCommentByPostId(pagingDTO.getFirstItem(), 
 																							ConstantValues.MAX_RECORD_COUNT, 
 																							replyCommentRequestDTO.getCommentId());
@@ -193,6 +201,7 @@ public class CompanyController {
 			replyCommentResponseDTO.setLoadable(false);
 		}
 
+		pagingDTO = Utils.calculatorPaging(replyCommentRequestDTO.getPagingDTO(), false);
 		replyCommentResponseDTO.setReplyCommentDTOs(replyCommentDTOs);
 		replyCommentResponseDTO.setPagingDTO(pagingDTO);
 		replyCommentResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
