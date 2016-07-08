@@ -1,6 +1,10 @@
+var checkMemberTooltip = true;
+
 $(document).ready(function(){
 
-	$('body').on('click', function() {
+	$('.tooltil-show-member').hover(function(){
+		$('.tooltil-show-member').show();
+	}, function() {
 		$('.tooltil-show-member').hide();
 	});
 });
@@ -63,18 +67,28 @@ function processRemoveEndorse(responses) {
 }
 
 
-function showTooltip(event, accountId) {
-	var bodyRect = document.body.getBoundingClientRect(),
-    elemRect = event.getBoundingClientRect(),
-    offsetX   = elemRect.top - bodyRect.top;
-    offsetY  = elemRect.left - bodyRect.left;
+function showMemberTooltip(event, accountId) {
+	if (checkMemberTooltip) {
+		var bodyRect = document.body.getBoundingClientRect(),
+	    elemRect = event.getBoundingClientRect(),
+	    offsetX   = elemRect.top - bodyRect.top;
+	    offsetY  = elemRect.left - bodyRect.left;
+	
+		$('.tooltil-show-member').css('top', (offsetX - 112));
+		$('.tooltil-show-member').css('left', (offsetY - 113));
+		$('.tooltil-show-member .btn-connect').prop('href', $('#redirect_member_page').val() + accountId);
+		$('.tooltil-show-member .btn-profile').prop('href', $('#redirect_member_page').val() + accountId);
+		$('.tooltil-show-member .endorse-item-name-text').prop('href', $('#redirect_member_page').val() + accountId);
+		callAPI($('#url_count_member_of_follwer').val(), 'POST', accountId, 'processCountNumberOfFollower', false);
+		checkMemberTooltip = false;
+	}
+}
 
-	$('.tooltil-show-member').css('top', (offsetX - 112));
-	$('.tooltil-show-member').css('left', (offsetY - 113));
-	$('.tooltil-show-member .btn-connect').prop('href', $('#redirect_member_page').val() + accountId);
-	$('.tooltil-show-member .btn-profile').prop('href', $('#redirect_member_page').val() + accountId);
-	$('.tooltil-show-member .endorse-item-name-text').prop('href', $('#redirect_member_page').val() + accountId);
-	callAPI($('#url_count_member_of_follwer').val(), 'POST', accountId, 'processCountNumberOfFollower', false);
+function hideMemberToolTip() {
+	if (!checkMemberTooltip) {
+		$('.tooltil-show-member').hide();
+		checkMemberTooltip = true;
+	}
 }
 
 function processCountNumberOfFollower(responses) {

@@ -292,12 +292,14 @@
 				    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
 					    						<c:choose>
 					    							<c:when test="${not empty sessionScope.account && sessionScope.account.id == endorse.account.id}">
-						    							<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}" onmouseenter="showTooltip(this, ${endorse.account.id});">
-							    							<a href="#">
-							    								<img class="img-full" src="${endorse.account.avatarImage}">
-							    							</a>
-						    							</li>
-						    							<script type="text/javascript">
+														<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}"
+															onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
+															onmouseout="javascript:hideMemberToolTip()">
+															<a href="#"> <img class="img-full"
+																src="${endorse.account.avatarImage}">
+														</a>
+														</li>
+														<script type="text/javascript">
 						    								var skillResumeId = $('.skill_resume_' + ${skillResume.skill.id}).val();
 						    								$('.icon_add_endorse_' + skillResumeId).hide();
 						    								$('.icon_remove_endorse_' + skillResumeId).show();
@@ -309,7 +311,9 @@
 					    							</c:when>
 					    							<c:otherwise>
 					    								<c:if test="${theCount.count <= 9}">
-						    								<li class="endorse_${endorse.id}" onmouseenter="showTooltip(this, ${endorse.account.id});">
+						    								<li class="endorse_${endorse.id}" 
+						    									onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
+						    									onmouseout="javascript:hideMemberToolTip()">
 								    							<a href="#">
 								    								<img class="img-full" src="${endorse.account.avatarImage}">
 								    							</a>
