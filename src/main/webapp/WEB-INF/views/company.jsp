@@ -58,7 +58,12 @@
 								<div class="feed-item-meta">
 									<ul class="feed-actions">
 										<li class="feed-comment comment-${post.id}" onclick="javascript:showComment(${post.id});">
-										<a class="a-text-color small-text display-inline-flex"><i class="material-icons small-icon">comment</i><spring:message code="label.company.title.comment"/> (${post.numberComment})</a>
+											<a class="a-text-color small-text display-inline-flex">
+												<i class="material-icons small-icon">comment</i>
+												<spring:message code="label.company.title.comment"/>
+												 (<span class="a-text-color numberComment-${post.id}">${post.numberComment}</span>)
+											 </a>
+											 <input type="hidden" class="currentNumberComment-${post.id}" value="0"/>
 										</li>
 										<li class="feed-postDate small-text display-inline-flex"><i class="material-icons small-icon">date_range</i>${post.changeLog.createdDate}</li>
 									</ul>
@@ -71,7 +76,7 @@
 									</ul>
 									<div class="post-comment">
 										<div class="input-field col m12">
-											<input id="${post.id}" type="text" class="validate txtComment" placeholder="<spring:message code='label.company.title.write_comment'/>">
+											<input id="${post.id}" type="text" class="validate txtComment txtComment-${post.id}" placeholder="<spring:message code='label.company.title.write_comment'/>">
 										</div>
 									</div>
 								</div>

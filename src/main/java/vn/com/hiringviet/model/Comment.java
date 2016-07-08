@@ -1,6 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
@@ -35,6 +38,8 @@ public class Comment implements Serializable {
 	private Post post;
 
 	private Job job;
+
+	private Set<ReplyComment> replyCommentSet;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,6 +102,18 @@ public class Comment implements Serializable {
 
 	public void setJob(Job job) {
 		this.job = job;
+	}
+
+	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "comment_id")
+	@OrderBy("id DESC")
+	public Set<ReplyComment> getReplyCommentSet() {
+		return replyCommentSet;
+	}
+
+	public void setReplyCommentSet(Set<ReplyComment> replyCommentSet) {
+		this.replyCommentSet = replyCommentSet;
 	}
 
 }

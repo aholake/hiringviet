@@ -174,10 +174,9 @@ public class CompanyController {
 		ReplyCommentResponseDTO replyCommentResponseDTO = new ReplyCommentResponseDTO();
 
 		PagingDTO pagingDTO = Utils.calculatorPaging(replyCommentRequestDTO.getPagingDTO(), true);
-		List<ReplyCommentDTO> replyCommentDTOs = replyCommentService
-				.getListCommentByPostId(pagingDTO.getFirstItem(),
-						ConstantValues.MAX_RECORD_COUNT,
-						replyCommentRequestDTO.getCommentId());
+		List<ReplyCommentDTO> replyCommentDTOs = replyCommentService.getListCommentByPostId(pagingDTO.getFirstItem(), 
+																							ConstantValues.MAX_RECORD_COUNT, 
+																							replyCommentRequestDTO.getCommentId());
 
 		if (Utils.isEmptyList(replyCommentDTOs)) {
 			replyCommentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -229,7 +228,7 @@ public class CompanyController {
 
 		commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 
-		if (!Utils.isEmptyObject(account)) {
+		if (account == null) {
 			commentResponseDTO.setMessage("Please login to continue");
 			return commentResponseDTO;
 		}

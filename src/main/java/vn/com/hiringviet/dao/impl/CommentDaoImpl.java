@@ -39,6 +39,7 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 		criteria.createAlias("comment.member.resume", "resume");
 		criteria.createAlias("comment.post", "post");
 		criteria.createAlias("comment.changeLog", "changeLog");
+		criteria.createAlias("comment.replyCommentSet", "replyCommentSet");
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.property("member.id").as("memberId"))
 				.add(Projections.property("comment.id").as("commentId"))
@@ -46,7 +47,8 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 				.add(Projections.property("changeLog").as("changeLog"))
 				.add(Projections.property("comment.comment").as("comment"))
 				.add(Projections.property("member.firstName").as("firstName"))
-				.add(Projections.property("member.lastName").as("lastName")));
+				.add(Projections.property("member.lastName").as("lastName"))
+				.add(Projections.count("replyCommentSet.id").as("numberReplyComment")));
 		criteria.add(Restrictions.eq("post.id", postId));
 		criteria.addOrder(Order.asc("changeLog.createdDate"));
 		criteria.setFirstResult(first);
