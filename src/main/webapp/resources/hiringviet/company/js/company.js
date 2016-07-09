@@ -33,7 +33,21 @@ $(document).ready(function() {
 					postId: postId
 				}
 				callAPI($('#url_post_comment').val(), 'POST', data, 'processAddComment', false);
+
 			}
+		}
+	});
+
+	$('.txtReplyComment').keyup(function(event) {
+
+		var commentId = $(this).prop('id');
+		var commentValue = $(this).val();
+		if (commentValue != null || commentValue != "") {
+			var data = {
+				commentId: commentId,
+				replyComment: commentValue
+			}
+			callAPI($('#url_post_reply_comment').val(), 'POST', data, 'processAddReplyComment', false);
 		}
 	});
 });
@@ -74,6 +88,7 @@ function showPostComments(response) {
 		for (var index = 0; index < commentDTOs.length; index++) {
 			if (index == 0) {
 			html += '<li class="display-inline-flex">\
+						<a class="margin-left-5 small-text a-text-color">' + $('#hide_comment').val() + '</a>\
 						<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
 					</li>';
 			}
@@ -92,7 +107,7 @@ function showPostComments(response) {
 								</li>\
 							</ul>\
 							<div class="input-field col m12 p-0">\
-								<input id="last_name" type="text" class="validate" placeholder="' + $('#write_comment').val() + '">\
+								<input onkeyup="test();" id="txtReplyComment-' + currentCommentId + '" class="txtReplyComment" type="text" class="validate" placeholder="' + $('#write_comment').val() + '">\
 							</div>\
 						</div>\
 					</li>';
@@ -125,12 +140,24 @@ function showReplyComment(commentId) {
 function showPostReplyComments(response) {
 
 	if (FAIL == response.result) {
-		alert(response.message);
+		$('.reply-comment-' + currentCommentId).html("");
+		var html = '<input type="hidden" id="firstItem-reply-' + currentCommentId + '" value="0" />\
+					<input type="hidden" id="currentPage-reply-' + currentCommentId + '" value="1" />\
+					<ul class="collection remove-border" id="replyCommentList-' + currentCommentId + '">\
+						<li class="display-inline-flex">\
+							<a class="margin-left-5 small-text a-text-color">' + $('#load_more_comment').val() + '</a>\
+						</li>\
+					</ul>\
+					<div class="input-field col m12 p-0">\
+						<input onkeyup="test();" id="txtReplyComment-' + currentCommentId + '" class="txtReplyComment" type="text" class="validate" placeholder="' + $('#write_comment').val() + '">\
+					</div>';
+		$('.reply-comment-' + currentCommentId).append(html);
+		$('.reply-comment-' + currentCommentId).show('Blind');
 	} else {
 
+		var replyCommentList = $('#replyCommentList-' + currentCommentId);
 		var companyPhoto = $('.company-logo img').attr('src');
 		var companyName = $('.company-name a').html();
-		var replyCommentList = $('#replyCommentList-' + currentCommentId);
 		replyCommentList.html("");
 		var replyCommentDTOs = response.replyCommentDTOs;
 		var html = "";
@@ -182,5 +209,53 @@ function addPostComment(event, value) {
 }
 
 function processAddComment(response) {
-	alert(response.result);
+
+	var html = "";
+	html += '<li class="collection-item avatar comment-bg">\
+				<img src="' + response.avatarImage + '" alt="" class="circle"> \
+				<p class="title"><a href="' + $('#url_redirect_member').val() + response.memberId + '">' + response.firstName + ' ' + response.lastName + '</a>\
+				<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(response.now).toLocaleString() + '</span></p>\
+				<p class="small-text">' + response.comment + '</p> \
+			</li>';
+	$('.commentList-' + response.postId).append(html);
+}
+
+function processAddReplyComment(response) {
+
+	if (FAIL == response.result) {
+		alert(response.message);
+	} else {
+		var html = "";
+		var roleId = response.roleId;
+	
+		switch (key) {
+		case USER:
+			html += '<li class="collection-item avatar comment-bg">\
+						<img src="' + response.avatarImage + '" alt="" class="circle"> \
+						<p class="title"><a href="' + $('#url_redirect_member').val() + response.memberId + '">' + response.firstName + ' ' + response.lastName + '</a>\
+						<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(response.now).toLocaleString() + '</span></p>\
+						<p class="small-text">' + response.replyComment + '</p> \
+					</li>';
+			break;
+		case COMPANY:
+			html += '<li class="collection-item avatar comment-bg">\
+						<img src="' + response.avatarImage + '" alt="" class="circle"> \
+						<p class="title"><a href="' + $('#url_redirect_member').val() + response.memberId + '">' + response.firstName + '</a>\
+						<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(response.now).toLocaleString() + '</span></p>\
+						<p class="small-text">' + response.replyComment + '</p> \
+					</li>';
+			break;
+		case ADMIN:
+			//TODO: check admin 
+			break;
+		}
+	
+		var replyCommentList = $('#replyCommentList-' + response.commentId);
+		replyCommentList.append(hntml);
+		$('.reply-comment-' + curretCommentId).show('Blind');
+	}
+}
+
+function test(event) {
+	alert(event.keyCode)
 }

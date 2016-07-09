@@ -1,6 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
@@ -30,7 +33,7 @@ public class Post implements Serializable {
 
 	private ChangeLog changeLog;
 
-//	private Set<Comment> commentSet;
+	private Set<Comment> commentSet;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,6 +75,7 @@ public class Post implements Serializable {
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "change_log_id")
+	@OrderBy("createdDate")
 	public ChangeLog getChangeLog() {
 		return changeLog;
 	}
@@ -80,13 +84,13 @@ public class Post implements Serializable {
 		this.changeLog = changeLog;
 	}
 
-//	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//	@JoinColumn(name = "post_id")
-//	public Set<Comment> getCommentSet() {
-//		return commentSet;
-//	}
-//
-//	public void setCommentSet(Set<Comment> commentSet) {
-//		this.commentSet = commentSet;
-//	}
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "post_id")
+	public Set<Comment> getCommentSet() {
+		return commentSet;
+	}
+
+	public void setCommentSet(Set<Comment> commentSet) {
+		this.commentSet = commentSet;
+	}
 }

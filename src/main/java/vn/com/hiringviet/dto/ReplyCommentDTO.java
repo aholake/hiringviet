@@ -37,6 +37,12 @@ public class ReplyCommentDTO implements Serializable {
 	/** The account. */
 	private Account account;
 
+	/** The comment id. */
+	private Integer commentId;
+
+	/** The display name. */
+	private String displayName;
+
 	/**
 	 * Gets the reply comment id.
 	 *
@@ -179,6 +185,42 @@ public class ReplyCommentDTO implements Serializable {
 	 */
 	public void setMemberId(Integer memberId) {
 		this.memberId = memberId;
+	}
+
+	/**
+	 * Gets the comment id.
+	 *
+	 * @return the comment id
+	 */
+	public Integer getCommentId() {
+		return commentId;
+	}
+
+	/**
+	 * Sets the comment id.
+	 *
+	 * @param commentId the new comment id
+	 */
+	public void setCommentId(Integer commentId) {
+		this.commentId = commentId;
+	}
+
+	/**
+	 * Gets the display name.
+	 *
+	 * @return the display name
+	 */
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	/**
+	 * Sets the display name.
+	 *
+	 * @param displayName the new display name
+	 */
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 }

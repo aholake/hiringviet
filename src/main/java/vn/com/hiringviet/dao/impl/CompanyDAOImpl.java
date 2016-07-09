@@ -7,7 +7,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.common.PublishResponseEnum;
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
@@ -74,20 +77,27 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Post> getListPosts(Integer first, Integer max, Integer companyId) {
+	public List<PostDTO> getListPosts(Integer first, Integer max, Integer companyId) {
 
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Post.class, "post");
 		criteria.createAlias("post.company", "company");
 		criteria.createAlias("post.changeLog", "changeLog");
+		criteria.createAlias("post.commentSet", "commentSet");
 		criteria.add(Restrictions.eq("company.id", companyId));
-		criteria.add(Restrictions.eq("changeLog.status",
-				StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.groupProperty("post.id").as("id"))
+				.add(Projections.property("post.title").as("title"))
+				.add(Projections.property("post.description").as("description"))
+				.add(Projections.property("post.changeLog").as("changeLog"))
+				.add(Projections.count("commentSet.id").as("numberComment")));
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);
-		criteria.addOrder(Order.desc("changeLog.updatedDate"));
+		criteria.addOrder(Order.desc("changeLog.createdDate"));
+		criteria.setResultTransformer(Transformers.aliasToBean(PostDTO.class));
 
-		List<Post> result = (List<Post>) criteria.list();
+		List<PostDTO> result = (List<PostDTO>) criteria.list();
 		return result;
 	}
 

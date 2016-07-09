@@ -13,14 +13,15 @@
 <script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </head>
 <body>
-
 	<input type="hidden" id="url_get_post_comments" value="<c:url value='/company/post/comments' />" />
 	<input type="hidden" id="url_get_post_replyComments" value="<c:url value='/company/post/replyComments' />" />
 	<input type="hidden" id="url_redirect_member" value="<c:url value='/member/' />" />
 	<input type="hidden" id="reply_comment" value='<spring:message code="label.company.title.reply_comment"/>' />
 	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
 	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
-	<input type="hidden" id="url_post_comment" value="<c:url value='/company/post/addComment' />" />
+	<input type="hidden" id="hide_comment" value='<spring:message code="label.company.title.hide_comment"/>' />
+	<input type="hidden" id="url_post_comment" value="<c:url value='/company/addComment' />" />
+	<input type="hidden" id="url_post_reply_comment" value="<c:url value='/company/addReplyComment' />" />
 
 		<div class="row">
 			<div class="col m8">
@@ -56,7 +57,7 @@
 								<div class="feed-item-meta">
 									<ul class="feed-actions">
 										<li class="feed-comment comment-${post.id}" onclick="javascript:showComment(${post.id});">
-										<a class="a-text-color small-text display-inline-flex"><i class="material-icons small-icon">comment</i><spring:message code="label.company.title.comment"/> (6)</a>
+										<a class="a-text-color small-text display-inline-flex"><i class="material-icons small-icon">comment</i><spring:message code="label.company.title.comment"/> (${post.numberComment})</a>
 										</li>
 										<li class="feed-postDate small-text display-inline-flex"><i class="material-icons small-icon">date_range</i>${post.changeLog.createdDate}</li>
 									</ul>
