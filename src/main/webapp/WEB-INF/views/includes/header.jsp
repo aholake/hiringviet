@@ -10,17 +10,15 @@
 <script type="text/javascript" src="<c:url value='/resources/hiringviet/login/js/login.js'/>" ></script>
 </head>
 <body>
-	<input type="hidden" id="url_redirect_page"
-		value="<c:url value='/home' />" />
-	<input type="hidden" id="url_check_account"
-		value="<c:url value='/account/checkAccount' />" />
-	<input type="hidden" id="url_search"
-		value="<c:url value='/search/suggest' />" />
+	<input type="hidden" id="url_redirect_page" value="<c:url value='/home' />" />
+	<input type="hidden" id="url_check_account" value="<c:url value='/account/checkAccount' />" />
+	<input type="hidden" id="url_search" value="<c:url value='/search/suggest' />" />
 	<nav>
 	<ul id="slide-out" class="side-nav">
-		<li class="mobile-search center"><input type="text"
-			placeholder="Tìm kiếm công việc, công ty, người dùng,..."> <a
-			href="#" class="btn">Tìm kiếm</a></li>
+		<li class="mobile-search center">
+			<input type="text" placeholder="Tìm kiếm công việc, công ty, người dùng,..."> 
+			<a href="#" class="btn">Tìm kiếm</a>
+		</li>
 		<li><a href="#!">Đăng nhập</a></li>
 		<li><a href="#!">Đăng ký</a></li>
 	</ul>
@@ -29,18 +27,32 @@
 	</a> </nav>
 	<header>
 	<div id="topnav">
-		<a href="#" class="navbar-logo left"> <img
-			class="navbar-logo-img responsive-img"
-			src="/resources/common/images/small_logo.png">
+		<a href="#" class="navbar-logo left"> 
+		<img class="navbar-logo-img responsive-img" src="/resources/common/images/small_logo.png">
 		</a>
 		<div class="right">
 			<div id="search-bar">
 				<div id="search-input" class="left">
-					<input type="text" id="search-auto-complete"
-						placeholder="Tìm kiếm công việc, công ty, người dùng,...">
+					<div class="mp0 display-flex">
+						<!-- Dropdown Trigger -->
+						<div class="dropdown-button" data-activates='search-menu'><i class="material-icons">menu</i></div>
+						<!-- Dropdown Structure -->
+						<ul id="search-menu" class="dropdown-content">
+							<li><a href="#!"><spring:message code="label.navbar.title.search.menu.add" /></a></li>
+							<li class="divider"></li>
+							<li><a href="#!"><spring:message code="label.navbar.title.search.menu.company" /></a></li>
+							<li class="divider"></li>
+							<li><a href="#!"><spring:message code="label.navbar.title.search.menu.member" /></a></li>
+							<li class="divider"></li>
+							<li><a href="#!"><spring:message code="label.navbar.title.search.menu.skill" /></a></li>
+							<li class="divider"></li>
+							<li><a href="#!"><spring:message code="label.navbar.title.search.menu.job" /></a></li>
+						</ul>
+						<input type="text" id="search-auto-complete" placeholder="<spring:message code='label.navbar.title.search.placeholder' />">
+					</div>
 					<p class="search-hint">
 						<spring:message code="label.navbar.title.key_word" />
-						: Thông dịch viên, lập trình Java, lập trình PHP...
+						: <spring:message code="label.navbar.title.search.keywork" />
 					</p>
 					<div id="suggestion-box" class="z-depth-1">
 						<div class="search-progress">

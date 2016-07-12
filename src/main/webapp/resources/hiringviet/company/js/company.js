@@ -102,7 +102,7 @@ function showPostComments(response) {
 			}
 			html += '<li class="collection-item avatar comment-bg">\
 						<img src="' + commentDTOs[index].avatarImage + '" alt="" class="circle"> \
-						<p class="title"><a href="' + $('#url_redirect_member').val() + commentDTOs[index].memberId + '">' + commentDTOs[index].firstName + ' ' + commentDTOs[index].lastName + '</a>\
+						<p class="title"><a href="' + $('#url_redirect_member').val() + commentDTOs[index].memberId + '" onmouseenter="javascript:showMemberTooltip(this, 1);" onmouseout="javascript:hideMemberToolTip()">' + commentDTOs[index].firstName + ' ' + commentDTOs[index].lastName + '</a>\
 						<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(commentDTOs[index].changeLog.createdDate).toLocaleString() + '</span></p>\
 						<p class="small-text">' + commentDTOs[index].comment + '</p> \
 						<p class="small-text display-inline-flex"><i class="material-icons small-icon">subdirectory_arrow_right</i>\

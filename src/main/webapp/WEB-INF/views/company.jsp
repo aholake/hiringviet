@@ -23,6 +23,7 @@
 	<input type="hidden" id="hide_comment" value='<spring:message code="label.company.title.hide_comment"/>' />
 	<input type="hidden" id="url_post_comment" value="<c:url value='/company/addComment' />" />
 	<input type="hidden" id="url_post_reply_comment" value="<c:url value='/company/addReplyComment' />" />
+	<input type="hidden" id="url_count_member_of_follwer" value="<c:url value='/profile/countNumberOfFollower'/>"/>
 
 		<div class="row">
 			<div class="col m8">
@@ -152,6 +153,26 @@
 				</div>
 			</div>
 		</div>
+	<!-- member tooltip -->
+	<div class="tooltil-show-member">
+    	<div class="row">
+    		<div class="col m4 mp0">
+    			<a href="#">
+		    		<img src="">
+		    	</a>
+    		</div>
+    		<div class="col m8" style="text-align: left;">
+    			<a href="" class="endorse-item-name-text"></a>
+    			<p class="mp0 small-text"><span class="number-followers"></span> follower</p>
+    		</div>
+    		<div class="col m12 margin-top-5">
+	    		<a href="" class="btn-connect waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.tooltip.title.connect"/></a>
+	    		<a class="btn-profile waves-effect waves-light btn grey"><spring:message code="label.profile.tooltip.title.profile"/></a>
+    		</div>
+    		<div class="triangle">
+    		</div>
+    	</div>
+    </div>
 	<script type="text/javascript">
 
 		$(document).ready(function() {

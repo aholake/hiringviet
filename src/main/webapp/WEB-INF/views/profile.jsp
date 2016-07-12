@@ -63,6 +63,12 @@
 					</div>
 				</c:if>
 				<!-- Begin resume -->
+				<div class="card-panel padding-10 hoverable position-relative experience-history">
+					<h1 class="title"><spring:message code="label.profile.title.exp_history.title"/></h1>
+					<div class="panel-content list-experience">
+					a
+					</div>
+				</div>
 				<div class="card-panel padding-10 hoverable position-relative education-history">
 					<h1 class="title"><spring:message code="label.profile.title.edu_history.title"/></h1>
 					<div class="panel-content list-education">

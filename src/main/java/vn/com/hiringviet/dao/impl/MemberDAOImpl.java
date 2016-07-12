@@ -1,5 +1,7 @@
 package vn.com.hiringviet.dao.impl;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -61,6 +63,31 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 
 		MemberDTO memberDTO = (MemberDTO) criteria.uniqueResult();
 		return memberDTO;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberDTO> getListMemberSuggest(String keywork) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+
+		Criteria criteria = session.createCriteria(Member.class, "member");
+		criteria.createAlias("member.changeLog", "changeLog");
+		criteria.createAlias("member.account", "account");
+		criteria.createAlias("member.resume", "resume");
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.groupProperty("member.id").as("id"))
+				.add(Projections.property("member.firstName").as("firstName"))
+				.add(Projections.property("member.lastName").as("lastName"))
+				.add(Projections.property("account.avatarImage").as("avatarImage"))
+				.add(Projections.count("account.toFollows").as("numberFollower"))
+				.add(Projections.count("resume.address").as("address")));
+		criteria.add(Restrictions.or(Restrictions.like("member.firstName", keywork + "%"), Restrictions.like("member.lastName", keywork + "%")));
+		criteria.setResultTransformer(Transformers.aliasToBean(MemberDTO.class));
+
+		List<MemberDTO> memberDTOs = (List<MemberDTO>) criteria.list();
+		return memberDTOs;
 	}
 
 }

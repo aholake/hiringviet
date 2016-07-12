@@ -26,4 +26,6 @@ public interface MemberService {
 	public MemberDTO getMemberByAccountId(Integer accountId);
 
 	public boolean addSkillsOfMember(Account account, Set<SkillDTO> skills);
+
+	public List<MemberDTO> getListMemberSuggest(String keywork);
 }

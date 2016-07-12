@@ -1,5 +1,5 @@
 var VALUE_SEARCH = null;
-var MAX_RECORED = 7;
+var MAX_RECORED = 10;
 var HEIGHT_LI_ITEM = 40;
 var COUNT_LI_ITEM = 1;
 
@@ -28,13 +28,13 @@ function showResult(result) {
 
 		var listMember = result.memberResponseDTOs;
 		if (listMember.length > 0) {
-			$('#suggestion-box ul').append("<li><strong><b>Member</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Member</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listMember.length; index++) {
 				var item = "<li class='search-item'>\
 								<img src='/resources/images/profile_photo.jpg' />\
 								<div class='wrapper'>\
-									<p>" + listMember.firstName + " " + listMember.lastName + "</p>\
+									<p>" + listMember[index].firstName + " " + listMember[index].lastName + "</p>\
 									<i>Đại học Nông Lâm</i>\
 								</div>\
 							</li>";
@@ -45,14 +45,14 @@ function showResult(result) {
 
 		var listCompany = result.companyResponseDTOs;
 		if (listCompany.length > 0) {
-			$('#suggestion-box ul').append("<li><strong><b>Company</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Company</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listCompany.length; index++) {
 				var item = "<li class='search-item'>\
 								<img src='/resources/images/profile_photo.jpg' />\
 								<div class='wrapper'>\
-									<p>" + listCompany.displayName + "</p>\
-									<i>" + listCompany.companySize + " nhân viên</i>\
+									<p>" + listCompany[index].displayName + "</p>\
+									<i>" + listCompany[index].companySize + " nhân viên</i>\
 								</div>\
 							</li>";
 				$('#suggestion-box ul').append(item);
@@ -62,13 +62,13 @@ function showResult(result) {
 
 		var listJob = result.jobSuggestDTOs;
 		if (listJob.length > 0) {
-			$('#suggestion-box ul').append("<li><strong><b>Job</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Job</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listJob.length; index++) {
 				var item = "<li class='search-item'>\
 								<img src='/resources/images/profile_photo.jpg' />\
 								<div class='wrapper'>\
-									<p>" + listJob.displayName + "</p>\
+									<p>" + listJob[index].displayName + "</p>\
 									<i></i>\
 								</div>\
 							</li>";
@@ -79,13 +79,13 @@ function showResult(result) {
 
 		var listSkill = result.skills;
 		if (listSkill.length > 0) {
-			$('#suggestion-box ul').append("<li><strong><b>Skill</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Skill</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listSkill.length; index++) {
 				var item = "<li class='search-item'>\
 								<img src='/resources/images/profile_photo.jpg' />\
 								<div class='wrapper'>\
-									<p>" + listSkill.displayName + "</p>\
+									<p>" + listSkill[index].displayName + "</p>\
 									<i></i>\
 								</div>\
 							</li>";
@@ -124,7 +124,7 @@ function showResult(result) {
  		dataType: "json",
  		Accept : "application/json",
  		contentType: "application/json; charset=utf-8",
-		//data: JSON.stringify(data),
+		data: JSON.stringify(data),
 		beforeSend: function(xhr, settings) {
 			if (isProgressing == true) {
 				// enable progress

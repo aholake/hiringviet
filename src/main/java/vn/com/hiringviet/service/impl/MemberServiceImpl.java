@@ -103,4 +103,10 @@ public class MemberServiceImpl implements MemberService {
 
 		return memberDAO.getMemberByAccountId(accountId);
 	}
+
+	@Override
+	public List<MemberDTO> getListMemberSuggest(String keywork) {
+
+		return memberDAO.getListMemberSuggest(keywork);
+	}
 }

@@ -2,6 +2,7 @@ package vn.com.hiringviet.api.dto.response;
 
 import java.util.List;
 
+import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.model.Skill;
 
 public class SearchSuggestResponseDTO extends CommonResponseDTO {
@@ -12,7 +13,7 @@ public class SearchSuggestResponseDTO extends CommonResponseDTO {
 
 	private List<CompanyResponseDTO> companyResponseDTOs;
 
-	private List<MemberResponseDTO> memberResponseDTOs;
+	private List<MemberDTO> memberResponseDTOs;
 
 	private List<Skill> skills;
 
@@ -33,11 +34,11 @@ public class SearchSuggestResponseDTO extends CommonResponseDTO {
 		this.companyResponseDTOs = companyResponseDTOs;
 	}
 
-	public List<MemberResponseDTO> getMemberResponseDTOs() {
+	public List<MemberDTO> getMemberResponseDTOs() {
 		return memberResponseDTOs;
 	}
 
-	public void setMemberResponseDTOs(List<MemberResponseDTO> memberResponseDTOs) {
+	public void setMemberResponseDTOs(List<MemberDTO> memberResponseDTOs) {
 		this.memberResponseDTOs = memberResponseDTOs;
 	}
 

@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.api.dto.response.CompanyResponseDTO;
 import vn.com.hiringviet.api.dto.response.JobSuggestDTO;
-import vn.com.hiringviet.api.dto.response.MemberResponseDTO;
 import vn.com.hiringviet.api.dto.response.SearchSuggestResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
+import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Skill;
+import vn.com.hiringviet.service.MemberService;
 import vn.com.hiringviet.service.SkillService;
 
 @Controller
@@ -28,19 +29,15 @@ public class SearchController {
 	@Autowired
 	private SkillService skillService;
 
+	@Autowired
+	private MemberService memberService;
+
 	@RequestMapping(value = "/search/suggest", method = RequestMethod.POST)
-	public @ResponseBody SearchSuggestResponseDTO getSuggest(Model model, HttpSession session) {
+	public @ResponseBody SearchSuggestResponseDTO getSuggest(@RequestBody String keywork, HttpSession session) {
 
 		SearchSuggestResponseDTO response = new SearchSuggestResponseDTO();
 
-		MemberResponseDTO member = new MemberResponseDTO();
-		member.setId(1);
-		member.setFirstName("Nguyen");
-		member.setLastName("Tuan Anh");
-		List<MemberResponseDTO> memberResponseDTOs = new ArrayList<MemberResponseDTO>();
-		memberResponseDTOs.add(member);
-		memberResponseDTOs.add(member);
-		memberResponseDTOs.add(member);
+		List<MemberDTO> memberResponseDTOs = memberService.getListMemberSuggest(keywork);
 
 		CompanyResponseDTO company = new CompanyResponseDTO();
 		company.setId(1);

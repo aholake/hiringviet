@@ -2,6 +2,8 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 
+import vn.com.hiringviet.model.Address;
+
 public class MemberDTO implements Serializable {
 
 	private static final long serialVersionUID = -4063470646119486134L;
@@ -17,6 +19,12 @@ public class MemberDTO implements Serializable {
 	private Integer status;
 
 	private Long numberFollower;
+
+	private String schoolName;
+
+	private String provinceName;
+
+	private Address address;
 
 	public Integer getId() {
 		return id;
@@ -64,6 +72,30 @@ public class MemberDTO implements Serializable {
 
 	public void setNumberFollower(Long numberFollower) {
 		this.numberFollower = numberFollower;
+	}
+
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+
+	public String getProvinceName() {
+		return provinceName;
+	}
+
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }
