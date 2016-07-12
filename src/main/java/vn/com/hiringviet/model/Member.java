@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Formula;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -35,6 +36,9 @@ public class Member implements Serializable {
 	private String firstName;
 
 	private String lastName;
+
+	@Formula(value="first_name || ' ' || last_name")
+	private String fullName;
 
 	private Date birthDate;
 
@@ -121,6 +125,14 @@ public class Member implements Serializable {
 
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 }

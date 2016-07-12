@@ -13,6 +13,10 @@
 	<input type="hidden" id="url_redirect_page" value="<c:url value='/home' />" />
 	<input type="hidden" id="url_check_account" value="<c:url value='/account/checkAccount' />" />
 	<input type="hidden" id="url_search" value="<c:url value='/search/suggest' />" />
+
+	<input type="hidden" id="title_follow" value="<spring:message code='label.navbar.title.follow'/>" />
+	<input type="hidden" id="title_people" value="<spring:message code='label.home.title.people'/>" />
+
 	<nav>
 	<ul id="slide-out" class="side-nav">
 		<li class="mobile-search center">

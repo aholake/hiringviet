@@ -6,13 +6,15 @@ var COUNT_LI_ITEM = 1;
 $(function() {
 
 	$('#search-auto-complete').keyup(function(event) {
-		COUNT_LI_ITEM = 1;
-		VALUE_SEARCH = $('#search-auto-complete').val();
-		if (VALUE_SEARCH.length > 0) {
-			callSearchAPI($('#url_search').val(), "POST", VALUE_SEARCH, "showResult", true);
-		}
-		if (VALUE_SEARCH.length == 0 ) {
-			$('#suggestion-box').hide();
+		if (event.keyCode === 0 || (65 <= event.keyCode && event.keyCode <= 90) || (97 <= event.keyCode && event.keyCode <= 122)) {
+			COUNT_LI_ITEM = 1;
+			VALUE_SEARCH = $('#search-auto-complete').val();
+			if (VALUE_SEARCH.length > 0) {
+				callSearchAPI($('#url_search').val(), "POST", VALUE_SEARCH, "showResult", true);
+			}
+			if (VALUE_SEARCH.length == 0 ) {
+				$('#suggestion-box').hide();
+			}
 		}
 	});
 });
@@ -31,13 +33,17 @@ function showResult(result) {
 			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Member</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listMember.length; index++) {
-				var item = "<li class='search-item'>\
-								<img src='/resources/images/profile_photo.jpg' />\
+				var item = "<a href='/profile?memberId=" + listMember[index].id + "'><li class='search-item'>\
+								<img src='" + listMember[index].avatarImage + "' />\
 								<div class='wrapper'>\
 									<p>" + listMember[index].firstName + " " + listMember[index].lastName + "</p>\
-									<i>Đại học Nông Lâm</i>\
+									<i>"
+										+ listMember[index].district + ", "
+										+ listMember[index].province + ",  "
+										+ listMember[index].country +
+									"</i>\
 								</div>\
-							</li>";
+							</li></a>";
 				$('#suggestion-box ul').append(item);
 				COUNT_LI_ITEM++;
 			}
@@ -48,13 +54,17 @@ function showResult(result) {
 			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Company</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listCompany.length; index++) {
-				var item = "<li class='search-item'>\
-								<img src='/resources/images/profile_photo.jpg' />\
+				var item = "<a href='/company/" + listMember[index].id + "'><li class='search-item'>\
+								<img src='" + listMember[index].avatarImage + "' />\
 								<div class='wrapper'>\
 									<p>" + listCompany[index].displayName + "</p>\
-									<i>" + listCompany[index].companySize + " nhân viên</i>\
+									<i>"
+										+ listMember[index].district + ", "
+										+ listMember[index].province + ",  "
+										+ listMember[index].country
+									+ "</i>\
 								</div>\
-							</li>";
+							</li></a>";
 				$('#suggestion-box ul').append(item);
 				COUNT_LI_ITEM++;
 			}
@@ -66,7 +76,7 @@ function showResult(result) {
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listJob.length; index++) {
 				var item = "<li class='search-item'>\
-								<img src='/resources/images/profile_photo.jpg' />\
+								<img src='' />\
 								<div class='wrapper'>\
 									<p>" + listJob[index].displayName + "</p>\
 									<i></i>\
@@ -83,7 +93,7 @@ function showResult(result) {
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listSkill.length; index++) {
 				var item = "<li class='search-item'>\
-								<img src='/resources/images/profile_photo.jpg' />\
+								<img src='' />\
 								<div class='wrapper'>\
 									<p>" + listSkill[index].displayName + "</p>\
 									<i></i>\
@@ -98,9 +108,9 @@ function showResult(result) {
 		
 		// set width
 		if (COUNT_LI_ITEM > MAX_RECORED) {
-			$('#suggestion-box').attr("style", "height: " + (MAX_RECORED * HEIGHT_LI_ITEM) + "px !important");
+			$('#suggestion-box').attr("style", "height: " + (MAX_RECORED * HEIGHT_LI_ITEM + 20) + "px !important");
 		} else {
-			$('#suggestion-box').attr("style", "height: " + (COUNT_LI_ITEM * HEIGHT_LI_ITEM) + "px !important");
+			$('#suggestion-box').attr("style", "height: " + (COUNT_LI_ITEM * HEIGHT_LI_ITEM + 20) + "px !important");
 		}
 		$('#suggestion-box').slideDown(50);
 	}

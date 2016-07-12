@@ -2,7 +2,9 @@ package vn.com.hiringviet.api.dto.response;
 
 import java.util.List;
 
+import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.MemberDTO;
+import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Skill;
 
 public class SearchSuggestResponseDTO extends CommonResponseDTO {
@@ -11,11 +13,11 @@ public class SearchSuggestResponseDTO extends CommonResponseDTO {
 
 	private List<JobSuggestDTO> jobSuggestDTOs;
 
-	private List<CompanyResponseDTO> companyResponseDTOs;
+	private List<CompanyDTO> companyResponseDTOs;
 
 	private List<MemberDTO> memberResponseDTOs;
 
-	private List<Skill> skills;
+	private List<SkillDTO> skills;
 
 	public List<JobSuggestDTO> getJobSuggestDTOs() {
 		return jobSuggestDTOs;
@@ -25,12 +27,11 @@ public class SearchSuggestResponseDTO extends CommonResponseDTO {
 		this.jobSuggestDTOs = jobSuggestDTOs;
 	}
 
-	public List<CompanyResponseDTO> getCompanyResponseDTOs() {
+	public List<CompanyDTO> getCompanyResponseDTOs() {
 		return companyResponseDTOs;
 	}
 
-	public void setCompanyResponseDTOs(
-			List<CompanyResponseDTO> companyResponseDTOs) {
+	public void setCompanyResponseDTOs(List<CompanyDTO> companyResponseDTOs) {
 		this.companyResponseDTOs = companyResponseDTOs;
 	}
 
@@ -42,11 +43,11 @@ public class SearchSuggestResponseDTO extends CommonResponseDTO {
 		this.memberResponseDTOs = memberResponseDTOs;
 	}
 
-	public List<Skill> getSkills() {
+	public List<SkillDTO> getSkills() {
 		return skills;
 	}
 
-	public void setSkills(List<Skill> skills) {
+	public void setSkills(List<SkillDTO> skills) {
 		this.skills = skills;
 	}
 

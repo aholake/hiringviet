@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.common.PublishResponseEnum;
 import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
@@ -132,5 +134,35 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		query.setParameter("account", account);
 		List<Company> list = query.list();
 		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CompanyDTO> getListCompanySuggest(String keywork) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		Criteria criteria = session.createCriteria(Company.class, "company");
+		criteria.createAlias("company.changeLog", "changeLog");
+		criteria.createAlias("company.account", "account", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("company.address", "address", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("province.country", "country", JoinType.LEFT_OUTER_JOIN);
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.groupProperty("company.id").as("id"))
+				.add(Projections.property("company.displayName").as("displayName"))
+				.add(Projections.property("account.avatarImage").as("avatarImage"))
+				.add(Projections.count("account.toFollows").as("numberFollower"))
+				.add(Projections.property("company.companySize").as("companySize"))
+				.add(Projections.property("district.districtName").as("district"))
+				.add(Projections.property("province.provinceName").as("province"))
+				.add(Projections.property("country.countryName").as("country")));
+		criteria.add(Restrictions.like("company.displayName", "%" + keywork + "%"));
+		criteria.setMaxResults(ConstantValues.MAX_RECORD_COUNT);
+		criteria.setResultTransformer(Transformers.aliasToBean(CompanyDTO.class));
+
+		List<CompanyDTO> companyDTOs = (List<CompanyDTO>) criteria.list();
+		return companyDTOs;
 	}
 }
