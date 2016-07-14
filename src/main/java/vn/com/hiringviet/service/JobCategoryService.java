@@ -1,8 +1,9 @@
 package vn.com.hiringviet.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service("jobCategoryService")
+import vn.com.hiringviet.model.JobCategory;
+
 public interface JobCategoryService {
-
+	public List<JobCategory> getJobCategoryList();
 }

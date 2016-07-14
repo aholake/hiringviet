@@ -4,9 +4,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.dao.JobCategoryDAO;
+import vn.com.hiringviet.model.JobCategory;
 
 @Repository
 @Transactional
-public class JobCategoryDAOImpl implements JobCategoryDAO {
+public class JobCategoryDAOImpl extends CommonDAOImpl<JobCategory> implements
+		JobCategoryDAO {
 
 }

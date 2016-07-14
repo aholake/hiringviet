@@ -1,8 +1,9 @@
 package vn.com.hiringviet.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service("positionService")
+import vn.com.hiringviet.model.Position;
+
 public interface PositionService {
-
+	public List<Position> getPositionList();
 }

@@ -1,11 +1,7 @@
 package vn.com.hiringviet.dao;
 
-import org.springframework.transaction.annotation.Transactional;
+import vn.com.hiringviet.model.Position;
 
-import org.springframework.stereotype.Repository;
-
-@Repository
-@Transactional
-public interface PositionDAO {
+public interface PositionDAO extends CommonDAO<Position> {
 
 }

@@ -61,7 +61,7 @@
 									</select><label><spring:message
 											code="label.register.company.input.country"></spring:message></label>
 								</div>
-								<div class="input-field col m4 p-0">
+								<div class="input-field col m4">
 									<select id="provinceAddress">
 										<option value="-1" disabled selected><spring:message
 												code="label.default.dropdown.none_value"></spring:message></option>
@@ -69,7 +69,7 @@
 											code="label.register.company.input.province"></spring:message></label>
 								</div>
 
-								<div class="input-field col m4 p-0">
+								<div class="input-field col m4">
 									<spring:message code="label.default.dropdown.none_value"
 										var="dropdown_none_value"></spring:message>
 									<form:select id="districtAddress" path="address.district.id">
@@ -127,112 +127,9 @@
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="/resources/hiringviet/register/js/validate.js"></script>
-	<script type="text/javascript">
-		$("#account-info").hide();
-
-		$("#countryAddress").change(
-				function() {
-					var data = $(this).val();
-					callAPI('/rest/getProvincesByCountry', 'POST', data,
-							'processGetProvinces', false);
-				});
-
-		$("#provinceAddress").change(
-				function() {
-					var data = $(this).val();
-					callAPI('/rest/getDistrictsByProvince', 'POST', data,
-							'processGetDistricts', false);
-				});
-
-		$("#districtAddress").change(
-				function() {
-					var data = $(this).val();
-					callAPI('/rest/getWardsByDistrict', 'POST', data,
-							'processGetWards', false);
-				});
-
-		function processGetProvinces(response) {
-			console.log(response);
-			$("#provinceAddress")
-					.empty()
-					.append(
-							"<option value='-1' disabled selected><spring:message code="label.default.dropdown.none_value"></spring:message></option>");
-			$.each(response, function(i, province) {
-				console.log("Province: " + province);
-				$("#provinceAddress").append($('<option>', {
-					value : province.id,
-					text : province.provinceName
-				}));
-			});
-			$('#provinceAddress').material_select();
-		}
-
-		function processGetDistricts(response) {
-			console.log(response);
-			$("#districtAddress")
-					.empty()
-					.append(
-							"<option value='' disabled selected><spring:message code="label.default.dropdown.none_value"></spring:message></option>");
-			$.each(response, function(i, district) {
-				console.log("District: " + district);
-				$("#districtAddress").append($('<option>', {
-					value : district.id,
-					text : district.districtName
-				}));
-			});
-			$('#districtAddress').material_select();
-		}
-
-		$("#nextButton").click(
-				function() {
-					if (checkCompanyInfoValidate()) {
-						if ($("#company-info").is(":visible")
-								&& !$("#account-info").is(":visible")) {
-							$("#company-info").hide();
-							$("#account-info").show();
-						}
-					} else {
-						$("#newCompany").find(":submit").click();
-					}
-				});
-
-		function checkCompanyInfoValidate() {
-			var displayNameValidate = $("#displayName")[0].checkValidity();
-			var businessFieldValidate = $("#businessField")[0].checkValidity();
-			var explicitAddressValidate = $("#explicitAddress")[0]
-					.checkValidity();
-			var checkDropdownList = validateAllDropdownList();
-
-			//console.log(validateAllDropdownList());
-
-			if (!displayNameValidate || !businessFieldValidate
-					|| !explicitAddressValidate || !checkDropdownList) {
-				return false;
-			}
-			return true;
-		}
-
-		$("#backButton").click(
-				function() {
-					if ($("#account-info").is(":visible")
-							&& !$("#company-info").is(":visible")) {
-						$("#account-info").hide();
-						$("#company-info").show();
-					}
-				});
-
-		function validateAllDropdownList() {
-			var check = true;
-			$("select").each(function(index, element) {
-				console.log(index + " | " + element.value);
-				if (element.value == null || element.value == -1) {
-					check = false;
-					return;
-				}
-			});
-			console.log("To here");
-			return check;
-		}
-	</script>
+	<script type="text/javascript"
+		src="/resources/hiringviet/register/js/address_auto_fill.js"></script>
+	<script type="text/javascript"
+		src="/resources/hiringviet/register/js/register_company.js"></script>
 </body>
 </html>

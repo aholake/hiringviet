@@ -55,15 +55,13 @@ public class Job implements Serializable {
 
 	private String requirement;
 
-	private String cultureDescription;
-
 	private Integer size;
 
 	private Position position;
 
 	private ChangeLog changeLog;
 
-	private Integer isPublish;
+	private boolean isPublish;
 
 	private Address workAddress;
 
@@ -173,15 +171,6 @@ public class Job implements Serializable {
 		this.requirement = requirement;
 	}
 
-	@Column(name = "culture_description")
-	public String getCultureDescription() {
-		return cultureDescription;
-	}
-
-	public void setCultureDescription(String cultureDescription) {
-		this.cultureDescription = cultureDescription;
-	}
-
 	@Column(name = "size")
 	public Integer getSize() {
 		return size;
@@ -212,11 +201,11 @@ public class Job implements Serializable {
 	}
 
 	@Column(name = "is_publish")
-	public Integer getIsPublish() {
+	public boolean isPublish() {
 		return isPublish;
 	}
 
-	public void setIsPublish(Integer isPublish) {
+	public void setPublish(boolean isPublish) {
 		this.isPublish = isPublish;
 	}
 

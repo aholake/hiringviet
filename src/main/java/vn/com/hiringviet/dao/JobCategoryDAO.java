@@ -1,10 +1,7 @@
 package vn.com.hiringviet.dao;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import vn.com.hiringviet.model.JobCategory;
 
-@Repository
-@Transactional
-public interface JobCategoryDAO {
+public interface JobCategoryDAO extends CommonDAO<JobCategory> {
 
 }
