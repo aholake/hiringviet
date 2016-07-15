@@ -51,7 +51,7 @@ public class Address implements Serializable {
 		this.explicitAddress = explicitAddress;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "district_id")
 	public District getDistrict() {
 		return district;

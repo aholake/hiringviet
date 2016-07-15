@@ -13,6 +13,7 @@
 <script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </head>
 <body>
+
 	<input type="hidden" id="url_get_post_comments" value="<c:url value='/company/post/comments' />" />
 	<input type="hidden" id="url_get_post_replyComments" value="<c:url value='/company/post/replyComments' />" />
 	<input type="hidden" id="url_redirect_member" value="<c:url value='/member/' />" />
@@ -22,6 +23,7 @@
 	<input type="hidden" id="hide_comment" value='<spring:message code="label.company.title.hide_comment"/>' />
 	<input type="hidden" id="url_post_comment" value="<c:url value='/company/addComment' />" />
 	<input type="hidden" id="url_post_reply_comment" value="<c:url value='/company/addReplyComment' />" />
+	<input type="hidden" id="url_count_member_of_follwer" value="<c:url value='/profile/countNumberOfFollower'/>"/>
 
 		<div class="row">
 			<div class="col m8">
@@ -57,20 +59,23 @@
 								<div class="feed-item-meta">
 									<ul class="feed-actions">
 										<li class="feed-comment comment-${post.id}" onclick="javascript:showComment(${post.id});">
-										<a class="a-text-color small-text display-inline-flex"><i class="material-icons small-icon">comment</i><spring:message code="label.company.title.comment"/> (${post.numberComment})</a>
+											<a class="a-text-color small-text display-inline-flex">
+												<i class="material-icons small-icon">comment</i>
+												<spring:message code="label.company.title.comment"/>
+												 (<span class="a-text-color numberComment-${post.id}">${post.numberComment}</span>)
+											 </a>
+											 <input type="hidden" class="currentNumberComment-${post.id}" value="0"/>
 										</li>
 										<li class="feed-postDate small-text display-inline-flex"><i class="material-icons small-icon">date_range</i>${post.changeLog.createdDate}</li>
 									</ul>
 								</div>
 								<div class="comments comments-${post.id} comment-bg"  style="display: none;">
 									<ul class="collection commentList-${post.id} remove-border">
-										<li class="display-inline-flex">
-											<a class="margin-left-5 small-text a-text-color"><spring:message code="label.company.title.load_more_comment"/></a>
-										</li>
+										
 									</ul>
 									<div class="post-comment">
 										<div class="input-field col m12">
-											<input id="${post.id}" type="text" class="validate txtComment" placeholder="<spring:message code='label.company.title.write_comment'/>">
+											<input id="${post.id}" type="text" class="validate txtComment txtComment-${post.id}" placeholder="<spring:message code='label.company.title.write_comment'/>">
 										</div>
 									</div>
 								</div>
@@ -148,6 +153,26 @@
 				</div>
 			</div>
 		</div>
+	<!-- member tooltip -->
+	<div class="tooltil-show-member">
+    	<div class="row">
+    		<div class="col m4 mp0">
+    			<a href="#">
+		    		<img src="">
+		    	</a>
+    		</div>
+    		<div class="col m8" style="text-align: left;">
+    			<a href="" class="endorse-item-name-text"></a>
+    			<p class="mp0 small-text"><span class="number-followers"></span> follower</p>
+    		</div>
+    		<div class="col m12 margin-top-5">
+	    		<a href="" class="btn-connect waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.tooltip.title.connect"/></a>
+	    		<a class="btn-profile waves-effect waves-light btn grey"><spring:message code="label.profile.tooltip.title.profile"/></a>
+    		</div>
+    		<div class="triangle">
+    		</div>
+    	</div>
+    </div>
 	<script type="text/javascript">
 
 		$(document).ready(function() {

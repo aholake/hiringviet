@@ -23,6 +23,8 @@ public class Province implements Serializable {
 
 	private String provinceName;
 
+	private String type;
+
 	private Country country;
 
 	@Id
@@ -44,6 +46,14 @@ public class Province implements Serializable {
 		this.provinceName = provinceName;
 	}
 
+	@Column(name = "type")
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "country_id")

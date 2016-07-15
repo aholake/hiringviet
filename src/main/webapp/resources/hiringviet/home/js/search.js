@@ -1,18 +1,20 @@
 var VALUE_SEARCH = null;
-var MAX_RECORED = 7;
+var MAX_RECORED = 10;
 var HEIGHT_LI_ITEM = 40;
 var COUNT_LI_ITEM = 1;
 
 $(function() {
 
 	$('#search-auto-complete').keyup(function(event) {
-		COUNT_LI_ITEM = 1;
-		VALUE_SEARCH = $('#search-auto-complete').val();
-		if (VALUE_SEARCH.length > 0) {
-			callSearchAPI($('#url_search').val(), "POST", VALUE_SEARCH, "showResult", true);
-		}
-		if (VALUE_SEARCH.length == 0 ) {
-			$('#suggestion-box').hide();
+		if (event.keyCode === 0 || (65 <= event.keyCode && event.keyCode <= 90) || (97 <= event.keyCode && event.keyCode <= 122)) {
+			COUNT_LI_ITEM = 1;
+			VALUE_SEARCH = $('#search-auto-complete').val();
+			if (VALUE_SEARCH.length > 0) {
+				callSearchAPI($('#url_search').val(), "POST", VALUE_SEARCH, "showResult", true);
+			}
+			if (VALUE_SEARCH.length == 0 ) {
+				$('#suggestion-box').hide();
+			}
 		}
 	});
 });
@@ -23,21 +25,25 @@ function showResult(result) {
 	if (FAIL == result.result) {
 		alert(result.message);
 	} else {
-		console.log(result);
+
 		$('#suggestion-box ul').html("");
 
 		var listMember = result.memberResponseDTOs;
 		if (listMember.length > 0) {
-			$('#suggestion-box ul').append("<li><strong><b>Member</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Member</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listMember.length; index++) {
-				var item = "<li class='search-item'>\
-								<img src='/resources/images/profile_photo.jpg' />\
+				var item = "<a href='/profile?memberId=" + listMember[index].id + "'><li class='search-item'>\
+								<img src='" + listMember[index].avatarImage + "' />\
 								<div class='wrapper'>\
-									<p>" + listMember.firstName + " " + listMember.lastName + "</p>\
-									<i>Đại học Nông Lâm</i>\
+									<p>" + listMember[index].firstName + " " + listMember[index].lastName + "</p>\
+									<i>"
+										+ listMember[index].district + ", "
+										+ listMember[index].province + ",  "
+										+ listMember[index].country +
+									"</i>\
 								</div>\
-							</li>";
+							</li></a>";
 				$('#suggestion-box ul').append(item);
 				COUNT_LI_ITEM++;
 			}
@@ -45,16 +51,20 @@ function showResult(result) {
 
 		var listCompany = result.companyResponseDTOs;
 		if (listCompany.length > 0) {
-			$('#suggestion-box ul').append("<li><strong><b>Company</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Company</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listCompany.length; index++) {
-				var item = "<li class='search-item'>\
-								<img src='/resources/images/profile_photo.jpg' />\
+				var item = "<a href='/company/" + listCompany[index].id + "'><li class='search-item'>\
+								<img src='" + listCompany[index].avatarImage + "' />\
 								<div class='wrapper'>\
-									<p>" + listCompany.displayName + "</p>\
-									<i>" + listCompany.companySize + " nhân viên</i>\
+									<p>" + listCompany[index].displayName + "</p>\
+									<i>"
+										+ listCompany[index].businessField + "; "
+										+ listCompany[index].companySize + "+ "
+										+ $('#title_employee').val()
+									+ "</i>\
 								</div>\
-							</li>";
+							</li></a>";
 				$('#suggestion-box ul').append(item);
 				COUNT_LI_ITEM++;
 			}
@@ -62,14 +72,13 @@ function showResult(result) {
 
 		var listJob = result.jobSuggestDTOs;
 		if (listJob.length > 0) {
-			$('#suggestion-box ul').append("<li><strong><b>Job</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Job</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listJob.length; index++) {
 				var item = "<li class='search-item'>\
-								<img src='/resources/images/profile_photo.jpg' />\
+								<img src='' />\
 								<div class='wrapper'>\
-									<p>" + listJob.displayName + "</p>\
-									<i></i>\
+									<p style='line-height: 50px;'>" + listJob[index].displayName + "</p>\
 								</div>\
 							</li>";
 				$('#suggestion-box ul').append(item);
@@ -79,14 +88,13 @@ function showResult(result) {
 
 		var listSkill = result.skills;
 		if (listSkill.length > 0) {
-			$('#suggestion-box ul').append("<li><strong><b>Skill</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Skill</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listSkill.length; index++) {
 				var item = "<li class='search-item'>\
-								<img src='/resources/images/profile_photo.jpg' />\
+								<img src='' />\
 								<div class='wrapper'>\
-									<p>" + listSkill.displayName + "</p>\
-									<i></i>\
+									<p style='line-height: 50px;'>" + listSkill[index].displayName + "</p>\
 								</div>\
 							</li>";
 				$('#suggestion-box ul').append(item);
@@ -98,9 +106,9 @@ function showResult(result) {
 		
 		// set width
 		if (COUNT_LI_ITEM > MAX_RECORED) {
-			$('#suggestion-box').attr("style", "height: " + (MAX_RECORED * HEIGHT_LI_ITEM) + "px !important");
+			$('#suggestion-box').attr("style", "height: " + (MAX_RECORED * HEIGHT_LI_ITEM + 20) + "px !important");
 		} else {
-			$('#suggestion-box').attr("style", "height: " + (COUNT_LI_ITEM * HEIGHT_LI_ITEM) + "px !important");
+			$('#suggestion-box').attr("style", "height: " + (COUNT_LI_ITEM * HEIGHT_LI_ITEM + 20) + "px !important");
 		}
 		$('#suggestion-box').slideDown(50);
 	}
@@ -124,7 +132,7 @@ function showResult(result) {
  		dataType: "json",
  		Accept : "application/json",
  		contentType: "application/json; charset=utf-8",
-		//data: JSON.stringify(data),
+		data: JSON.stringify(data),
 		beforeSend: function(xhr, settings) {
 			if (isProgressing == true) {
 				// enable progress

@@ -9,11 +9,11 @@
 <head>
 <title>Home</title>
 <!-- Local style -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/hiringviet/register/css/company-register.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/register/css/company-register.css'/>">
 
 </head>
 <body>
+	<input type="hidden" id="none_value" value="<spring:message code='label.default.dropdown.none_value'></spring:message>">
 	<div class="row">
 		<div class="col m6 offset-m3">
 			<div class="card-panel">
@@ -42,14 +42,15 @@
 							</div>
 
 							<div class="input-field">
-								<form:input id="explicitAddress" type="text"
-									path="address.explicitAddress" cssClass="validate"
+								<form:input id="streetName" type="text"
+									path="address.streetName" cssClass="validate"
 									required="required" />
 								<label><spring:message
-										code="label.register.company.input.address"></spring:message></label>
+										code="label.register.company.input.street_name"></spring:message></label>
 							</div>
+
 							<div class="row">
-								<div class="input-field col m4 p-0">
+								<div class="input-field col m6">
 									<select id="countryAddress">
 										<option value="-1" disabled selected><spring:message
 												code="label.default.dropdown.none_value"></spring:message></option>
@@ -61,7 +62,7 @@
 									</select><label><spring:message
 											code="label.register.company.input.country"></spring:message></label>
 								</div>
-								<div class="input-field col m4">
+								<div class="input-field col m6">
 									<select id="provinceAddress">
 										<option value="-1" disabled selected><spring:message
 												code="label.default.dropdown.none_value"></spring:message></option>
@@ -69,15 +70,22 @@
 											code="label.register.company.input.province"></spring:message></label>
 								</div>
 
-								<div class="input-field col m4">
+								<div class="input-field col m6">
+									<select id="districtAddress">
+										<option value="-1" disabled selected><spring:message
+												code="label.default.dropdown.none_value"></spring:message></option>
+									</select> <label><spring:message
+											code="label.register.company.input.district"></spring:message></label>
+								</div>
+								<div class="input-field col m6">
 									<spring:message code="label.default.dropdown.none_value"
 										var="dropdown_none_value"></spring:message>
-									<form:select id="districtAddress" path="address.district.id">
+									<form:select id="wardAddress" path="address.ward.id">
 										<form:option value="-1" label="${dropdown_none_value}"
 											disabled="true"></form:option>
 									</form:select>
 									<label><spring:message
-											code="label.register.company.input.district"></spring:message></label>
+											code="label.register.company.input.ward"></spring:message></label>
 								</div>
 							</div>
 
@@ -125,11 +133,60 @@
 		</div>
 	</div>
 	<!-- Local js -->
-	<script type="text/javascript"
-		src="/resources/hiringviet/register/js/validate.js"></script>
-	<script type="text/javascript"
-		src="/resources/hiringviet/register/js/address_auto_fill.js"></script>
-	<script type="text/javascript"
-		src="/resources/hiringviet/register/js/register_company.js"></script>
+	<script type="text/javascript" src="/resources/hiringviet/register/js/validate.js"></script>
+	<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/common.js'/>"></script>
+	<script type="text/javascript">
+		$("#account-info").hide();
+		isBeta = false;
+		$("#nextButton").click(
+				function() {
+					if (checkCompanyInfoValidate()) {
+						if ($("#company-info").is(":visible")
+								&& !$("#account-info").is(":visible")) {
+							$("#company-info").hide();
+							$("#account-info").show();
+						}
+					} else {
+						$("#newCompany").find(":submit").click();
+					}
+				});
+
+		function checkCompanyInfoValidate() {
+			var displayNameValidate = $("#displayName")[0].checkValidity();
+			var businessFieldValidate = $("#businessField")[0].checkValidity();
+			var streetNameValidate = $("#streetName")[0].checkValidity();
+			var checkDropdownList = validateAllDropdownList();
+
+			//console.log(validateAllDropdownList());
+
+			if (!displayNameValidate || !businessFieldValidate
+					|| !streetNameValidate || !checkDropdownList) {
+				return false;
+			}
+			return true;
+		}
+
+		$("#backButton").click(
+				function() {
+					if ($("#account-info").is(":visible")
+							&& !$("#company-info").is(":visible")) {
+						$("#account-info").hide();
+						$("#company-info").show();
+					}
+				});
+
+		function validateAllDropdownList() {
+			var check = true;
+			$("select").each(function(index, element) {
+				console.log(index + " | " + element.value);
+				if (element.value == null || element.value == -1) {
+					check = false;
+					return;
+				}
+			});
+			console.log("To here");
+			return check;
+		}
+	</script>
 </body>
 </html>

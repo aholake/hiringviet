@@ -17,6 +17,10 @@ var ADMIN = 0;
 var USER = 1;
 var COMPANY = 2;
 
+var FIRST_PAGE = 1;
+
+var checkMemberTooltip = true;
+var isBeta = false;
 /** Global Constant for CSS pop-up Progressing */
 var popupCss = "background-color: #BCBCBC;\
 	opacity: 0.8;\
@@ -56,6 +60,8 @@ $(function() {
    			$("#dropdown-menu").hide();
    			//console.log("3");
    		}
+
+		$('.tooltil-show-member').hide();
    	});
 
 
@@ -71,6 +77,31 @@ $(function() {
 
 	// Initialize collapse button
 	$(".button-collapse").sideNav();
+
+	$('.tooltil-show-member').hover(function(){
+		$('.tooltil-show-member').show();
+		checkMemberTooltip = true;
+	}, function() {
+		$('.tooltil-show-member').hide();
+		checkMemberTooltip = true;
+	});
+
+	$("#countryAddress").change(function() {
+		var data = $(this).val();
+		callAPI('/rest/getProvincesByCountry', 'POST', data, 'processGetProvinces', false);
+	});
+
+	$("#provinceAddress").change(function() {
+		var data = $(this).val();
+		callAPI('/rest/getDistrictsByProvince', 'POST', data, 'processGetDistricts', false);
+	});
+
+	if (isBeta) {
+		$("#districtAddress").change(function() {
+			var data = $(this).val();
+			callAPI('/rest/getWardsByDistrict', 'POST', data, 'processGetWards', false);
+		});
+	}
 })
 
 /**
@@ -204,4 +235,84 @@ function hideIconEdit(select) {
 	$(select + ' .edit span').css({'background-color': BACKGROUND_DEFAULT, 'color': COLOR_DEFAULT, 'opacity': 1});
 	$(select + ' .edit .prefix-icon-r').css({'background-color': BACKGROUND_DEFAULT, 'color': COLOR_DEFAULT});
 	$(select + ' .edit .prefix-icon-r').hide();
+}
+
+
+function showMemberTooltip(event, accountId) {
+	if (checkMemberTooltip) {
+		var bodyRect = document.body.getBoundingClientRect(),
+	    elemRect = event.getBoundingClientRect(),
+	    offsetX   = elemRect.top - bodyRect.top;
+	    offsetY  = elemRect.left - bodyRect.left;
+	
+		$('.tooltil-show-member').css('top', (offsetX - 112));
+		$('.tooltil-show-member').css('left', (offsetY - 113));
+		$('.tooltil-show-member .btn-connect').prop('href', $('#redirect_member_page').val() + accountId);
+		$('.tooltil-show-member .btn-profile').prop('href', $('#redirect_member_page').val() + accountId);
+		$('.tooltil-show-member .endorse-item-name-text').prop('href', $('#redirect_member_page').val() + accountId);
+		callAPI($('#url_count_member_of_follwer').val(), 'POST', accountId, 'processCountNumberOfFollower', false);
+		checkMemberTooltip = false;
+	}
+}
+
+function hideMemberToolTip() {
+
+	setTimeout(function() {
+		if (!checkMemberTooltip) {
+			$('.tooltil-show-member').hide();
+			checkMemberTooltip = true;
+		}
+	}, 500);
+
+}
+
+function processCountNumberOfFollower(responses) {
+
+	$('.tooltil-show-member img').prop('src', responses.avatarImage);
+	$('.tooltil-show-member .endorse-item-name-text').text(responses.firstName + ' ' + responses.lastName);
+	$('.tooltil-show-member .number-followers').text(responses.numberFollower);
+	$('.tooltil-show-member').show();
+}
+
+function processGetProvinces(response) {
+
+	$("#provinceAddress").empty().append("<option value='-1' disabled selected>" + $('#none_value').val() + "</option>");
+	$.each(response, function(i, province) {
+
+		$("#provinceAddress").append($('<option>', {
+			value : province.id,
+			text : province.type + " " + province.provinceName
+		}));
+	});
+	$('#provinceAddress').material_select();
+}
+
+function processGetDistricts(response) {
+
+	$("#districtAddress")
+			.empty()
+			.append("<option value='' disabled selected>" + $('#none_value').val() + "</option>");
+	$.each(response, function(i, district) {
+
+		$("#districtAddress").append($('<option>', {
+			value : district.id,
+			text : district.type + " " + district.districtName
+		}));
+	});
+	$('#districtAddress').material_select();
+}
+
+function processGetWards(response) {
+
+	$("#wardAddress")
+			.empty()
+			.append("<option value='' disabled selected>" + $('#none_value').val() + "</option>");
+	$.each(response, function(i, ward) {
+
+		$("#wardAddress").append($('<option>', {
+			value : ward.id,
+			text : ward.wardName
+		}));
+	});
+	$('#wardAddress').material_select();
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.ChangeLog;
@@ -79,6 +80,12 @@ public class CompanyServiceImpl implements CompanyService {
 	public Company getCompanyByAccount(Account account) {
 		// TODO Auto-generated method stub
 		return companyDAO.getCompanyByAccount(account);
+	}
+
+	@Override
+	public List<CompanyDTO> getListCompanySuggest(String keywork) {
+		// TODO Auto-generated method stub
+		return companyDAO.getListCompanySuggest(keywork);
 	}
 
 }

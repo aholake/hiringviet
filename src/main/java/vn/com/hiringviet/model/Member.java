@@ -19,6 +19,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Formula;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,6 +39,9 @@ public class Member implements Serializable {
 
 	private String lastName;
 
+	@Formula(value="first_name || ' ' || last_name")
+	private String fullName;
+
 	private Date birthDate;
 
 	private Resume resume;
@@ -43,6 +49,10 @@ public class Member implements Serializable {
 	private Set<Apply> applySet;
 
 	private ChangeLog changeLog;
+
+	private Set<Connect> fromConnectSet;
+
+	private Set<Connect> toConnectSet;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -121,6 +131,34 @@ public class Member implements Serializable {
 
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "fromMember")
+	public Set<Connect> getFromConnectSet() {
+		return fromConnectSet;
+	}
+
+	public void setFromConnectSet(Set<Connect> fromConnectSet) {
+		this.fromConnectSet = fromConnectSet;
+	}
+
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "toMember")
+	public Set<Connect> getToConnectSet() {
+		return toConnectSet;
+	}
+
+	public void setToConnectSet(Set<Connect> toConnectSet) {
+		this.toConnectSet = toConnectSet;
 	}
 
 }

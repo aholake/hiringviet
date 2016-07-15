@@ -28,7 +28,8 @@
 	<input type="hidden" id="url_remove_endorse" value="<c:url value='/profile/endorse/remove'/>"/>
 	<input type="hidden" id="url_count_member_of_follwer" value="<c:url value='/profile/countNumberOfFollower'/>"/>
 	<input type="hidden" id="redirect_member_page" value="<c:url value='/profile?accountId='/>"/>
-
+	<input type="hidden" id="url_add_connect" value="<c:url value='/profile/addConnect'/>"/>
+	<input type="hidden" id="paramMemberId" value="${param.memberId}"/>
 		<div class="row">
 			<div class="col m8">
 				<c:if test="${sessionScope.account.id == member.account.id}">
@@ -63,6 +64,12 @@
 					</div>
 				</c:if>
 				<!-- Begin resume -->
+				<div class="card-panel padding-10 hoverable position-relative experience-history">
+					<h1 class="title"><spring:message code="label.profile.title.exp_history.title"/></h1>
+					<div class="panel-content list-experience">
+					a
+					</div>
+				</div>
 				<div class="card-panel padding-10 hoverable position-relative education-history">
 					<h1 class="title"><spring:message code="label.profile.title.edu_history.title"/></h1>
 					<div class="panel-content list-education">
@@ -268,7 +275,7 @@
 				    				</span>
 				    				<div class="endorsers-container">
 				    					<a class="endorse-button">
-				    						<c:if test="${not empty sessionScope.account && sessionScope.account.id != member.account.id}">
+				    						<c:if test="${not empty sessionScope.account && sessionScope.account.id != member.account.id && checkConnect == true}">
 					    						<span class="endorsing">
 					    							<i class="material-icons small-icon margin-top-3px icon_add_endorse_${skillResume.skill.id}"
 														onmouseover="onMouseOverEndorsingEvent('add_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
@@ -291,13 +298,15 @@
 				    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="theCount">
 				    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
 					    						<c:choose>
-					    							<c:when test="${not empty sessionScope.account && sessionScope.account.id == endorse.account.id}">
-						    							<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}" onmouseenter="showTooltip(this, ${endorse.account.id});">
-							    							<a href="#">
-							    								<img class="img-full" src="${endorse.account.avatarImage}">
-							    							</a>
-						    							</li>
-						    							<script type="text/javascript">
+					    							<c:when test="${not empty sessionScope.account && sessionScope.account.id == endorse.account.id && checkConnect == true}">
+														<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}"
+															onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
+															onmouseout="javascript:hideMemberToolTip()">
+															<a href="#"> <img class="img-full"
+																src="${endorse.account.avatarImage}">
+														</a>
+														</li>
+														<script type="text/javascript">
 						    								var skillResumeId = $('.skill_resume_' + ${skillResume.skill.id}).val();
 						    								$('.icon_add_endorse_' + skillResumeId).hide();
 						    								$('.icon_remove_endorse_' + skillResumeId).show();
@@ -309,7 +318,9 @@
 					    							</c:when>
 					    							<c:otherwise>
 					    								<c:if test="${theCount.count <= 9}">
-						    								<li class="endorse_${endorse.id}" onmouseenter="showTooltip(this, ${endorse.account.id});">
+						    								<li class="endorse_${endorse.id}" 
+						    									onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
+						    									onmouseout="javascript:hideMemberToolTip()">
 								    							<a href="#">
 								    								<img class="img-full" src="${endorse.account.avatarImage}">
 								    							</a>

@@ -14,6 +14,9 @@ public class CommentDTO implements Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 5114712305837473580L;
 
+	/** The id. */
+	private Integer id;
+
 	/** The member id. */
 	private Integer memberId;
 
@@ -43,6 +46,27 @@ public class CommentDTO implements Serializable {
 
 	/** The job. */
 	private Integer jobId;
+
+	/** The number reply comment. */
+	private Long numberReplyComment;
+
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	/**
 	 * Gets the member id.
@@ -232,6 +256,24 @@ public class CommentDTO implements Serializable {
 	 */
 	public void setJobId(Integer jobId) {
 		this.jobId = jobId;
+	}
+
+	/**
+	 * Gets the number reply comment.
+	 *
+	 * @return the number reply comment
+	 */
+	public Long getNumberReplyComment() {
+		return numberReplyComment;
+	}
+
+	/**
+	 * Sets the number reply comment.
+	 *
+	 * @param numberReplyComment the new number reply comment
+	 */
+	public void setNumberReplyComment(Long numberReplyComment) {
+		this.numberReplyComment = numberReplyComment;
 	}
 
 }

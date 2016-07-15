@@ -7,19 +7,19 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import vn.com.hiringviet.api.dto.response.CompanyResponseDTO;
 import vn.com.hiringviet.api.dto.response.JobSuggestDTO;
-import vn.com.hiringviet.api.dto.response.MemberResponseDTO;
 import vn.com.hiringviet.api.dto.response.SearchSuggestResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
+import vn.com.hiringviet.dto.CompanyDTO;
+import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
-import vn.com.hiringviet.model.Skill;
+import vn.com.hiringviet.service.CompanyService;
+import vn.com.hiringviet.service.MemberService;
 import vn.com.hiringviet.service.SkillService;
 
 @Controller
@@ -28,33 +28,23 @@ public class SearchController {
 	@Autowired
 	private SkillService skillService;
 
-	@RequestMapping(value = "/search/suggest", method = RequestMethod.POST)
-	public @ResponseBody SearchSuggestResponseDTO getSuggest(Model model, HttpSession session) {
+	@Autowired
+	private MemberService memberService;
 
+	@Autowired
+	private CompanyService companyService;
+
+	@RequestMapping(value = "/search/suggest", method = RequestMethod.POST)
+	public @ResponseBody SearchSuggestResponseDTO getSuggest(@RequestBody String keywork, HttpSession session) {
+
+		keywork = keywork.replace("\"", "");
 		SearchSuggestResponseDTO response = new SearchSuggestResponseDTO();
 
-		MemberResponseDTO member = new MemberResponseDTO();
-		member.setId(1);
-		member.setFirstName("Nguyen");
-		member.setLastName("Tuan Anh");
-		List<MemberResponseDTO> memberResponseDTOs = new ArrayList<MemberResponseDTO>();
-		memberResponseDTOs.add(member);
-		memberResponseDTOs.add(member);
-		memberResponseDTOs.add(member);
+		List<MemberDTO> memberResponseDTOs = memberService.getListMemberSuggest(keywork);
 
-		CompanyResponseDTO company = new CompanyResponseDTO();
-		company.setId(1);
-		company.setDisplayName("Tan Hiep Phat");
-		company.setCompanySize(100);
-		List<CompanyResponseDTO> companyResponseDTOs = new ArrayList<CompanyResponseDTO>();
-		companyResponseDTOs.add(company);
-		companyResponseDTOs.add(company);
+		List<CompanyDTO> companyResponseDTOs = companyService.getListCompanySuggest(keywork);
 
-		Skill skill = new Skill();
-		skill.setDisplayName("Java");
-		List<Skill> skills = new ArrayList<Skill>();
-		skills.add(skill);
-		skills.add(skill);
+		List<SkillDTO> skills = skillService.searchSkillByKeyWord(keywork);
 
 		JobSuggestDTO job = new JobSuggestDTO();
 		job.setDisplayName("Cong Viec A");

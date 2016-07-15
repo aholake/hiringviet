@@ -18,6 +18,16 @@ public class MemberDTO implements Serializable {
 
 	private Long numberFollower;
 
+	private String schoolName;
+
+	private String provinceName;
+
+	private String district;
+
+	private String province;
+
+	private String country;
+
 	public Integer getId() {
 		return id;
 	}
@@ -64,6 +74,46 @@ public class MemberDTO implements Serializable {
 
 	public void setNumberFollower(Long numberFollower) {
 		this.numberFollower = numberFollower;
+	}
+
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+
+	public String getProvinceName() {
+		return provinceName;
+	}
+
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 }

@@ -182,7 +182,7 @@ public class Utils {
 	public static PagingDTO calculatorPaging(PagingDTO pagingDTO, boolean fromStart) {
 
 		if (fromStart) {
-			if (pagingDTO.getFirstItem() == ConstantValues.FIRST_RECORD) {
+			if (ConstantValues.FIRST_RECORD == pagingDTO.getFirstItem()) {
 				pagingDTO.setFirstItem(ConstantValues.FIRST_RECORD);
 				pagingDTO.setCurrentPage(ConstantValues.CURRENT_PAGE);
 			} else {

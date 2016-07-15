@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.common.PublishResponseEnum;
 import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
@@ -83,7 +86,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		Criteria criteria = session.createCriteria(Post.class, "post");
 		criteria.createAlias("post.company", "company");
 		criteria.createAlias("post.changeLog", "changeLog");
-		criteria.createAlias("post.commentSet", "commentSet");
+		criteria.createAlias("post.commentSet", "commentSet", JoinType.LEFT_OUTER_JOIN);
 		criteria.add(Restrictions.eq("company.id", companyId));
 		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
 		criteria.setProjection(Projections.projectionList()
@@ -131,5 +134,31 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		query.setParameter("account", account);
 		List<Company> list = query.list();
 		return list.isEmpty() ? null : list.get(0);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CompanyDTO> getListCompanySuggest(String keywork) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		Criteria criteria = session.createCriteria(Company.class, "company");
+		criteria.createAlias("company.changeLog", "changeLog");
+		criteria.createAlias("company.account", "account", JoinType.LEFT_OUTER_JOIN);
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.groupProperty("company.id").as("id"))
+				.add(Projections.property("company.displayName").as("displayName"))
+				.add(Projections.property("account.avatarImage").as("avatarImage"))
+				.add(Projections.count("account.toFollows").as("numberFollower"))
+				.add(Projections.property("company.companySize").as("companySize"))
+				.add(Projections.property("company.businessField").as("businessField")));
+		criteria.add(Restrictions.like("company.displayName", keywork + "%"));
+		criteria.addOrder(Order.desc("company.isVip"));
+		criteria.addOrder(Order.desc("numberFollower"));
+		criteria.setMaxResults(ConstantValues.MAX_RECORD_COUNT);
+		criteria.setResultTransformer(Transformers.aliasToBean(CompanyDTO.class));
+
+		List<CompanyDTO> companyDTOs = (List<CompanyDTO>) criteria.list();
+		return companyDTOs;
 	}
 }

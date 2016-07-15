@@ -86,6 +86,10 @@ $(function() {
 		}
 		return false;
 	});
+
+	$('#btn-connect').on('click', function() {
+		callAPI($('#url_add_connect').val(), 'POST', $('#paramMemberId').val(), "processAddConnect", false);
+	});
 });
 
 function processSuggestSkill(responses) {
@@ -185,4 +189,12 @@ function addEducationDocument(value) {
 
 function cancelEducationDocument(value) {
 	$('.add-media-education').hide();
+}
+
+function processAddConnect(response) {
+	if (SUCCESS == response.result) {
+		
+	} else {
+		alert('Please login to continue!');
+	}
 }
