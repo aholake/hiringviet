@@ -14,9 +14,11 @@ import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Country;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.CompanyService;
+import vn.com.hiringviet.service.CountryService;
 import vn.com.hiringviet.service.JobService;
 import vn.com.hiringviet.service.MemberService;
 import vn.com.hiringviet.service.ResumeService;
@@ -49,6 +51,9 @@ public class HomeController {
 	/** The resume service. */
 	@Autowired
 	private ResumeService resumeService;
+
+	@Autowired
+	private CountryService countryService;
 
 	/**
 	 * Go home page.
@@ -84,6 +89,9 @@ public class HomeController {
 			model.addAttribute("account", account);
 			result = "home_login";
 		}
+
+		List<Country> countries = countryService.getCountryList();
+		model.addAttribute("countries", countries);
 
 		model.addAttribute("firstItem", 0);
 		model.addAttribute("maxItem", ConstantValues.MAX_RECORD_COUNT);

@@ -9,11 +9,11 @@
 <head>
 <title>Home</title>
 <!-- Local style -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/hiringviet/register/css/company-register.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/register/css/company-register.css'/>">
 
 </head>
 <body>
+	<input type="hidden" id="none_value" value="<spring:message code='label.default.dropdown.none_value'></spring:message>">
 	<div class="row">
 		<div class="col m6 offset-m3">
 			<div class="card-panel">
@@ -133,80 +133,11 @@
 		</div>
 	</div>
 	<!-- Local js -->
-	<script type="text/javascript"
-		src="/resources/hiringviet/register/js/validate.js"></script>
+	<script type="text/javascript" src="/resources/hiringviet/register/js/validate.js"></script>
+	<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/common.js'/>"></script>
 	<script type="text/javascript">
 		$("#account-info").hide();
-
-		$("#countryAddress").change(
-				function() {
-					var data = $(this).val();
-					callAPI('/rest/getProvincesByCountry', 'POST', data,
-							'processGetProvinces', false);
-				});
-
-		$("#provinceAddress").change(
-				function() {
-					var data = $(this).val();
-					callAPI('/rest/getDistrictsByProvince', 'POST', data,
-							'processGetDistricts', false);
-				});
-
-		$("#districtAddress").change(
-				function() {
-					var data = $(this).val();
-					callAPI('/rest/getWardsByDistrict', 'POST', data,
-							'processGetWards', false);
-				});
-
-		function processGetProvinces(response) {
-			console.log(response);
-			$("#provinceAddress")
-					.empty()
-					.append(
-							"<option value='-1' disabled selected><spring:message code="label.default.dropdown.none_value"></spring:message></option>");
-			$.each(response, function(i, province) {
-				console.log("Province: " + province);
-				$("#provinceAddress").append($('<option>', {
-					value : province.id,
-					text : province.provinceName
-				}));
-			});
-			$('#provinceAddress').material_select();
-		}
-
-		function processGetDistricts(response) {
-			console.log(response);
-			$("#districtAddress")
-					.empty()
-					.append(
-							"<option value='' disabled selected><spring:message code="label.default.dropdown.none_value"></spring:message></option>");
-			$.each(response, function(i, district) {
-				console.log("District: " + district);
-				$("#districtAddress").append($('<option>', {
-					value : district.id,
-					text : district.districtName
-				}));
-			});
-			$('#districtAddress').material_select();
-		}
-
-		function processGetWards(response) {
-			console.log(response);
-			$("#wardAddress")
-					.empty()
-					.append(
-							"<option value='' disabled selected><spring:message code="label.default.dropdown.none_value"></spring:message></option>");
-			$.each(response, function(i, ward) {
-				console.log("Ward: " + ward);
-				$("#wardAddress").append($('<option>', {
-					value : ward.id,
-					text : ward.wardName
-				}));
-			});
-			$('#wardAddress').material_select();
-		}
-
+		isBeta = false;
 		$("#nextButton").click(
 				function() {
 					if (checkCompanyInfoValidate()) {

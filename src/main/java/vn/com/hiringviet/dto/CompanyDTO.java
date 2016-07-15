@@ -22,6 +22,8 @@ public class CompanyDTO implements Serializable {
 
 	private Integer companySize;
 
+	private String businessField;
+
 	public Integer getId() {
 		return id;
 	}
@@ -84,6 +86,14 @@ public class CompanyDTO implements Serializable {
 
 	public void setCompanySize(Integer companySize) {
 		this.companySize = companySize;
+	}
+
+	public String getBusinessField() {
+		return businessField;
+	}
+
+	public void setBusinessField(String businessField) {
+		this.businessField = businessField;
 	}
 
 }

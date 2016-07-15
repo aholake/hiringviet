@@ -18,16 +18,16 @@ import org.hibernate.annotations.Cascade;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "follow")
-public class Follow implements Serializable {
+@Table(name = "connect")
+public class Connect implements Serializable {
 
-	private static final long serialVersionUID = 8097651282212896550L;
+	private static final long serialVersionUID = 4719386124548469927L;
 
 	private Integer id;
 
-	private Account fromAccount;
+	private Member fromMember;
 
-	private Account toAccount;
+	private Member toMember;
 
 	private ChangeLog changeLog;
 
@@ -43,25 +43,25 @@ public class Follow implements Serializable {
 	}
 
 	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "from_account")
-	public Account getFromAccount() {
-		return fromAccount;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "from_member")
+	public Member getFromMember() {
+		return fromMember;
 	}
 
-	public void setFromAccount(Account fromAccount) {
-		this.fromAccount = fromAccount;
+	public void setFromMember(Member fromMember) {
+		this.fromMember = fromMember;
 	}
 
 	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "to_account")
-	public Account getToAccount() {
-		return toAccount;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "to_member")
+	public Member getToMember() {
+		return toMember;
 	}
 
-	public void setToAccount(Account toAccount) {
-		this.toAccount = toAccount;
+	public void setToMember(Member toMember) {
+		this.toMember = toMember;
 	}
 
 	@JsonIgnore

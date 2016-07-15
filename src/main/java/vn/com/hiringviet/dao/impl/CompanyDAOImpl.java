@@ -145,20 +145,16 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		Criteria criteria = session.createCriteria(Company.class, "company");
 		criteria.createAlias("company.changeLog", "changeLog");
 		criteria.createAlias("company.account", "account", JoinType.LEFT_OUTER_JOIN);
-		criteria.createAlias("company.address", "address", JoinType.LEFT_OUTER_JOIN);
-		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
-		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
-		criteria.createAlias("province.country", "country", JoinType.LEFT_OUTER_JOIN);
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.groupProperty("company.id").as("id"))
 				.add(Projections.property("company.displayName").as("displayName"))
 				.add(Projections.property("account.avatarImage").as("avatarImage"))
 				.add(Projections.count("account.toFollows").as("numberFollower"))
 				.add(Projections.property("company.companySize").as("companySize"))
-				.add(Projections.property("district.districtName").as("district"))
-				.add(Projections.property("province.provinceName").as("province"))
-				.add(Projections.property("country.countryName").as("country")));
-		criteria.add(Restrictions.like("company.displayName", "%" + keywork + "%"));
+				.add(Projections.property("company.businessField").as("businessField")));
+		criteria.add(Restrictions.like("company.displayName", keywork + "%"));
+		criteria.addOrder(Order.desc("company.isVip"));
+		criteria.addOrder(Order.desc("numberFollower"));
 		criteria.setMaxResults(ConstantValues.MAX_RECORD_COUNT);
 		criteria.setResultTransformer(Transformers.aliasToBean(CompanyDTO.class));
 

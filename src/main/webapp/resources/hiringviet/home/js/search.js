@@ -25,7 +25,7 @@ function showResult(result) {
 	if (FAIL == result.result) {
 		alert(result.message);
 	} else {
-		console.log(result);
+
 		$('#suggestion-box ul').html("");
 
 		var listMember = result.memberResponseDTOs;
@@ -54,14 +54,14 @@ function showResult(result) {
 			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Company</b></strong></li>");
 			COUNT_LI_ITEM++;
 			for (var index = 0; index < listCompany.length; index++) {
-				var item = "<a href='/company/" + listMember[index].id + "'><li class='search-item'>\
-								<img src='" + listMember[index].avatarImage + "' />\
+				var item = "<a href='/company/" + listCompany[index].id + "'><li class='search-item'>\
+								<img src='" + listCompany[index].avatarImage + "' />\
 								<div class='wrapper'>\
 									<p>" + listCompany[index].displayName + "</p>\
 									<i>"
-										+ listMember[index].district + ", "
-										+ listMember[index].province + ",  "
-										+ listMember[index].country
+										+ listCompany[index].businessField + "; "
+										+ listCompany[index].companySize + "+ "
+										+ $('#title_employee').val()
 									+ "</i>\
 								</div>\
 							</li></a>";
@@ -78,8 +78,7 @@ function showResult(result) {
 				var item = "<li class='search-item'>\
 								<img src='' />\
 								<div class='wrapper'>\
-									<p>" + listJob[index].displayName + "</p>\
-									<i></i>\
+									<p style='line-height: 50px;'>" + listJob[index].displayName + "</p>\
 								</div>\
 							</li>";
 				$('#suggestion-box ul').append(item);
@@ -95,8 +94,7 @@ function showResult(result) {
 				var item = "<li class='search-item'>\
 								<img src='' />\
 								<div class='wrapper'>\
-									<p>" + listSkill[index].displayName + "</p>\
-									<i></i>\
+									<p style='line-height: 50px;'>" + listSkill[index].displayName + "</p>\
 								</div>\
 							</li>";
 				$('#suggestion-box ul').append(item);

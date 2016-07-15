@@ -28,4 +28,6 @@ public interface MemberService {
 	public boolean addSkillsOfMember(Account account, Set<SkillDTO> skills);
 
 	public List<MemberDTO> getListMemberSuggest(String keywork);
+
+	public void addConnect(Member formMember, Integer toMemberId);
 }

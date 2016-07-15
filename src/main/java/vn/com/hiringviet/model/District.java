@@ -23,6 +23,8 @@ public class District implements Serializable {
 
 	private String districtName;
 
+	private String type;
+
 	private Province province;
 
 	@Id
@@ -42,6 +44,15 @@ public class District implements Serializable {
 
 	public void setDistrictName(String districtName) {
 		this.districtName = districtName;
+	}
+
+	@Column(name = "type")
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

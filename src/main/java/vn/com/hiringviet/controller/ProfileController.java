@@ -23,8 +23,10 @@ import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.ResumeDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
+import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.EducationHistory;
 import vn.com.hiringviet.model.Member;
+import vn.com.hiringviet.service.ConnectService;
 import vn.com.hiringviet.service.EndorseService;
 import vn.com.hiringviet.service.FollowService;
 import vn.com.hiringviet.service.MemberService;
@@ -46,6 +48,9 @@ public class ProfileController {
 	@Autowired
 	private FollowService followService;
 
+	@Autowired
+	private ConnectService connectService;
+
 	@RequestMapping(value = "/layouts/profileBanner", method = RequestMethod.GET)
 	public String goProfileBanner(Model model, HttpSession session) {
 
@@ -62,7 +67,19 @@ public class ProfileController {
 	public String goProfilePage(@RequestParam("memberId") Integer memberId, Model model, HttpSession session) {
 
 		Member member = memberService.getMemberByID(memberId);
+
+		Member memberLogin = LoginController.getMemberSession(session);
+		boolean checkConnect = false;
+		if (!Utils.isEmptyObject(memberLogin)) {
+
+			Connect connect = connectService.getConnectByMemberId(memberLogin.getId(), member.getId());
+			if (!Utils.isEmptyObject(connect)) {
+				checkConnect = true;
+			}
+		}
+
 		model.addAttribute("member", member);
+		model.addAttribute("checkConnect", checkConnect);
 
 		model.addAttribute("years", Utils.generatorListYear());
 		model.addAttribute("educationHistory", new EducationHistory());
@@ -178,5 +195,21 @@ public class ProfileController {
 			model.addAttribute("errorMessage", "");
 		}
 		return "redirect:/profile?memberId=" + filterMemberId;
+	}
+
+	@RequestMapping(value = "/profile/addConnect", method = RequestMethod.POST)
+	public @ResponseBody CommonResponseDTO addConnect(@RequestBody Integer toMemberId, HttpSession session) {
+
+		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
+
+		Member member = LoginController.getMemberSession(session);
+
+		if (Utils.isEmptyObject(member)) {
+			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+			return commonResponseDTO;
+		}
+		memberService.addConnect(member, toMemberId);
+		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+		return commonResponseDTO;
 	}
 }

@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.common.SkillTypeEnum;
+import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dao.SkillDAO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
+import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.model.SkillResume;
@@ -108,5 +110,18 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberDTO> getListMemberSuggest(String keywork) {
 
 		return memberDAO.getListMemberSuggest(keywork);
+	}
+
+	@Override
+	public void addConnect(Member formMember, Integer toMemberId) {
+
+		Member toMember = memberDAO.findOne(toMemberId);
+
+		Connect connect = new Connect();
+		connect.setFromMember(formMember);
+		connect.setToMember(toMember);
+		connect.setChangeLog(Utils.generatorChangeLog());
+		connect.getChangeLog().setStatus(StatusRecordEnum.INACTIVE.getValue());
+		memberDAO.addConnect(connect);
 	}
 }

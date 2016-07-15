@@ -19,6 +19,7 @@ import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.model.Account;
+import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.Member;
 
 @Repository
@@ -100,6 +101,15 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 
 		List<MemberDTO> memberDTOs = (List<MemberDTO>) criteria.list();
 		return memberDTOs;
+	}
+
+	@Override
+	public void addConnect(Connect connect) {
+
+		Session session = this.sessionFactory.getCurrentSession();
+
+		session.persist(connect);
+
 	}
 
 }

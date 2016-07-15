@@ -15,7 +15,7 @@
 	<input type="hidden" id="url_search" value="<c:url value='/search/suggest' />" />
 
 	<input type="hidden" id="title_follow" value="<spring:message code='label.navbar.title.follow'/>" />
-	<input type="hidden" id="title_people" value="<spring:message code='label.home.title.people'/>" />
+	<input type="hidden" id="title_employee" value="<spring:message code='label.home.title.employee'/>" />
 
 	<nav>
 	<ul id="slide-out" class="side-nav">

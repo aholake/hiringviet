@@ -20,7 +20,7 @@ var COMPANY = 2;
 var FIRST_PAGE = 1;
 
 var checkMemberTooltip = true;
-
+var isBeta = false;
 /** Global Constant for CSS pop-up Progressing */
 var popupCss = "background-color: #BCBCBC;\
 	opacity: 0.8;\
@@ -85,6 +85,23 @@ $(function() {
 		$('.tooltil-show-member').hide();
 		checkMemberTooltip = true;
 	});
+
+	$("#countryAddress").change(function() {
+		var data = $(this).val();
+		callAPI('/rest/getProvincesByCountry', 'POST', data, 'processGetProvinces', false);
+	});
+
+	$("#provinceAddress").change(function() {
+		var data = $(this).val();
+		callAPI('/rest/getDistrictsByProvince', 'POST', data, 'processGetDistricts', false);
+	});
+
+	if (isBeta) {
+		$("#districtAddress").change(function() {
+			var data = $(this).val();
+			callAPI('/rest/getWardsByDistrict', 'POST', data, 'processGetWards', false);
+		});
+	}
 })
 
 /**
@@ -255,4 +272,47 @@ function processCountNumberOfFollower(responses) {
 	$('.tooltil-show-member .endorse-item-name-text').text(responses.firstName + ' ' + responses.lastName);
 	$('.tooltil-show-member .number-followers').text(responses.numberFollower);
 	$('.tooltil-show-member').show();
+}
+
+function processGetProvinces(response) {
+
+	$("#provinceAddress").empty().append("<option value='-1' disabled selected>" + $('#none_value').val() + "</option>");
+	$.each(response, function(i, province) {
+
+		$("#provinceAddress").append($('<option>', {
+			value : province.id,
+			text : province.type + " " + province.provinceName
+		}));
+	});
+	$('#provinceAddress').material_select();
+}
+
+function processGetDistricts(response) {
+
+	$("#districtAddress")
+			.empty()
+			.append("<option value='' disabled selected>" + $('#none_value').val() + "</option>");
+	$.each(response, function(i, district) {
+
+		$("#districtAddress").append($('<option>', {
+			value : district.id,
+			text : district.type + " " + district.districtName
+		}));
+	});
+	$('#districtAddress').material_select();
+}
+
+function processGetWards(response) {
+
+	$("#wardAddress")
+			.empty()
+			.append("<option value='' disabled selected>" + $('#none_value').val() + "</option>");
+	$.each(response, function(i, ward) {
+
+		$("#wardAddress").append($('<option>', {
+			value : ward.id,
+			text : ward.wardName
+		}));
+	});
+	$('#wardAddress').material_select();
 }
