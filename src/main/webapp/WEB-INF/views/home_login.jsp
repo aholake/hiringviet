@@ -28,6 +28,7 @@
 	<input type="hidden" id="text_title_major" value="<spring:message code="label.home.title.major"/>" />
 	<input type="hidden" id="text_total_employee" value="<spring:message code="label.home.title.total_employee"/>" />
 	<input type="hidden" id="text_title_people" value="<spring:message code="label.home.title.people"/>" />
+	<input type="hidden" id="none_value" value="<spring:message code='label.default.dropdown.none_value'></spring:message>">
 
 	<div class="row">
 		<div class="col m8 no-padding-on-med-and-down">
@@ -138,6 +139,71 @@
 			</div>
 		</div>
 		<div class="col m4 no-padding-on-med-and-down">
+			<div class="card-panel">
+				<div class="panel-title">
+					Điều kiện lọc
+				</div>
+				<div class="row">
+					<div class="col m12">
+						<div class="input-field m12">
+							<select>
+								<option value="" disabled selected>Choose Career</option>
+								<option value="1">Công Nghệ Thông Tin</option>
+								<option value="2">Option 2</option>
+								<option value="3">Option 3</option>
+							</select>
+						</div>
+						<div class="input-field m12">
+							<select >
+								<option value="" disabled selected>Choose Position</option>
+								<option value="1">Option 1</option>
+								<option value="2">Option 2</option>
+								<option value="3">Option 3</option>
+							</select>
+						</div>
+						<div class="input-field m12">
+							<select multiple>
+								<option value="" disabled selected>Choose Skill</option>
+								<option value="1">Option 1</option>
+								<option value="2">Option 2</option>
+								<option value="3">Option 3</option>
+							</select>
+						</div>
+						<div class="input-field m12">
+							<select id="countryAddress">
+								<option value="-1" disabled selected><spring:message
+										code="label.default.dropdown.none_value"></spring:message></option>
+								<c:if test="${not empty countries }">
+									<c:forEach items="${countries }" var="country">
+										<option value="${country.id }">${country.countryName }</option>
+									</c:forEach>
+								</c:if>
+							</select>
+						</div>
+						<div class="input-field m12">
+							<select id="provinceAddress">
+								<option value="-1" disabled selected><spring:message
+										code="label.default.dropdown.none_value"></spring:message></option>
+							</select>
+						</div>
+						<div class="input-field m12">
+							<select multiple id="districtAddress">
+								<option value="-1" disabled selected><spring:message
+										code="label.default.dropdown.none_value"></spring:message></option>
+							</select>
+						</div>
+						<div class="input-field m12">
+							<select>
+								<option value="" disabled selected>Choose Salary</option>
+								<option value="1">Dưới 500$</option>
+								<option value="2">500$ - 1000$</option>
+								<option value="3">1000$ - 2000$</option>
+								<option value="3">Trên 2000$</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="card-panel center">
 				<div class="panel-title">HOẠT ĐỘNG</div>
 				<div class="panel-content">
