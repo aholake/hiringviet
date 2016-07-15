@@ -2,16 +2,16 @@ package vn.com.hiringviet.common;
 
 public enum PublishResponseEnum {
 
-	PUBLISH(1),
-	NOT_PUBLISH(0);
+	PUBLISH(true),
+	NOT_PUBLISH(false);
 
-	private int value;
+	private boolean value;
 
-	private PublishResponseEnum(int value) {
+	private PublishResponseEnum(boolean value) {
 		this.value = value;
 	}
 
-	public int getValue() {
+	public boolean getValue() {
 		return this.value;
 	}
 }
