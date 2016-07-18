@@ -10,4 +10,6 @@ public interface AccountDAO extends CommonDAO<Account> {
 	public Account checkLogin(String email, String password);
 	
 	public boolean isExistedAccount(String email);
+	
+	public Account getAccountByEmail(String email);
 }

@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,18 +15,10 @@ import vn.com.hiringviet.model.Account;
 @Transactional
 public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO {
 
-	@Autowired
-	private SessionFactory sessionFactory;
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
 	@Override
 	public Account checkLogin(String email, String password) {
 
-		Session session = this.sessionFactory.getCurrentSession();
-
+		Session session = getSession();
 		StringBuilder hql = new StringBuilder();
 		hql.append("FROM Account ");
 		hql.append(" WHERE status = :status ");
@@ -49,8 +39,7 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 	@Override
 	public boolean isExistedAccount(String email) {
 		// TODO Auto-generated method stub
-		System.out.println("check email " + email);
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = getSession();
 		StringBuilder sb = new StringBuilder();
 		sb.append("FROM Account ");
 		sb.append("WHERE email = :email");
@@ -62,5 +51,17 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 			return false;
 		}
 		return true;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public Account getAccountByEmail(String email) {
+		String hql = "FROM Account WHERE email = :email";
+		Query query = getSession().createQuery(hql);
+		query.setParameter("email", email);
+		List<Account> accounts = query.list();
+		if(accounts.isEmpty()) {
+			return null;
+		}
+		return accounts.get(0);
 	}
 }

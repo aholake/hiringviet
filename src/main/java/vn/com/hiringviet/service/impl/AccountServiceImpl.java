@@ -21,8 +21,12 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public boolean isExistedAccount(String email) {
-		// TODO Auto-generated method stub
 		return accountDAO.isExistedAccount(email);
+	}
+
+	@Override
+	public Account getAccountByEmail(String email) {
+		return accountDAO.getAccountByEmail(email);
 	}
 
 }
