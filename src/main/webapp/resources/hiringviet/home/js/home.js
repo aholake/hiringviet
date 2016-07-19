@@ -17,9 +17,71 @@ $(function() {
 			"currentPage" : currentPage
 		}, "showResultJobHot", true);
 	});
+
+	showCompanyList(companyList);
+	showPositionList(positionList);
+	showSkillList(skillList);
+	showCategoryList(categoryList);
+	showProvinceList(provinceList);
 });
 
+function showCompanyList(companyList) {
+	$.each( companyList, function( i, val ) {
+		var html = '<li>\
+						<input type="checkbox" class="filled-in" id="company-' + val + '"/>\
+						<label for="company-' + val + '">' + val + '</label>\
+					</li>';
+		$('.filter-company-list').append(html);
+	});
+}
+
+function showPositionList(positionList) {
+	$.each( positionList, function( i, val ) {
+		var html = '<li>\
+						<input type="checkbox" class="filled-in" id="position-' + val.replace(' ', '') + '"/>\
+						<label for="position-' + val.replace(' ', '') + '">' + val + '</label>\
+					</li>';
+		$('.filter-position-list').append(html);
+	});
+}
+
+function showSkillList(skillList) {
+	$.each( skillList, function( i, val ) {
+		var html = '<li>\
+						<input type="checkbox" class="filled-in" id="skill-' + val + '"/>\
+						<label for="skill-' + val + '">' + val + '</label>\
+					</li>';
+		$('.filter-skill-list').append(html);
+	});
+}
+
+function showCategoryList(categoryList) {
+	$.each( categoryList, function( i, val ) {
+		var html = '<li>\
+						<input type="checkbox" class="filled-in" id="category-' + val + '"/>\
+						<label for="category-' + val + '">' + val + '</label>\
+					</li>';
+		$('.filter-category-list').append(html);
+	});
+}
+
+function showProvinceList(provinceList) {
+	$.each( provinceList, function( i, val ) {
+		var html = '<li>\
+						<input type="checkbox" class="filled-in" id="province-' + val + '"/>\
+						<label for="province-' + val + '">' + val + '</label>\
+					</li>';
+		$('.filter-province-list').append(html);
+	});
+}
+
 function showResultJobHot(response) {
+
+	var newCategoryList = new Array();
+	var newCompanyList = new Array();
+	var newPositionList = new Array();
+	var newSkillList = new Array();
+	var newProvinceList = new Array();
 
 	if (FAIL == response.result) {
 		alert(response.message);
@@ -31,10 +93,39 @@ function showResultJobHot(response) {
 		var jobListResponse = response.jobList;
 		for (var index = 0; index < jobListResponse.length; index++) {
 
+			var checkContain = $.inArray(jobListResponse[index].jobCategory.categoryName, categoryList);
+			if (checkContain < 0) {
+				newCategoryList.push(jobListResponse[index].jobCategory.categoryName);
+				categoryList.push(jobListResponse[index].jobCategory.categoryName);
+			}
+
+			var checkContain = $.inArray(jobListResponse[index].company.displayName, companyList);
+			if (checkContain < 0) {
+				newCompanyList.push(jobListResponse[index].company.displayName);
+				companyList.push(jobListResponse[index].company.displayName);
+			}
+
+			var checkContain = $.inArray(jobListResponse[index].position.displayName, positionList);
+			if (checkContain < 0) {
+				newPositionList.push(jobListResponse[index].position.displayName);
+				positionList.push(jobListResponse[index].position.displayName);
+			}
+
+			var checkContain = $.inArray(jobListResponse[index].workAddress.district.province.provinceName, provinceList);
+			if (checkContain < 0) {
+				newProvinceList.push(jobListResponse[index].workAddress.district.province.provinceName);
+				provinceList.push(jobListResponse[index].workAddress.district.province.provinceName);
+			}
+
 			var tempItem = "";
 			var skills = jobListResponse[index].skillSet;
 			for (var i = 0; i < skills.length; i++) {
 				tempItem += '<a class="chip">' + skills[i].displayName + '</a>';
+				var checkContain = $.inArray(skills[i].displayName, skillList);
+				if (checkContain < 0) {
+					newSkillList.push(skills[i].displayName);
+					skillList.push(skills[i].displayName);
+				}
 			}
 
 			var nameClass = "";
@@ -101,5 +192,11 @@ function showResultJobHot(response) {
 			$('#btn-load-more').attr('disabled', 'disabled');
 			$('#btn-load-more').addClass('disabled');
 		}
+
+		showCompanyList(newCompanyList);
+		showPositionList(newPositionList);
+		showSkillList(newSkillList);
+		showCategoryList(newCategoryList);
+		showProvinceList(newProvinceList);
 	}
 }

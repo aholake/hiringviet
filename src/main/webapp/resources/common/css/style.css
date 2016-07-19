@@ -242,6 +242,10 @@ h1.title {
 	display: block !important;
 }
 
+.display-none {
+	display: none;
+}
+
 .chip {
 	margin: 2px 5px 2px 0px;
 }
@@ -363,5 +367,7 @@ h1.title {
 	height: 50px;
 }
 
-
+.collection {
+	overflow: visible;
+}
 @import url("smart.css");

@@ -28,6 +28,24 @@ function showResult(result) {
 
 		$('#suggestion-box ul').html("");
 
+		var item = "<a href=''><li class='search-item'>\
+					<i class='material-icons icon'>work</i>\
+					<div class='wrapper'>\
+						<p style='line-height: 50px;'>Jobs requiring Java skills</p>\
+					</div>\
+					</li></a>";
+		COUNT_LI_ITEM++;
+		$('#suggestion-box ul').append(item);
+
+		var item = "<a href=''><li class='search-item'>\
+			<i class='material-icons icon'>supervisor_account</i>\
+			<div class='wrapper'>\
+				<p style='line-height: 50px;'>People with Java skills</p>\
+			</div>\
+			</li></a>";
+		COUNT_LI_ITEM++;
+		$('#suggestion-box ul').append(item);
+
 		var listMember = result.memberResponseDTOs;
 		if (listMember.length > 0) {
 			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Member</b></strong></li>");
@@ -105,7 +123,7 @@ function showResult(result) {
 
 		
 		// set width
-		if (COUNT_LI_ITEM > MAX_RECORED) {
+		if (COUNT_LI_ITEM >= MAX_RECORED) {
 			$('#suggestion-box').attr("style", "height: " + (MAX_RECORED * HEIGHT_LI_ITEM + 20) + "px !important");
 		} else {
 			$('#suggestion-box').attr("style", "height: " + (COUNT_LI_ITEM * HEIGHT_LI_ITEM + 20) + "px !important");
