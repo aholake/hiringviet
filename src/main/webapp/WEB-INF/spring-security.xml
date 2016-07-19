@@ -14,6 +14,7 @@
         <intercept-url pattern="/admin**" access="hasRole('0')"/>
         <intercept-url pattern="/user**" access="hasRole('1')"/>
         <intercept-url pattern="/company**" access="hasRole('2')"/>
+        <access-denied-handler error-page="/access-denied"/>
         <form-login login-page="/login" default-target-url="/" authentication-failure-url="/login?error" username-parameter="email" password-parameter="password"/>
         <logout logout-success-url="/login?logout" />
     </http>

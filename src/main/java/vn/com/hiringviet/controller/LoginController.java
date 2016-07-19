@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import vn.com.hiringviet.api.dto.response.AccountDTO;
 import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
@@ -40,7 +41,8 @@ public class LoginController {
 			HttpSession session) {
 
 		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
-		Account account = accountService.checkLogin(accountDTO.getEmail(), accountDTO.getPassword());
+		Account account = accountService.checkLogin(accountDTO.getEmail(),
+				accountDTO.getPassword());
 
 		if (account == null) {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -49,21 +51,34 @@ public class LoginController {
 
 		if (accountDTO.isRemembered()) {
 			CookieUtil.createCookie(response, "email", account.getEmail());
-			CookieUtil.createCookie(response, "password", account.getPassword());
+			CookieUtil
+					.createCookie(response, "password", account.getPassword());
 		}
 
 		session.setAttribute("account", account);
 
 		if (MemberRoleEnum.USER.getValue() == account.getRoleID()) {
-			session.setAttribute("memberSession", memberService.getMemberByAccount(account));
+			session.setAttribute("memberSession",
+					memberService.getMemberByAccount(account));
 		} else if (MemberRoleEnum.COMPANY.getValue() == account.getRoleID()) {
-			session.setAttribute("companySession", companyService.getCompanyByAccount(account));
+			session.setAttribute("companySession",
+					companyService.getCompanyByAccount(account));
 		} else {
-			
+
 		}
 
 		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		return commonResponseDTO;
+	}
+
+	@RequestMapping("/login")
+	public String goToLoginPage() {
+		return "login";
+	}
+	
+	@RequestMapping("/access-denied")
+	public String accessDenied() {
+		return "access_denied";
 	}
 
 	public static Account getAccountSession(HttpSession session) {
