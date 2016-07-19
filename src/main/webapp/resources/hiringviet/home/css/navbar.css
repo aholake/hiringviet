@@ -244,6 +244,15 @@ a.navbar-logo {
 	line-height: 25px;
 }
 
+.search-item .icon {
+	width: 40px;
+    height: 40px;
+    margin: 5px 10px;
+    font-size: 40px;
+    color: black;
+    opacity: 0.5;
+}
+
 .wrap-search-results {
 	padding: 5px;
 }

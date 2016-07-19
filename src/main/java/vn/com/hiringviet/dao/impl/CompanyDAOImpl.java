@@ -115,7 +115,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		criteria.add(Restrictions.eq("company.id", companyId));
 		criteria.add(Restrictions.eq("changeLog.status",
 				StatusRecordEnum.ACTIVE.getValue()));
-		criteria.add(Restrictions.eq("job.isPublish",
+		criteria.add(Restrictions.eq("job.publish",
 				PublishResponseEnum.PUBLISH.getValue()));
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);

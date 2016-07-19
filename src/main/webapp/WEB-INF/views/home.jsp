@@ -36,28 +36,52 @@
 				<div class="panel-title">
 					<spring:message code="label.home.title.hot_career" />
 				</div>
-				<div class="input-field col m12">
-					<div class="input-field col m8">
-						Tìm được 600 công việc
-					</div>
-					<div class="input-field col m4">
-						<select>
-							<option value="1">20 việc làm</option>
-							<option value="2">30 việc làm</option>
-							<option value="3">50 việc làm</option>
-						</select>
-					</div>
-				</div>
-				<hr />
 				<div id="job-list">
+					<script type="text/javascript">
+						var categoryList = new Array();
+						var companyList = new Array();
+						var positionList = new Array();
+						var skillList = new Array();
+						var provinceList = new Array();
+					</script>
 					<c:forEach items="${jobList}" var="job">
+						<input hidden="" value="${job.jobCategory.categoryName}" class="category">
+						<input hidden="" value="${job.company.displayName}" class="company">
+						<input hidden="" value="${job.position.displayName}" class="position">
+						<input hidden="" value="${job.workAddress.district.province.provinceName}" class="address">
+
+						<script type="text/javascript">
+							var checkContain = $.inArray($('.category').val(), categoryList);
+							if (checkContain < 0) {
+								categoryList.push($('.category').val());
+							}
+							$('.category').remove();
+
+							var checkContain = $.inArray($('.company').val(), companyList);
+							if (checkContain < 0) {
+								companyList.push($('.company').val());
+							}
+							$('.company').remove();
+
+							var checkContain = $.inArray($('.position').val(), positionList);
+							if (checkContain < 0) {
+								positionList.push($('.position').val());
+							}
+							$('.position').remove();
+
+							var checkContain = $.inArray($('.address').val(), provinceList);
+							if (checkContain < 0) {
+								provinceList.push($('.address').val());
+							}
+							$('.address').remove();
+						</script>
 						<div class="">
 							<div class="job-box">
 								<div class="location-sticky orange darken-1">${job.company.address.district.province.provinceName}</div>
 								<div class="row none-margin-bottom">
 									<div class="col m3 center hide-on-med-and-down">
-										<a href="/company/${job.company.id}"><img
-											src="${job.company.avatar}"
+										<a href="/company/${job.company.id}">
+											<img src="${job.company.avatar}"
 											class="responsive-img company-logo"></a> <a href="#"
 											class="btn margin-top-10 orange darken-1 waves-effect waves-light">
 											<spring:message code="label.home.button.follow_company" />
@@ -122,6 +146,14 @@
 													${job.description}</p>
 												<div class="col m12 none-padding-left margin-top-5">
 													<c:forEach items="${job.skillSet}" var="skill">
+														<input hidden="" value="${skill.displayName}" class="skill">
+														<script type="text/javascript">
+															var checkContain = $.inArray($('.skill').val(), skillList);
+															if (checkContain < 0) {
+																skillList.push($('.skill').val());
+															}
+															$('.skill').remove();
+														</script>
 														<a class="chip">${skill.displayName}</a>
 													</c:forEach>
 												</div>
@@ -158,62 +190,112 @@
 				</div>
 				<div class="row">
 					<div class="col m12">
-						<div class="input-field m12">
-							<select>
-								<option value="" disabled selected>Choose Career</option>
-								<option value="1">Công Nghệ Thông Tin</option>
-								<option value="2">Option 2</option>
-								<option value="3">Option 3</option>
-							</select>
-						</div>
-						<div class="input-field m12">
-							<select >
-								<option value="" disabled selected>Choose Position</option>
-								<option value="1">Option 1</option>
-								<option value="2">Option 2</option>
-								<option value="3">Option 3</option>
-							</select>
-						</div>
-						<div class="input-field m12">
-							<select multiple>
-								<option value="" disabled selected>Choose Skill</option>
-								<option value="1">Option 1</option>
-								<option value="2">Option 2</option>
-								<option value="3">Option 3</option>
-							</select>
-						</div>
-						<div class="input-field m12">
-							<select id="countryAddress">
-								<option value="-1" disabled selected><spring:message
-										code="label.default.dropdown.none_value"></spring:message></option>
-								<c:if test="${not empty countries }">
-									<c:forEach items="${countries }" var="country">
-										<option value="${country.id }">${country.countryName }</option>
-									</c:forEach>
-								</c:if>
-							</select>
-						</div>
-						<div class="input-field m12">
-							<select id="provinceAddress">
-								<option value="-1" disabled selected><spring:message
-										code="label.default.dropdown.none_value"></spring:message></option>
-							</select>
-						</div>
-						<div class="input-field m12">
-							<select multiple id="districtAddress">
-								<option value="-1" disabled selected><spring:message
-										code="label.default.dropdown.none_value"></spring:message></option>
-							</select>
-						</div>
-						<div class="input-field m12">
-							<select>
-								<option value="" disabled selected>Choose Salary</option>
-								<option value="1">Dưới 500$</option>
-								<option value="2">500$ - 1000$</option>
-								<option value="3">1000$ - 2000$</option>
-								<option value="3">Trên 2000$</option>
-							</select>
-						</div>
+						<ul class="collection fillter-wrapper">
+							<li class="collection-item"><b>Career</b>
+								<ul class="margin-top-10 display-none filter-category-list">
+									<li>
+										<input type="checkbox" class="filled-in" id="category-all" /> 
+										<label for="category-all">All</label>
+									</li>
+								</ul>
+							</li>
+							<li class="collection-item"><b>Company</b>
+								<ul class="margin-top-10 display-none filter-company-list">
+									<li>
+										<input type="checkbox" class="filled-in" id="company-all" /> 
+										<label for="company-all">All</label>
+									</li>
+								</ul>
+							</li>
+							<li class="collection-item"><b>Date Posted</b>
+								<ul class="margin-top-10 display-none filter-date-post-list">
+									<li>
+										<input class="with-gap" name="datePosts" type="radio" id="date-post-All"/> 
+										<label for="date-post-All">All</label>
+									</li>
+									<li>
+										<input class="with-gap" name="datePosts" type="radio" id="date-post-1" /> 
+										<label for="date-post-1">1 day ago</label>
+									</li>
+									<li>
+										<input class="with-gap" name="datePosts" type="radio" id="date-post-3" /> 
+										<label for="date-post-3">3 day ago</label>
+									</li>
+									<li>
+										<input class="with-gap" name="datePosts" type="radio" id="date-post-5" /> 
+										<label for="date-post-5">5 day ago</label>
+									</li>
+									<li>
+										<input class="with-gap" name="datePosts" type="radio" id="date-post-7" /> 
+										<label for="date-post-7">7 day ago</label>
+									</li>
+								</ul>
+							</li>
+							<li class="collection-item"><b>Job Function</b>
+								<ul class="margin-top-10 display-none filter-position-list">
+									<li>
+										<input type="checkbox" class="filled-in" id="position-all"/> 
+										<label for="position-all">All</label>
+									</li>
+								</ul>
+							</li>
+							<li class="collection-item"><b>Skill</b>
+								<ul class="margin-top-10 display-none filter-skill-list">
+									<li>
+										<input type="checkbox" class="filled-in" id="skill-all"/> 
+										<label for="skill-all">All</label>
+									</li>
+								</ul>
+							</li>
+							<li class="collection-item"><b>Experience Level</b>
+								<ul class="margin-top-10 display-none">
+									<li>
+										<input type="checkbox" class="filled-in" id="1"/> 
+										<label for="1">All</label>
+									</li>
+									<li>
+										<input type="checkbox" class="filled-in" id="2" /> 
+										<label for="2">None</label>
+									</li>
+								</ul>
+							</li>
+							<li class="collection-item"><b>Salary</b>
+								<ul class="margin-top-10 display-none filter-salary-list">
+									<li>
+										<input class="with-gap" name="salary" type="radio" id="salary-all"  />
+										<label for="salary-all">All</label>
+									</li>
+									<li>
+										<input class="with-gap" name="salary" type="radio" id="salary-500"  />
+										<label for="salary-500">Dưới 500$</label>
+									</li>
+									<li>
+										<input class="with-gap" name="salary" type="radio" id="salary-1000"  />
+										<label for="salary-1000">500$ - 1000$</label>
+									</li>
+									<li>
+										<input class="with-gap" name="salary" type="radio" id="salary-2000"  />
+										<label for="salary-2000">1000$ - 2000$</label>
+									</li>
+									<li>
+										<input class="with-gap" name="salary" type="radio" id="salary-3000"  />
+										<label for="salary-3000">2000$ - 3000$</label>
+									</li>
+									<li>
+										<input class="with-gap" name="salary" type="radio" id="salary-4000"  />
+										<label for="salary-4000">Trên 3000$</label>
+									</li>
+								</ul>
+							</li>
+							<li class="collection-item"><b>Province</b>
+								<ul class="margin-top-10 display-none filter-province-list">
+									<li>
+										<input type="checkbox" class="filled-in" id="province-all"  />
+										<label for="province-all">All</label>
+									</li>
+								</ul>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
