@@ -3,7 +3,9 @@ package vn.com.hiringviet.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.constant.ConstantValues;
@@ -22,16 +24,21 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	private CompanyDAO companyDAO;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	@Override
 	public int addCompany(Company company) {
+		String encryptPassword = encoder.encode(company.getAccount().getPassword());
+		company.getAccount().setPassword(encryptPassword);
 		ChangeLog changeLog = Utils.createDefaultChangeLog();
 		company.setChangeLog(changeLog);
 		company.getAccount().setRoleID(MemberRoleEnum.COMPANY.getValue());
 		company.getAccount().setLocale(ConstantValues.VN_LOCALE);
-		return companyDAO.create(company);
-	}
-
+        return companyDAO.create(company);
+    }
+	
 	@Override
 	public boolean deleteCompany(Company company) {
 		return companyDAO.delete(company);

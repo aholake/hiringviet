@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.common.MemberRoleEnum;
@@ -31,9 +32,14 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private SkillDAO skillDAO;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	@Override
 	public int addMember(Member member) {
+		String encryptPassword = encoder.encode(member.getAccount().getPassword());
+		member.getAccount().setPassword(encryptPassword);
 		member.setChangeLog(Utils.createDefaultChangeLog());
 		member.getAccount().setRoleID(MemberRoleEnum.USER.getValue());
 		member.getAccount().setLocale(ConstantValues.VN_LOCALE);

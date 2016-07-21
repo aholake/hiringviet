@@ -22,7 +22,12 @@ public class AuthenticationService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String email)
 			throws UsernameNotFoundException {
+		System.out.println("Run Authentication");
 		Account account = accountDAO.getAccountByEmail(email);
+		if(account==null) {
+			System.out.println("account not found");
+			throw new UsernameNotFoundException("account not found");
+		}
 		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(account.getRoleID().toString());
 		UserDetails userDetails = (UserDetails) new User(account.getEmail(), account.getPassword(), Arrays.asList(grantedAuthority));
 		return userDetails;
