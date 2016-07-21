@@ -19,7 +19,7 @@
 
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript"
-	src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	src="/resources/common/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript"
 	src="<c:url value='/resources/common/js/materialize.min.js'/>"></script>
 
