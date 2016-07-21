@@ -61,7 +61,7 @@ public class Job implements Serializable {
 
 	private ChangeLog changeLog;
 
-	private boolean isPublish;
+	private boolean publish;
 
 	private Address workAddress;
 
@@ -201,13 +201,14 @@ public class Job implements Serializable {
 	}
 
 	@Column(name = "is_publish")
-	public boolean isPublish() {
-		return isPublish;
+	public boolean getPublish() {
+		return publish;
 	}
-
-	public void setPublish(boolean isPublish) {
-		this.isPublish = isPublish;
+	
+	public void setPublish(boolean publish) {
+		this.publish = publish;
 	}
+	
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "work_address_id")

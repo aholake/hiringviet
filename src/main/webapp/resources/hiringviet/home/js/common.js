@@ -102,6 +102,17 @@ $(function() {
 			callAPI('/rest/getWardsByDistrict', 'POST', data, 'processGetWards', false);
 		});
 	}
+
+	var checkOnClick = true;
+	$('.fillter-wrapper .collection-item').on('click', function() {
+		if (!checkOnClick) {
+			$(this).find('ul').hide();
+			checkOnClick = true;
+		} else {
+			checkOnClick = false;
+			$(this).find('ul').show();
+		}
+	});
 })
 
 /**
