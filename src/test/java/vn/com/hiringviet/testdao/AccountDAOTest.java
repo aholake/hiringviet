@@ -12,7 +12,7 @@ import vn.com.hiringviet.dao.AccountDAO;
 import vn.com.hiringviet.model.Account;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:servlet-context.xml", "classpath:spring-mail.xml"})
+@ContextConfiguration(locations = {"classpath:servlet-context.xml","classpath:spring-security.xml", "classpath:spring-mail.xml"})
 public class AccountDAOTest {
 	@Autowired
 	private AccountDAO accountDAO;
@@ -24,7 +24,7 @@ public class AccountDAOTest {
 	
 	@Test
 	public void should_return_email_by_valid_email() throws Exception {
-		String email = "admin@gmail.com";
-		assertEquals(email, accountDAO.getAccountByEmail("admin@gmail.com").getEmail());
+		String email = "loc.vo@axonactive.com";
+		assertEquals(email, accountDAO.getAccountByEmail("loc.vo@axonactive.com").getEmail());
 	}
 }
