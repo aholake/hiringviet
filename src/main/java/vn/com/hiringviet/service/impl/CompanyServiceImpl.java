@@ -34,7 +34,7 @@ public class CompanyServiceImpl implements CompanyService {
 		company.getAccount().setPassword(encryptPassword);
 		ChangeLog changeLog = Utils.createDefaultChangeLog();
 		company.setChangeLog(changeLog);
-		company.getAccount().setRoleID(MemberRoleEnum.COMPANY.getValue());
+		company.getAccount().setUserRole(MemberRoleEnum.COMPANY);
 		company.getAccount().setLocale(ConstantValues.VN_LOCALE);
         return companyDAO.create(company);
     }

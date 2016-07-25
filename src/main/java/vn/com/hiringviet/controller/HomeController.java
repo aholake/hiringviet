@@ -73,7 +73,7 @@ public class HomeController {
 		List<Job> jobList = null;
 		List<Company> companyList = null;
 
-		if (Utils.isEmptyObject(account) || MemberRoleEnum.COMPANY.getValue() == account.getRoleID()) {
+		if (Utils.isEmptyObject(account) || MemberRoleEnum.COMPANY == account.getUserRole()) {
 
 			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT,
 					true, null);

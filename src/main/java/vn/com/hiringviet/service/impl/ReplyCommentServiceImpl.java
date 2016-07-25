@@ -36,7 +36,7 @@ public class ReplyCommentServiceImpl implements ReplyCommentService{
 		if (!Utils.isEmptyList(replyCommentDTOs)) {
 			for (int i = 0; i < replyCommentDTOs.size(); i++) {
 				ReplyCommentDTO replyCommentDTO = replyCommentDTOs.get(i);
-				if (MemberRoleEnum.USER.getValue() == replyCommentDTO.getAccount().getRoleID()) {
+				if (MemberRoleEnum.USER == replyCommentDTO.getAccount().getUserRole()) {
 					MemberDTO memberDTO = memberDAO.getMemberByAccountId(replyCommentDTO.getAccount().getId());
 					replyCommentDTO.setMemberId(memberDTO.getId());
 					replyCommentDTO.setFirstName(memberDTO.getFirstName());

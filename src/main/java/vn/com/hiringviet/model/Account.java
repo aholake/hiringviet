@@ -6,15 +6,20 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
+import vn.com.hiringviet.common.MemberRoleEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -44,7 +49,7 @@ public class Account implements Serializable {
 	private String coverImage;
 
 	/** The role id. */
-	private Integer roleID;
+	private MemberRoleEnum userRole;
 
 	/** The locale. */
 	private String locale;
@@ -61,6 +66,10 @@ public class Account implements Serializable {
 	/** The to follows. */
 	private Set<Follow> toFollows;
 
+	private Company company;
+
+	private Member member;
+	
 	/**
 	 * Gets the id.
 	 *
@@ -75,7 +84,8 @@ public class Account implements Serializable {
 	/**
 	 * Sets the id.
 	 *
-	 * @param accountID the new id
+	 * @param accountID
+	 *            the new id
 	 */
 	public void setId(Integer accountID) {
 		this.id = accountID;
@@ -94,7 +104,8 @@ public class Account implements Serializable {
 	/**
 	 * Sets the email.
 	 *
-	 * @param email the new email
+	 * @param email
+	 *            the new email
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -113,7 +124,8 @@ public class Account implements Serializable {
 	/**
 	 * Sets the password.
 	 *
-	 * @param password the new password
+	 * @param password
+	 *            the new password
 	 */
 	public void setPassword(String password) {
 		this.password = password;
@@ -124,20 +136,7 @@ public class Account implements Serializable {
 	 *
 	 * @return the role id
 	 */
-	@Column(name = "role_id")
-	public Integer getRoleID() {
-		return roleID;
-	}
-
-	/**
-	 * Sets the role id.
-	 *
-	 * @param roleID the new role id
-	 */
-	public void setRoleID(Integer roleID) {
-		this.roleID = roleID;
-	}
-
+	
 	/**
 	 * Gets the locale.
 	 *
@@ -147,11 +146,21 @@ public class Account implements Serializable {
 	public String getLocale() {
 		return locale;
 	}
+	
+	@Enumerated(EnumType.ORDINAL)
+	public MemberRoleEnum getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(MemberRoleEnum userRole) {
+		this.userRole = userRole;
+	}
 
 	/**
 	 * Sets the locale.
 	 *
-	 * @param locale the new locale
+	 * @param locale
+	 *            the new locale
 	 */
 	public void setLocale(String locale) {
 		this.locale = locale;
@@ -189,7 +198,8 @@ public class Account implements Serializable {
 	/**
 	 * Sets the inbox messages.
 	 *
-	 * @param inboxMessages the new inbox messages
+	 * @param inboxMessages
+	 *            the new inbox messages
 	 */
 	public void setInboxMessages(Set<Message> inboxMessages) {
 		this.inboxMessages = inboxMessages;
@@ -209,7 +219,8 @@ public class Account implements Serializable {
 	/**
 	 * Sets the sent messages.
 	 *
-	 * @param sentMessages the new sent messages
+	 * @param sentMessages
+	 *            the new sent messages
 	 */
 	public void setSentMessages(Set<Message> sentMessages) {
 		this.sentMessages = sentMessages;
@@ -229,7 +240,8 @@ public class Account implements Serializable {
 	/**
 	 * Sets the from follows.
 	 *
-	 * @param fromFollows the new from follows
+	 * @param fromFollows
+	 *            the new from follows
 	 */
 	public void setFromFollows(Set<Follow> fromFollows) {
 		this.fromFollows = fromFollows;
@@ -249,10 +261,28 @@ public class Account implements Serializable {
 	/**
 	 * Sets the to follows.
 	 *
-	 * @param toFollows the new to follows
+	 * @param toFollows
+	 *            the new to follows
 	 */
 	public void setToFollows(Set<Follow> toFollows) {
 		this.toFollows = toFollows;
 	}
 
+	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
 }

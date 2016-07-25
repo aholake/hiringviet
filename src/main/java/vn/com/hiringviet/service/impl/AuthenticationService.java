@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import vn.com.hiringviet.dto.SecurityAccount;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.service.AccountService;
 
@@ -30,14 +31,15 @@ public class AuthenticationService implements UserDetailsService {
 		Account account = accountService.getAccountByEmail(username);
 		LOGGER.info(account);
 		if (account == null) {
-			System.out.println("account not found");
+			LOGGER.error("account not found");
 			throw new UsernameNotFoundException("account not found");
 		}
 		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(account
-				.getRoleID().toString());
-		UserDetails userDetails = (UserDetails) new User(account.getEmail(),
-				account.getPassword(), Arrays.asList(grantedAuthority));
-		return userDetails;
+				.getUserRole().name());
+		LOGGER.info(account
+				.getUserRole().name());
+		SecurityAccount securityAccount = new SecurityAccount(account.getEmail(),
+				account.getPassword(), Arrays.asList(grantedAuthority), account.getCompany(), account.getMember());
+		return securityAccount;
 	}
-
 }

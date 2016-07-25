@@ -1,5 +1,4 @@
 /*--------------------------NAV BAR---------------*/
-
 div.rectangle-input {
 	width: 100%;
 	height: 35px;
@@ -15,10 +14,11 @@ div.rectangle-input label {
 	position: absolute;
 	top: -25px;
 	color: #333333;
-    font-size: 13px;
+	font-size: 13px;
 }
 
-div.rectangle-input input[type="text"],div.rectangle-input input[type="password"] {
+div.rectangle-input input[type="text"], div.rectangle-input input[type="password"]
+	{
 	border: none !important;
 	line-height: 35px;
 	outline: none !important;
@@ -37,7 +37,7 @@ div.rectangle-input input:focus {
 }
 
 #search-bar {
-	margin-top:25px;
+	margin-top: 25px;
 	width: 700px;
 }
 
@@ -57,6 +57,7 @@ div.rectangle-input input:focus {
 	overflow: auto;
 	z-index: 4;
 }
+
 #suggestion-box ul {
 	display: none;
 }
@@ -66,6 +67,7 @@ div.rectangle-input input:focus {
 	line-height: 50px;
 	cursor: pointer;
 }
+
 #suggestion-box li:hover {
 	background: #eeeeee;
 }
@@ -84,7 +86,7 @@ div.rectangle-input input:focus {
 #suggestion-box>.search-progress>img {
 	width: 30px;
 	height: 30px;
-	margin: 5px 10px; 
+	margin: 5px 10px;
 }
 
 #suggestion-box>.search-progress>p {
@@ -100,11 +102,11 @@ div.rectangle-input input:focus {
 
 .noselect {
 	-webkit-touch-callout: none; /* iOS Safari */
-	-webkit-user-select: none;   /* Chrome/Safari/Opera */
-	-khtml-user-select: none;    /* Konqueror */
-	-moz-user-select: none;      /* Firefox */
-	-ms-user-select: none;       /* IE/Edge */
-  user-select: none;           /* non-prefixed version, currently
+	-webkit-user-select: none; /* Chrome/Safari/Opera */
+	-khtml-user-select: none; /* Konqueror */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE/Edge */
+	user-select: none; /* non-prefixed version, currently
   not supported by any browser */
 }
 
@@ -144,12 +146,13 @@ div.rectangle-input input:focus {
 	padding-top: 8px;
 	border-bottom: 1px dotted #c2c2c2;
 }
+
 #profile .profile-photo {
 	height: 150px;
 	width: 150px;
 }
 
-.menu-item a{
+.menu-item a {
 	color: #333333;
 }
 
@@ -173,6 +176,7 @@ div.rectangle-input input:focus {
 	right: 5px;
 	top: 4px;
 }
+
 .menu-item-header:hover {
 	background: #64B5F6;
 }
@@ -181,16 +185,18 @@ div.rectangle-input input:focus {
 	display: none;
 }
 
-.menu-item-body ul{
+.menu-item-body ul {
 	background: #d6d6d6;
 }
 
 .menu-item-body ul li {
 	padding-left: 30px;
 }
+
 .menu-item-body ul li {
 	line-height: 35px;
 }
+
 .menu-item-body ul li:hover {
 	background: #c2c2c2;
 }
@@ -217,9 +223,9 @@ a.navbar-logo {
 	display: -webkit-inline-box;
 	display: inline-box;
 	width: 100%;
-    line-height: 50px;
-    height: 50px;
-    cursor: pointer;
+	line-height: 50px;
+	height: 50px;
+	cursor: pointer;
 }
 
 .search-item>img {
@@ -227,6 +233,7 @@ a.navbar-logo {
 	height: 40px;
 	margin: 5px 10px;
 }
+
 .search-item>.wrapper {
 	
 }
@@ -246,11 +253,11 @@ a.navbar-logo {
 
 .search-item .icon {
 	width: 40px;
-    height: 40px;
-    margin: 5px 10px;
-    font-size: 40px;
-    color: black;
-    opacity: 0.5;
+	height: 40px;
+	margin: 5px 10px;
+	font-size: 40px;
+	color: black;
+	opacity: 0.5;
 }
 
 .wrap-search-results {
@@ -259,12 +266,12 @@ a.navbar-logo {
 
 .dropdown-button i {
 	line-height: 3rem;
-    font-size: 48px;
-    border-left: 1px solid #e0e0e0;
-    padding: 0 10px;
-    opacity: .7;
-    color: #9e9e9e;
-    -webkit-border-top-left-radius: 2px;
+	font-size: 48px;
+	border-left: 1px solid #e0e0e0;
+	padding: 0 10px;
+	opacity: .7;
+	color: #9e9e9e;
+	-webkit-border-top-left-radius: 2px;
 	-webkit-border-bottom-left-radius: 2px;
 	-moz-border-radius-topleft: 2px;
 	-moz-border-radius-bottomleft: 2px;
@@ -274,4 +281,15 @@ a.navbar-logo {
 
 #search-menu {
 	width: 125px !important;
+}
+
+/*Login form*/
+
+.long-btn {
+	width: 100%;
+	margin-top: 20px;
+}
+
+.long-btn i {
+	margin-right: 5px;
 }

@@ -1,6 +1,6 @@
 package vn.com.hiringviet.testdao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import vn.com.hiringviet.dao.AccountDAO;
-import vn.com.hiringviet.model.Account;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:servlet-context.xml","classpath:spring-security.xml", "classpath:spring-mail.xml"})

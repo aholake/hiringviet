@@ -5,11 +5,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +27,7 @@ import vn.com.hiringviet.api.dto.response.AccountDTO;
 import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.common.StatusResponseEnum;
+import vn.com.hiringviet.dto.SecurityAccount;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Member;
@@ -41,6 +47,10 @@ public class LoginController {
 
 	@Autowired
 	private CompanyService companyService;
+
+	@Autowired
+	@Qualifier("authenticationManager")
+	AuthenticationManager authenticationManager;
 
 	@RequestMapping(value = "/account/checkAccount", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO login(
@@ -64,10 +74,10 @@ public class LoginController {
 
 		session.setAttribute("account", account);
 
-		if (MemberRoleEnum.USER.getValue() == account.getRoleID()) {
+		if (MemberRoleEnum.USER == account.getUserRole()) {
 			session.setAttribute("memberSession",
 					memberService.getMemberByAccount(account));
-		} else if (MemberRoleEnum.COMPANY.getValue() == account.getRoleID()) {
+		} else if (MemberRoleEnum.COMPANY == account.getUserRole()) {
 			session.setAttribute("companySession",
 					companyService.getCompanyByAccount(account));
 		} else {
@@ -77,14 +87,14 @@ public class LoginController {
 		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		return commonResponseDTO;
 	}
-	
+
 	@RequestMapping(value = "/db", method = RequestMethod.GET)
-    public String dbaPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
-        return "dba";
-    }
-	
-	@RequestMapping(value = "/action/login", method = RequestMethod.GET)
+	public String dbaPage(ModelMap model) {
+		model.addAttribute("user", getPrincipal());
+		return "dba";
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(
 			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
@@ -102,9 +112,16 @@ public class LoginController {
 		return model;
 
 	}
-	
+
 	@RequestMapping("/access-denied")
-	public String accessDenied() {
+	public String accessDenied(Model model) {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (auth != null) {
+			SecurityAccount securityAccount = (SecurityAccount) auth
+					.getPrincipal();
+			model.addAttribute("account", securityAccount);
+		}
 		return "access_denied";
 	}
 
@@ -119,24 +136,71 @@ public class LoginController {
 	public static Company getCompanySession(HttpSession session) {
 		return (Company) session.getAttribute("companySession");
 	}
-	
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){    
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/login?logout";
-    }
-	
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutPage(HttpServletRequest request,
+			HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		if (auth != null) {
+			new SecurityContextLogoutHandler().logout(request, response, auth);
+		}
+		return "redirect:/login?logout";
+	}
+
 	private String getPrincipal() {
 		String email = null;
-		Object principle = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if(principle instanceof UserDetails) {
+		Object principle = SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		if (principle instanceof UserDetails) {
 			email = ((UserDetails) principle).getUsername();
 		} else {
 			email = principle.toString();
 		}
 		return email;
+	}
+
+	@RequestMapping(value = "/action/login", method = RequestMethod.POST)
+	@ResponseBody
+	public LoginStatus loginAjax(@RequestParam("email") String email,
+			@RequestParam("password") String password) {
+
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+				email, password);
+		try {
+			Authentication auth = authenticationManager.authenticate(token);
+			SecurityContextHolder.getContext().setAuthentication(auth);
+			return new LoginStatus(true, "you signed in successfully");
+		} catch (BadCredentialsException e) {
+			return new LoginStatus(false, "Email or password is not correct");
+		}
+	}
+
+	class LoginStatus {
+		private boolean isSuccess;
+		private String message;
+
+		public LoginStatus(boolean isSuccess, String message) {
+			super();
+			this.setSuccess(isSuccess);
+			this.setMessage(message);
+		}
+
+		public boolean isSuccess() {
+			return isSuccess;
+		}
+
+		public void setSuccess(boolean isSuccess) {
+			this.isSuccess = isSuccess;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		public void setMessage(String message) {
+			this.message = message;
+		}
+
 	}
 }

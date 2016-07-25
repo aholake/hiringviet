@@ -253,11 +253,11 @@ public class CompanyController {
 		Member member = null;
 		Company company = null;
 
-		if (MemberRoleEnum.USER.getValue() == account.getRoleID()) {
+		if (MemberRoleEnum.USER == account.getUserRole()) {
 			member = LoginController.getMemberSession(session);
 		}
 
-		if (MemberRoleEnum.COMPANY.getValue() == account.getRoleID()) {
+		if (MemberRoleEnum.COMPANY == account.getUserRole()) {
 			company = LoginController.getCompanySession(session);
 		}
 
@@ -266,16 +266,16 @@ public class CompanyController {
 			commentResponseDTO.setNow(DateUtil.now());
 			commentResponseDTO.setComment(replyCommentDTO.getReplyComment());
 			commentResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
-			commentResponseDTO.setRoleId(account.getRoleID());
+			commentResponseDTO.setRoleId(account.getUserRole().getValue());
 			commentResponseDTO.setCommentId(replyCommentDTO.getCommentId());
 
-			if (MemberRoleEnum.USER.getValue() == account.getRoleID()) {
+			if (MemberRoleEnum.USER == account.getUserRole()) {
 				commentResponseDTO.setFirstName(member.getFirstName());
 				commentResponseDTO.setLastName(member.getLastName());
 				commentResponseDTO.setMemberId(member.getId());
 			}
 
-			if (MemberRoleEnum.COMPANY.getValue() == account.getRoleID()) {
+			if (MemberRoleEnum.COMPANY == account.getUserRole()) {
 				commentResponseDTO.setFirstName(company.getDisplayName());
 				commentResponseDTO.setCompanyId(company.getId());
 			}

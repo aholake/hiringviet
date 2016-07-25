@@ -41,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
 		String encryptPassword = encoder.encode(member.getAccount().getPassword());
 		member.getAccount().setPassword(encryptPassword);
 		member.setChangeLog(Utils.createDefaultChangeLog());
-		member.getAccount().setRoleID(MemberRoleEnum.USER.getValue());
+		member.getAccount().setUserRole(MemberRoleEnum.USER);
 		member.getAccount().setLocale(ConstantValues.VN_LOCALE);
 		return memberDAO.create(member);
 	}

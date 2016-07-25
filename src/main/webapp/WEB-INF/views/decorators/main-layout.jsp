@@ -9,6 +9,7 @@
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
+<link rel="stylesheet" href="/resources/common/css/font-awesome.min.css">
 <!--Import materialize.css-->
 <link type="text/css" rel="stylesheet"
 	href="<c:url value='/resources/common/css/materialize.min.css'/>"
