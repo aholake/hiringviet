@@ -19,6 +19,9 @@ var COMPANY = 2;
 
 var FIRST_PAGE = 1;
 
+/** filter value **/
+var All = "All";
+
 var checkMemberTooltip = true;
 var isBeta = false;
 /** Global Constant for CSS pop-up Progressing */
@@ -103,13 +106,10 @@ $(function() {
 		});
 	}
 
-	var checkOnClick = true;
-	$('.fillter-wrapper .collection-item').on('click', function() {
-		if (!checkOnClick) {
+	$('.fillter-wrapper').on('click', '.collection-item', function(e) {
+		if ($(this).find('ul').is(":visible")) {
 			$(this).find('ul').hide();
-			checkOnClick = true;
 		} else {
-			checkOnClick = false;
 			$(this).find('ul').show();
 		}
 	});
