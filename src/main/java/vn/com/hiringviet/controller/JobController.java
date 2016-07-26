@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.api.dto.response.JobResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
@@ -49,13 +50,13 @@ public class JobController {
 	 * @return the job hot
 	 */
 	@RequestMapping(value = "/job/hot", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody JobResponseDTO getJobHot(@RequestBody PagingDTO pagingDTO) {
+	public @ResponseBody JobResponseDTO getJobHot(@RequestBody LoadMoreRequestDTO loadMoreRequestDTO) {
 
 		JobResponseDTO jobResponseDTO = new JobResponseDTO();
 
-		pagingDTO = Utils.calculatorPaging(pagingDTO, false);
+		PagingDTO pagingDTO = Utils.calculatorPaging(loadMoreRequestDTO.getPagingDTO(), false);
 
-		List<Job> jobList = jobService.getJobList(pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, true, null);
+		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO, pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, true, null);
 
 		if (Utils.isEmptyList(jobList)) {
 			jobResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());

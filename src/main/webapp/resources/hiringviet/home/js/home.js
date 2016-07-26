@@ -7,6 +7,13 @@ var experiencesShow = new Array();
 var salarysShow = new Array();
 var provincesShow = new Array();
 
+var categoryFilterList = new Array();
+var companyFilterList = new Array();
+var positionFilterList = new Array();
+var skillFilterList = new Array();
+var provinceFilterList = new Array();
+var jobFilterList = new Array();
+
 var FILTER_COMPANY_LIST = "filter-company-list";
 var FILTER_SKILL_LIST = "filter-skill-list";
 var FILTER_JOB_FUNCTION_LIST = "filter-position-list";
@@ -28,10 +35,17 @@ $(function() {
 
 		var url = $('#get_job_hot').val();
 
-		callAPI(url, 'POST', {
-			"firstItem" : firstItem,
-			"currentPage" : currentPage
-		}, "showResultJobHot", true);
+		var data = {
+			"pagingDTO": {
+				"firstItem" : firstItem,
+				"currentPage" : currentPage
+			},
+			"companyNameList": companyFilterList,
+			"positionNameList": positionFilterList,
+			"skillNameList": skillFilterList,
+			"provinceNameList": provinceFilterList
+		}
+		callAPI(url, 'POST', data, "showResultJobHot", true);
 	});
 
 	showCompanyList(companyList);
@@ -110,6 +124,7 @@ $(function() {
 		var idValue = $(this).attr('id');
 		var ulIdValue = $(this).parents('.filter-list').attr('id');
 		var currentListShow = checkedTypeFilter(ulIdValue);
+		var currentFilterList = checkedTypeFilterLoadMore(ulIdValue);
 
 		if ($(this).is(':checked')) {
 			if ($(this).parent('li').find('label').text() == All) {
@@ -126,6 +141,10 @@ $(function() {
 
 				for(var i = currentListShow.length; i--;) {
 					currentListShow.splice(i, 1);
+				}
+
+				for(var i = currentFilterList.length; i--;) {
+					currentFilterList.splice(i, 1);
 				}
 
 			} else {
@@ -150,8 +169,20 @@ $(function() {
 				// show all job visible
 				loadJobVisible();
 
+				var checkContain = $.inArray($(this).parent('li').find('label').text(), currentFilterList);
+				if (checkContain < 0) {
+					currentFilterList.push($(this).parent('li').find('label').text());
+				}
 			}  
 		} else {
+
+			// remove value in list
+			var valueChoose = $(this).parent('li').find('label').html();
+			$.each( currentFilterList, function(j, val ) {
+				if (val == valueChoose) {
+					currentFilterList.splice(j, 1);
+				}
+			});
 
 			$.each( jobList, function( i, idJob) {
 				if ($('#' + idJob).find('.' + idValue).length > 0) {
@@ -165,7 +196,7 @@ $(function() {
 			});
 
 			// invisible all job
-			$.each( jobList, function( i, val ) {
+			$.each( jobList, function(i, val ) {
 				$('#' + val).hide();
 			});
 
@@ -174,11 +205,14 @@ $(function() {
 
 			if (isEmptyJob()) {
 				// visible all job
-				$.each( jobList, function( i, val ) {
+				$.each( jobList, function(i, val ) {
 					$('#' + val).show();
 				});
 			}
+
 		};
+
+		console.log(currentFilterList);
 	});
 });
 
@@ -244,10 +278,14 @@ function showResultJobHot(response) {
 		alert(response.message);
 	} else {
 		var jobListDiv = $('#job-list');
-		$('#first_item').val(parseInt($('#first_item').val()) + MAX_RECORED);
+		var jobListResponse = response.jobList;
+		if (MAX_RECORD_COUNT > jobListResponse.length) {
+			$('#first_item').val(parseInt($('#first_item').val()) + jobListResponse.length);
+		} else {
+			$('#first_item').val(parseInt($('#first_item').val()) + MAX_RECORD_COUNT);
+		}
 		$('#current_page').val(parseInt($('#current_page').val()) + 1);
 		var html = "";
-		var jobListResponse = response.jobList;
 		for (var index = 0; index < jobListResponse.length; index++) {
 
 			var checkContain = $.inArray(jobListResponse[index].id, jobList);
@@ -411,6 +449,24 @@ function checkedTypeFilter(value) {
 		return jobFunctionsShow;
 	case FILTER_PROVINCE_LIST:
 		return provincesShow;
+	case FILTER_SALARY_LIST:
+		return salarysShow;
+	case FILTER_DATE_POST_LIST:
+		return datePostShow;
+	}
+}
+
+function checkedTypeFilterLoadMore(value) {
+
+	switch(value) {
+	case FILTER_COMPANY_LIST:
+		return companyFilterList;
+	case FILTER_SKILL_LIST:
+		return skillFilterList;
+	case FILTER_JOB_FUNCTION_LIST:
+		return positionFilterList;
+	case FILTER_PROVINCE_LIST:
+		return provinceFilterList;
 	case FILTER_SALARY_LIST:
 		return salarysShow;
 	case FILTER_DATE_POST_LIST:

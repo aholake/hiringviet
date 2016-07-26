@@ -7,9 +7,11 @@ import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.model.Job;
@@ -33,12 +35,17 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Job> getListJobHot(Integer first, Integer max, List<Integer> skills) {
+	public List<Job> getListJobHot(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, List<Integer> skills) {
 
 		Session session = getSession();
 		Criteria criteria = session.createCriteria(Job.class, "job");
 		criteria.createAlias("job.changeLog", "changeLog");
 		criteria.createAlias("job.company", "company");
+		criteria.createAlias("job.position", "position");
+		criteria.createAlias("job.skillSet", "skillSet");
+		criteria.createAlias("job.workAddress", "address", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
 
 		if (!Utils.isEmptyList(skills)) {
 			criteria.createAlias("job.skillSet", "skillSet");
@@ -49,6 +56,24 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 		if (!Utils.isEmptyList(skills)) {
 			criteria.add(Restrictions.in("skillSet.id", skills));
+		}
+
+		if (loadMoreRequestDTO != null) {
+			if (!Utils.isEmptyList(loadMoreRequestDTO.getCompanyNameList())) {
+				criteria.add(Restrictions.in("company.displayName", loadMoreRequestDTO.getCompanyNameList()));
+			}
+	
+			if (!Utils.isEmptyList(loadMoreRequestDTO.getPositionNameList())) {
+				criteria.add(Restrictions.in("position.displayName", loadMoreRequestDTO.getPositionNameList()));
+			}
+	
+			if (!Utils.isEmptyList(loadMoreRequestDTO.getProvinceNameList())) {
+				criteria.add(Restrictions.in("province.provinceName", loadMoreRequestDTO.getProvinceNameList()));
+			}
+	
+			if (!Utils.isEmptyList(loadMoreRequestDTO.getSkillNameList())) {
+				criteria.add(Restrictions.in("skillSet.displayName", loadMoreRequestDTO.getSkillNameList()));
+			}
 		}
 
 		criteria.addOrder(Order.desc("company.isVip"));

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.service.JobService;
@@ -18,11 +19,11 @@ public class JobServiceImpl implements JobService {
 	private JobDAO jobDAO;
 
 	@Override
-	public List<Job> getJobList(Integer first, Integer max, boolean isJobHot,
+	public List<Job> getJobList(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, boolean isJobHot,
 			List<Integer> skills) {
 
 		if (isJobHot) {
-			return jobDAO.getListJobHot(first, max, skills);
+			return jobDAO.getListJobHot(loadMoreRequestDTO, first, max, skills);
 		} else {
 			return jobDAO.getListJobSuggest(first, max, skills);
 		}

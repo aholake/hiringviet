@@ -75,7 +75,7 @@ public class HomeController {
 
 		if (Utils.isEmptyObject(account) || MemberRoleEnum.COMPANY == account.getUserRole()) {
 
-			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT,
+			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT,
 					true, null);
 			companyList = companyService.getListCompany(0,
 					ConstantValues.MAX_RECORD_COUNT, true);
@@ -84,7 +84,7 @@ public class HomeController {
 
 			Member member = memberService.getMemberByAccount(account);
 			List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
-			jobList = jobService.getJobList(0, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
+			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
 			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, false);
 			model.addAttribute("account", account);
 			result = "home_login";

@@ -12,6 +12,7 @@ var BACKGROUND_EDIT = '#9e9e9e';
 var COLOR_EDIT = '#FFF';
 var BACKGROUND_DEFAULT = '#FFF';
 var COLOR_DEFAULT = '#333333';
+var MAX_RECORD_COUNT = 5;
 
 var ADMIN = 0;
 var USER = 1;
