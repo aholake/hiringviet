@@ -1,4 +1,5 @@
 var careersShow = new Array();
+var categorysShow = new Array();
 var companysShow = new Array();
 var datePostShow = new Array();
 var jobFunctionsShow = new Array();
@@ -20,7 +21,12 @@ var FILTER_JOB_FUNCTION_LIST = "filter-position-list";
 var FILTER_PROVINCE_LIST = "filter-province-list";
 var FILTER_SALARY_LIST = "filter-salary-list";
 var FILTER_DATE_POST_LIST = "filter-date-post-list";
-	
+var FILTER_CATEGORY_LIST = "filter-category-list";
+
+var minSalary = null;
+var maxSalary = null;
+var dateAgo = null;
+
 $(function() {
 	$('.slider').slider({
 		height : 200,
@@ -43,7 +49,11 @@ $(function() {
 			"companyNameList": companyFilterList,
 			"positionNameList": positionFilterList,
 			"skillNameList": skillFilterList,
-			"provinceNameList": provinceFilterList
+			"provinceNameList": provinceFilterList,
+			"categoryNameList": categoryFilterList,
+			"dateAgo": dateAgo,
+			"minSalary": minSalary,
+			"maxSalary": maxSalary
 		}
 		callAPI(url, 'POST', data, "showResultJobHot", true);
 	});
@@ -61,18 +71,24 @@ $(function() {
 		var datePostValue = $(this).val();
 		switch(datePostValue) {
 		case '0':
+			checkDatePort(ulIdValue, 0);
+			dateAgo = 0;
 			break;
 		case '1':
 			checkDatePort(ulIdValue, 1);
+			dateAgo = 1;
 			break;
 		case '2':
 			checkDatePort(ulIdValue, 3);
+			dateAgo = 3;
 			break;
 		case '3':
 			checkDatePort(ulIdValue, 5);
+			dateAgo = 5;
 			break;
 		case '4':
 			checkDatePort(ulIdValue, 7);
+			dateAgo = 7;
 			break;
 		}
 
@@ -92,22 +108,34 @@ $(function() {
 		var salaryValue = $(this).val();
 		switch(salaryValue) {
 		case '0':
-
+			checkMinMaxSalary(ulIdValue, 0, 0);
+			minSalary = 0;
+			maxSalary= 0;
 			break;
 		case '1':
 			checkMinMaxSalary(ulIdValue, 0, 500);
+			minSalary = 0;
+			maxSalary= 500;
 			break;
 		case '2':
 			checkMinMaxSalary(ulIdValue, 500, 1000);
+			minSalary = 500;
+			maxSalary= 1000;
 			break;
 		case '3':
 			checkMinMaxSalary(ulIdValue, 1000, 2000);
+			minSalary = 1000;
+			maxSalary= 2000;
 			break;
 		case '4':
 			checkMinMaxSalary(ulIdValue, 2000, 3000);
+			minSalary = 2000;
+			maxSalary= 3000;
 			break;
 		case '5':
 			checkMinMaxSalary(ulIdValue, 3000, Number.MAX_SAFE_INTEGER);
+			minSalary = 3000;
+			maxSalary= Number.MAX_SAFE_INTEGER;
 			break;
 		}
 
@@ -121,6 +149,10 @@ $(function() {
 	});
 
 	$('.filter-list').on('change', '.filled-in', function(e) {
+
+		$('#btn-load-more').prop('disabled', false);
+		$('#btn-load-more').removeClass('disabled');
+
 		var idValue = $(this).attr('id');
 		var ulIdValue = $(this).parents('.filter-list').attr('id');
 		var currentListShow = checkedTypeFilter(ulIdValue);
@@ -389,7 +421,7 @@ function showResultJobHot(response) {
 		jobListDiv.append(html);
 
 		if (parseInt($('#max_item').val()) > jobListResponse.length) {
-			$('#btn-load-more').attr('disabled', 'disabled');
+			$('#btn-load-more').prop('disabled', true);
 			$('#btn-load-more').addClass('disabled');
 		}
 
@@ -408,34 +440,39 @@ function checkDatePort(ulIdValue, numberDate) {
 	for(var i = currentListShow.length; i--;) {
 		currentListShow.splice(i, 1);
 	}
-
-	$.each( jobList, function( i, idJob) {
-		var datePost = $('#' + idJob).find('.datePost').text()
-		if (parseInt(days_between(parseDate(datePost), getNow())) <= numberDate) {
-			var checkContain = $.inArray(idJob, currentListShow);
-			if (checkContain < 0) {
-				currentListShow.push(idJob);
+	if (numberDate > 0) {
+		$.each( jobList, function( i, idJob) {
+			var datePost = $('#' + idJob).find('.datePost').text()
+			if (parseInt(days_between(parseDate(datePost), getNow())) <= numberDate) {
+				var checkContain = $.inArray(idJob, currentListShow);
+				if (checkContain < 0) {
+					currentListShow.push(idJob);
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function checkMinMaxSalary(ulIdValue, minSalary, maxSalary) {
 
 	var currentListShow = checkedTypeFilter(ulIdValue);
-
 	for(var i = currentListShow.length; i--;) {
 		currentListShow.splice(i, 1);
 	}
-
-	$.each( jobList, function( i, idJob) {
-		if (parseInt($('#' + idJob).find('.maxSalary').text()) >= minSalary && parseInt($('#' + idJob).find('.maxSalary').text()) <= maxSalary) {
-			var checkContain = $.inArray(idJob, currentListShow);
-			if (checkContain < 0) {
-				currentListShow.push(idJob);
-			}
+	if (minSalary < maxSalary) {
+		for(var i = currentListShow.length; i--;) {
+			currentListShow.splice(i, 1);
 		}
-	});
+	
+		$.each( jobList, function( i, idJob) {
+			if (parseInt($('#' + idJob).find('.maxSalary').text()) >= minSalary && parseInt($('#' + idJob).find('.maxSalary').text()) <= maxSalary) {
+				var checkContain = $.inArray(idJob, currentListShow);
+				if (checkContain < 0) {
+					currentListShow.push(idJob);
+				}
+			}
+		});
+	}
 }
 
 function checkedTypeFilter(value) {
@@ -453,6 +490,8 @@ function checkedTypeFilter(value) {
 		return salarysShow;
 	case FILTER_DATE_POST_LIST:
 		return datePostShow;
+	case FILTER_CATEGORY_LIST:
+		return categorysShow;
 	}
 }
 
@@ -471,6 +510,8 @@ function checkedTypeFilterLoadMore(value) {
 		return salarysShow;
 	case FILTER_DATE_POST_LIST:
 		return datePostShow;
+	case FILTER_CATEGORY_LIST:
+		return categoryFilterList;
 	}
 }
 
@@ -497,6 +538,14 @@ function loadJobVisible() {
 	if (companysShow.length > 0) {
 		$.each( companysShow, function( i, companyJobId ) {
 			$('#' + companyJobId).show();
+
+			if (categorysShow.length > 0) {
+				var checkContain = $.inArray(categoryId, categorysShow);
+				if (checkContain < 0) {
+					$('#' + categoryId).hide();
+				}
+			}
+
 			if (skillsShow.length > 0) {
 				var checkContain = $.inArray(companyJobId, skillsShow);
 				if (checkContain < 0) {
@@ -533,7 +582,7 @@ function loadJobVisible() {
 			}
 		});
 	} else {
-		if (skillsShow.length > 0 && jobFunctionsShow.length == 0 && provincesShow.length == 0 && salarysShow.length == 0 && datePostShow.length == 0) {
+		if (skillsShow.length > 0 && jobFunctionsShow.length == 0 && provincesShow.length == 0 && salarysShow.length == 0 && datePostShow.length == 0 && categorysShow.length == 0) {
 			$.each(skillsShow, function(i, skillJobId) {
 				$('#' + skillJobId).show();
 			});
@@ -556,10 +605,14 @@ function loadJobVisible() {
 				if (datePostShow.length > 0) {
 					filterByVisible(datePostShow);
 				}
+
+				if (categorysShow.length > 0) {
+					filterByVisible(categorysShow);
+				}
 			}
 		}
 
-		if (jobFunctionsShow.length > 0 && skillsShow.length == 0 && provincesShow.length == 0 && salarysShow.length == 0 && datePostShow.length == 0) {
+		if (jobFunctionsShow.length > 0 && skillsShow.length == 0 && provincesShow.length == 0 && salarysShow.length == 0 && datePostShow.length == 0 && categorysShow.length > 0) {
 			$.each(jobFunctionsShow, function(i, functionJobId) {
 				$('#' + functionJobId).show();
 			});
@@ -578,10 +631,14 @@ function loadJobVisible() {
 				if (datePostShow.length > 0) {
 					filterByVisible(datePostShow);
 				}
+
+				if (categorysShow.length > 0) {
+					filterByVisible(categorysShow);
+				}
 			}
 		}
 
-		if (provincesShow.length > 0 && skillsShow.length == 0 && jobFunctionsShow.length == 0 && salarysShow.length == 0 && datePostShow.length == 0) {
+		if (provincesShow.length > 0 && skillsShow.length == 0 && jobFunctionsShow.length == 0 && salarysShow.length == 0 && datePostShow.length == 0 && categorysShow.length == 0) {
 			$.each(provincesShow, function(i, provinceJobId) {
 				$('#' + provinceJobId).show();
 			});
@@ -596,10 +653,14 @@ function loadJobVisible() {
 				if (datePostShow.length > 0) {
 					filterByVisible(datePostShow);
 				}
+
+				if (categorysShow.length > 0) {
+					filterByVisible(categorysShow);
+				}
 			}
 		}
 
-		if (salarysShow.length > 0 && skillsShow.length == 0 && jobFunctionsShow.length == 0 && provincesShow.length == 0 && datePostShow.length == 0) {
+		if (salarysShow.length > 0 && skillsShow.length == 0 && jobFunctionsShow.length == 0 && provincesShow.length == 0 && datePostShow.length == 0 && categorysShow.length == 0) {
 			$.each(salarysShow, function(i, salaryJobId) {
 				$('#' + salaryJobId).show();
 			});
@@ -610,10 +671,14 @@ function loadJobVisible() {
 				if (datePostShow.length > 0) {
 					filterByVisible(datePostShow);
 				}
+
+				if (categorysShow.length > 0) {
+					filterByVisible(categorysShow);
+				}
 			}
 		}
 
-		if (datePostShow.length > 0 && skillsShow.length == 0 && jobFunctionsShow.length == 0 && provincesShow.length == 0 && salarysShow.length == 0) {
+		if (datePostShow.length > 0 && skillsShow.length == 0 && jobFunctionsShow.length == 0 && provincesShow.length == 0 && salarysShow.length == 0 && categorysShow.length == 0) {
 			$.each(datePostShow, function(i, datePostJobId) {
 				$('#' + datePostJobId).show();
 			});
@@ -621,6 +686,19 @@ function loadJobVisible() {
 			if (datePostShow.length > 0 && skillsShow.length == 0 && jobFunctionsShow.length == 0 && provincesShow.length == 0 && salarysShow.length == 0) {
 				filterByInvisible(datePostShow);
 
+				if (categorysShow.length > 0) {
+					filterByVisible(categorysShow);
+				}
+			}
+		}
+
+		if (categorysShow.length > 0 && skillsShow.length == 0 && jobFunctionsShow.length == 0 && provincesShow.length == 0 && salarysShow.length == 0 && datePostShow.length == 0) {
+			$.each(datePostShow, function(i, datePostJobId) {
+				$('#' + datePostJobId).show();
+			});
+		} else {
+			if (categorysShow.length > 0 && skillsShow.length == 0 && jobFunctionsShow.length == 0 && provincesShow.length == 0 && salarysShow.length == 0 && datePostShow.length == 0) {
+				filterByInvisible(categorysShow);
 			}
 		}
 	}

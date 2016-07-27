@@ -41,6 +41,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		Criteria criteria = session.createCriteria(Job.class, "job");
 		criteria.createAlias("job.changeLog", "changeLog");
 		criteria.createAlias("job.company", "company");
+		criteria.createAlias("job.jobCategory", "jobCategory");
 		criteria.createAlias("job.position", "position");
 		criteria.createAlias("job.skillSet", "skillSet");
 		criteria.createAlias("job.workAddress", "address", JoinType.LEFT_OUTER_JOIN);
@@ -59,6 +60,11 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		}
 
 		if (loadMoreRequestDTO != null) {
+
+			if (!Utils.isEmptyList(loadMoreRequestDTO.getCategoryNameList())) {
+				criteria.add(Restrictions.in("jobCategory.categoryName", loadMoreRequestDTO.getCategoryNameList()));
+			}
+
 			if (!Utils.isEmptyList(loadMoreRequestDTO.getCompanyNameList())) {
 				criteria.add(Restrictions.in("company.displayName", loadMoreRequestDTO.getCompanyNameList()));
 			}
@@ -73,6 +79,10 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 	
 			if (!Utils.isEmptyList(loadMoreRequestDTO.getSkillNameList())) {
 				criteria.add(Restrictions.in("skillSet.displayName", loadMoreRequestDTO.getSkillNameList()));
+			}
+
+			if (!Utils.isEmptyNumber(loadMoreRequestDTO.getMaxSalary())) {
+				criteria.add(Restrictions.between("job.maxSalary", loadMoreRequestDTO.getMinSalary(), loadMoreRequestDTO.getMaxSalary()));
 			}
 		}
 

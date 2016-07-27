@@ -27,6 +27,18 @@ public class LoadMoreRequestDTO implements Serializable {
 	/** The province name list. */
 	private List<String> provinceNameList;
 
+	/** The category name list. */
+	private List<String> categoryNameList;
+
+	/** The date ago. */
+	private Integer dateAgo;
+
+	/** The min salary. */
+	private Integer minSalary;
+
+	/** The max salary. */
+	private Integer maxSalary;
+
 	/**
 	 * Gets the paging dto.
 	 *
@@ -115,6 +127,48 @@ public class LoadMoreRequestDTO implements Serializable {
 	 */
 	public void setProvinceNameList(List<String> provinceNameList) {
 		this.provinceNameList = provinceNameList;
+	}
+
+	/**
+	 * Gets the category name list.
+	 *
+	 * @return the category name list
+	 */
+	public List<String> getCategoryNameList() {
+		return categoryNameList;
+	}
+
+	/**
+	 * Sets the category name list.
+	 *
+	 * @param categoryNameList the new category name list
+	 */
+	public void setCategoryNameList(List<String> categoryNameList) {
+		this.categoryNameList = categoryNameList;
+	}
+
+	public Integer getDateAgo() {
+		return dateAgo;
+	}
+
+	public void setDateAgo(Integer dateAgo) {
+		this.dateAgo = dateAgo;
+	}
+
+	public Integer getMinSalary() {
+		return minSalary;
+	}
+
+	public void setMinSalary(Integer minSalary) {
+		this.minSalary = minSalary;
+	}
+
+	public Integer getMaxSalary() {
+		return maxSalary;
+	}
+
+	public void setMaxSalary(Integer maxSalary) {
+		this.maxSalary = maxSalary;
 	}
 
 }

@@ -201,7 +201,7 @@
 					<div class="col m12">
 						<ul class="collection fillter-wrapper">
 							<li class="collection-item"><b>Career</b>
-								<ul class="margin-top-10 display-none filter-category-list">
+								<ul class="margin-top-10 display-none filter-list filter-category-list" id="filter-category-list">
 									<li>
 										<input type="checkbox" class="filled-in" id="category-all" /> 
 										<label for="category-all">All</label>
@@ -253,18 +253,6 @@
 									<li>
 										<input type="checkbox" class="filled-in" id="skill-all"/> 
 										<label for="skill-all">All</label>
-									</li>
-								</ul>
-							</li>
-							<li class="collection-item"><b>Experience Level</b>
-								<ul class="margin-top-10 display-none">
-									<li>
-										<input type="checkbox" class="filled-in" id="1"/> 
-										<label for="1">All</label>
-									</li>
-									<li>
-										<input type="checkbox" class="filled-in" id="2" /> 
-										<label for="2">None</label>
 									</li>
 								</ul>
 							</li>
