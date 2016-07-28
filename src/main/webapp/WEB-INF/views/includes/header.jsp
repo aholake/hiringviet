@@ -99,110 +99,92 @@
 					</span>
 					</a>
 				</sec:authorize>
-				<c:if test="${not empty account}">
+				<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
+					<sec:authentication property="principal" var="principal" />
 					<a class="menu-group"> <span id="menu-btn"
 						class="circle-btn red lighten-2 noselect"> <i
 							class="material-icons white-text">menu</i>
 					</span>
 						<div id="dropdown-menu" class="z-depth-1">
 							<div class="top-menu-box">
-								<c:if test="${not empty account}">
-									<c:choose>
-										<c:when test="${account.roleID == 0}">
-										</c:when>
-										<c:when test="${account.roleID == 2}">
-											<div id="profile">
-												<img src="/resources/images/profile_photo.jpg"
-													class="circle profile-photo">
-												<h5>
-													<a href="#">Võ Tấn Lộc</a>
-												</h5>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div id="profile">
-												<img src="/resources/images/profile_photo.jpg"
-													class="circle profile-photo">
-												<h5>
-													<a href="#">Võ Tấn Lộc</a>
-												</h5>
-												<h6>
-													<a href="#"><spring:message
-															code="label.navbar.title.add_skill" /></a>
-												</h6>
-											</div>
-										</c:otherwise>
-									</c:choose>
-								</c:if>
+								<div id="profile">
+									<img src="/resources/images/profile_photo.jpg"
+										class="circle profile-photo">
+									<h5>
+										<a href="#">Vo Tan Loc</a>
+									</h5>
+									<h6>
+										<a href="#"><spring:message
+												code="label.navbar.title.add_skill" /></a>
+									</h6>
+								</div>
 							</div>
-							<c:if test="${not empty account}">
-								<ul class="menu-item">
-									<li>
-										<div class="menu-item-header">
-											<a href="#"><i class="material-icons prefix-icon">account_box</i>
-												<spring:message code="label.navbar.title.profile" /> </a>
-										</div>
-										<div class="menu-item-body">
-											<ul>
-												<li><a href="#"><spring:message
-															code="label.navbar.title.edit_profile" /></a></li>
-												<li><a href="#"><spring:message
-															code="label.navbar.title.visiting_number" /></a></li>
-												<li><a href="#"><spring:message
-															code="label.navbar.title.activity_log" /></a></li>
-												<li><a href="#"><spring:message
-															code="label.navbar.title.mailbox" /></a></li>
-											</ul>
-										</div>
-									</li>
-									<li>
-										<div class="menu-item-header">
-											<a href="#"><i class="material-icons prefix-icon">add_alert</i>Thông
-												báo</a>
-											<div class="chip red lighten-2 white-text noti-count">5</div>
-										</div>
-									</li>
-									<li>
-										<div class="menu-item-header">
-											<a href="#"><i class="material-icons prefix-icon">donut_large</i>
-												<spring:message code="label.navbar.title.follow" /></a>
-										</div>
-										<div class="menu-item-body">
-											<ul>
-												<li><a href="#">Người đang theo dõi</a></li>
-												<li><a href="#">Công ty đang theo dõi</a></li>
-											</ul>
-										</div>
-									</li>
-									<li>
-										<div class="menu-item-header">
-											<a href="#"><i class="material-icons prefix-icon">bookmark</i>Quản
-												lý nghề nghiệp</a>
-										</div>
-										<div class="menu-item-body">
-											<ul>
-												<li><a href="#">Công việc đã lưu</a></li>
-												<li><a href="#">Công việc đề xuất</a></li>
-											</ul>
-										</div>
-									</li>
-									<li>
-										<div class="menu-item-header">
-											<a href="#"><i class="material-icons prefix-icon">account_circle</i>
-												<spring:message code="label.navbar.title.account" /> </a>
-										</div>
-									</li>
-									<li>
-										<div class="menu-item-header">
-											<a href="#"><i class="material-icons prefix-icon">exit_to_app</i>
-												<spring:message code="label.navbar.title.sign_out" /> </a>
-										</div>
-									</li>
-								</ul>
-							</c:if>
+							<ul class="menu-item">
+								<li>
+									<div class="menu-item-header">
+										<a href="#"><i class="material-icons prefix-icon">account_box</i>
+											<spring:message code="label.navbar.title.profile" /> </a>
+									</div>
+									<div class="menu-item-body">
+										<ul>
+											<li><a href="#"><spring:message
+														code="label.navbar.title.edit_profile" /></a></li>
+											<li><a href="#"><spring:message
+														code="label.navbar.title.visiting_number" /></a></li>
+											<li><a href="#"><spring:message
+														code="label.navbar.title.activity_log" /></a></li>
+											<li><a href="#"><spring:message
+														code="label.navbar.title.mailbox" /></a></li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<div class="menu-item-header">
+										<a href="#"><i class="material-icons prefix-icon">add_alert</i>Thông
+											báo</a>
+										<div class="chip red lighten-2 white-text noti-count">5</div>
+									</div>
+								</li>
+								<li>
+									<div class="menu-item-header">
+										<a href="#"><i class="material-icons prefix-icon">donut_large</i>
+											<spring:message code="label.navbar.title.follow" /></a>
+									</div>
+									<div class="menu-item-body">
+										<ul>
+											<li><a href="#">Người đang theo dõi</a></li>
+											<li><a href="#">Công ty đang theo dõi</a></li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<div class="menu-item-header">
+										<a href="#"><i class="material-icons prefix-icon">bookmark</i>Quản
+											lý nghề nghiệp</a>
+									</div>
+									<div class="menu-item-body">
+										<ul>
+											<li><a href="#">Công việc đã lưu</a></li>
+											<li><a href="#">Công việc đề xuất</a></li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<div class="menu-item-header">
+										<a href="#"><i class="material-icons prefix-icon">account_circle</i>
+											<spring:message code="label.navbar.title.account" /> </a>
+									</div>
+								</li>
+								<li>
+									<div class="menu-item-header">
+										<a href="/logout"><i class="material-icons prefix-icon">exit_to_app</i>
+											<spring:message code="label.navbar.title.sign_out" /> </a>
+									</div>
+								</li>
+							</ul>
 						</div>
 					</a>
-				</c:if>
+				</sec:authorize>
 			</div>
 		</div>
 	</div>
@@ -219,20 +201,20 @@
 <div id="modal1" class="modal">
 	<div class="modal-content">
 		<h5 class="center-align">Đăng nhập</h5>
-		<p id="login-error" class="center-align red-text"></p>
+		<p id="login-error" class="center-align red-text bold-text"></p>
 		<div class="row">
 			<form id="loginForm" class="col s6" action="${loginUrl}"
 				method="post">
 				<div class="row">
 					<div class="input-field col s12 p-0">
 						<input id="email" type="email" name="email" value=""
-							class="validate" required="required"/> <label for="email"
+							class="validate" required="required" /> <label for="email"
 							data-error="Sai định dạng">Email</label>
 					</div>
 					<div class="input-field col s12 p-0">
 						<input id="password" type="password" name="password" value=""
-							minlength="6" class="validate" required="required"/> <label for="password"
-							data-error="Mật khẩu quá ngắn">Password</label>
+							minlength="6" class="validate" required="required" /> <label
+							for="password" data-error="Mật khẩu quá ngắn">Password</label>
 					</div>
 					<div class="col s12 p-0">
 						<input type="checkbox" id="remember" /> <label for="remember">Remember

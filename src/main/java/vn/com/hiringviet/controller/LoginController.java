@@ -136,17 +136,7 @@ public class LoginController {
 	public static Company getCompanySession(HttpSession session) {
 		return (Company) session.getAttribute("companySession");
 	}
-
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logoutPage(HttpServletRequest request,
-			HttpServletResponse response) {
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		if (auth != null) {
-			new SecurityContextLogoutHandler().logout(request, response, auth);
-		}
-		return "redirect:/login?logout";
-	}
+	
 
 	private String getPrincipal() {
 		String email = null;
