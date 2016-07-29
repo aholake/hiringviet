@@ -53,4 +53,11 @@ public class DateUtil {
 
 		return time;
 	}
+
+	@SuppressWarnings("deprecation")
+	public static Date getDateAgo(Integer value) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DATE, Calendar.getInstance().getTime().getDate() - value);
+		return calendar.getTime();
+	}
 }

@@ -84,6 +84,10 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 			if (!Utils.isEmptyNumber(loadMoreRequestDTO.getMaxSalary())) {
 				criteria.add(Restrictions.between("job.maxSalary", loadMoreRequestDTO.getMinSalary(), loadMoreRequestDTO.getMaxSalary()));
 			}
+
+			if (!Utils.isEmptyNumber(loadMoreRequestDTO.getDateAgo())) {
+				criteria.add(Restrictions.between("job.postDate", DateUtil.getDateAgo(loadMoreRequestDTO.getDateAgo()), DateUtil.now()));
+			}
 		}
 
 		criteria.addOrder(Order.desc("company.isVip"));

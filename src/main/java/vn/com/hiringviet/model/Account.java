@@ -268,6 +268,7 @@ public class Account implements Serializable {
 		this.toFollows = toFollows;
 	}
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
 	public Company getCompany() {
 		return company;
@@ -277,6 +278,7 @@ public class Account implements Serializable {
 		this.company = company;
 	}
 
+	@JsonIgnore
 	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
 	public Member getMember() {
 		return member;

@@ -18,7 +18,7 @@
 					<spring:message code="label.register.member.title"></spring:message>
 				</div>
 				<div class="panel-content">
-					<form:form modelAttribute="newMember" cssClass="margin-10"
+					<form:form modelAttribute="newMember" cssClass="margin-10 member-register"
 						action="/rest/saveMember" method="POST">
 						<div class="input-field">
 							<form:input path="firstName" id="firstName" cssClass="validate"

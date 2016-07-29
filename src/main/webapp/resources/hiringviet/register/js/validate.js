@@ -29,14 +29,14 @@ $("#email").change(function() {
 	}
 });
 
-var password = $("#password");
-var confirm_password = $("#rePassword");
+var password = $(".member-register #password");
+var confirm_password = $(".member-register #rePassword");
 
 function validatePassword() {
-	if (password.val() != confirm_password.val()) {
-		confirm_password.get(0).setCustomValidity("Password doesn't match");
-	} else {
+	if (password.val() === confirm_password.val()) {
 		confirm_password.get(0).setCustomValidity('');
+	} else {
+		confirm_password.get(0).setCustomValidity("Password doesn't match");
 	}
 }
 

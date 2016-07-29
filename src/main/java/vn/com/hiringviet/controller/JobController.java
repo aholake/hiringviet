@@ -30,7 +30,7 @@ public class JobController {
 	/** The job service. */
 	@Autowired
 	private JobService jobService;
-	
+
 	/**
 	 * Gets the job.
 	 *

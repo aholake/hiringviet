@@ -98,7 +98,7 @@ public class EducationHistory implements Serializable {
 
 	public void setSocialActivity(String socialActivity) {
 		this.socialActivity = socialActivity;
-	}
+	}	
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })

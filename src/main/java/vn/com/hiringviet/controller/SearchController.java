@@ -46,10 +46,10 @@ public class SearchController {
 
 		List<SkillDTO> skills = skillService.searchSkillByKeyWord(keywork);
 
-		JobSuggestDTO job = new JobSuggestDTO();
-		job.setDisplayName("Cong Viec A");
+//		JobSuggestDTO job = new JobSuggestDTO();
+//		job.setDisplayName("Cong Viec A");
 		List<JobSuggestDTO> jobSuggestDTOs = new ArrayList<JobSuggestDTO>();
-		jobSuggestDTOs.add(job);
+//		jobSuggestDTOs.add(job);
 
 		response.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		response.setCompanyResponseDTOs(companyResponseDTOs);
