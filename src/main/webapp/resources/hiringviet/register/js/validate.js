@@ -23,8 +23,9 @@ function checkEmail() {
 	});
 };
 
-$("#email").change(function() {
+$(".member-register #email").change(function() {
 	if ($("#email").val().length > 0) {
+		console.log("check email");
 		checkEmail();
 	}
 });

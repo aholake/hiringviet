@@ -32,17 +32,19 @@ public class MemberServiceImpl implements MemberService {
 
 	@Autowired
 	private SkillDAO skillDAO;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
 	@Override
 	public int addMember(Member member) {
-		String encryptPassword = encoder.encode(member.getAccount().getPassword());
+		String encryptPassword = encoder.encode(member.getAccount()
+				.getPassword());
 		member.getAccount().setPassword(encryptPassword);
 		member.setChangeLog(Utils.createDefaultChangeLog());
 		member.getAccount().setUserRole(MemberRoleEnum.USER);
 		member.getAccount().setLocale(ConstantValues.VN_LOCALE);
+		member.getAccount().setActive(StatusRecordEnum.INACTIVE);
 		return memberDAO.create(member);
 	}
 
@@ -78,7 +80,8 @@ public class MemberServiceImpl implements MemberService {
 				Skill skill = new Skill();
 
 				if (Utils.isEmptyNumber(skillDTO.getId())) {
-					Skill sk = skillDAO.getSkillByDisplayName(skillDTO.getDisplayName());
+					Skill sk = skillDAO.getSkillByDisplayName(skillDTO
+							.getDisplayName());
 					if (!Utils.isEmptyObject(sk)) {
 						skill.setId(sk.getId());
 						skill.setAddingNumber(sk.getAddingNumber() + 1);

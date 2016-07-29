@@ -20,6 +20,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import vn.com.hiringviet.common.MemberRoleEnum;
+import vn.com.hiringviet.common.StatusRecordEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -66,10 +67,12 @@ public class Account implements Serializable {
 	/** The to follows. */
 	private Set<Follow> toFollows;
 
+	private StatusRecordEnum active;
+
 	private Company company;
 
 	private Member member;
-	
+
 	/**
 	 * Gets the id.
 	 *
@@ -136,7 +139,7 @@ public class Account implements Serializable {
 	 *
 	 * @return the role id
 	 */
-	
+
 	/**
 	 * Gets the locale.
 	 *
@@ -146,7 +149,7 @@ public class Account implements Serializable {
 	public String getLocale() {
 		return locale;
 	}
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	public MemberRoleEnum getUserRole() {
 		return userRole;
@@ -287,4 +290,15 @@ public class Account implements Serializable {
 	public void setMember(Member member) {
 		this.member = member;
 	}
+
+	@Column(name = "active")
+	@Enumerated(EnumType.ORDINAL)
+	public StatusRecordEnum getActive() {
+		return active;
+	}
+
+	public void setActive(StatusRecordEnum active) {
+		this.active = active;
+	}
+
 }
