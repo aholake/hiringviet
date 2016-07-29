@@ -93,7 +93,7 @@
 					<i class="material-icons white-text">search</i>
 				</a>
 				<sec:authorize access="isAnonymous()">
-					<a class="menu-group modal-trigger" href="#modal1"> <span
+					<a class="menu-group modal-trigger" href="#loginModal"> <span
 						id="menu-btn" class="circle-btn noselect"> <i
 							class="material-icons">account_circle</i>
 					</span>
@@ -198,7 +198,7 @@
 
 <!-- Modal Structure -->
 <c:url value="/login" var="loginUrl"></c:url>
-<div id="modal1" class="modal">
+<div id="loginModal" class="modal">
 	<div class="modal-content">
 		<h5 class="center-align">Đăng nhập</h5>
 		<p id="login-error" class="center-align red-text bold-text"></p>
@@ -239,11 +239,12 @@
 							Google</a>
 					</div>
 					<div class="col s12 p-0">
-						<a class="waves-effect waves-light btn long-btn grey darken-4">Đăng
+						<a href="/register"
+							class="waves-effect waves-light btn long-btn grey darken-4">Đăng
 							ký</a>
 					</div>
 					<div class="col s12 p-0">
-						<a
+						<a id="closeBtn"
 							class="waves-effect waves-light btn long-btn deep-orange accent-4">Đóng</a>
 					</div>
 				</div>
@@ -273,6 +274,10 @@
 			$("#login-error").html(data.message);
 		}
 	}
+
+	$("#loginModal #closeBtn").click(function() {
+		$('#loginModal').closeModal();
+	})
 </script>
 </body>
 

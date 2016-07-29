@@ -2,8 +2,10 @@
  * 
  */
 
+var emailInput = $(".member-register #email");
+
 function checkEmail() {
-	var data = $("#email").val();
+	var data = emailInput.val();
 	$.ajax({
 		url : "/rest/checkExistedEmail",
 		type : "POST",
@@ -13,18 +15,18 @@ function checkEmail() {
 		success : function(data) {
 			if (data == "true") {
 				console.log("Email Existed");
-				$("#email").get(0).setCustomValidity(
+				emailInput.get(0).setCustomValidity(
 						"Email has already existed");
 			} else {
 				console.log("Email not existed");
-				$("#email").get(0).setCustomValidity("");
+				emailInput.get(0).setCustomValidity("");
 			}
 		}
 	});
 };
 
-$(".member-register #email").change(function() {
-	if ($("#email").val().length > 0) {
+emailInput.change(function() {
+	if (emailInput.val().length > 0) {
 		console.log("check email");
 		checkEmail();
 	}
