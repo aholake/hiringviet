@@ -44,7 +44,7 @@ public class MemberServiceImpl implements MemberService {
 		member.setChangeLog(Utils.createDefaultChangeLog());
 		member.getAccount().setUserRole(MemberRoleEnum.USER);
 		member.getAccount().setLocale(ConstantValues.VN_LOCALE);
-		member.getAccount().setActive(StatusRecordEnum.INACTIVE);
+		member.getAccount().setStatus(StatusRecordEnum.INACTIVE);
 		return memberDAO.create(member);
 	}
 

@@ -67,7 +67,9 @@ public class Account implements Serializable {
 	/** The to follows. */
 	private Set<Follow> toFollows;
 
-	private StatusRecordEnum active;
+	private StatusRecordEnum status;
+
+	private String activeUrl;
 
 	private Company company;
 
@@ -291,14 +293,23 @@ public class Account implements Serializable {
 		this.member = member;
 	}
 
-	@Column(name = "active")
+	@Column(name = "status")
 	@Enumerated(EnumType.ORDINAL)
-	public StatusRecordEnum getActive() {
-		return active;
+	public StatusRecordEnum getStatus() {
+		return status;
 	}
 
-	public void setActive(StatusRecordEnum active) {
-		this.active = active;
+	public void setStatus(StatusRecordEnum status) {
+		this.status = status;
+	}
+
+	@Column(name = "active_url")
+	public String getActiveUrl() {
+		return activeUrl;
+	}
+
+	public void setActiveUrl(String activeUrl) {
+		this.activeUrl = activeUrl;
 	}
 
 }
