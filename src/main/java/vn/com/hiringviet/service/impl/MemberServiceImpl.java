@@ -21,7 +21,9 @@ import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.model.SkillResume;
+import vn.com.hiringviet.service.MailService;
 import vn.com.hiringviet.service.MemberService;
+import vn.com.hiringviet.util.TextGenerator;
 import vn.com.hiringviet.util.Utils;
 
 @Service("memberService")
@@ -36,6 +38,9 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
+	@Autowired
+	private MailService mailService;
+
 	@Override
 	public int addMember(Member member) {
 		String encryptPassword = encoder.encode(member.getAccount()
@@ -45,7 +50,10 @@ public class MemberServiceImpl implements MemberService {
 		member.getAccount().setUserRole(MemberRoleEnum.USER);
 		member.getAccount().setLocale(ConstantValues.VN_LOCALE);
 		member.getAccount().setStatus(StatusRecordEnum.INACTIVE);
-		return memberDAO.create(member);
+		member.getAccount()
+				.setActiveUrl(TextGenerator.generateRandomString(11));
+		int memberId = memberDAO.create(member);
+		return memberId;
 	}
 
 	@Override
