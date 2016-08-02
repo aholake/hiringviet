@@ -111,7 +111,7 @@
 									<img src="/resources/images/profile_photo.jpg"
 										class="circle profile-photo">
 									<h5>
-										<a href="#">Vo Tan Loc</a>
+										<a href="#">${principal.member.firstName}</a>
 									</h5>
 									<h6>
 										<a href="#"><spring:message

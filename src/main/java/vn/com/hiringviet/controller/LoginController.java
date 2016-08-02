@@ -1,9 +1,9 @@
 package vn.com.hiringviet.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -38,6 +37,8 @@ import vn.com.hiringviet.util.CookieUtil;
 
 @Controller
 public class LoginController {
+	private static final Logger LOGGER = Logger
+			.getLogger(LoginController.class);
 
 	@Autowired
 	private AccountService accountService;
@@ -52,41 +53,41 @@ public class LoginController {
 	@Qualifier("authenticationManager")
 	AuthenticationManager authenticationManager;
 
-	@RequestMapping(value = "/account/checkAccount", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO login(
-			@RequestBody AccountDTO accountDTO, HttpServletResponse response,
-			HttpSession session) {
-
-		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
-		Account account = accountService.checkLogin(accountDTO.getEmail(),
-				accountDTO.getPassword());
-
-		if (account == null) {
-			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
-			return commonResponseDTO;
-		}
-
-		if (accountDTO.isRemembered()) {
-			CookieUtil.createCookie(response, "email", account.getEmail());
-			CookieUtil
-					.createCookie(response, "password", account.getPassword());
-		}
-
-		session.setAttribute("account", account);
-
-		if (MemberRoleEnum.USER == account.getUserRole()) {
-			session.setAttribute("memberSession",
-					memberService.getMemberByAccount(account));
-		} else if (MemberRoleEnum.COMPANY == account.getUserRole()) {
-			session.setAttribute("companySession",
-					companyService.getCompanyByAccount(account));
-		} else {
-
-		}
-
-		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
-		return commonResponseDTO;
-	}
+//	@RequestMapping(value = "/account/checkAccount", method = RequestMethod.POST)
+//	public @ResponseBody CommonResponseDTO login(
+//			@RequestBody AccountDTO accountDTO, HttpServletResponse response,
+//			HttpSession session) {
+//
+//		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
+//		Account account = accountService.checkLogin(accountDTO.getEmail(),
+//				accountDTO.getPassword());
+//
+//		if (account == null) {
+//			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+//			return commonResponseDTO;
+//		}
+//
+//		if (accountDTO.isRemembered()) {
+//			CookieUtil.createCookie(response, "email", account.getEmail());
+//			CookieUtil
+//					.createCookie(response, "password", account.getPassword());
+//		}
+//
+//		session.setAttribute("account", account);
+//
+//		if (MemberRoleEnum.USER == account.getUserRole()) {
+//			session.setAttribute("memberSession",
+//					memberService.getMemberByAccount(account));
+//		} else if (MemberRoleEnum.COMPANY == account.getUserRole()) {
+//			session.setAttribute("companySession",
+//					companyService.getCompanyByAccount(account));
+//		} else {
+//
+//		}
+//
+//		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+//		return commonResponseDTO;
+//	}
 
 	@RequestMapping(value = "/db", method = RequestMethod.GET)
 	public String dbaPage(ModelMap model) {
@@ -136,7 +137,6 @@ public class LoginController {
 	public static Company getCompanySession(HttpSession session) {
 		return (Company) session.getAttribute("companySession");
 	}
-	
 
 	private String getPrincipal() {
 		String email = null;
