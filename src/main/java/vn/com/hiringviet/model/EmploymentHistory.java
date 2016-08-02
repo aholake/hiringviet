@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,6 +21,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "employment_history")
 public class EmploymentHistory implements Serializable {
@@ -28,7 +31,9 @@ public class EmploymentHistory implements Serializable {
 
 	private Integer id;
 
-	private Company company;
+//	private Company company;
+
+	private String companyName;
 
 	private Position position;
 
@@ -52,17 +57,27 @@ public class EmploymentHistory implements Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "company_id")
-	public Company getCompany() {
-		return company;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "company_id")
+//	public Company getCompany() {
+//		return company;
+//	}
+
+//	public void setCompany(Company company) {
+//		this.company = company;
+//	}
+
+	@Column(name = "company_name")
+	public String getCompanyName() {
+		return companyName;
 	}
 
-	public void setCompany(Company company) {
-		this.company = company;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = "position_id")
 	public Position getPosition() {
 		return position;
@@ -113,7 +128,7 @@ public class EmploymentHistory implements Serializable {
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
-	@JoinColumn(name = "project_id")
+	@JoinColumn(name = "employee_history_id")
 	public Set<Project> getProjects() {
 		return projects;
 	}

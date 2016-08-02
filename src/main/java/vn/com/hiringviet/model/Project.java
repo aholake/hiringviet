@@ -67,7 +67,7 @@ public class Project implements Serializable {
 		this.url = url;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {

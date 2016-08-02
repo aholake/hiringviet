@@ -83,8 +83,10 @@ public class Resume implements Serializable {
 		this.educationHistorySet = educationHistorySet;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
+	@OrderBy("beginDate ASC")
 	public Set<EmploymentHistory> getEmployeeHistorySet() {
 		return employeeHistorySet;
 	}
@@ -160,7 +162,7 @@ public class Resume implements Serializable {
 		this.changeLog = changeLog;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@OrderBy("endorseSet DESC")

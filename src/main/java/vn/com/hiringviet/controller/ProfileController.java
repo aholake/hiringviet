@@ -25,11 +25,13 @@ import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.EducationHistory;
+import vn.com.hiringviet.model.EmploymentHistory;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.ConnectService;
 import vn.com.hiringviet.service.EndorseService;
 import vn.com.hiringviet.service.FollowService;
 import vn.com.hiringviet.service.MemberService;
+import vn.com.hiringviet.service.PositionService;
 import vn.com.hiringviet.service.ResumeService;
 import vn.com.hiringviet.util.Utils;
 
@@ -50,6 +52,9 @@ public class ProfileController {
 
 	@Autowired
 	private ConnectService connectService;
+
+	@Autowired
+	private PositionService positionService;
 
 	@RequestMapping(value = "/layouts/profileBanner", method = RequestMethod.GET)
 	public String goProfileBanner(Model model, HttpSession session) {
@@ -82,7 +87,9 @@ public class ProfileController {
 		model.addAttribute("checkConnect", checkConnect);
 
 		model.addAttribute("years", Utils.generatorListYear());
+		model.addAttribute("positions", positionService.getPositionList());
 		model.addAttribute("educationHistory", new EducationHistory());
+		model.addAttribute("employeeHistory", new EmploymentHistory());
 		model.addAttribute("degreeMap", Utils.generatorDegree());
 		return "/profile";
 	}

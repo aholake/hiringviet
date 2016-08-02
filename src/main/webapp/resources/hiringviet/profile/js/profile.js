@@ -198,3 +198,23 @@ function processAddConnect(response) {
 		alert('Please login to continue!');
 	}
 }
+
+function setValueSettingEmployee(value, select) {
+	var companyName = $('.company-name-' + value).text();
+	var positionName = $('.position-name-' + value).text();
+	var beginDate = $('.begin-date-' + value).text();
+	var endDate = $('.end-date-' + value).text();
+	var description = $('.description-' + value).text();
+
+	$('#employee-id').val(value);
+	$('#txtCompanyName').val(companyName);
+	$('#txtDescription').val(description);
+	$('#cbxPosition').val(positionName);
+	$('#cbxPosition').material_select();
+	$('#txtBeginDate').val(beginYear);
+	$('#txtEndDate').val(endYear);
+
+	$('.panel-setting-employee').show();
+	$('.list-experience').hide();
+	$(select).focus();
+}

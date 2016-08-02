@@ -8,7 +8,6 @@ import vn.com.hiringviet.model.Position;
 
 @Repository
 @Transactional
-public class PositionDAOImpl extends CommonDAOImpl<Position> implements
-		PositionDAO {
+public class PositionDAOImpl extends CommonDAOImpl<Position> implements PositionDAO {
 
 }
