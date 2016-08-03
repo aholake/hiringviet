@@ -245,7 +245,7 @@
     padding: 0 5px;
 }
 
-.education-media li {
+.education-media li, .experience-history li {
 	display: inline-flex;
 	margin-right: 10px;
 	background: #eceff1;
@@ -253,11 +253,12 @@
 	cursor: pointer;
 }
 
-.education-media li:hover {
+.education-media li:hover, .experience-media li:hover {
 	background: #0277bd;
 }
 
-.education-media li:hover span, .education-media li:hover i {
+.education-media li:hover span, .education-media li:hover i,
+	.experience-media li:hover span, .experience-media li:hover i {
 	color: #fff !important;
 }
 
@@ -265,18 +266,19 @@
 	margin-left: 5px;
 }
 
-.education-history h1, .education-history p {
+.education-history h1, .education-history p, .experience-history h1,
+	.experience-history p {
 	display: inline-flex;
 	width: 100%;
 	line-height: 24px;
 	margin: 1px 0px;
 }
 
-.education-history .prefix-icon-r {
+.education-history .prefix-icon-r, .experience-history .prefix-icon-r {
 	display: none;
 }
 
-.edu-his-item .prefix-icon-r:hover {
+.edu-his-item .prefix-icon-r:hover, .emp-his-item .prefix-icon-r:hover {
 	background: #0277bd !important;
 	cursor: pointer;
 }

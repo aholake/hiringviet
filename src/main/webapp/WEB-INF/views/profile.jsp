@@ -5,6 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,8 +25,8 @@
 	<input type="hidden" id="url_add_skills" value="<c:url value='/profile/addSkills'/>"/>
 	<input type="hidden" id="url_delete_skill_of_resume" value="<c:url value='/profile/deleteSkillOfProfile'/>"/>
 	<input type="hidden" id="url_add_endorse" value="<c:url value='/profile/endorse/add'/>"/>
-	<input type="hidden" id="avatar_image_of_account" value="${sessionScope.account.avatarImage}"/>
-	<input type="hidden" id="id_of_account" value="${sessionScope.account.id}"/>
+	<input type="hidden" id="avatar_image_of_account" value="${memberLogin.account.avatarImage}"/>
+	<input type="hidden" id="id_of_account" value="${memberLogin.account.id}"/>
 	<input type="hidden" id="url_remove_endorse" value="<c:url value='/profile/endorse/remove'/>"/>
 	<input type="hidden" id="url_count_member_of_follwer" value="<c:url value='/profile/countNumberOfFollower'/>"/>
 	<input type="hidden" id="redirect_member_page" value="<c:url value='/profile?accountId='/>"/>
@@ -32,7 +34,10 @@
 	<input type="hidden" id="paramMemberId" value="${param.memberId}"/>
 		<div class="row">
 			<div class="col m8">
-				<c:if test="${sessionScope.account.id == member.account.id}">
+				<!--<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
+					<sec:authentication property="principal" var="principal"/>
+				</sec:authorize>-->
+				<c:if test="${memberLogin.account.id == member.account.id}">
 					<div class="card-panel padding-10 light-blue darken-3 hoverable">
 						<h1 class="title cl-white"><spring:message code="label.profile.title.addSkill"/></h1>
 						<p class="cl-white small-text"><spring:message code="label.profile.title.value_statement"/></p>
@@ -68,7 +73,7 @@
 					<h1 class="title"><spring:message code="label.profile.title.exp_history.title"/></h1>
 					<div class="panel-content list-experience">
 						<c:choose>
-							<c:when test="${sessionScope.account.id == member.account.id}">
+							<c:when test="${memberLogin.account.id == member.account.id}">
 								<c:forEach items="${member.resume.employeeHistorySet}" var="employeeHistory">
 									<div class="margin-top-30 position-relative edu-his-item emp-his-item-${employeeHistory.id}"
 										onmouseover="showIconEdit('.emp-his-item-${employeeHistory.id}');"
@@ -84,21 +89,37 @@
 										<c:if test="${not empty employeeHistory.beginDate && not empty employeeHistory.endDate}">
 											<p class="edit">
 												<span class="begin-date-${employeeHistory.id}" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', null);">${employeeHistory.beginDate}</span><span>
-													- </span> <span class="end-date-${educationHistory.id}" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', null);">${employeeHistory.endDate}</span>
+												&nbsp;-&nbsp;</span> <span class="end-date-${employeeHistory.id}" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', null);">${employeeHistory.endDate}</span>
 												<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', null);">mode_edit</i>
 											</p>
 										</c:if>
 										<c:if test="${not empty employeeHistory.description}">
 											<p class="edit">
-												<span class="description-${employeeHistory.id}" onclick="javascript:setValueSettingEmployee('${educationHistory.id}', '#txtDescription');">${educationHistory.description}</span>
+												<span class="description-${employeeHistory.id}" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', '#txtDescription');">${employeeHistory.description}</span>
+												<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', null);">mode_edit</i>
 											</p>
 										</c:if>
 										<c:if test="${not empty employeeHistory.projects}">
-											<p class="edit">
-												<span><spring:message code="label.profile.title.edu_history.social_activity" />:&nbsp;</span> 
-												<span class="social-activity-${educationHistory.id}" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtSocialActivity');"> ${educationHistory.socialActivity}</span>
-												<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtSocialActivity');">mode_edit</i>
-											</p>
+											<div class="row margin-top-10">
+												<c:forEach items="${employeeHistory.projects}" var="projects">
+													<div class="col m6">
+														<h1 class="big-text mp0 edit">
+															<i class="material-icons prefix-icon">subdirectory_arrow_right</i>
+															<span>${projects.name}</span>
+															<i class="material-icons prefix-icon-r" onclick="">mode_edit</i>
+														</h1>
+														<p>
+															<span>${projects.description}</span>
+														</p>
+														<p>
+															<i class="material-icons prefix-icon">link</i>
+															<span>
+																<a href="${projects.url}">${projects.url}</a>
+															</span>
+														</p>
+													</div>
+												</c:forEach>
+											</div>
 										</c:if>
 									</div>
 								</c:forEach>
@@ -198,7 +219,7 @@
 					<h1 class="title"><spring:message code="label.profile.title.edu_history.title"/></h1>
 					<div class="panel-content list-education">
 						<c:choose>
-						<c:when test="${sessionScope.account.id == member.account.id}">
+						<c:when test="${memberLogin.account.id == member.account.id}">
 							<c:forEach items="${member.resume.educationHistorySet}" var="educationHistory">
 								<div class="margin-top-30 position-relative edu-his-item edu-his-item-${educationHistory.id}"
 									onmouseover="showIconEdit('.edu-his-item-${educationHistory.id}');"
@@ -271,7 +292,7 @@
 							</c:forEach>
 						</c:otherwise>
 						</c:choose>
-							<c:if test="${sessionScope.account.id == member.account.id}">
+							<c:if test="${memberLogin.account.id == member.account.id}">
 								<hr class="margin-top-10" />
 								<p class="opacity-7 margin-top-10">Add media</p>
 								<ul class="education-media display-inline-flex margin-top-5">
@@ -311,7 +332,7 @@
 									</div>
 								</div>
 							</c:if>
-						<c:if test="${sessionScope.account.id == member.account.id}">
+						<c:if test="${memberLogin.account.id == member.account.id}">
 							<div class="btn-add-footer margin-top-30" onclick="javascript:showPopupAddEducation();">
 								<spring:message code="label.profile.title.edu_history.add_education" />
 							</div>
@@ -399,7 +420,7 @@
 				    				</span>
 				    				<div class="endorsers-container">
 				    					<a class="endorse-button">
-				    						<c:if test="${not empty sessionScope.account && sessionScope.account.id != member.account.id && checkConnect == true}">
+				    						<c:if test="${not empty memberLogin.account && memberLogin.account.id != member.account.id && checkConnect == true}">
 					    						<span class="endorsing">
 					    							<i class="material-icons small-icon margin-top-3px icon_add_endorse_${skillResume.skill.id}"
 														onmouseover="onMouseOverEndorsingEvent('add_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
@@ -422,7 +443,7 @@
 				    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="theCount">
 				    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
 					    						<c:choose>
-					    							<c:when test="${not empty sessionScope.account && sessionScope.account.id == endorse.account.id && checkConnect == true}">
+					    							<c:when test="${not empty memberLogin.account && memberLogin.account.id == endorse.account.id && checkConnect == true}">
 														<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}"
 															onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
 															onmouseout="javascript:hideMemberToolTip()">
@@ -475,7 +496,7 @@
 				    					<span class="endorse-item-name">
 				    						<a href="" class="endorse-item-name-text">${skillResume.skill.displayName}</a>
 				    					</span>
-				    					<c:if test="${not empty sessionScope.account && sessionScope.account.id != member.account.id}">
+				    					<c:if test="${not empty memberLogin.account && memberLogin.account.id != member.account.id}">
 				    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="theCount">
 				    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
 								    			<a class="icon-endorse">
@@ -486,7 +507,7 @@
 								    				<i class="material-icons small-icon display-none icon_remove_endorse_${skillResume.skill.id}"
 													onclick="onClickEndorsingDifferentEvent(false, '${skillResume.skill.id}', '${skillResume.id}');">remove</i>
 												</a>
-					    						<c:if test="${sessionScope.account.id == endorse.account.id}">
+					    						<c:if test="${memberLogin.account.id == endorse.account.id}">
 					    							<script type="text/javascript">
 						    							var skillResumeId = $('.skill_resume_' + ${skillResume.skill.id}).val();
 						    							$('.icon_add_endorse_' + skillResumeId).hide();

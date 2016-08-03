@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,12 +23,14 @@ import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.dto.EndorseDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.ResumeDTO;
+import vn.com.hiringviet.dto.SecurityAccount;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.EducationHistory;
 import vn.com.hiringviet.model.EmploymentHistory;
 import vn.com.hiringviet.model.Member;
+import vn.com.hiringviet.service.AuthenticationService;
 import vn.com.hiringviet.service.ConnectService;
 import vn.com.hiringviet.service.EndorseService;
 import vn.com.hiringviet.service.FollowService;
@@ -54,6 +58,9 @@ public class ProfileController {
 	private ConnectService connectService;
 
 	@Autowired
+	private AuthenticationService authenticationService;
+
+	@Autowired
 	private PositionService positionService;
 
 	@RequestMapping(value = "/layouts/profileBanner", method = RequestMethod.GET)
@@ -69,14 +76,20 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
-	public String goProfilePage(@RequestParam("memberId") Integer memberId, Model model, HttpSession session) {
+	public String goProfilePage(@RequestParam("memberId") Integer memberId,
+			Model model, HttpSession session) {
 
 		Member member = memberService.getMemberByID(memberId);
 
-		Member memberLogin = LoginController.getMemberSession(session);
+		Member memberLogin = null;
+		SecurityAccount securityAccount = authenticationService.getSecurityAccountAfterLogin();
+		if (securityAccount != null) {
+			memberLogin = securityAccount.getMember();
+			model.addAttribute("memberLogin", memberLogin);
+		}
+
 		boolean checkConnect = false;
 		if (!Utils.isEmptyObject(memberLogin)) {
-
 			Connect connect = connectService.getConnectByMemberId(memberLogin.getId(), member.getId());
 			if (!Utils.isEmptyObject(connect)) {
 				checkConnect = true;
@@ -95,7 +108,8 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/addSkills", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO addSkills(@RequestBody Set<SkillDTO> skillDTOs, HttpSession session) {
+	public @ResponseBody CommonResponseDTO addSkills(
+			@RequestBody Set<SkillDTO> skillDTOs, HttpSession session) {
 
 		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
 
@@ -108,7 +122,8 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/deleteSkillOfProfile", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO deleteSkillOfProfile(@RequestBody ResumeDTO resumeDTO, HttpSession session) {
+	public @ResponseBody CommonResponseDTO deleteSkillOfProfile(
+			@RequestBody ResumeDTO resumeDTO, HttpSession session) {
 
 		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
 
@@ -116,7 +131,8 @@ public class ProfileController {
 
 		if (account.getId().equals(resumeDTO.getAccountId())) {
 			if (resumeService.deleteSkillOfProfile(resumeDTO)) {
-				commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+				commonResponseDTO.setResult(StatusResponseEnum.SUCCESS
+						.getStatus());
 			}
 		}
 
@@ -130,7 +146,8 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/endorse/add", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO addEndorse(@RequestBody Integer skillResumeId, HttpSession session) {
+	public @ResponseBody CommonResponseDTO addEndorse(
+			@RequestBody Integer skillResumeId, HttpSession session) {
 
 		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
 
@@ -155,7 +172,8 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/endorse/remove", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO removeEndorse(@RequestBody Integer skillResumeId, HttpSession session) {
+	public @ResponseBody CommonResponseDTO removeEndorse(
+			@RequestBody Integer skillResumeId, HttpSession session) {
 
 		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
 
@@ -175,14 +193,15 @@ public class ProfileController {
 		return commonResponseDTO;
 	}
 
-
 	@RequestMapping(value = "/profile/countNumberOfFollower", method = RequestMethod.POST)
-	public @ResponseBody MemberDTO countNumberOfFollower(@RequestBody Integer accountId) {
+	public @ResponseBody MemberDTO countNumberOfFollower(
+			@RequestBody Integer accountId) {
 
 		MemberDTO memberDTO = memberService.getMemberByAccountId(accountId);
 		if (!Utils.isEmptyObject(memberDTO)) {
 			if (followService.countNumberOfFollower(accountId) > 0) {
-				memberDTO.setNumberFollower(followService.countNumberOfFollower(accountId));
+				memberDTO.setNumberFollower(followService
+						.countNumberOfFollower(accountId));
 			} else {
 				memberDTO.setNumberFollower(0L);
 			}
@@ -192,7 +211,8 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/createEducation", method = RequestMethod.POST)
-	public String createEducation(Model model,
+	public String createEducation(
+			Model model,
 			@ModelAttribute("educationHistory") EducationHistory educationHistory,
 			@RequestParam("filterMemberId") String filterMemberId,
 			HttpSession session) {
@@ -205,7 +225,8 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/addConnect", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO addConnect(@RequestBody Integer toMemberId, HttpSession session) {
+	public @ResponseBody CommonResponseDTO addConnect(
+			@RequestBody Integer toMemberId, HttpSession session) {
 
 		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
 

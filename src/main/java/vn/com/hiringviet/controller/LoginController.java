@@ -1,6 +1,5 @@
 package vn.com.hiringviet.controller;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
@@ -11,21 +10,14 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import vn.com.hiringviet.api.dto.response.AccountDTO;
-import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
-import vn.com.hiringviet.common.MemberRoleEnum;
-import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.dto.SecurityAccount;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
@@ -33,7 +25,6 @@ import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.MemberService;
-import vn.com.hiringviet.util.CookieUtil;
 
 @Controller
 public class LoginController {
@@ -89,11 +80,6 @@ public class LoginController {
 //		return commonResponseDTO;
 //	}
 
-	@RequestMapping(value = "/db", method = RequestMethod.GET)
-	public String dbaPage(ModelMap model) {
-		model.addAttribute("user", getPrincipal());
-		return "dba";
-	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(
@@ -136,18 +122,6 @@ public class LoginController {
 
 	public static Company getCompanySession(HttpSession session) {
 		return (Company) session.getAttribute("companySession");
-	}
-
-	private String getPrincipal() {
-		String email = null;
-		Object principle = SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		if (principle instanceof UserDetails) {
-			email = ((UserDetails) principle).getUsername();
-		} else {
-			email = principle.toString();
-		}
-		return email;
 	}
 
 	@RequestMapping(value = "/action/login", method = RequestMethod.POST)

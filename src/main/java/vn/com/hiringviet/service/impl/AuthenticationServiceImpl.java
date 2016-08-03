@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,11 +16,13 @@ import org.springframework.stereotype.Service;
 import vn.com.hiringviet.dto.SecurityAccount;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.service.AccountService;
+import vn.com.hiringviet.service.AuthenticationService;
 
 @Service("authenticationService")
-public class AuthenticationService implements UserDetailsService {
+public class AuthenticationServiceImpl implements UserDetailsService,
+		AuthenticationService {
 	private static final Logger LOGGER = Logger
-			.getLogger(AuthenticationService.class);
+			.getLogger(AuthenticationServiceImpl.class);
 
 	@Autowired
 	private AccountService accountService;
@@ -36,10 +39,22 @@ public class AuthenticationService implements UserDetailsService {
 		}
 		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(account
 				.getUserRole().name());
-		LOGGER.info(account
-				.getUserRole().name());
-		SecurityAccount securityAccount = new SecurityAccount(account.getEmail(),
-				account.getPassword(), Arrays.asList(grantedAuthority), account.getCompany(), account.getMember());
+		LOGGER.info(account.getUserRole().name());
+		SecurityAccount securityAccount = new SecurityAccount(
+				account.getEmail(), account.getPassword(),
+				Arrays.asList(grantedAuthority), account.getCompany(),
+				account.getMember());
 		return securityAccount;
+	}
+
+	@Override
+	public SecurityAccount getSecurityAccountAfterLogin() {
+		Object principal = SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		if (principal instanceof SecurityAccount) {
+			SecurityAccount securityAccount = (SecurityAccount) principal;
+			return securityAccount;
+		}
+		return null;
 	}
 }
