@@ -34,9 +34,6 @@
 	<input type="hidden" id="paramMemberId" value="${param.memberId}"/>
 		<div class="row">
 			<div class="col m8">
-				<!--<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
-					<sec:authentication property="principal" var="principal"/>
-				</sec:authorize>-->
 				<c:if test="${memberLogin.account.id == member.account.id}">
 					<div class="card-panel padding-10 light-blue darken-3 hoverable">
 						<h1 class="title cl-white"><spring:message code="label.profile.title.addSkill"/></h1>
@@ -69,7 +66,155 @@
 					</div>
 				</c:if>
 				<!-- Begin resume -->
-				<div class="card-panel padding-10 hoverable position-relative experience-history overflow-auto">
+				<div class="card-panel padding-10 hoverable position-relative summary">
+					<h1 class="title"><spring:message code="label.profile.title.summary.title"/></h1>
+					<div class="panel-content content-summary">
+						<c:choose>
+							<c:when test="${memberLogin.account.id == member.account.id}">
+								<div class="margin-top-30 position-relative summary-${member.resume.id}"
+									onmouseover="showIconEdit('.summary-${member.resume.id}');"
+									onmouseout="hideIconEdit('.summary-${member.resume.id}');">
+									<div class="col m6 none-padding-left">
+										<p class="edit">
+											<i class="material-icons prefix-icon">date_range</i>
+											<spring:message code="label.profile.title.summary.birth_date" />
+											: <span class="info"><span class="birthDate">${member.resume.birthDate}</span></span>
+											<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingSummary('#birthDate');">mode_edit</i>
+										</p>
+									</div>
+									<div class="col m6 none-padding-left">
+										<p class="edit">
+											<i class="material-icons prefix-icon">contact_phone</i>
+											<spring:message code="label.profile.title.summary.phone_number" />
+											: <span class="info"><span class="phoneNumber">${member.resume.phoneNumber}</span></span>
+											<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingSummary('#phoneNumber');">mode_edit</i>
+										</p>
+									</div>
+									<div class="col m6 none-padding-left">
+										<p class="edit">
+											<i class="material-icons prefix-icon">people</i>
+											<spring:message code="label.profile.title.summary.sex" />
+											: <span class="info"><span class="maleGender">
+												<c:choose>
+													<c:when test="${member.resume.maleGender == true}">
+														<spring:message code="label.profile.title.summary.sex.man"/>
+													</c:when>
+													<c:otherwise>
+														<spring:message code="label.profile.title.summary.sex.woman"/>
+													</c:otherwise>
+												</c:choose>
+											</span>
+											</span>
+											<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingSummary(null);">mode_edit</i>
+										</p>
+									</div>
+									<div class="col m6 none-padding-left">
+										<p class="edit">
+											<i class="material-icons prefix-icon">flag</i>
+											<spring:message code="label.profile.title.summary.nationality" />
+											: <span class="info"><span class="nationality">${member.resume.nationality}</span></span>
+											<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingSummary('#nationality');">mode_edit</i>
+										</p>
+									</div>
+									<div class="div edit">
+										<span class="txtSummary">${member.resume.summary}</span>
+										<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingSummary('#txtSummary');">mode_edit</i>
+									</div>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="margin-top-30 position-relative">
+									<div class="col m6 none-padding-left">
+										<p>
+											<i class="material-icons prefix-icon">date_range</i>
+											<spring:message code="label.profile.title.summary.birth_date" />
+											: <span class="info"><span>${member.resume.birthDate}</span></span>
+										</p>
+									</div>
+									<div class="col m6 none-padding-left">
+										<p>
+											<i class="material-icons prefix-icon">contact_phone</i>
+											<spring:message code="label.profile.title.summary.phone_number" />
+											: <span class="info"><span>${member.resume.phoneNumber}</span></span>
+										</p>
+									</div>
+									<div class="col m6 none-padding-left">
+										<p>
+											<i class="material-icons prefix-icon">people</i>
+											<spring:message code="label.profile.title.summary.sex" />
+											: <span class="info"><span>
+											<c:choose>
+												<c:when test="${member.resume.maleGender == true}">
+													<spring:message code="label.profile.title.summary.sex.man"/>
+												</c:when>
+												<c:otherwise>
+													<spring:message code="label.profile.title.summary.sex.woman"/>
+												</c:otherwise>
+											</c:choose>
+											</span></span>
+										</p>
+									</div>
+									<div class="col m6 none-padding-left">
+										<p>
+											<i class="material-icons prefix-icon">flag</i>
+											<spring:message code="label.profile.title.summary.nationality" />
+											: <span class="info"><span>${member.resume.nationality}</span></span>
+										</p>
+									</div>
+									<p>
+										<span>${member.resume.summary}</span>
+									</p>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<!-- Setting Project -->
+					<div class="panel-content panel-setting-summary display-none">
+						<div class="row">
+							<form:form id="saveSummary" action="/profile/saveSummary" method="POST" modelAttribute="resume">
+								<input type="hidden" id="filterMemberId" name="filterMemberId" value="${param.memberId}"/>
+								<div class="input-field col m5 p-0">
+									<form:input type="date" class="display-none" id="birthDate" path="birthDate" cssClass="datepicker"/>
+									<label><spring:message code="label.profile.title.summary.birth_date"/></label>
+								</div>
+								<div class="input-field col m5 p-0 offset-m2">
+									<form:input type="text" id="phoneNumber" path="phoneNumber" cssClass="validate"/>
+									<label for="phoneNumber">
+										<spring:message code="label.profile.title.summary.phone_number"/>
+									</label>
+								</div>
+								<div class="input-field col m5 p-0">
+									<input class="with-gap" name="maleGender" type="radio" id="r_man" value="true"/>
+      								<label for="r_man">
+      									<spring:message code="label.profile.title.summary.sex.man"/>
+									</label>
+									<span class="margin-right-30"></span>
+									<input class="with-gap" name="maleGender" type="radio" id="r_woman" value="false" />
+      								<label for="r_woman">
+      									<spring:message code="label.profile.title.summary.sex.woman"/>
+									</label>
+								</div>
+								<div class="input-field col m5 p-0 offset-m2">
+									<form:input type="text" id="nationality" path="nationality" cssClass="validate"/>
+									<label for="nationality">
+										<spring:message code="label.profile.title.summary.placeholder.nationality"/>
+									</label>
+								</div>
+								<div class="input-field col m12 p-0">
+									<form:input type="hidden" id="summary" path="summary"/>
+									<textarea  id="txtSummary" class="materialize-textarea"></textarea>
+								</div>
+								<div class="col m12 p-0 margin-top-10">
+									<button type="submit" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.summary.save"/></button>
+									<a class="waves-effect waves-light grey darken-2 btn margin-right-5" href="javascript:cancelSettingSummary();">
+										<spring:message code="label.profile.title.summary.cancel"/>
+									</a>
+								</div>
+							</form:form>
+						</div>
+					</div>
+				</div>
+				<div class="card-panel padding-10 hoverable position-relative experience-history">
 					<h1 class="title"><spring:message code="label.profile.title.exp_history.title"/></h1>
 					<div class="panel-content list-experience">
 						<c:choose>
@@ -83,7 +228,7 @@
 											<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', '#txtCompanyName');">mode_edit</i>
 										</h1>
 										<p class="edit">
-											<span class="position-name-${employeeHistory.id}" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', '#txtPositionName');">${employeeHistory.position.displayName}</span>
+											<span class="position-name-${employeeHistory.id}" id="${employeeHistory.position.positionID}" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', '#txtPositionName');">${employeeHistory.position.displayName}</span>
 											<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', '#txtPositionName');">mode_edit</i>
 										</p>
 										<c:if test="${not empty employeeHistory.beginDate && not empty employeeHistory.endDate}">
@@ -94,10 +239,10 @@
 											</p>
 										</c:if>
 										<c:if test="${not empty employeeHistory.description}">
-											<p class="edit">
+											<div class="div edit">
 												<span class="description-${employeeHistory.id}" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', '#txtDescription');">${employeeHistory.description}</span>
 												<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEmployee('${employeeHistory.id}', null);">mode_edit</i>
-											</p>
+											</div>
 										</c:if>
 										<c:if test="${not empty employeeHistory.projects}">
 											<div class="row margin-top-10">
@@ -105,16 +250,16 @@
 													<div class="col m6">
 														<h1 class="big-text mp0 edit">
 															<i class="material-icons prefix-icon">subdirectory_arrow_right</i>
-															<span>${projects.name}</span>
-															<i class="material-icons prefix-icon-r" onclick="">mode_edit</i>
+															<span class="project-name-${projects.id}">${projects.name}</span>
+															<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingProject('${employeeHistory.id}', '${projects.id}')">mode_edit</i>
 														</h1>
 														<p>
-															<span>${projects.description}</span>
+															<span class="project-description-${projects.id}">${projects.description}</span>
 														</p>
 														<p>
 															<i class="material-icons prefix-icon">link</i>
 															<span>
-																<a href="${projects.url}">${projects.url}</a>
+																<a href="${projects.url}" class="project-url-${projects.id}">${projects.url}</a>
 															</span>
 														</p>
 													</div>
@@ -165,20 +310,19 @@
 							</c:otherwise>
 						</c:choose>
 					</div>
-					<div class="panel-content panel-setting-employee">
+					<div class="panel-content panel-setting-employee display-none">
 						<div class="row">
 							<form:form id="saveEmployee" action="/profile/createEmployee" method="POST" modelAttribute="employeeHistory">
-								<input type="hidden" id="filterMemberId" name="filterMemberId" value="${param.memberId}"/>
+								<input type="hidden" name="filterMemberId" value="${param.memberId}"/>
 								<form:input type="hidden" id="employee-id" path="id"/>
 								<div class="input-field col m12 p-0">
-									<form:input type="hidden" id="companyName" path="companyName"/>
-									<input placeholder="<spring:message code='label.profile.title.emp_history.placeholder.company_name'/>" id="txtCompanyName" type="text" class="validate">
-									<label for="txtCompanyName">
+									<form:input placeholder="<spring:message code='label.profile.title.emp_history.placeholder.company_name'/>" type="text" id="companyName" path="companyName" cssClass="validate"/>
+									<label for="companyName">
 										<spring:message code="label.profile.title.emp_history.company_name"/>
 									</label>
 								</div>
 								<div class="input-field col m12 p-0">
-									<form:input type="hidden" id="position" path="position"/>
+									<input type="hidden" id="positionId" name="positionId"/>
 									<select id="cbxPosition">
 										<option value="" disabled selected>Choose your option</option>
 										<c:forEach items="${positions}" var="position">
@@ -188,19 +332,17 @@
 									<label><spring:message code="label.profile.title.emp_history.position_name"/></label>
 								</div>
 								<div class="input-field col m5 p-0">
-									<form:input type="hidden" id="beginDate" path="beginDate"/>
-									<input type="date" id="txtBeginDate" class="datepicker">
+									<form:input type="date" class="display-none" id="beginDate" path="beginDate" cssClass="datepicker"/>
 									<label><spring:message code="label.profile.title.emp_history.begin_date"/></label>
 								</div>
 								<div class="input-field col m5 p-0 offset-m2">
-									<form:input type="hidden" id="endDate" path="endDate"/>
-									<input type="date" id="txtEndDate" class="datepicker"> 
+									<form:input type="date" class="display-none" id="endDate" path="endDate" cssClass="datepicker"/>
 									<label><spring:message code="label.profile.title.emp_history.end_date"/></label>
 								</div>
 								<div class="input-field col m12 p-0">
 									<form:input type="hidden" id="description" path="description"/>
-									<textarea placeholder="<spring:message code='label.profile.title.emp_history.placeholder.description'/>" id="txtDescription" class="materialize-textarea"></textarea>
-									<label for="txtDescription"><spring:message code="label.profile.title.emp_history.description"/></label>
+									<textarea placeholder="<spring:message code='label.profile.title.emp_history.placeholder.description'/>" id="txtEmployeeDescription" class="materialize-textarea"></textarea>
+									<label for="txtEmployeeDescription"><spring:message code="label.profile.title.emp_history.description"/></label>
 								</div>
 								<div class="col m12 p-0 margin-top-10">
 									<button type="submit" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.emp_history.save"/></button>
@@ -214,6 +356,57 @@
 							</form:form>
 						</div>
 					</div>
+
+					<!-- Setting Project -->
+					<div class="panel-content panel-setting-project display-none">
+						<div class="row">
+							<form:form id="saveProject" action="/profile/createProject" method="POST" modelAttribute="project">
+								<input type="hidden" id="filterMemberId" name="filterMemberId" value="${param.memberId}"/>
+								<div class="input-field col m12 p-0">
+									<select id="cbxCompany">
+										<option value="" disabled selected>Choose your option</option>
+										<c:forEach items="${member.resume.employeeHistorySet}" var="employeeHistory">
+											<option value="${employeeHistory.id}">${employeeHistory.companyName}</option>
+										</c:forEach>
+									</select>
+									<label><spring:message code="label.profile.title.emp_history.company_name"/></label>
+								</div>
+								<div class="input-field col m12 p-0">
+									<form:input type="hidden" id="txtName" path="name"/>
+									<input placeholder="<spring:message code='label.profile.title.emp_history.placeholder.project_name'/>" id="txtProjectName" type="text" class="validate">
+									<label for="txtProjectName">
+										<spring:message code="label.profile.title.emp_history.project_name"/>
+									</label>
+								</div>
+								<div class="input-field col m12 p-0">
+									<form:input type="hidden" id="url" path="url"/>
+									<input placeholder="<spring:message code='label.profile.title.emp_history.placeholder.url'/>" id="txtUrl" type="text" class="validate">
+									<label for="txtUrl">
+										<spring:message code="label.profile.title.emp_history.url"/>
+									</label>
+								</div>
+								<div class="input-field col m12 p-0">
+									<form:input type="hidden" id="description" path="description"/>
+									<textarea placeholder="<spring:message code='label.profile.title.emp_history.placeholder.description'/>" id="txtProjectDescription" class="materialize-textarea"></textarea>
+									<label for="txtProjectDescription"><spring:message code="label.profile.title.emp_history.description"/></label>
+								</div>
+								<div class="col m12 p-0 margin-top-10">
+									<button type="submit" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.emp_history.save"/></button>
+									<a class="waves-effect waves-light grey darken-2 btn margin-right-5" href="javascript:cancelSettingProject();">
+										<spring:message code="label.profile.title.emp_history.cancel"/>
+									</a>
+									<a href="" class="cl-white a-text-color margin-right-5">
+										<spring:message code="label.profile.title.emp_history.remove.project"/>
+									</a>
+								</div>
+							</form:form>
+						</div>
+					</div>
+					<c:if test="${memberLogin.account.id == member.account.id}">
+						<div class="btn-add-footer margin-top-30" onclick="javascript:showPopupAddExperience();">
+							<spring:message code="label.profile.title.edu_history.add_experience" />
+						</div>
+					</c:if>
 				</div>
 				<div class="card-panel padding-10 hoverable position-relative education-history">
 					<h1 class="title"><spring:message code="label.profile.title.edu_history.title"/></h1>
@@ -250,11 +443,11 @@
 									</p>
 									</c:if>
 									<c:if test="${not empty educationHistory.socialActivity}">
-									<p class="edit">
+									<div class="div edit">
 										<span><spring:message code="label.profile.title.edu_history.social_activity" />:&nbsp;</span> 
 										<span class="social-activity-${educationHistory.id}" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtSocialActivity');"> ${educationHistory.socialActivity}</span>
 										<i class="material-icons prefix-icon-r" onclick="javascript:setValueSettingEducation('${educationHistory.id}', '#txtSocialActivity');">mode_edit</i>
-									</p>
+									</div>
 									</c:if>
 								</div>
 							</c:forEach>
@@ -562,12 +755,18 @@
     </div>
 	<script src="<c:url value='/resources/hiringviet/profile/js/profile.js'/>"></script>
 	<script src="<c:url value='/resources/hiringviet/profile/js/endorse.js'/>"></script>
+	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
 		$('.datepicker').pickadate({
 		    selectMonths: true, // Creates a dropdown to control month
 		    selectYears: 15, // Creates a dropdown of 15 years to control year
-		    format: 'yyyy-mm-dd'
+		    format: 'dd/mm/yyyy',
+		    formatSubmit: 'dd/mm/yyyy'
 		});
+		CKEDITOR.replace("txtProjectDescription");
+		CKEDITOR.replace("txtEmployeeDescription");
+		CKEDITOR.replace("txtSocialActivity");
+		CKEDITOR.replace("txtSummary");
 	</script>
 </body>
 </html>

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.beanutils.BeanUtils;
 
 import vn.com.hiringviet.common.DegreeEnum;
@@ -240,5 +242,17 @@ public class Utils {
 		maps.put(DegreeEnum.D4.getStatus(), DegreeEnum.D4.getValue());
 		maps.put(DegreeEnum.D5.getStatus(), DegreeEnum.D5.getValue());
 		return maps;
+	}
+
+	public static HttpServletResponse exportWord(HttpServletResponse response, String fileName) {
+		response.setContentType("application/msword");
+		response.setHeader("Content-disposition", "inline; filename=" + fileName + ".odt");
+		return response;
+	}
+
+	public static HttpServletResponse exportPDF(HttpServletResponse response, String fileName) {
+		response.setContentType("application/x-pdf");
+		response.setHeader("Content-disposition", "inline; filename=" + fileName + ".pdf");
+		return response;
 	}
 }

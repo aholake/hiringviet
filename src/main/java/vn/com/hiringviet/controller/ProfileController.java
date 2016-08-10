@@ -1,14 +1,17 @@
 package vn.com.hiringviet.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +33,9 @@ import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.EducationHistory;
 import vn.com.hiringviet.model.EmploymentHistory;
 import vn.com.hiringviet.model.Member;
+import vn.com.hiringviet.model.Position;
+import vn.com.hiringviet.model.Project;
+import vn.com.hiringviet.model.Resume;
 import vn.com.hiringviet.service.AuthenticationService;
 import vn.com.hiringviet.service.ConnectService;
 import vn.com.hiringviet.service.EndorseService;
@@ -103,6 +109,8 @@ public class ProfileController {
 		model.addAttribute("positions", positionService.getPositionList());
 		model.addAttribute("educationHistory", new EducationHistory());
 		model.addAttribute("employeeHistory", new EmploymentHistory());
+		model.addAttribute("project", new Project());
+		model.addAttribute("resume", new Resume());
 		model.addAttribute("degreeMap", Utils.generatorDegree());
 		return "/profile";
 	}
@@ -217,8 +225,32 @@ public class ProfileController {
 			@RequestParam("filterMemberId") String filterMemberId,
 			HttpSession session) {
 
-		Member member = LoginController.getMemberSession(session);
-		if (!resumeService.saveEducation(member.getResume(), educationHistory)) {
+		Member memberLogin = null;
+		SecurityAccount securityAccount = authenticationService.getSecurityAccountAfterLogin();
+		if (securityAccount != null) {
+			memberLogin = securityAccount.getMember();
+		}
+
+		if (!resumeService.saveEducation(memberLogin.getResume(), educationHistory)) {
+			model.addAttribute("errorMessage", "");
+		}
+		return "redirect:/profile?memberId=" + filterMemberId;
+	}
+
+	@RequestMapping(value = "/profile/saveSummary", method = RequestMethod.POST)
+	public String saveSummary(
+			Model model,
+			@ModelAttribute("educationHistory") Resume resume,
+			@RequestParam("filterMemberId") String filterMemberId,
+			HttpSession session) {
+
+		Member memberLogin = null;
+		SecurityAccount securityAccount = authenticationService.getSecurityAccountAfterLogin();
+		if (securityAccount != null) {
+			memberLogin = securityAccount.getMember();
+		}
+
+		if (!resumeService.update(memberLogin.getResume(), resume)) {
 			model.addAttribute("errorMessage", "");
 		}
 		return "redirect:/profile?memberId=" + filterMemberId;
@@ -239,5 +271,32 @@ public class ProfileController {
 		memberService.addConnect(member, toMemberId);
 		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		return commonResponseDTO;
+	}
+
+	@RequestMapping(value = "/profile/createEmployee", method = RequestMethod.POST)
+	public String createEmployee(
+			Model model,
+			@ModelAttribute("employeeHistory") EmploymentHistory employeeHistory,
+			@RequestParam("filterMemberId") String filterMemberId,
+			@RequestParam("positionId") Integer positionId,
+			HttpSession session) {
+
+		Member memberLogin = null;
+		SecurityAccount securityAccount = authenticationService.getSecurityAccountAfterLogin();
+		if (securityAccount != null) {
+			memberLogin = securityAccount.getMember();
+		}
+
+		if (!resumeService.saveEmployee(memberLogin.getResume(), employeeHistory, positionId)) {
+			model.addAttribute("errorMessage", "");
+		}
+		return "redirect:/profile?memberId=" + filterMemberId;
+	}
+
+	@InitBinder
+	public void dataBinding(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 }

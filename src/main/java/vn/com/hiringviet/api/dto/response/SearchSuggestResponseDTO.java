@@ -5,7 +5,6 @@ import java.util.List;
 import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
-import vn.com.hiringviet.model.Skill;
 
 public class SearchSuggestResponseDTO extends CommonResponseDTO {
 

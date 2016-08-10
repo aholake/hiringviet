@@ -253,6 +253,10 @@
 	cursor: pointer;
 }
 
+.summary .prefix-icon-r {
+	cursor: pointer;
+}
+
 .education-media li:hover, .experience-media li:hover {
 	background: #0277bd;
 }
@@ -266,15 +270,16 @@
 	margin-left: 5px;
 }
 
-.education-history h1, .education-history p, .experience-history h1,
-	.experience-history p {
+.education-history h1, .education-history p, .education-history .div, .experience-history h1,
+	.experience-history p, .experience-history .div, .summary h1,
+	.summary p, .summary .div {
 	display: inline-flex;
 	width: 100%;
 	line-height: 24px;
 	margin: 1px 0px;
 }
 
-.education-history .prefix-icon-r, .experience-history .prefix-icon-r {
+.education-history .prefix-icon-r, .experience-history .prefix-icon-r, .summary .prefix-icon-r {
 	display: none;
 }
 

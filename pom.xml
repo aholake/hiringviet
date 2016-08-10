@@ -9,6 +9,16 @@
 	<groupId>vn.com.hiringviet</groupId>
 	<artifactId>hiringviet</artifactId>
 
+	<repositories>
+		<repository>
+			<id>sonatype</id>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+
 	<properties>
 		<org.springframework-version>4.2.3.RELEASE</org.springframework-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
@@ -298,6 +308,38 @@
 			<groupId>opensymphony</groupId>
 			<artifactId>sitemesh</artifactId>
 			<version>${sitemesh.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.freemarker</groupId>
+		  <artifactId>freemarker</artifactId>
+		  <version>2.3.25-incubating</version>
+		</dependency>
+
+		<dependency>
+            <groupId>fr.opensagres.xdocreport</groupId>
+            <artifactId>xdocreport</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.document.odt</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>fr.opensagres.xdocreport.template.freemarker</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+		<dependency>
+		  <groupId>fr.opensagres.xdocreport</groupId>
+		  <artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
+		  <version>1.0.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.intersult/jpa-fix -->
+		<dependency>
+		    <groupId>com.intersult</groupId>
+		    <artifactId>jpa-fix</artifactId>
+		    <version>1.1</version>
 		</dependency>
 	</dependencies>
 

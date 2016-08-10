@@ -2,6 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -67,7 +68,7 @@ public class Project implements Serializable {
 		this.url = url;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
