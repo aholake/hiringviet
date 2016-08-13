@@ -6,4 +6,6 @@ import vn.com.hiringviet.model.District;
 
 public interface DistrictService {
 	public List<District> getDistrictByProvince(int provinceID);
+	
+	public District getDistrictById(int id);
 }

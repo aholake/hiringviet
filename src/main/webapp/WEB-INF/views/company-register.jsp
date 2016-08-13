@@ -16,7 +16,7 @@
 <body>
 	<div class="row">
 		<div class="col m6 offset-m3">
-			<div class="card-panel">
+			<div class="card-panel" id="register-panel">
 				<div class="panel-title">
 					<spring:message code="label.register.company.title"></spring:message>
 				</div>
@@ -74,7 +74,7 @@
 										var="dropdown_none_value"></spring:message>
 									<form:select id="districtAddress" path="address.district.id">
 										<form:option value="-1" label="${dropdown_none_value}"
-											disabled="true"></form:option>
+											disabled="true" selected="selected"></form:option>
 									</form:select>
 									<label><spring:message
 											code="label.register.company.input.district"></spring:message></label>

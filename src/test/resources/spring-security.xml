@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-             xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security.xsd">
-	
-	<http  pattern="/resources/**" security="none"></http>
-    <http auto-config="true">
-        <intercept-url pattern="/" access="permitAll"/>
-        <intercept-url pattern="/home" access="permitAll"/>
-        <intercept-url pattern="/admin**" access="hasRole('0')"/>
-        <intercept-url pattern="/user**" access="hasRole('1')"/>
-        <intercept-url pattern="/company**" access="hasRole('2')"/>
-        <access-denied-handler error-page="/access-denied"/>
-        <form-login login-page="/action/login" default-target-url="/" authentication-failure-url="/login?error" username-parameter="email" password-parameter="password"/>
-        <logout logout-success-url="/login?logout" />
-        <csrf disabled="true"/>
-    </http>
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+	<http pattern="/resources/**" security="none"></http>
+	<http auto-config="true">
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/home" access="permitAll" />
+		<intercept-url pattern="/admin**" access="hasAuthority('ADMIN')" />
+		<intercept-url pattern="/user**" access="hasAuthority('USER')" />
+		<intercept-url pattern="/company**" access="hasAuthority('COMPANY')" />
+		<access-denied-handler error-page="/access-denied" />
+		<form-login login-page="/login" default-target-url="/"
+			authentication-failure-url="/login?error"
+			username-parameter="email" password-parameter="password" />
+		<logout logout-success-url="/" />
+		<csrf disabled="true" />
+	</http>
 
-    <authentication-manager alias="authenticationManager">
-        <authentication-provider user-service-ref="authenticationService">
-            <password-encoder ref="encoder"></password-encoder>
-        </authentication-provider>
-    </authentication-manager>
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="authenticationService">
+			<password-encoder ref="encoder"></password-encoder>
+		</authentication-provider>
+	</authentication-manager>
 
-    <beans:bean id="authenticationService" class="vn.com.hiringviet.service.impl.AuthenticationService"></beans:bean>
+	<beans:bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<beans:constructor-arg name="strength" value="11" />
+	</beans:bean>
 
-    <beans:bean id="encoder"
-          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <beans:constructor-arg name="strength" value="11"/>
-    </beans:bean>
 </beans:beans>

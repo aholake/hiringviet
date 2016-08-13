@@ -72,7 +72,6 @@ public class Company implements Serializable {
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_id")
-	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Account getAccount() {
 		return account;
 	}
@@ -99,9 +98,8 @@ public class Company implements Serializable {
 		this.companySize = companySize;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name = "address_id")
-	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Address getAddress() {
 		return address;
 	}

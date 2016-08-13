@@ -328,3 +328,4 @@ function processGetWards(response) {
 	});
 	$('#wardAddress').material_select();
 }
+

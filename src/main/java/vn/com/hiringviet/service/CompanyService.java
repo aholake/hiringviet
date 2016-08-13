@@ -16,11 +16,11 @@ public interface CompanyService {
 
 	boolean updateCompany(Company company);
 	
-	List<Company> getCompanyList();
+	public List<Company> getCompanyList();
 	
-	List<Company> getListCompany(Integer first, Integer max, boolean isCompanyHot);
+	public List<Company> getListCompany(Integer first, Integer max, boolean isCompanyHot);
 
-	public Company findOne(Integer id);
+	public Company getCompanyById(int id);
 
 	public List<PostDTO> getListPosts(Integer first, Integer max ,Integer companyId);
 

@@ -2,7 +2,7 @@
  * 
  */
 
-var emailInput = $(".member-register #email");
+var emailInput = $("#register-panel #email");
 
 function checkEmail() {
 	var data = emailInput.val();
@@ -32,8 +32,8 @@ emailInput.change(function() {
 	}
 });
 
-var password = $(".member-register #password");
-var confirm_password = $(".member-register #rePassword");
+var password = $("#register-panel #password");
+var confirm_password = $("#register-panel #rePassword");
 
 function validatePassword() {
 	if (password.val() === confirm_password.val()) {

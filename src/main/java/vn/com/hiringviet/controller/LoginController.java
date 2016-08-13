@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,51 +40,12 @@ public class LoginController {
 	private CompanyService companyService;
 
 	@Autowired
-	@Qualifier("authenticationManager")
 	AuthenticationManager authenticationManager;
-
-//	@RequestMapping(value = "/account/checkAccount", method = RequestMethod.POST)
-//	public @ResponseBody CommonResponseDTO login(
-//			@RequestBody AccountDTO accountDTO, HttpServletResponse response,
-//			HttpSession session) {
-//
-//		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
-//		Account account = accountService.checkLogin(accountDTO.getEmail(),
-//				accountDTO.getPassword());
-//
-//		if (account == null) {
-//			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
-//			return commonResponseDTO;
-//		}
-//
-//		if (accountDTO.isRemembered()) {
-//			CookieUtil.createCookie(response, "email", account.getEmail());
-//			CookieUtil
-//					.createCookie(response, "password", account.getPassword());
-//		}
-//
-//		session.setAttribute("account", account);
-//
-//		if (MemberRoleEnum.USER == account.getUserRole()) {
-//			session.setAttribute("memberSession",
-//					memberService.getMemberByAccount(account));
-//		} else if (MemberRoleEnum.COMPANY == account.getUserRole()) {
-//			session.setAttribute("companySession",
-//					companyService.getCompanyByAccount(account));
-//		} else {
-//
-//		}
-//
-//		commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
-//		return commonResponseDTO;
-//	}
-
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(
 			@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout) {
-
 		ModelAndView model = new ModelAndView();
 		if (error != null) {
 			model.addObject("error", "Invalid username and password!");
@@ -126,9 +86,10 @@ public class LoginController {
 
 	@RequestMapping(value = "/action/login", method = RequestMethod.POST)
 	@ResponseBody
-	public LoginStatus loginAjax(@RequestParam("email") String email,
-			@RequestParam("password") String password) {
-
+	public LoginStatus loginAjax(
+			@RequestParam(value = "email") String email,
+			@RequestParam(value = "password") String password) {
+		LOGGER.info("email: " + email + " password: " + password);
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				email, password);
 		try {

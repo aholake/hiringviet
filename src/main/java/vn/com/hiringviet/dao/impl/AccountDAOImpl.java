@@ -20,7 +20,6 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements
 
 	@Override
 	public Account checkLogin(String email, String password) {
-
 		Session session = getSession();
 		StringBuilder hql = new StringBuilder();
 		hql.append("FROM Account ");
@@ -41,7 +40,6 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isExistedAccount(String email) {
-		// TODO Auto-generated method stub
 		Session session = getSession();
 		StringBuilder sb = new StringBuilder();
 		sb.append("FROM Account ");

@@ -2,7 +2,6 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -55,7 +54,7 @@ public class District implements Serializable {
 		this.type = type;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "province_id")
 	public Province getProvince() {
 		return province;

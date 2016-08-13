@@ -65,7 +65,7 @@ public class CompanyController {
 	@RequestMapping(value = "/company/{companyId}", method = RequestMethod.GET)
 	public String goCompanyPage(@PathVariable("companyId") Integer companyId, Model model, HttpSession session) {
 
-		Company company = companyService.findOne(companyId);
+		Company company = companyService.getCompanyById(companyId);
 		List<PostDTO> postList = companyService.getListPosts(0, ConstantValues.MAX_RECORD_COUNT, companyId);
 		Long numberFollower = followService.countNumberOfFollower(company.getAccount().getId());
 
@@ -90,7 +90,7 @@ public class CompanyController {
 	@RequestMapping(value = "/company/{companyId}/job", method = RequestMethod.GET)
 	public String goCompanyCarrersPage(@PathVariable("companyId") Integer companyId, Model model, HttpSession session) {
 
-		Company company = companyService.findOne(companyId);
+		Company company = companyService.getCompanyById(companyId);
 		List<Job> jobList = companyService.getListJob(0, ConstantValues.MAX_RECORD_COUNT, companyId);
 
 		if (ConstantValues.MAX_RECORD_COUNT > jobList.size()) {

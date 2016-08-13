@@ -17,8 +17,12 @@ public class DistrictServiceImpl implements DistrictService {
 
 	@Override
 	public List<District> getDistrictByProvince(int provinceID) {
-		// TODO Auto-generated method stub
 		return districtDAO.getDistrictByProvince(provinceID);
+	}
+
+	@Override
+	public District getDistrictById(int id) {
+		return districtDAO.findOne(id);
 	}
 
 }

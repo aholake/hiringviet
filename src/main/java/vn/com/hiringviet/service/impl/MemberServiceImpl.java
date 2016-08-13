@@ -1,12 +1,17 @@
 package vn.com.hiringviet.service.impl;
 
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.google.appengine.api.ThreadManager;
 
 import vn.com.hiringviet.common.MemberRoleEnum;
 import vn.com.hiringviet.common.SkillTypeEnum;
@@ -21,14 +26,18 @@ import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.model.SkillResume;
+import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.MailService;
 import vn.com.hiringviet.service.MemberService;
+import vn.com.hiringviet.util.FileUtil;
 import vn.com.hiringviet.util.TextGenerator;
+import vn.com.hiringviet.util.TimeUtil;
 import vn.com.hiringviet.util.Utils;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
-
+	private static final Logger LOGGER = Logger
+			.getLogger(MemberServiceImpl.class);
 	@Autowired
 	private MemberDAO memberDAO;
 
@@ -41,6 +50,11 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MailService mailService;
 
+	@Autowired
+	private AccountService accountService;
+
+	private Properties configProperties = FileUtil.getProperties();
+
 	@Override
 	public int addMember(Member member) {
 		String encryptPassword = encoder.encode(member.getAccount()
@@ -52,7 +66,40 @@ public class MemberServiceImpl implements MemberService {
 		member.getAccount().setStatus(StatusRecordEnum.INACTIVE);
 		member.getAccount()
 				.setActiveUrl(TextGenerator.generateRandomString(11));
-		int memberId = memberDAO.create(member);
+		final int memberId = memberDAO.create(member);
+		if (memberId > 0) {
+			final Account account = getMemberByID(memberId).getAccount();
+			// generate active url
+			String randomString = account.getId()
+					+ TextGenerator.generateRandomString(10);
+
+			// Send email active account
+			String activeUrl = MessageFormat.format(
+					configProperties.getProperty("url.activeAccount"),
+					randomString);
+
+			LOGGER.info("active code: " + activeUrl);
+//			mailService.sendMail(account.getEmail(), "active account",
+//					activeUrl);
+
+			ThreadManager.createBackgroundThread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						long countTime = TimeUtil.convertMinuteToSecond(Integer
+								.parseInt(FileUtil.getProperties().getProperty(
+										"time.inactive")));
+
+						LOGGER.info("Start count time down: " + countTime);
+						Thread.sleep(countTime);
+						accountService.deleteUnactiveAccount(account);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
+		}
+		LOGGER.info("insert new member successfully");
 		return memberId;
 	}
 

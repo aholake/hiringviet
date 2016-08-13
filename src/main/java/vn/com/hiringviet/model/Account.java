@@ -101,7 +101,7 @@ public class Account implements Serializable {
 	 *
 	 * @return the email
 	 */
-	@Column(name = "email")
+	@Column(name = "email", unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -274,7 +274,7 @@ public class Account implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
 	public Company getCompany() {
 		return company;
 	}
@@ -284,7 +284,7 @@ public class Account implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	public Member getMember() {
 		return member;
 	}

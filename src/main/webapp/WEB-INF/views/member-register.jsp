@@ -13,13 +13,14 @@
 <body>
 	<div class="row">
 		<div class="col m6 offset-m3">
-			<div class="card-panel">
+			<div id="register-panel" class="card-panel">
 				<div class="panel-title">
 					<spring:message code="label.register.member.title"></spring:message>
 				</div>
 				<div class="panel-content">
-					<form:form modelAttribute="newMember" cssClass="margin-10 member-register"
-						action="/rest/saveMember" method="POST">
+					<form:form modelAttribute="newMember"
+						cssClass="margin-10 member-register" action="/rest/saveMember"
+						method="POST">
 						<div class="input-field">
 							<form:input path="firstName" id="firstName" cssClass="validate"
 								type="text" required="required" />
@@ -33,6 +34,11 @@
 							<label for="firstName"><spring:message
 									code="label.register.member.input.last_name"></spring:message>
 							</label>
+						</div>
+						<div class="input-field">
+							<form:input id="birthDate" path="birthDate" type="date"
+								class="datepicker" required="required" />
+							<label for="birthDate">Birth Date</label>
 						</div>
 						<div class="input-field">
 							<form:input path="account.email" id="email" cssClass="validate"
@@ -55,8 +61,7 @@
 							<button type="reset" class="btn waves-effect waves-light grey">
 								<spring:message code="label.register.account.button.reset"></spring:message>
 							</button>
-							<button type="submit"
-								class="btn waves-effect waves-light orange">
+							<button type="submit" class="btn waves-effect waves-light orange">
 								<spring:message code="label.register.account.button.register"></spring:message>
 							</button>
 						</div>
@@ -68,5 +73,7 @@
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="/resources/hiringviet/register/js/validate.js"></script>
+	<script type="text/javascript"
+		src="/resources/common/js/initDatePicker.js"></script>
 </body>
 </html>

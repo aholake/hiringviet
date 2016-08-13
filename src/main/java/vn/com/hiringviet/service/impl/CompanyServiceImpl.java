@@ -1,13 +1,17 @@
 package vn.com.hiringviet.service.impl;
 
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Properties;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.common.MemberRoleEnum;
+import vn.com.hiringviet.common.StatusRecordEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
 import vn.com.hiringviet.dto.CompanyDTO;
@@ -16,29 +20,97 @@ import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.service.AccountService;
+import vn.com.hiringviet.service.AddressService;
 import vn.com.hiringviet.service.CompanyService;
+import vn.com.hiringviet.service.MailService;
+import vn.com.hiringviet.util.FileUtil;
+import vn.com.hiringviet.util.TextGenerator;
+import vn.com.hiringviet.util.TimeUtil;
 import vn.com.hiringviet.util.Utils;
 
+import com.google.appengine.api.ThreadManager;
+
 @Service("companyService")
+@Transactional
 public class CompanyServiceImpl implements CompanyService {
+	private static final Logger LOGGER = Logger
+			.getLogger(CompanyServiceImpl.class);
 
 	@Autowired
 	private CompanyDAO companyDAO;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 
+	@Autowired
+	private AccountService accountService;
+
+	@Autowired
+	private MailService mailService;
+
+	@Autowired
+	private AddressService addressService;
+
+	private Properties configProperties;
+
 	@Override
 	public int addCompany(Company company) {
-		String encryptPassword = encoder.encode(company.getAccount().getPassword());
+		String encryptPassword = encoder.encode(company.getAccount()
+				.getPassword());
 		company.getAccount().setPassword(encryptPassword);
 		ChangeLog changeLog = Utils.createDefaultChangeLog();
 		company.setChangeLog(changeLog);
+
 		company.getAccount().setUserRole(MemberRoleEnum.COMPANY);
 		company.getAccount().setLocale(ConstantValues.VN_LOCALE);
-        return companyDAO.create(company);
-    }
-	
+		company.getAccount().setActiveUrl(
+				TextGenerator.generateRandomString(11));
+
+		company.setAddress(addressService.getFullAddressBaseOnId(company
+				.getAddress()));
+
+		company.getAccount().setStatus(StatusRecordEnum.INACTIVE);
+		int companyId = companyDAO.create(company);
+		if (companyId > 0) {
+			configProperties = FileUtil.getProperties();
+			final Company savedCompany = getCompanyById(companyId);
+
+			final Account account = savedCompany.getAccount();
+
+			// generate active url
+			String randomString = account.getId()
+					+ TextGenerator.generateRandomString(10);
+
+			// Send email active account
+			String activeUrl = MessageFormat.format(
+					configProperties.getProperty("url.activeAccount"),
+					randomString);
+
+			LOGGER.info("active code: " + activeUrl);
+			// mailService.sendMail(account.getEmail(), "active account",
+			// activeUrl);
+			// start countdown time
+			ThreadManager.createBackgroundThread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						long countTime = TimeUtil.convertMinuteToSecond(Integer
+								.parseInt(FileUtil.getProperties().getProperty(
+										"time.inactive")));
+
+						LOGGER.info("Start count time down: " + countTime);
+						Thread.sleep(countTime);
+						accountService.deleteUnactiveAccount(account);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
+		}
+		return companyId;
+	}
+
 	@Override
 	public boolean deleteCompany(Company company) {
 		return companyDAO.delete(company);
@@ -67,13 +139,9 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 	}
 
-	public Company findOne(Integer id) {
-
-		return companyDAO.findOne(id);
-	}
-
 	@Override
-	public List<PostDTO> getListPosts(Integer first, Integer max, Integer companyId) {
+	public List<PostDTO> getListPosts(Integer first, Integer max,
+			Integer companyId) {
 
 		return companyDAO.getListPosts(first, max, companyId);
 	}
@@ -93,6 +161,11 @@ public class CompanyServiceImpl implements CompanyService {
 	public List<CompanyDTO> getListCompanySuggest(String keywork) {
 		// TODO Auto-generated method stub
 		return companyDAO.getListCompanySuggest(keywork);
+	}
+
+	@Override
+	public Company getCompanyById(int id) {
+		return companyDAO.findOne(id);
 	}
 
 }
