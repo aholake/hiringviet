@@ -77,7 +77,7 @@ $(function() {
 		$('#beginYear').val($('#cbxBeginYear').val());
 		$('#endYear').val($('#cbxEndYear').val());
 		$('#degree').val($('#cbxDegree').val());
-		$('#socialActivity').val($('#txtSocialActivity').val());
+		$('#socialActivity').val(CKEDITOR.instances['txtSocialActivity'].getData());
 		
 		if(!$("#txtUniversityName").checkValidity()){
 			$("#txtUniversityName").setCustomValidity("Hello May Cung");
@@ -87,8 +87,19 @@ $(function() {
 		return false;
 	});
 
+	$( "#saveSummary" ).submit(function( event ) {
+
+		$('#summary').val(CKEDITOR.instances['txtSummary'].getData());
+	});
+
 	$('#btn-connect').on('click', function() {
 		callAPI($('#url_add_connect').val(), 'POST', $('#paramMemberId').val(), "processAddConnect", false);
+	});
+
+	$( "#saveEmployee" ).submit(function( event ) {
+
+		$('#positionId').val($('#cbxPosition').val());
+		$('#description').val(CKEDITOR.instances['txtEmployeeDescription'].getData());
 	});
 });
 
@@ -145,7 +156,7 @@ function setValueSettingEducation(value, select) {
 	$('#education-id').val(value);
 	$('#txtUniversityName').val(universityName);
 	$('#txtMajorName').val(majorName);
-	$('#txtSocialActivity').val(socialActivity);
+	CKEDITOR.instances['txtSocialActivity'].setData(description);
 	$('#cbxDegree').val(degree);
 	$('#cbxDegree').material_select();
 	$('#cbxBeginYear').val(beginYear);
@@ -201,20 +212,117 @@ function processAddConnect(response) {
 
 function setValueSettingEmployee(value, select) {
 	var companyName = $('.company-name-' + value).text();
-	var positionName = $('.position-name-' + value).text();
+	var positionName = $('.position-name-' + value).prop('id');
 	var beginDate = $('.begin-date-' + value).text();
 	var endDate = $('.end-date-' + value).text();
 	var description = $('.description-' + value).text();
 
-	$('#employee-id').val(value);
-	$('#txtCompanyName').val(companyName);
-	$('#txtDescription').val(description);
-	$('#cbxPosition').val(positionName);
-	$('#cbxPosition').material_select();
-	$('#txtBeginDate').val(beginYear);
-	$('#txtEndDate').val(endYear);
+	$('#saveEmployee  #employee-id').val(value);
+	$('#saveEmployee  #companyName').val(companyName);
+	CKEDITOR.instances['txtEmployeeDescription'].setData(description);
+	$('#saveEmployee  #cbxPosition').val(positionName);
+	$('#saveEmployee  #cbxPosition').material_select();
+	var txtBeginDate = $('#saveEmployee  #beginDate').pickadate();
+	var txtEndDate = $('#saveEmployee  #endDate').pickadate();
+	
+	var pickerBeginDate = txtBeginDate.pickadate('picker');
+	var pickerEndDate = txtEndDate.pickadate('picker');
+
+	pickerBeginDate.set('select', beginDate, { format: 'yyyy-mm-dd' });
+	pickerEndDate.set('select', endDate, { format: 'yyyy-mm-dd' });
 
 	$('.panel-setting-employee').show();
 	$('.list-experience').hide();
 	$(select).focus();
+}
+
+function cancelSettingEmployee() {
+
+	$('#saveEmployee  #employee-id').val('');
+	$('#saveEmployee  #companyName').val('');
+	CKEDITOR.instances['txtEmployeeDescription'].setData('');
+	$('#saveEmployee  #cbxPosition').val('');
+	$('#saveEmployee  #cbxPosition').material_select();
+	$('#saveEmployee  #beginDate').val('');
+	$('#saveEmployee  #endDate').val('');
+
+	$('.panel-setting-employee input').removeClass('valid');
+	$('.panel-setting-employee').hide();
+	$('.list-experience').show();
+}
+
+function setValueSettingProject(select, value) {
+
+	var projectName = $('.project-name-' + value).text();
+	var description = $('.project-description-' + value).text();
+	var url = $('.project-url-' + value).text();
+
+	$('#saveProject #txtProjectName').val(projectName);
+	$('#saveProject #txtUrl').val(url);
+	CKEDITOR.instances['txtProjectDescription'].setData(description);
+	$('#saveProject #cbxCompany').val(select);
+	$('#saveProject #cbxCompany').material_select();
+
+	$('.panel-setting-project').show();
+	$('.list-experience').hide();
+}
+
+function cancelSettingProject() {
+
+	$('#saveProject #txtProjectName').val('');
+	$('#saveProject #txtUrl').val('');
+	CKEDITOR.instances['txtProjectDescription'].setData('');
+	$('#saveProject #cbxCompany').val('');
+	$('#saveProject #cbxCompany').material_select();
+
+	$('.panel-setting-project input').removeClass('valid');
+	$('.panel-setting-project').hide();
+	$('.list-experience').show();
+}
+
+function showPopupAddExperience() {
+	$('.panel-setting-project').show();
+	$('.list-experience').hide();
+}
+
+function setValueSettingSummary(select) {
+	var birthDate = $('.content-summary .birthDate').text();
+	var phoneNumber = $('.content-summary .phoneNumber').text();
+	var maleGender = $('.content-summary .maleGender').text();
+	var nationality = $('.content-summary .nationality').text();
+	var summary = $('.content-summary .txtSummary').text();
+
+	var txtBirthDate = $('#saveSummary  #birthDate').pickadate();
+	
+	var pickerBirthDate = txtBirthDate.pickadate('picker');
+
+	pickerBirthDate.set('select', birthDate, { format: 'yyyy-mm-dd' });
+
+	$('#saveSummary #phoneNumber').val(phoneNumber);
+	$('#saveSummary #nationality').val(nationality);
+
+	if ('Man' == maleGender) {
+		$('#saveSummary #r_man').prop('checked', true);
+	} else {
+		$('#saveSummary #r_woman').prop('checked', true);
+	}
+
+	CKEDITOR.instances['txtSummary'].setData(summary);
+
+	$('.panel-setting-summary').show();
+	$('.content-summary').hide();
+	if (select != null) {
+		$(select).focus();
+	}
+}
+function cancelSettingSummary() {
+
+	$('#saveSummary #phoneNumber').val('');
+	$('#saveSummary #nationality').val('');
+	$('#saveSummary #birthDate').val('');
+	$('#saveSummary #txtSummary').val('');
+
+	$('.panel-setting-summary input').removeClass('valid');
+	$('.panel-setting-summary').hide();
+	$('.content-summary').show();
 }

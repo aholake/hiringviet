@@ -77,7 +77,7 @@ public class EmploymentHistory implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	@Cascade(value = { org.hibernate.annotations.CascadeType.MERGE })
 	@JoinColumn(name = "position_id")
 	public Position getPosition() {
 		return position;
@@ -116,8 +116,9 @@ public class EmploymentHistory implements Serializable {
 		this.description = description;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "change_log_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public ChangeLog getChangeLog() {
 		return changeLog;
 	}
@@ -126,7 +127,7 @@ public class EmploymentHistory implements Serializable {
 		this.changeLog = changeLog;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinColumn(name = "employee_history_id")
 	public Set<Project> getProjects() {

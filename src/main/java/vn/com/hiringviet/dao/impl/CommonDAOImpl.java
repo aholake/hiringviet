@@ -71,7 +71,9 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 	@Transactional
 	public boolean update(T entity) {
 		try {
-			getSession().update(entity);
+			getSession().clear();
+			getSession().merge(entity);
+			getSession().flush();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

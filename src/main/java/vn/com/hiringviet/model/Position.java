@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -27,7 +29,7 @@ public class Position implements Serializable {
 
 	private String displayName;
 
-	private Set<Job> jobSet;
+//	private Set<Job> jobSet;
 
 	private ChangeLog changeLog;
 
@@ -50,19 +52,20 @@ public class Position implements Serializable {
 		this.displayName = displayName;
 	}
 
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "position")
-	public Set<Job> getJobSet() {
-		return jobSet;
-	}
+//	@JsonIgnore
+//	@OneToMany(cascade = CascadeType.ALL, mappedBy = "position")
+//	public Set<Job> getJobSet() {
+//		return jobSet;
+//	}
 
-	public void setJobSet(Set<Job> jobSet) {
-		this.jobSet = jobSet;
-	}
+//	public void setJobSet(Set<Job> jobSet) {
+//		this.jobSet = jobSet;
+//	}
 
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "change_log_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public ChangeLog getChangeLog() {
 		return changeLog;
 	}

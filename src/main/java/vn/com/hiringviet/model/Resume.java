@@ -1,6 +1,7 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 
@@ -46,6 +49,10 @@ public class Resume implements Serializable {
 
 	private String coverImage;
 
+	private Date birthDate;
+
+	private String summary;
+
 	private ChangeLog changeLog;
 
 	private Set<SkillResume> skillResumeSet;
@@ -71,9 +78,9 @@ public class Resume implements Serializable {
 		this.member = member;
 	}
 
-	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
+	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@OrderBy("beginYear ASC")
 	public Set<EducationHistory> getEducationHistorySet() {
 		return educationHistorySet;
@@ -83,9 +90,9 @@ public class Resume implements Serializable {
 		this.educationHistorySet = educationHistorySet;
 	}
 
-	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
+	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@OrderBy("beginDate ASC")
 	public Set<EmploymentHistory> getEmployeeHistorySet() {
 		return employeeHistorySet;
@@ -149,6 +156,25 @@ public class Resume implements Serializable {
 
 	public void setCoverImage(String coverImage) {
 		this.coverImage = coverImage;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "birth_date")
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	@Column(name = "summary")
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY)

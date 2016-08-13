@@ -17,8 +17,12 @@ public class PositionServiceImpl implements PositionService {
 	
 	@Override
 	public List<Position> getPositionList() {
-		// TODO Auto-generated method stub
 		return positionDAO.findAll();
+	}
+
+	@Override
+	public Position findOne(Integer positionId) {
+		return positionDAO.findOne(positionId);
 	}
 
 }
