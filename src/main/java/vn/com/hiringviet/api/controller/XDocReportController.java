@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.MemberService;
-import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.Utils;
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
@@ -50,6 +49,7 @@ public class XDocReportController {
 //		context.put("date", new DateTool());
 		Member member = memberService.getMemberByID(1);
 		context.put("member", member);
+		context.put("employeeHistorySet", member.getResume().getEmployeeHistorySet());
 
 		// 3) Generate report by merging Java model with the ODT
 		try {
