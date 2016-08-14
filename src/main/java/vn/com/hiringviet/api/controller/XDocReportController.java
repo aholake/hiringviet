@@ -49,7 +49,6 @@ public class XDocReportController {
 //		context.put("date", new DateTool());
 		Member member = memberService.getMemberByID(1);
 		context.put("member", member);
-		context.put("employeeHistorySet", member.getResume().getEmployeeHistorySet());
 
 		// 3) Generate report by merging Java model with the ODT
 		try {
