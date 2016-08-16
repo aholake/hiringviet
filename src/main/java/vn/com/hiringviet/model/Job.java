@@ -25,6 +25,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -235,6 +236,7 @@ public class Job implements Serializable {
 		this.workAddress = workAddress;
 	}
 
+	@JsonIgnore
 	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "job_id")

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.api.dto.response.JobSuggestDTO;
 import vn.com.hiringviet.api.dto.response.SearchSuggestResponseDTO;
-import vn.com.hiringviet.common.MemberRoleEnum;
+import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.CompanyDTO;
@@ -65,7 +65,7 @@ public class SearchController {
 		List<Job> jobList = null;
 		List<Company> companyList = null;
 
-		if (Utils.isEmptyObject(account) || MemberRoleEnum.COMPANY == account.getUserRole()) {
+		if (Utils.isEmptyObject(account) || AccountRoleEnum.COMPANY == account.getUserRole()) {
 
 			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT,
 					true, null);
