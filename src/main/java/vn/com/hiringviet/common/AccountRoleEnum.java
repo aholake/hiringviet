@@ -1,14 +1,12 @@
 package vn.com.hiringviet.common;
 
-public enum StatusRecordEnum {
+public enum AccountRoleEnum {
 
-	INACTIVE(0),
-	ACTIVE(1),
-	DELETE(9);
+	ADMIN(0), USER(1), COMPANY(2);
 
 	private int value;
 
-	private StatusRecordEnum(int value) {
+	private AccountRoleEnum(int value) {
 		this.value = value;
 	}
 
@@ -16,4 +14,3 @@ public enum StatusRecordEnum {
 		return this.value;
 	}
 }
-

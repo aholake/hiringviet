@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -26,17 +27,14 @@ import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.dto.EndorseDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.ResumeDTO;
-import vn.com.hiringviet.dto.SecurityAccount;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.EducationHistory;
 import vn.com.hiringviet.model.EmploymentHistory;
 import vn.com.hiringviet.model.Member;
-import vn.com.hiringviet.model.Position;
 import vn.com.hiringviet.model.Project;
 import vn.com.hiringviet.model.Resume;
-import vn.com.hiringviet.service.AuthenticationService;
 import vn.com.hiringviet.service.ConnectService;
 import vn.com.hiringviet.service.EndorseService;
 import vn.com.hiringviet.service.FollowService;
@@ -64,9 +62,6 @@ public class ProfileController {
 	private ConnectService connectService;
 
 	@Autowired
-	private AuthenticationService authenticationService;
-
-	@Autowired
 	private PositionService positionService;
 
 	@RequestMapping(value = "/layouts/profileBanner", method = RequestMethod.GET)
@@ -88,15 +83,17 @@ public class ProfileController {
 		Member member = memberService.getMemberByID(memberId);
 
 		Member memberLogin = null;
-		SecurityAccount securityAccount = authenticationService.getSecurityAccountAfterLogin();
-		if (securityAccount != null) {
-			memberLogin = securityAccount.getMember();
+
+		Account account = getLoggedAccount();
+		if (account != null) {
+			memberLogin = account.getMember();
 			model.addAttribute("memberLogin", memberLogin);
 		}
 
 		boolean checkConnect = false;
 		if (!Utils.isEmptyObject(memberLogin)) {
-			Connect connect = connectService.getConnectByMemberId(memberLogin.getId(), member.getId());
+			Connect connect = connectService.getConnectByMemberId(
+					memberLogin.getId(), member.getId());
 			if (!Utils.isEmptyObject(connect)) {
 				checkConnect = true;
 			}
@@ -226,28 +223,38 @@ public class ProfileController {
 			HttpSession session) {
 
 		Member memberLogin = null;
-		SecurityAccount securityAccount = authenticationService.getSecurityAccountAfterLogin();
-		if (securityAccount != null) {
-			memberLogin = securityAccount.getMember();
+		Account account = getLoggedAccount();
+		if (account != null) {
+			memberLogin = account.getMember();
 		}
 
-		if (!resumeService.saveEducation(memberLogin.getResume(), educationHistory)) {
+		if (!resumeService.saveEducation(memberLogin.getResume(),
+				educationHistory)) {
 			model.addAttribute("errorMessage", "");
 		}
 		return "redirect:/profile?memberId=" + filterMemberId;
 	}
 
+	private Account getLoggedAccount() {
+		Object principal = SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
+		if (principal instanceof Account) {
+			Account loginedAccount = (Account) principal;
+			return loginedAccount;
+		}
+		return null;
+	}
+
 	@RequestMapping(value = "/profile/saveSummary", method = RequestMethod.POST)
-	public String saveSummary(
-			Model model,
+	public String saveSummary(Model model,
 			@ModelAttribute("educationHistory") Resume resume,
 			@RequestParam("filterMemberId") String filterMemberId,
 			HttpSession session) {
 
 		Member memberLogin = null;
-		SecurityAccount securityAccount = authenticationService.getSecurityAccountAfterLogin();
-		if (securityAccount != null) {
-			memberLogin = securityAccount.getMember();
+		Account account = getLoggedAccount();
+		if (account != null) {
+			memberLogin = account.getMember();
 		}
 
 		if (!resumeService.update(memberLogin.getResume(), resume)) {
@@ -278,16 +285,16 @@ public class ProfileController {
 			Model model,
 			@ModelAttribute("employeeHistory") EmploymentHistory employeeHistory,
 			@RequestParam("filterMemberId") String filterMemberId,
-			@RequestParam("positionId") Integer positionId,
-			HttpSession session) {
+			@RequestParam("positionId") Integer positionId, HttpSession session) {
 
 		Member memberLogin = null;
-		SecurityAccount securityAccount = authenticationService.getSecurityAccountAfterLogin();
-		if (securityAccount != null) {
-			memberLogin = securityAccount.getMember();
+		Account account = getLoggedAccount();
+		if (account != null) {
+			memberLogin = account.getMember();
 		}
 
-		if (!resumeService.saveEmployee(memberLogin.getResume(), employeeHistory, positionId)) {
+		if (!resumeService.saveEmployee(memberLogin.getResume(),
+				employeeHistory, positionId)) {
 			model.addAttribute("errorMessage", "");
 		}
 		return "redirect:/profile?memberId=" + filterMemberId;
@@ -297,6 +304,7 @@ public class ProfileController {
 	public void dataBinding(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		dateFormat.setLenient(false);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, true));
 	}
 }

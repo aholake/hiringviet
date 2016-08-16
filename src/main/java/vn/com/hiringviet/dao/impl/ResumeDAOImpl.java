@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.dao.ResumeDAO;
 import vn.com.hiringviet.dao.SkillDAO;
 import vn.com.hiringviet.model.Resume;
@@ -41,7 +41,7 @@ public class ResumeDAOImpl extends CommonDAOImpl<Resume> implements ResumeDAO {
 		criteria.createAlias("resume.changeLog", "changeLog");
 		criteria.createAlias("resume.skillResumeSet", "skillResumeSet");
 		criteria.add(Restrictions.eq("member.id", memberId));
-		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
 		criteria.setProjection(Projections.projectionList().add(Projections.property("skillResumeSet.skill.id")));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Integer> skills = criteria.list();

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.common.PublishResponseEnum;
-import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
 import vn.com.hiringviet.dto.CompanyDTO;
@@ -52,7 +52,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		query.setFirstResult(first);
 		query.setMaxResults(max);
 
-		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
+		query.setParameter("status", StatusEnum.ACTIVE.getValue());
 
 		List<Company> companyList = query.list();
 		return companyList;
@@ -72,7 +72,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		query.setFirstResult(first);
 		query.setMaxResults(max);
 
-		query.setParameter("status", StatusRecordEnum.ACTIVE.getValue());
+		query.setParameter("status", StatusEnum.ACTIVE.getValue());
 
 		List<Company> companyList = query.list();
 		return companyList;
@@ -88,7 +88,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		criteria.createAlias("post.changeLog", "changeLog");
 		criteria.createAlias("post.commentSet", "commentSet", JoinType.LEFT_OUTER_JOIN);
 		criteria.add(Restrictions.eq("company.id", companyId));
-		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.groupProperty("post.id").as("id"))
 				.add(Projections.property("post.title").as("title"))
@@ -114,7 +114,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		criteria.createAlias("job.changeLog", "changeLog");
 		criteria.add(Restrictions.eq("company.id", companyId));
 		criteria.add(Restrictions.eq("changeLog.status",
-				StatusRecordEnum.ACTIVE.getValue()));
+				StatusEnum.ACTIVE.getValue()));
 		criteria.add(Restrictions.eq("job.publish",
 				PublishResponseEnum.PUBLISH.getValue()));
 		criteria.setFirstResult(first);

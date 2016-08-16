@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Country;
 import vn.com.hiringviet.model.Member;
@@ -27,6 +26,7 @@ import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.CountryService;
 import vn.com.hiringviet.service.MemberService;
+import vn.com.hiringviet.util.Utils;
 
 @Controller
 public class SignupController {
@@ -113,14 +113,17 @@ public class SignupController {
 	}
 
 	@RequestMapping("/active/{code}")
-	public @ResponseBody StatusResponseEnum activeAccount(
-			@PathVariable("code") String code) {
+	public String activeAccount(@PathVariable("code") String code, Model model)
+			throws Exception {
 		try {
+			int accountId = Utils.getAccountIdFromActiveCode(code);
+			model.addAttribute("email", accountService
+					.getAccountById(accountId).getEmail());
 			accountService.activeAccount(code);
-			return StatusResponseEnum.SUCCESS;
+			return "active-success";
 		} catch (Exception e) {
 			LOGGER.error(e);
-			return StatusResponseEnum.FAIL;
+			throw new Exception();
 		}
 	}
 

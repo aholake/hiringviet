@@ -8,14 +8,11 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.google.appengine.api.ThreadManager;
-
-import vn.com.hiringviet.common.MemberRoleEnum;
+import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.SkillTypeEnum;
-import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dao.SkillDAO;
@@ -30,8 +27,8 @@ import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.MailService;
 import vn.com.hiringviet.service.MemberService;
 import vn.com.hiringviet.util.FileUtil;
+import vn.com.hiringviet.util.SecurityUtil;
 import vn.com.hiringviet.util.TextGenerator;
-import vn.com.hiringviet.util.TimeUtil;
 import vn.com.hiringviet.util.Utils;
 
 @Service("memberService")
@@ -45,9 +42,6 @@ public class MemberServiceImpl implements MemberService {
 	private SkillDAO skillDAO;
 
 	@Autowired
-	private BCryptPasswordEncoder encoder;
-
-	@Autowired
 	private MailService mailService;
 
 	@Autowired
@@ -57,50 +51,38 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int addMember(Member member) {
-		String encryptPassword = encoder.encode(member.getAccount()
-				.getPassword());
+		String encryptPassword = SecurityUtil.encodeStringToBase64(member
+				.getAccount().getPassword());
 		member.getAccount().setPassword(encryptPassword);
 		member.setChangeLog(Utils.createDefaultChangeLog());
-		member.getAccount().setUserRole(MemberRoleEnum.USER);
+		member.getAccount().setUserRole(AccountRoleEnum.USER);
 		member.getAccount().setLocale(ConstantValues.VN_LOCALE);
-		member.getAccount().setStatus(StatusRecordEnum.INACTIVE);
+		member.getAccount().setStatus(StatusEnum.INACTIVE);
 		member.getAccount()
 				.setActiveUrl(TextGenerator.generateRandomString(11));
-		final int memberId = memberDAO.create(member);
+		int memberId = memberDAO.create(member);
 		if (memberId > 0) {
 			final Account account = getMemberByID(memberId).getAccount();
-			// generate active url
-			String randomString = account.getId()
-					+ TextGenerator.generateRandomString(10);
-
-			// Send email active account
-			String activeUrl = MessageFormat.format(
-					configProperties.getProperty("url.activeAccount"),
-					randomString);
-
-			LOGGER.info("active code: " + activeUrl);
-//			mailService.sendMail(account.getEmail(), "active account",
-//					activeUrl);
-
-			ThreadManager.createBackgroundThread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						long countTime = TimeUtil.convertMinuteToSecond(Integer
-								.parseInt(FileUtil.getProperties().getProperty(
-										"time.inactive")));
-
-						LOGGER.info("Start count time down: " + countTime);
-						Thread.sleep(countTime);
-						accountService.deleteUnactiveAccount(account);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}).start();
+			sendActiveAccountEmail(account);
+			accountService.trackAccountAfterRegister(account);
 		}
 		LOGGER.info("insert new member successfully");
 		return memberId;
+	}
+
+	private void sendActiveAccountEmail(Account account) {
+		String randomString = account.getId()
+				+ TextGenerator
+						.generateRandomString(TextGenerator.RANDOM_ACTIVE_STRING_LENGTH);
+
+		// Send email active account
+		String activeUrl = MessageFormat
+				.format(configProperties.getProperty("url.activeAccount"),
+						randomString);
+
+		LOGGER.info("active code: " + activeUrl);
+		// mailService.sendMail(account.getEmail(), "active account",
+		// activeUrl);
 	}
 
 	@Override
@@ -185,7 +167,7 @@ public class MemberServiceImpl implements MemberService {
 		connect.setFromMember(formMember);
 		connect.setToMember(toMember);
 		connect.setChangeLog(Utils.generatorChangeLog());
-		connect.getChangeLog().setStatus(StatusRecordEnum.INACTIVE.getValue());
+		connect.getChangeLog().setStatus(StatusEnum.INACTIVE.getValue());
 		memberDAO.addConnect(connect);
 	}
 }

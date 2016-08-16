@@ -268,10 +268,10 @@
 
 	function processLogin(data) {
 		console.log(data);
-		if (data.success) {
+		if (data == 'SUCCESS') {
 			location.reload();
 		} else {
-			$("#login-error").html(data.message);
+			$("#login-error").html("Wrong username or password");
 		}
 	}
 

@@ -10,7 +10,9 @@ public interface AccountService {
 
 	public Account getAccountByEmail(String email);
 
-	public void deleteUnactiveAccount(Account account);
+	public void trackAccountAfterRegister(Account account);
 
-	public void activeAccount(String randomText);
+	public void activeAccount(String randomText) throws Exception;
+
+	public Account getAccountById(int id);
 }

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.beanutils.BeanUtils;
 
 import vn.com.hiringviet.common.DegreeEnum;
-import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.model.ChangeLog;
@@ -73,7 +73,8 @@ public class Utils {
 	/**
 	 * Checks if is empty set.
 	 *
-	 * @param list the list
+	 * @param list
+	 *            the list
 	 * @return true, if is empty set
 	 */
 	public static boolean isEmptySet(Set<?> list) {
@@ -181,18 +182,21 @@ public class Utils {
 		}
 	}
 
-	public static PagingDTO calculatorPaging(PagingDTO pagingDTO, boolean fromStart) {
+	public static PagingDTO calculatorPaging(PagingDTO pagingDTO,
+			boolean fromStart) {
 
 		if (fromStart) {
 			if (ConstantValues.FIRST_RECORD == pagingDTO.getFirstItem()) {
 				pagingDTO.setFirstItem(ConstantValues.FIRST_RECORD);
 				pagingDTO.setCurrentPage(ConstantValues.CURRENT_PAGE);
 			} else {
-				pagingDTO.setFirstItem(pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT);
+				pagingDTO.setFirstItem(pagingDTO.getCurrentPage()
+						* ConstantValues.MAX_RECORD_COUNT);
 				pagingDTO.setCurrentPage(pagingDTO.getCurrentPage() + 1);
 			}
 		} else {
-			pagingDTO.setFirstItem(pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT);
+			pagingDTO.setFirstItem(pagingDTO.getCurrentPage()
+					* ConstantValues.MAX_RECORD_COUNT);
 			pagingDTO.setCurrentPage(pagingDTO.getCurrentPage() + 1);
 		}
 
@@ -205,10 +209,16 @@ public class Utils {
 
 	public static ChangeLog createDefaultChangeLog() {
 		ChangeLog changeLog = new ChangeLog();
-		changeLog.setStatus(StatusRecordEnum.ACTIVE.getValue());
+		changeLog.setStatus(StatusEnum.ACTIVE.getValue());
 		changeLog.setCreatedDate(DateUtil.now());
 		changeLog.setUpdatedDate(DateUtil.now());
 		return changeLog;
+	}
+
+	public static int getAccountIdFromActiveCode(String activeCode) {
+		int textLength = activeCode.length();
+		return Integer.parseInt(activeCode.substring(0, textLength
+				- TextGenerator.RANDOM_ACTIVE_STRING_LENGTH));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -230,7 +240,7 @@ public class Utils {
 		ChangeLog changeLog = new ChangeLog();
 		changeLog.setCreatedDate(DateUtil.now());
 		changeLog.setUpdatedDate(DateUtil.now());
-		changeLog.setStatus(StatusRecordEnum.ACTIVE.getValue());
+		changeLog.setStatus(StatusEnum.ACTIVE.getValue());
 		return changeLog;
 	}
 
@@ -244,15 +254,19 @@ public class Utils {
 		return maps;
 	}
 
-	public static HttpServletResponse exportWord(HttpServletResponse response, String fileName) {
+	public static HttpServletResponse exportWord(HttpServletResponse response,
+			String fileName) {
 		response.setContentType("application/msword");
-		response.setHeader("Content-disposition", "inline; filename=" + fileName + ".odt");
+		response.setHeader("Content-disposition", "inline; filename="
+				+ fileName + ".odt");
 		return response;
 	}
 
-	public static HttpServletResponse exportPDF(HttpServletResponse response, String fileName) {
+	public static HttpServletResponse exportPDF(HttpServletResponse response,
+			String fileName) {
 		response.setContentType("application/x-pdf");
-		response.setHeader("Content-disposition", "inline; filename=" + fileName + ".pdf");
+		response.setHeader("Content-disposition", "inline; filename="
+				+ fileName + ".pdf");
 		return response;
 	}
 }

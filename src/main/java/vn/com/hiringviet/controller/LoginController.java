@@ -4,20 +4,19 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import vn.com.hiringviet.dto.SecurityAccount;
+import vn.com.hiringviet.auth.CustomAuthenticationProvider;
+import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Member;
@@ -40,7 +39,7 @@ public class LoginController {
 	private CompanyService companyService;
 
 	@Autowired
-	AuthenticationManager authenticationManager;
+	private CustomAuthenticationProvider customAuthenticationProvider;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(
@@ -61,14 +60,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("/access-denied")
-	public String accessDenied(Model model) {
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
-		if (auth != null) {
-			SecurityAccount securityAccount = (SecurityAccount) auth
-					.getPrincipal();
-			model.addAttribute("account", securityAccount);
-		}
+	public String accessDenied() {
 		return "access_denied";
 	}
 
@@ -86,46 +78,20 @@ public class LoginController {
 
 	@RequestMapping(value = "/action/login", method = RequestMethod.POST)
 	@ResponseBody
-	public LoginStatus loginAjax(
+	public StatusResponseEnum loginAjax(
 			@RequestParam(value = "email") String email,
 			@RequestParam(value = "password") String password) {
 		LOGGER.info("email: " + email + " password: " + password);
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				email, password);
 		try {
-			Authentication auth = authenticationManager.authenticate(token);
+			Authentication auth = customAuthenticationProvider
+					.authenticate(token);
 			SecurityContextHolder.getContext().setAuthentication(auth);
-			return new LoginStatus(true, "you signed in successfully");
-		} catch (BadCredentialsException e) {
-			return new LoginStatus(false, "Email or password is not correct");
+			return StatusResponseEnum.SUCCESS;
+		} catch (UsernameNotFoundException e) {
+			return StatusResponseEnum.FAIL;
 		}
 	}
 
-	class LoginStatus {
-		private boolean isSuccess;
-		private String message;
-
-		public LoginStatus(boolean isSuccess, String message) {
-			super();
-			this.setSuccess(isSuccess);
-			this.setMessage(message);
-		}
-
-		public boolean isSuccess() {
-			return isSuccess;
-		}
-
-		public void setSuccess(boolean isSuccess) {
-			this.isSuccess = isSuccess;
-		}
-
-		public String getMessage() {
-			return message;
-		}
-
-		public void setMessage(String message) {
-			this.message = message;
-		}
-
-	}
 }

@@ -12,4 +12,6 @@ public interface AccountDAO extends CommonDAO<Account> {
 	public boolean isExistedAccount(String email);
 	
 	public Account getAccountByEmail(String email);
+	
+	public Account getAccountByActiveUrl(String activeCode);
 }

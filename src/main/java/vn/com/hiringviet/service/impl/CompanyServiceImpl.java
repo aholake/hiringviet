@@ -6,12 +6,11 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.com.hiringviet.common.MemberRoleEnum;
-import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.common.AccountRoleEnum;
+import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
 import vn.com.hiringviet.dto.CompanyDTO;
@@ -24,12 +23,9 @@ import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.AddressService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.MailService;
-import vn.com.hiringviet.util.FileUtil;
+import vn.com.hiringviet.util.SecurityUtil;
 import vn.com.hiringviet.util.TextGenerator;
-import vn.com.hiringviet.util.TimeUtil;
 import vn.com.hiringviet.util.Utils;
-
-import com.google.appengine.api.ThreadManager;
 
 @Service("companyService")
 @Transactional
@@ -39,9 +35,6 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired
 	private CompanyDAO companyDAO;
-
-	@Autowired
-	private BCryptPasswordEncoder encoder;
 
 	@Autowired
 	private AccountService accountService;
@@ -56,13 +49,13 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public int addCompany(Company company) {
-		String encryptPassword = encoder.encode(company.getAccount()
-				.getPassword());
+		String encryptPassword = SecurityUtil.encodeStringToBase64(company
+				.getAccount().getPassword());
 		company.getAccount().setPassword(encryptPassword);
 		ChangeLog changeLog = Utils.createDefaultChangeLog();
 		company.setChangeLog(changeLog);
 
-		company.getAccount().setUserRole(MemberRoleEnum.COMPANY);
+		company.getAccount().setUserRole(AccountRoleEnum.COMPANY);
 		company.getAccount().setLocale(ConstantValues.VN_LOCALE);
 		company.getAccount().setActiveUrl(
 				TextGenerator.generateRandomString(11));
@@ -70,45 +63,30 @@ public class CompanyServiceImpl implements CompanyService {
 		company.setAddress(addressService.getFullAddressBaseOnId(company
 				.getAddress()));
 
-		company.getAccount().setStatus(StatusRecordEnum.INACTIVE);
+		company.getAccount().setStatus(StatusEnum.INACTIVE);
 		int companyId = companyDAO.create(company);
 		if (companyId > 0) {
-			configProperties = FileUtil.getProperties();
-			final Company savedCompany = getCompanyById(companyId);
-
-			final Account account = savedCompany.getAccount();
-
-			// generate active url
-			String randomString = account.getId()
-					+ TextGenerator.generateRandomString(10);
-
-			// Send email active account
-			String activeUrl = MessageFormat.format(
-					configProperties.getProperty("url.activeAccount"),
-					randomString);
-
-			LOGGER.info("active code: " + activeUrl);
-			// mailService.sendMail(account.getEmail(), "active account",
-			// activeUrl);
-			// start countdown time
-			ThreadManager.createBackgroundThread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						long countTime = TimeUtil.convertMinuteToSecond(Integer
-								.parseInt(FileUtil.getProperties().getProperty(
-										"time.inactive")));
-
-						LOGGER.info("Start count time down: " + countTime);
-						Thread.sleep(countTime);
-						accountService.deleteUnactiveAccount(account);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-			}).start();
+			final Account account = getCompanyById(companyId).getAccount();
+			sendActiveAccountEmail(account);
+			accountService.trackAccountAfterRegister(account);
 		}
+		LOGGER.info("insert company successfully");
 		return companyId;
+	}
+
+	private void sendActiveAccountEmail(Account account) {
+		String randomString = account.getId()
+				+ TextGenerator
+						.generateRandomString(TextGenerator.RANDOM_ACTIVE_STRING_LENGTH);
+
+		// Send email active account
+		String activeUrl = MessageFormat
+				.format(configProperties.getProperty("url.activeAccount"),
+						randomString);
+
+		LOGGER.info("active code: " + activeUrl);
+		// mailService.sendMail(account.getEmail(), "active account",
+		// activeUrl);
 	}
 
 	@Override

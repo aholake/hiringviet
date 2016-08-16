@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
-import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.util.DateUtil;
@@ -52,7 +52,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 			criteria.createAlias("job.skillSet", "skillSet");
 		}
 
-		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 
 		if (!Utils.isEmptyList(skills)) {
@@ -115,7 +115,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 			criteria.createAlias("job.skillSet", "skillSet");
 		}
 
-		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 
 		if (!Utils.isEmptyList(skills)) {

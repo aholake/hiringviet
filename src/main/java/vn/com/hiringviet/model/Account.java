@@ -19,8 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import vn.com.hiringviet.common.MemberRoleEnum;
-import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.common.AccountRoleEnum;
+import vn.com.hiringviet.common.StatusEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -50,7 +50,7 @@ public class Account implements Serializable {
 	private String coverImage;
 
 	/** The role id. */
-	private MemberRoleEnum userRole;
+	private AccountRoleEnum userRole;
 
 	/** The locale. */
 	private String locale;
@@ -67,7 +67,7 @@ public class Account implements Serializable {
 	/** The to follows. */
 	private Set<Follow> toFollows;
 
-	private StatusRecordEnum status;
+	private StatusEnum status;
 
 	private String activeUrl;
 
@@ -153,11 +153,11 @@ public class Account implements Serializable {
 	}
 
 	@Enumerated(EnumType.ORDINAL)
-	public MemberRoleEnum getUserRole() {
+	public AccountRoleEnum getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(MemberRoleEnum userRole) {
+	public void setUserRole(AccountRoleEnum userRole) {
 		this.userRole = userRole;
 	}
 
@@ -274,7 +274,7 @@ public class Account implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	public Company getCompany() {
 		return company;
 	}
@@ -295,11 +295,11 @@ public class Account implements Serializable {
 
 	@Column(name = "status")
 	@Enumerated(EnumType.ORDINAL)
-	public StatusRecordEnum getStatus() {
+	public StatusEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusRecordEnum status) {
+	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
 

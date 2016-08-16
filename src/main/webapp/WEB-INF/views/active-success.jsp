@@ -13,14 +13,11 @@
 	<div class="row">
 		<div class="col m8 offset-m2">
 			<div class="card-panel">
-				<div class="panel-title">CHÚC MỪNG BẠN ĐÃ ĐĂNG KÝ THÀNH CÔNG</div>
+				<div class="panel-title">KÍCH HOẠT TÀI KHOẢN THÀNH CÔNG</div>
 				<div class="panel-content">
-					<p class="margin-10">Chào mừng bạn đến với mạng lưới việc
-						làm HiringViet. Vui lòng kiểm tra hòm thư email để hoàn tất thủ
-						tục đăng ký.</p>
-					<p class="red-text margin-10">
-						<strong>Chú ý: Tài khoản của bạn sẽ bị xóa nếu không kích
-							hoạt trong vòng 24h.</strong>
+					<p class="margin-10">Xin chúc mừng, tài khoản email ${email }
+						của bạn vừa được kích hoạt thành công. Bây giờ, bạn có thể sử dụng
+						các chức năng của hệ thống.</p>
 					</p>
 				</div>
 			</div>

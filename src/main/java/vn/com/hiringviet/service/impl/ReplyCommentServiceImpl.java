@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import vn.com.hiringviet.common.MemberRoleEnum;
+import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.dao.CommentDAO;
 import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dao.ReplyCommentDAO;
@@ -36,7 +36,7 @@ public class ReplyCommentServiceImpl implements ReplyCommentService{
 		if (!Utils.isEmptyList(replyCommentDTOs)) {
 			for (int i = 0; i < replyCommentDTOs.size(); i++) {
 				ReplyCommentDTO replyCommentDTO = replyCommentDTOs.get(i);
-				if (MemberRoleEnum.USER == replyCommentDTO.getAccount().getUserRole()) {
+				if (AccountRoleEnum.USER == replyCommentDTO.getAccount().getUserRole()) {
 					MemberDTO memberDTO = memberDAO.getMemberByAccountId(replyCommentDTO.getAccount().getId());
 					replyCommentDTO.setMemberId(memberDTO.getId());
 					replyCommentDTO.setFirstName(memberDTO.getFirstName());

@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import vn.com.hiringviet.common.StatusRecordEnum;
+import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dto.MemberDTO;
@@ -40,7 +40,7 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 		Criteria criteria = session.createCriteria(Member.class, "member");
 		criteria.createAlias("member.changeLog", "changeLog");
 		criteria.createAlias("member.account", "account");
-		criteria.add(Restrictions.eq("changeLog.status", StatusRecordEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
 		criteria.add(Restrictions.eq("account.id", account.getId()));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 

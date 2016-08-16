@@ -17,7 +17,7 @@ import vn.com.hiringviet.api.dto.request.CommentRequestDTO;
 import vn.com.hiringviet.api.dto.request.ReplyCommentRequestDTO;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
 import vn.com.hiringviet.api.dto.response.ReplyCommentResponseDTO;
-import vn.com.hiringviet.common.MemberRoleEnum;
+import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.CommentDTO;
@@ -253,11 +253,11 @@ public class CompanyController {
 		Member member = null;
 		Company company = null;
 
-		if (MemberRoleEnum.USER == account.getUserRole()) {
+		if (AccountRoleEnum.USER == account.getUserRole()) {
 			member = LoginController.getMemberSession(session);
 		}
 
-		if (MemberRoleEnum.COMPANY == account.getUserRole()) {
+		if (AccountRoleEnum.COMPANY == account.getUserRole()) {
 			company = LoginController.getCompanySession(session);
 		}
 
@@ -269,13 +269,13 @@ public class CompanyController {
 			commentResponseDTO.setRoleId(account.getUserRole().getValue());
 			commentResponseDTO.setCommentId(replyCommentDTO.getCommentId());
 
-			if (MemberRoleEnum.USER == account.getUserRole()) {
+			if (AccountRoleEnum.USER == account.getUserRole()) {
 				commentResponseDTO.setFirstName(member.getFirstName());
 				commentResponseDTO.setLastName(member.getLastName());
 				commentResponseDTO.setMemberId(member.getId());
 			}
 
-			if (MemberRoleEnum.COMPANY == account.getUserRole()) {
+			if (AccountRoleEnum.COMPANY == account.getUserRole()) {
 				commentResponseDTO.setFirstName(company.getDisplayName());
 				commentResponseDTO.setCompanyId(company.getId());
 			}

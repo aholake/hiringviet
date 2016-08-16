@@ -21,8 +21,6 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "employment_history")
 public class EmploymentHistory implements Serializable {

@@ -83,7 +83,7 @@ public class AccountDAOTest {
 	@Test
 	@Rollback(false)
 	public void should_delete_a_account_of_company_success() throws Exception {
-		Account account = accountDAO.findOne(2);
+		Account account = accountDAO.findOne(3);
 		System.out.println(account.getEmail());
 		accountDAO.delete(account);
 	}
