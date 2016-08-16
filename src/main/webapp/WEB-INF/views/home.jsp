@@ -10,12 +10,10 @@
 <head>
 <title><spring:message code="label.home.title" /></title>
 <!-- Local style -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
 
 <!-- CSS media query on a link element -->
-<link rel="stylesheet"
-	href="/resources/hiringviet/home/css/smart-home.css" />
+<link rel="stylesheet" href="/resources/hiringviet/home/css/smart-home.css" />
 </head>
 <body>
 	<input type="hidden" id="get_job_hot" value="<c:url value='/job/hot' />" />
@@ -54,31 +52,73 @@
 						<input type="hidden" value="${job.id}" class="jobId">
 
 						<script type="text/javascript">
-							var checkContain = $.inArray($('.category').val(), categoryList);
-							if (checkContain < 0) {
-								categoryList.push($('.category').val());
+							var added = false;
+							$.map(categoryList, function(elementOfArray, indexInArray) {
+								if (elementOfArray.key == $('.category').val()) {
+									elementOfArray.value = elementOfArray.value + 1;
+									added = true;
+								}
+							});
+							if (!added) {
+								categoryList.push({
+									key : $('.category').val(),
+									value : 1
+								});
 							}
 							$('.category').remove();
+							console.log(categoryList);
 
-							var checkContain = $.inArray($('.company').val(), companyList);
-							if (checkContain < 0) {
-								companyList.push($('.company').val());
+							// =======================
+							var added = false;
+							$.map(companyList, function(elementOfArray, indexInArray) {
+								if (elementOfArray.key == $('.company').val()) {
+									elementOfArray.value = elementOfArray.value + 1;
+									added = true;
+								}
+							});
+							if (!added) {
+								companyList.push({
+									key : $('.company').val(),
+									value : 1
+								});
 							}
 							$('.company').remove();
-
-							var checkContain = $.inArray($('.position').val(), positionList);
-							if (checkContain < 0) {
-								positionList.push($('.position').val());
+							console.log(companyList);
+							//=========================
+							var added = false;
+							$.map(positionList, function(elementOfArray, indexInArray) {
+								if (elementOfArray.key == $('.position').val()) {
+									elementOfArray.value = elementOfArray.value + 1;
+									added = true;
+								}
+							});
+							if (!added) {
+								positionList.push({
+									key : $('.position').val(),
+									value : 1
+								});
 							}
 							$('.position').remove();
-
-							var checkContain = $.inArray($('.address').val(), provinceList);
-							if (checkContain < 0) {
-								provinceList.push($('.address').val());
+							console.log(positionList);
+							//=========================
+							var added = false;
+							$.map(provinceList, function(elementOfArray, indexInArray) {
+								if (elementOfArray.key == $('.address').val()) {
+									elementOfArray.value = elementOfArray.value + 1;
+									added = true;
+								}
+							});
+							if (!added) {
+								provinceList.push({
+									key : $('.address').val(),
+									value : 1
+								});
 							}
 							$('.address').remove();
-
-							var checkContain = $.inArray($('.jobId').val(), jobList);
+							console.log(provinceList);
+							//=========================
+							var checkContain = $.inArray($('.jobId').val(),
+									jobList);
 							if (checkContain < 0) {
 								jobList.push($('.jobId').val());
 							}
@@ -88,7 +128,7 @@
 							<div class="job-box" id="${job.id}">
 								<div class="location-sticky orange darken-1 province-${fn:replace(job.workAddress.district.province.provinceName, ' ','')}">${job.workAddress.district.province.provinceName}</div>
 								<div class="row none-margin-bottom">
-									<div class="col m3 center hide-on-med-and-down">
+									<div class="col m3 center hide-on-med-and-down m3-div">
 										<a href="/company/${job.company.id}">
 											<img src="${job.company.avatar}"
 											class="responsive-img company-logo"></a> <a href="#"
@@ -96,7 +136,7 @@
 											<spring:message code="label.home.button.follow_company" />
 										</a>
 									</div>
-									<div class="col m9">
+									<div class="col m9 m9-div">
 										<div class="col m12 p-0">
 											<h1 class="col m9 p-0 title block-with-text">
 												<c:choose>
@@ -157,11 +197,21 @@
 													<c:forEach items="${job.skillSet}" var="skill">
 														<input hidden="" value="${skill.displayName}" class="skill">
 														<script type="text/javascript">
-															var checkContain = $.inArray($('.skill').val(), skillList);
-															if (checkContain < 0) {
-																skillList.push($('.skill').val());
+															var added = false;
+															$.map(skillList, function(elementOfArray, indexInArray) {
+																if (elementOfArray.key == $('.skill').val()) {
+																	elementOfArray.value = elementOfArray.value + 1;
+																	added = true;
+																}
+															});
+															if (!added) {
+																skillList.push({
+																	key : $('.skill').val(),
+																	value : 1
+																});
 															}
 															$('.skill').remove();
+															console.log(skillList);
 														</script>
 														<a class="chip skill-${fn:replace(skill.displayName, ' ','')}">${skill.displayName}</a>
 													</c:forEach>
@@ -169,6 +219,7 @@
 											</div>
 										</div>
 									</div>
+									<i class="material-icons right icon-arrow margin-right-5 cursor">keyboard_arrow_up</i>
 								</div>
 							</div>
 						</div>
@@ -200,7 +251,7 @@
 				<div class="row">
 					<div class="col m12">
 						<ul class="collection fillter-wrapper">
-							<li class="collection-item"><b>Career</b>
+							<li class="collection-item"><b>Career</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-category-list" id="filter-category-list">
 									<li>
 										<input type="checkbox" class="filled-in" id="category-all" /> 
@@ -208,7 +259,7 @@
 									</li>
 								</ul>
 							</li>
-							<li class="collection-item"><b>Company</b>
+							<li class="collection-item"><b>Company</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-company-list" id="filter-company-list">
 									<li>
 										<input type="checkbox" class="filled-in" id="company-all" /> 
@@ -216,7 +267,7 @@
 									</li>
 								</ul>
 							</li>
-							<li class="collection-item"><b>Date Posted</b>
+							<li class="collection-item"><b>Date Posted</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-date-post-list" id="filter-date-post-list">
 									<li>
 										<input class="with-gap data-post-radio" name="datePosts" value="0" type="radio" id="date-post-All"/> 
@@ -240,7 +291,7 @@
 									</li>
 								</ul>
 							</li>
-							<li class="collection-item"><b>Job Function</b>
+							<li class="collection-item"><b>Job Function</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-position-list" id="filter-position-list">
 									<li>
 										<input type="checkbox" class="filled-in" id="position-all"/> 
@@ -248,7 +299,7 @@
 									</li>
 								</ul>
 							</li>
-							<li class="collection-item"><b>Skill</b>
+							<li class="collection-item"><b>Skill</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-skill-list" id="filter-skill-list">
 									<li>
 										<input type="checkbox" class="filled-in" id="skill-all"/> 
@@ -256,7 +307,7 @@
 									</li>
 								</ul>
 							</li>
-							<li class="collection-item"><b>Salary</b>
+							<li class="collection-item"><b>Salary</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-salary-list" id="filter-salary-list">
 									<li>
 										<input class="with-gap salary-radio" name="salary" value="0" type="radio" id="salary-all"  />
@@ -284,7 +335,7 @@
 									</li>
 								</ul>
 							</li>
-							<li class="collection-item"><b>Province</b>
+							<li class="collection-item"><b>Province</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-province-list" id="filter-province-list">
 									<li>
 										<input type="checkbox" class="filled-in" id="province-all"  />

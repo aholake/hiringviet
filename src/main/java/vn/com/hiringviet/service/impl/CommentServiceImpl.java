@@ -28,9 +28,9 @@ public class CommentServiceImpl implements CommentService {
 	private JobDAO jobDAO;
 
 	@Override
-	public List<CommentDTO> getListCommentByPostId(Integer first, Integer max, Integer postId) {
+	public List<CommentDTO> getListComment(Integer first, Integer max, Integer id, boolean isPost) {
 
-		return commentDAO.getListCommentByPostId(first, max, postId);
+		return commentDAO.getListComment(first, max, id, isPost);
 	}
 
 	@Override

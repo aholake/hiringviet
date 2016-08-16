@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.MemberService;
-import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.Utils;
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;

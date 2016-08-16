@@ -12,5 +12,5 @@ import vn.com.hiringviet.model.Comment;
 @Transactional
 public interface CommentDAO extends CommonDAO<Comment> {
 
-	public List<CommentDTO> getListCommentByPostId(Integer first, Integer max, Integer postId);
+	public List<CommentDTO> getListComment(Integer first, Integer max, Integer id, boolean isPost);
 }

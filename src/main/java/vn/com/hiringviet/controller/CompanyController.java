@@ -128,21 +128,8 @@ public class CompanyController {
 		return "/layouts/company_header";
 	}
 
-	/**
-	 * Go job detail page.
-	 *
-	 * @param model the model
-	 * @param session the session
-	 * @return the string
-	 */
-	@RequestMapping(value = "/company/careers/{id}", method = RequestMethod.GET)
-	public String goJobDetailPage(Model model, HttpSession session) {
-
-		return "job-detail";
-	}
-
-	@RequestMapping(value = "/company/post/comments", method = RequestMethod.POST)
-	public @ResponseBody CommentResponseDTO getCommentOfPostByPage(@RequestBody CommentRequestDTO commentRequestDTO, HttpSession session) {
+	@RequestMapping(value = {"/company/post/comments", "/company/careers/comments"}, method = RequestMethod.POST)
+	public @ResponseBody CommentResponseDTO getComment(@RequestBody CommentRequestDTO commentRequestDTO, HttpSession session) {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
 
@@ -153,9 +140,19 @@ public class CompanyController {
 			pagingDTO = commentRequestDTO.getPagingDTO();
 		}
 
-		List<CommentDTO> commentDTOs = commentService.getListCommentByPostId(
+		List<CommentDTO> commentDTOs = null;
+
+		if (!Utils.isEmptyNumber(commentRequestDTO.getPostId())) {
+			commentDTOs = commentService.getListComment(
 				pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
-				commentRequestDTO.getPostId());
+				commentRequestDTO.getPostId(), true);
+		}
+		
+		if (!Utils.isEmptyNumber(commentRequestDTO.getJobId())) {
+			commentDTOs = commentService.getListComment(
+					pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
+					commentRequestDTO.getJobId(), false);
+		}
 
 		if (Utils.isEmptyList(commentDTOs)) {
 			commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -175,7 +172,7 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/company/post/replyComments", method = RequestMethod.POST)
-	public @ResponseBody ReplyCommentResponseDTO getReplyCommentOfPostByPage(
+	public @ResponseBody ReplyCommentResponseDTO getReplyComment(
 			@RequestBody ReplyCommentRequestDTO replyCommentRequestDTO,
 			HttpSession session) {
 
@@ -235,7 +232,7 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/company/addReplyComment", method = RequestMethod.POST)
-	public @ResponseBody CommentResponseDTO addComment(@RequestBody ReplyCommentDTO replyCommentDTO, HttpSession session) {
+	public @ResponseBody CommentResponseDTO addReplyComment(@RequestBody ReplyCommentDTO replyCommentDTO, HttpSession session) {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
 

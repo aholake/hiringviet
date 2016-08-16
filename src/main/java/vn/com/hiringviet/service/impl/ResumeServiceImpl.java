@@ -69,22 +69,30 @@ public class ResumeServiceImpl implements ResumeService {
 		Position position = positionDAO.findOne(positionId);
 
 		// remove education if it's exists
-		Iterator<EmploymentHistory> iterator = resume.getEmployeeHistorySet().iterator();
-		if (!resume.getEmployeeHistorySet().isEmpty()) {
-			while (iterator.hasNext()) {
-				EmploymentHistory history = iterator.next();
-				if (history.getId() == employmentHistory.getId()) {
-					employmentHistory.setProjects(history.getProjects());
-					employmentHistory.setChangeLog(history.getChangeLog());
-					employmentHistory.getChangeLog().setUpdatedDate(DateUtil.now());
-					employmentHistory.setPosition(position);
-					resume.getEmployeeHistorySet().remove(history);
-					break;
-				}
-			}
+		for (EmploymentHistory history : resume.getEmployeeHistorySet()) {
+			history.getChangeLog().setUpdatedDate(DateUtil.now());
+			history.setBeginDate(employmentHistory.getBeginDate());
+			history.setCompanyName(employmentHistory.getCompanyName());
+			history.setDescription(employmentHistory.getDescription());
+			history.setEndDate(employmentHistory.getEndDate());
+			history.setPosition(position);
 		}
-
-		resume.getEmployeeHistorySet().add(employmentHistory);
+//		Iterator<EmploymentHistory> iterator = resume.getEmployeeHistorySet().iterator();
+//		if (!resume.getEmployeeHistorySet().isEmpty()) {
+//			while (iterator.hasNext()) {
+//				EmploymentHistory history = iterator.next();
+//				if (history.getId() == employmentHistory.getId()) {
+//					employmentHistory.setProjects(history.getProjects());
+//					employmentHistory.setChangeLog(history.getChangeLog());
+//					employmentHistory.getChangeLog().setUpdatedDate(DateUtil.now());
+//					employmentHistory.setPosition(position);
+//					resume.getEmployeeHistorySet().remove(history);
+//					break;
+//				}
+//			}
+//		}
+//
+//		resume.getEmployeeHistorySet().add(employmentHistory);
 
 		return resumeDAO.update(resume);
 	}
