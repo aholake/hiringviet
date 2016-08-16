@@ -18,6 +18,18 @@
 <script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </head>
 <body>
+	<input type="hidden" id="url_get_comments" value="<c:url value='/company/careers/comments' />" />
+	<input type="hidden" id="url_get_replyComments" value="<c:url value='' />" />
+	<input type="hidden" id="url_redirect_member" value="<c:url value='/member/' />" />
+	<input type="hidden" id="reply_comment" value='<spring:message code="label.company.title.reply_comment"/>' />
+	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
+	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
+	<input type="hidden" id="hide_comment" value='<spring:message code="label.company.title.hide_comment"/>' />
+	<input type="hidden" id="url_add_comment" value="<c:url value='/company/addComment' />" />
+	<input type="hidden" id="url_add_reply_comment" value="<c:url value='/company/addReplyComment' />" />
+	<input type="hidden" id="job_id" value="${param.jobId}" />
+	<input type="hidden" id="firstItem-comment" value="0" />
+	<input type="hidden" id="currentPage-comment" value="1" />
 		<div class="row">
 			<div class="col m8">
 				<!--GENERAL JOB INFO-->
@@ -25,12 +37,10 @@
 					<div class="row">
 						<div class="row">
 							<div class="col m12">
-								<p class="title blue-text">Nhân Viên Kinh Doanh Cho CN Mới
-									Thành Lập Tại Nha Trang - Thu Nhập Hấp Dẫn</p>
+								<p class="title blue-text">${job.title}</p>
 							</div>
 							<div class="col m7 offset-m5 date-and-view right-align">
-								<span>Đăng ngày: 20/10/2015 | </span> <span>Lượt xem:
-									7,787</span>
+								<span><i class="material-icons prefix-icon small-icon">date_range</i>Đăng ngày: ${job.postDate} | </span> <span><i class="material-icons prefix-icon small-icon">visibility</i> Lượt xem: ${job.numberVisited}</span>
 							</div>
 							<div class="col m12">
 								<hr class="fancy-hr">
@@ -40,22 +50,29 @@
 							<div class="col m8 p-0">
 								<div class="row">
 									<div class="col m12">
-										<span class="bold-text">ALMA Chi Nhánh Nha Trang</span>
+										<span class="bold-text"><i class="material-icons prefix-icon small-icon">location_on</i>Nơi làm việc: </span>
+										<span>
+										${job.company.address.district.districtName}, 
+										${job.company.address.district.province.provinceName}
+										</span>
 									</div>
 									<div class="col m12">
-										<span class="bold-text">Nơi làm việc: </span><span>Tân
-											Bình, TP. Hồ Chí Minh</span>
+										<span class="bold-text"><i class="material-icons prefix-icon small-icon">loyalty</i>Chức vụ: </span><span
+											class="orange-text">${job.position.displayName}</span>
 									</div>
 									<div class="col m12">
-										<span class="bold-text">Lương: </span><span
-											class="orange-text">500-1000$</span>
+										<span class="bold-text"><i class="material-icons prefix-icon small-icon">attach_money</i>Lương: </span><span
+											class="orange-text">${job.minSalary}$ - ${job.maxSalary}$</span>
 									</div>
 									<div class="col m12">
-										<span class="bold-text">Kỹ năng: </span>
-										<div class="chip">Java</div>
-										<div class="chip">English</div>
-										<div class="chip">Spring</div>
-										<div class="chip">Hibernate</div>
+										<span class="bold-text"><i class="material-icons prefix-icon small-icon">people</i>Số lượng: </span><span
+											class="orange-text">${job.size}</span>
+									</div>
+									<div class="col m12">
+										<span class="bold-text"><i class="material-icons prefix-icon small-icon">list</i>Kỹ năng: </span>
+										<c:forEach items="${job.skillSet}" var="skill">
+											<div class="chip">${skill.displayName}</div>
+										</c:forEach>
 									</div>
 								</div>
 							</div>
@@ -78,10 +95,7 @@
 							<h5>Công việc của bạn</h5>
 							<hr>
 							<div class="higher-line">
-								- Website and desktop application development in .NET framework <br>
-								- Communicate directly with our overseas staff and clients to get
-								software development requirements. <br> (More details to be
-								discussed in the interview) <br>
+								${job.description}
 							</div>
 						</div>
 					</div>
@@ -92,19 +106,18 @@
 							<h5>Yêu cầu</h5>
 							<hr>
 							<div class="higher-line">
-								- At least 5 years’ experience in .NET application development and
-								ASP.NET, both front end and back end. <br> - Experience in
-								Subsonic, entity framework. <br> - Competence in .HTML,
-								JavaScript, JQuery, CSS (3.0 - bootstrap), Ajax and client-based
-								technologies <br> - Competence in SQL, in particular SQL
-								2012. <br> - Experience in version control tools such as
-								Subversion. <br> - Skills in Android, iOS is an advantage. <br>
-								- Motivation and ability to do research on new technologies. <br>
-								- Soft skills in working in a team, good communication,
-								problem-solving.<br> - Degree in Computer Science,
-								Information Technology or equivalent. <br> - Strong English
-								speaking and writing skills a must. <br> - The application
-								must be written in English<br>
+								${job.requirement}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-panel">
+					<div class="row">
+						<div class="col m12">
+							<h5>Chính sách công ty</h5>
+							<hr>
+							<div class="higher-line">
+								${job.company.companyPolicies}
 							</div>
 						</div>
 					</div>
@@ -114,16 +127,37 @@
 					<div class="col m12">
 						<h5>Bình luận</h5>
 						<hr>
-						<ul class="collection commentList-1 remove-border">
+						<ul class="collection commentList remove-border">
 							<li class="display-inline-flex">
 								<a class="margin-left-5 small-text a-text-color"><spring:message code="label.company.title.load_more_comment"/></a>
 							</li>
-							<li class="collection-item avatar">
-								<img src="/resources/images/profile_photo.jpg" alt="" class="circle">
-								<span class="title"><a href="#">Võ Tấn Lộc</a> I just
-									keen on having an invitation to start my Internship with you
-									that will be very kick off on my family life.</span>
-								<p class="small-text">12-06-2016</p></li>
+							
+								<!-- 
+								<li class="collection-item avatar comment-bg">
+									<img src="" alt="" class="circle"> 
+									<p class="title"><a href="">Võ Tấn Lộc</a>
+									<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i></span></p>
+									<p class="small-text">Test</p> 
+									<p class="small-text display-inline-flex"><i class="material-icons small-icon">subdirectory_arrow_right</i>
+										<a class="a-text-color reply-" onclick="showReplyComment();">
+											<spring:message code="label.company.title.reply_comment"/>
+											(<span class="a-text-color numberReplyComment-">0</span>)
+										</a>
+										<input type="hidden" class="currentNumberReplyComment-" value="0"/>
+									</p>
+									<div class="reply-comment-" style="display: block;">
+										<input type="hidden" id="firstItem-reply-" value="0" />
+										<input type="hidden" id="currentPage-reply-" value="1" />
+										<ul class="collection remove-border" id="replyCommentList-">
+										</ul>
+										<div class="input-field col m12 p-0">
+											<input onkeypress="javascript:checkReplyComment(event);"
+												id="txtReplyComment-" type="text"
+												class="validate txtReplyComment"
+												placeholder="<spring:message code="label.company.title.write_comment"/>">
+										</div>
+									</div>
+								</li> -->
 						</ul>
 						<div class="post-comment">
 							<div class="input-field col m12">
@@ -141,40 +175,33 @@
 						<div class="company-box overflow-auto">
 							<div class="row">
 								<div class="col m9">
-									<h1 class="title">Tan Hiep Phat</h1>
+									<h1 class="title">${job.company.displayName}</h1>
 									<div class="small-text">
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">flag</i>
 											<spring:message code="label.home.title.country" />
-											: <span class="info">My</span>
+											: <span class="info">${job.company.hostCountry.countryName}</span>
 										</p>
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">equalizer</i>
 											<spring:message code="label.home.title.company_size" />
-											: <span class="info">500 <spring:message
+											: <span class="info">${job.company.companySize}<spring:message
 													code="label.home.title.people" /></span>
 										</p>
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">web</i>
 											<spring:message code="label.home.title.website" />
-											: <span class="info">www.google.com</span>
+											: <span class="info">${job.company.website}</span>
 										</p>
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">location_on</i>
 											<spring:message code="label.home.title.address" />
-											: <span class="info">TP.HCHCM</span>
+											: <span class="info">${job.company.address.district.province.provinceName}</span>
 										</p>
 									</div>
 								</div>
 								<div class="col m3 hide-on-med-and-down">
-									<img src="/resources/images/profile_photo.jpg" class="right responsive-img">
-								</div>
-							</div>
-							<div class="col m12">
-								<div class="center-align">
-									<a class="waves-effect waves-light btn orange">
-										<spring:message code="label.home.button.follow_company" />
-									</a>
+									<img src="${job.company.avatar}" class="right responsive-img">
 								</div>
 							</div>
 						</div>
@@ -228,6 +255,6 @@
 			$('ul.tabs').tabs('select_tab', 'tab_id');
 		});
 	</script>
-	<script src="<c:url value='/resources/hiringviet/company/js/company.js'/>"></script>
+	<script src="<c:url value='/resources/hiringviet/job/js/job-details.js'/>"></script>
 </body>
 </html>

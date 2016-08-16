@@ -30,6 +30,8 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 		Hibernate.initialize(job.getSkillSet());
 
+		Hibernate.initialize(job.getCommentSet());
+
 		return job;
 	}
 

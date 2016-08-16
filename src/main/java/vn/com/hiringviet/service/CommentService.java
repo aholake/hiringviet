@@ -9,7 +9,7 @@ import vn.com.hiringviet.dto.CommentDTO;
 @Service("commentService")
 public interface CommentService {
 
-	public List<CommentDTO> getListCommentByPostId(Integer first, Integer max, Integer postId);
+	public List<CommentDTO> getListComment(Integer first, Integer max, Integer Id, boolean isPost);
 
 	public Integer create(CommentDTO commentDTO);
 }

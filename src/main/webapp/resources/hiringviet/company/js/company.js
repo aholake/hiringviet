@@ -32,7 +32,7 @@ $(document).ready(function() {
 					comment: commentValue,
 					postId: postId
 				}
-				callAPI($('#url_post_comment').val(), 'POST', data, 'processAddComment', false);
+				callAPI($('#url_add_comment').val(), 'POST', data, 'processAddComment', false);
 
 			}
 		}
@@ -51,7 +51,7 @@ function showComment(postId) {
 				"currentPage" : $('#currentPage-comment-' + postId).val()
 			}
 	}
-	callAPI($('#url_get_post_comments').val(), 'POST', data, 'showPostComments', false);
+	callAPI($('#url_get_comments').val(), 'POST', data, 'showPostComments', false);
 }
 
 function hideComment(postId) {
@@ -142,7 +142,7 @@ function showReplyComment(commentId) {
 				"currentPage" : $('#currentPage-reply-' + commentId).val()
 			}
 	}
-	callAPI($('#url_get_post_replyComments').val(), 'POST', data, 'showPostReplyComments', false);
+	callAPI($('#url_get_replyComments').val(), 'POST', data, 'showPostReplyComments', false);
 	$('.reply-' + commentId).attr('onclick', 'javascript:hideReplyComment(' + commentId + ')');
 
 }
@@ -303,7 +303,7 @@ function checkReplyComment(event, value) {
 				"commentId": value,
 				"replyComment": commentValue
 			}
-			callAPI($('#url_post_reply_comment').val(), 'POST', data, 'processAddReplyComment', false);
+			callAPI($('#url_add_reply_comment').val(), 'POST', data, 'processAddReplyComment', false);
 		}
 	}
 }

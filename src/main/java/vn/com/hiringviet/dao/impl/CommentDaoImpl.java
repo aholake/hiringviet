@@ -31,14 +31,20 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<CommentDTO> getListCommentByPostId(Integer first, Integer max, Integer postId) {
+	public List<CommentDTO> getListComment(Integer first, Integer max, Integer id, boolean isPost) {
 
 		Session session = sessionFactory.getCurrentSession();
 
 		Criteria criteria = session.createCriteria(Comment.class, "comment");
 		criteria.createAlias("comment.member", "member");
 		criteria.createAlias("comment.member.resume", "resume");
-		criteria.createAlias("comment.post", "post");
+
+		if (isPost) {
+			criteria.createAlias("comment.post", "post");
+		} else {
+			criteria.createAlias("comment.job", "job");
+		}
+
 		criteria.createAlias("comment.changeLog", "changeLog");
 		criteria.createAlias("comment.replyCommentSet", "replyCommentSet", JoinType.LEFT_OUTER_JOIN);
 		criteria.setProjection(Projections.projectionList()
@@ -50,7 +56,13 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 				.add(Projections.property("member.firstName").as("firstName"))
 				.add(Projections.property("member.lastName").as("lastName"))
 				.add(Projections.count("replyCommentSet.id").as("numberReplyComment")));
-		criteria.add(Restrictions.eq("post.id", postId));
+
+		if (isPost) {
+			criteria.add(Restrictions.eq("post.id", id));
+		} else {
+			criteria.add(Restrictions.eq("job.id", id));
+		}
+
 		criteria.addOrder(Order.desc("changeLog.createdDate"));
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);

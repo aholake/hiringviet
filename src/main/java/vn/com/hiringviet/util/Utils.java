@@ -190,13 +190,11 @@ public class Utils {
 				pagingDTO.setFirstItem(ConstantValues.FIRST_RECORD);
 				pagingDTO.setCurrentPage(ConstantValues.CURRENT_PAGE);
 			} else {
-				pagingDTO.setFirstItem(pagingDTO.getCurrentPage()
-						* ConstantValues.MAX_RECORD_COUNT);
+				pagingDTO.setFirstItem((pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT) + 1);
 				pagingDTO.setCurrentPage(pagingDTO.getCurrentPage() + 1);
 			}
 		} else {
-			pagingDTO.setFirstItem(pagingDTO.getCurrentPage()
-					* ConstantValues.MAX_RECORD_COUNT);
+			pagingDTO.setFirstItem((pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT) + 1);
 			pagingDTO.setCurrentPage(pagingDTO.getCurrentPage() + 1);
 		}
 

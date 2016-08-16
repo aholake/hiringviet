@@ -27,7 +27,11 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 	}
 
 	public Session getSession() {
-		return this.sessionFactory.getCurrentSession();
+		Session session = this.sessionFactory.getCurrentSession();
+		if (session == null) {
+			session = this.sessionFactory.openSession();
+		}
+		return session;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -72,7 +76,7 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 	public boolean update(T entity) {
 		try {
 			getSession().clear();
-			getSession().merge(entity);
+			getSession().update(entity);
 			getSession().flush();
 			return true;
 		} catch (Exception e) {

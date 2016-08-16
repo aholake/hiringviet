@@ -20,6 +20,9 @@ var COMPANY = 2;
 
 var FIRST_PAGE = 1;
 
+var ICON_ARROW_UP = "keyboard_arrow_up";
+var ICON_ARROW_DOWN = "keyboard_arrow_down";
+
 /** filter value **/
 var All = "All";
 
@@ -110,8 +113,10 @@ $(function() {
 	$('.fillter-wrapper').on('click', '.collection-item', function(e) {
 		if ($(this).find('ul').is(":visible")) {
 			$(this).find('ul').hide();
+			$(this).find('.icon-arrow').text(ICON_ARROW_DOWN);
 		} else {
 			$(this).find('ul').show();
+			$(this).find('.icon-arrow').text(ICON_ARROW_UP);
 		}
 	});
 })
@@ -329,3 +334,19 @@ function processGetWards(response) {
 	$('#wardAddress').material_select();
 }
 
+function hideJobBox(jobBox) {
+	$(jobBox).find('.m3-div').hide();
+	$(jobBox).find('.m9-div').removeClass('m9');
+	$(jobBox).find('.m9-div').addClass('m12');
+	$(jobBox).find('.job-info').find('.row').hide();
+	$(jobBox).find('.job-info').find('.row:first-child').show();
+	$(jobBox).find('.icon-arrow').text(ICON_ARROW_DOWN);
+}
+
+function showJobBox(jobBox) {
+	$(jobBox).find('.m3-div').show();
+	$(jobBox).find('.m9-div').removeClass('m12');
+	$(jobBox).find('.m9-div').addClass('m9');
+	$(jobBox).find('.job-info').find('.row').show();
+	$(jobBox).find('.icon-arrow').text(ICON_ARROW_UP);
+}

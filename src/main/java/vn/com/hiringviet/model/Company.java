@@ -55,6 +55,8 @@ public class Company implements Serializable {
 
 	private Integer isVip;
 
+	private String companyPolicies;
+
 	private ChangeLog changeLog;
 
 	private Set<CompanyPhoto> companyPhotoSet;
@@ -188,6 +190,15 @@ public class Company implements Serializable {
 
 	public void setIsVip(Integer isVip) {
 		this.isVip = isVip;
+	}
+
+	@Column(name = "company_policies")
+	public String getCompanyPolicies() {
+		return companyPolicies;
+	}
+
+	public void setCompanyPolicies(String companyPolicies) {
+		this.companyPolicies = companyPolicies;
 	}
 
 	@OneToOne(fetch = FetchType.EAGER)
