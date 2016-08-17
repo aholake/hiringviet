@@ -352,6 +352,10 @@
 		$(document).ready(function() {
 			$('select').material_select();
 
+			function loadMoreHotCompany(scrollTime) {
+				var url = "/company/getCompanyHot";
+				callAPI(url, "POST", scrollTime, 'appendCompanyToCard');
+			}
 		});
 	</script>
 </body>
