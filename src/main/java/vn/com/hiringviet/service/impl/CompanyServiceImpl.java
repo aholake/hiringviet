@@ -131,13 +131,11 @@ public class CompanyServiceImpl implements CompanyService {
 
 	@Override
 	public Company getCompanyByAccount(Account account) {
-		// TODO Auto-generated method stub
 		return companyDAO.getCompanyByAccount(account);
 	}
 
 	@Override
 	public List<CompanyDTO> getListCompanySuggest(String keywork) {
-		// TODO Auto-generated method stub
 		return companyDAO.getListCompanySuggest(keywork);
 	}
 

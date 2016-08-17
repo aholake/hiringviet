@@ -209,7 +209,7 @@ public class Utils {
 
 	public static ChangeLog createDefaultChangeLog() {
 		ChangeLog changeLog = new ChangeLog();
-		changeLog.setStatus(StatusEnum.ACTIVE.getValue());
+		changeLog.setStatus(StatusEnum.ACTIVE);
 		changeLog.setCreatedDate(DateUtil.now());
 		changeLog.setUpdatedDate(DateUtil.now());
 		return changeLog;
@@ -240,7 +240,7 @@ public class Utils {
 		ChangeLog changeLog = new ChangeLog();
 		changeLog.setCreatedDate(DateUtil.now());
 		changeLog.setUpdatedDate(DateUtil.now());
-		changeLog.setStatus(StatusEnum.ACTIVE.getValue());
+		changeLog.setStatus(StatusEnum.ACTIVE);
 		return changeLog;
 	}
 

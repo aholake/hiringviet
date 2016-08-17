@@ -167,7 +167,7 @@ public class MemberServiceImpl implements MemberService {
 		connect.setFromMember(formMember);
 		connect.setToMember(toMember);
 		connect.setChangeLog(Utils.generatorChangeLog());
-		connect.getChangeLog().setStatus(StatusEnum.INACTIVE.getValue());
+		connect.getChangeLog().setStatus(StatusEnum.INACTIVE);
 		memberDAO.addConnect(connect);
 	}
 }

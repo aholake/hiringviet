@@ -14,15 +14,15 @@
 		<intercept-url pattern="/company**" access="hasAuthority('COMPANY')" />
 		<access-denied-handler error-page="/access-denied" />
 		<form-login login-page="/login" default-target-url="/"
-			authentication-failure-url="/login?error" username-parameter="email"
-			password-parameter="password" />
+			authentication-failure-url="/login?error=incorrect"
+			username-parameter="email" password-parameter="password" />
 		<logout logout-success-url="/" />
 		<csrf disabled="true" />
 	</http>
 
-	<authentication-manager>
+	<authentication-manager alias="authenticationManager">
 		<authentication-provider ref="customAuthenticationProvider">
-			<password-encoder ref="encoder"></password-encoder>
 		</authentication-provider>
 	</authentication-manager>
+
 </beans:beans>

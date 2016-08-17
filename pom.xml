@@ -286,13 +286,6 @@
 			<version>1.9.2</version>
 		</dependency>
 
-		<!-- enable session scope -->
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>3.1</version>
-		</dependency>
-
 		<!-- POI -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>

@@ -46,7 +46,7 @@ public class FollowDAOImpl implements FollowDAO {
 		criteria.createAlias("follow.changeLog", "changeLog");
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		criteria.add(Restrictions.eq("account.id", accountId));
-		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 		criteria.setProjection(Projections.projectionList().add(Projections.rowCount()));
 
 		Long result = (Long) criteria.uniqueResult();

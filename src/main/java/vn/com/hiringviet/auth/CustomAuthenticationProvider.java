@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +21,6 @@ import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.util.SecurityUtil;
 
 @Component
-@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CustomAuthenticationProvider implements AuthenticationProvider,
 		Serializable {
 	/**

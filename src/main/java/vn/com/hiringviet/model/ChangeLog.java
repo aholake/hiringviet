@@ -5,12 +5,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import vn.com.hiringviet.common.StatusEnum;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -29,7 +33,7 @@ public class ChangeLog implements Serializable {
 
 	private Date deletedDate;
 
-	private int status;
+	private StatusEnum status;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,11 +76,13 @@ public class ChangeLog implements Serializable {
 	}
 
 	@Column(name = "status")
-	public int getStatus() {
+	@Enumerated(EnumType.ORDINAL)
+	public StatusEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(int status) {
+	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
+
 }

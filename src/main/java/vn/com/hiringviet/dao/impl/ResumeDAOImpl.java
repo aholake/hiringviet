@@ -41,7 +41,7 @@ public class ResumeDAOImpl extends CommonDAOImpl<Resume> implements ResumeDAO {
 		criteria.createAlias("resume.changeLog", "changeLog");
 		criteria.createAlias("resume.skillResumeSet", "skillResumeSet");
 		criteria.add(Restrictions.eq("member.id", memberId));
-		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 		criteria.setProjection(Projections.projectionList().add(Projections.property("skillResumeSet.skill.id")));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Integer> skills = criteria.list();

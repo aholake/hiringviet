@@ -52,7 +52,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		query.setFirstResult(first);
 		query.setMaxResults(max);
 
-		query.setParameter("status", StatusEnum.ACTIVE.getValue());
+		query.setParameter("status", StatusEnum.ACTIVE);
 
 		List<Company> companyList = query.list();
 		return companyList;
@@ -61,7 +61,6 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Company> getListCompanySuggest(Integer first, Integer max) {
-
 		StringBuilder hql = new StringBuilder();
 		hql.append("FROM Company as c ");
 		hql.append("WHERE c.changeLog.status = :status ");
@@ -72,7 +71,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		query.setFirstResult(first);
 		query.setMaxResults(max);
 
-		query.setParameter("status", StatusEnum.ACTIVE.getValue());
+		query.setParameter("status", StatusEnum.ACTIVE);
 
 		List<Company> companyList = query.list();
 		return companyList;
@@ -88,7 +87,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		criteria.createAlias("post.changeLog", "changeLog");
 		criteria.createAlias("post.commentSet", "commentSet", JoinType.LEFT_OUTER_JOIN);
 		criteria.add(Restrictions.eq("company.id", companyId));
-		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.groupProperty("post.id").as("id"))
 				.add(Projections.property("post.title").as("title"))
@@ -114,7 +113,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		criteria.createAlias("job.changeLog", "changeLog");
 		criteria.add(Restrictions.eq("company.id", companyId));
 		criteria.add(Restrictions.eq("changeLog.status",
-				StatusEnum.ACTIVE.getValue()));
+				StatusEnum.ACTIVE));
 		criteria.add(Restrictions.eq("job.publish",
 				PublishResponseEnum.PUBLISH.getValue()));
 		criteria.setFirstResult(first);

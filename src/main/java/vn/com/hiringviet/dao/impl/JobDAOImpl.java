@@ -52,7 +52,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 			criteria.createAlias("job.skillSet", "skillSet");
 		}
 
-		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 
 		if (!Utils.isEmptyList(skills)) {
@@ -115,7 +115,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 			criteria.createAlias("job.skillSet", "skillSet");
 		}
 
-		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 
 		if (!Utils.isEmptyList(skills)) {

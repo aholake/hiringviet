@@ -1,6 +1,5 @@
 package vn.com.hiringviet.service.impl;
 
-import java.io.Serializable;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -20,12 +19,7 @@ import com.google.appengine.api.ThreadManager;
 
 @Service("accountService")
 @Transactional
-public class AccountServiceImpl implements AccountService, Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
+public class AccountServiceImpl implements AccountService {
 	private static final Logger LOGGER = Logger
 			.getLogger(AccountServiceImpl.class);
 

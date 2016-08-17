@@ -6,9 +6,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-			/WEB-INF/hibernate-context.xml,
-			/WEB-INF/spring-security.xml,
-			/WEB-INF/spring-mail.xml
+			/WEB-INF/servlet-context.xml
 		</param-value>
 	</context-param>
 	
