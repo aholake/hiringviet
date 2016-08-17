@@ -14,8 +14,7 @@ public interface JobService {
 
 	public int addJob(Job job);
 
-	public List<Job> getJobList(LoadMoreRequestDTO loadMoreRequestDTO,Integer first, Integer max, boolean isJobHot,
-			List<Integer> skills);
+	public List<Job> getJobList(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, boolean isHotJob, List<Integer> skills);
 
 	public Job getJobById(Integer id);
 

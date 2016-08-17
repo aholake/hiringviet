@@ -62,7 +62,9 @@
 											<a class="a-text-color small-text display-inline-flex">
 												<i class="material-icons small-icon">comment</i>
 												<spring:message code="label.company.title.comment"/>
+												<c:if test="${post.numberComment > 0}">
 												 (<span class="a-text-color numberComment-${post.id}">${post.numberComment}</span>)
+												</c:if>
 											 </a>
 											 <input type="hidden" class="currentNumberComment-${post.id}" value="0"/>
 										</li>

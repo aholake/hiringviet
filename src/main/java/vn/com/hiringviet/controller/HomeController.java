@@ -3,9 +3,8 @@ package vn.com.hiringviet.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,27 +64,25 @@ public class HomeController {
 	 * @return home page
 	 */
 	@RequestMapping(value = { "/", "home" })
-	public String goHomePage(Model model, HttpSession session) {
+	public String goHomePage(Model model) {
 
 		String result = null;
-		Account account = LoginController.getAccountSession(session);
+		Account account = getLoggedAccount();
 
 		List<Job> jobList = null;
 		List<Company> companyList = null;
 
 		if (Utils.isEmptyObject(account) || AccountRoleEnum.COMPANY == account.getUserRole()) {
 
-			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT,
-					true, null);
-			companyList = companyService.getListCompany(0,
-					ConstantValues.MAX_RECORD_COUNT, true);
+			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, true, null);
+			companyList = companyService.getListCompany(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, true);
 			result = "home";
 		} else {
 
-			Member member = memberService.getMemberByAccount(account);
+			Member member = account.getMember();
 			List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
-			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
-			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, false);
+			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
+			companyList = companyService.getListCompany(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, false);
 			model.addAttribute("account", account);
 			result = "home_login";
 		}
@@ -103,5 +100,14 @@ public class HomeController {
 		model.addAttribute("companyList", companyList);
 
 		return result;
+	}
+
+	private Account getLoggedAccount() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof Account) {
+			Account loginedAccount = (Account) principal;
+			return loginedAccount;
+		}
+		return null;
 	}
 }

@@ -26,18 +26,6 @@
 							<div id="job-list">
 							<c:forEach items="${jobList}" var="job">
 								<div class="job-box">
-									<div class="location-action">
-										<a class="btn-menu btn-floating btn-small grey lighten-3 dropdown-button" data-activates='item${job.id}'>
-											<i class="large material-icons">menu</i>
-										</a>
-									<!-- Dropdown Structure -->
-									<ul id='item${job.id}' class='dropdown-content'>
-										<li><a href="#modal1" class="modal-trigger"><spring:message code="label.company.title.edit" /></a></li>
-										<li><a href="#!"><spring:message code="label.company.title.delete" /></a></li>
-										<li class="divider"></li>
-										<li><a href="#!"><spring:message code="label.company.title.publish" /></a></li>
-									</ul>
-								</div>
 									<div class="row none-margin-bottom">
 										<div class="col m12">
 											<div class="col m12 p-0">
