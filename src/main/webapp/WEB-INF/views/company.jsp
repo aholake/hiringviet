@@ -14,15 +14,15 @@
 </head>
 <body>
 
-	<input type="hidden" id="url_get_post_comments" value="<c:url value='/company/post/comments' />" />
-	<input type="hidden" id="url_get_post_replyComments" value="<c:url value='/company/post/replyComments' />" />
+	<input type="hidden" id="url_get_comments" value="<c:url value='/company/post/comments' />" />
+	<input type="hidden" id="url_get_replyComments" value="<c:url value='/company/post/replyComments' />" />
 	<input type="hidden" id="url_redirect_member" value="<c:url value='/member/' />" />
 	<input type="hidden" id="reply_comment" value='<spring:message code="label.company.title.reply_comment"/>' />
 	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
 	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
 	<input type="hidden" id="hide_comment" value='<spring:message code="label.company.title.hide_comment"/>' />
-	<input type="hidden" id="url_post_comment" value="<c:url value='/company/addComment' />" />
-	<input type="hidden" id="url_post_reply_comment" value="<c:url value='/company/addReplyComment' />" />
+	<input type="hidden" id="url_add_comment" value="<c:url value='/company/addComment' />" />
+	<input type="hidden" id="url_add_reply_comment" value="<c:url value='/company/addReplyComment' />" />
 	<input type="hidden" id="url_count_member_of_follwer" value="<c:url value='/profile/countNumberOfFollower'/>"/>
 
 		<div class="row">

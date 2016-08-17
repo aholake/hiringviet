@@ -37,7 +37,11 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public int addJob(Job job) {
-		// TODO Auto-generated method stub
 		return jobDAO.create(job);
+	}
+
+	@Override
+	public Job getJobByID(Integer id) {
+		return jobDAO.getJobByID(id);
 	}
 }

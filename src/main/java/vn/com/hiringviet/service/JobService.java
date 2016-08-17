@@ -18,4 +18,6 @@ public interface JobService {
 			List<Integer> skills);
 
 	public Job getJobById(Integer id);
+
+	public Job getJobByID(Integer id);
 }

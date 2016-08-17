@@ -91,22 +91,16 @@ public class CompanyController {
 	/**
 	 * Go company carrers page.
 	 *
-	 * @param companyId
-	 *            the company id
-	 * @param model
-	 *            the model
-	 * @param session
-	 *            the session
+	 * @param companyId the company id
+	 * @param model the model
+	 * @param session the session
 	 * @return the string
 	 */
 	@RequestMapping(value = "/company/{companyId}/job", method = RequestMethod.GET)
-	public String goCompanyCarrersPage(
-			@PathVariable("companyId") Integer companyId, Model model,
-			HttpSession session) {
+	public String goCompanyCarrersPage(@PathVariable("companyId") Integer companyId, Model model, HttpSession session) {
 
 		Company company = companyService.getCompanyById(companyId);
-		List<Job> jobList = companyService.getListJob(0,
-				ConstantValues.MAX_RECORD_COUNT, companyId);
+		List<Job> jobList = companyService.getListJob(0, ConstantValues.MAX_RECORD_COUNT, companyId);
 
 		if (ConstantValues.MAX_RECORD_COUNT > jobList.size()) {
 			model.addAttribute("isDisabledLoadJob", true);
@@ -120,10 +114,8 @@ public class CompanyController {
 	/**
 	 * Go company banner.
 	 *
-	 * @param model
-	 *            the model
-	 * @param session
-	 *            the session
+	 * @param model the model
+	 * @param session the session
 	 * @return the string
 	 */
 	@RequestMapping(value = "/layouts/companyBanner", method = RequestMethod.GET)
@@ -135,10 +127,8 @@ public class CompanyController {
 	/**
 	 * Go company header.
 	 *
-	 * @param model
-	 *            the model
-	 * @param session
-	 *            the session
+	 * @param model the model
+	 * @param session the session
 	 * @return the string
 	 */
 	@RequestMapping(value = "/layouts/companyHeader", method = RequestMethod.GET)
@@ -147,40 +137,31 @@ public class CompanyController {
 		return "/layouts/company_header";
 	}
 
-	/**
-	 * Go job detail page.
-	 *
-	 * @param model
-	 *            the model
-	 * @param session
-	 *            the session
-	 * @return the string
-	 */
-	@RequestMapping(value = "/company/careers/{id}", method = RequestMethod.GET)
-	public String goJobDetailPage(Model model, HttpSession session) {
-
-		return "job-detail";
-	}
-
-	@RequestMapping(value = "/company/post/comments", method = RequestMethod.POST)
-	public @ResponseBody CommentResponseDTO getCommentOfPostByPage(
-			@RequestBody CommentRequestDTO commentRequestDTO,
-			HttpSession session) {
+	@RequestMapping(value = {"/company/post/comments", "/company/careers/comments"}, method = RequestMethod.POST)
+	public @ResponseBody CommentResponseDTO getComment(@RequestBody CommentRequestDTO commentRequestDTO, HttpSession session) {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
 
 		PagingDTO pagingDTO = null;
-		if (ConstantValues.CURRENT_PAGE == commentRequestDTO.getPagingDTO()
-				.getCurrentPage()) {
-			pagingDTO = Utils.calculatorPaging(
-					commentRequestDTO.getPagingDTO(), true);
+		if (ConstantValues.CURRENT_PAGE == commentRequestDTO.getPagingDTO().getCurrentPage()) {
+			pagingDTO = Utils.calculatorPaging(commentRequestDTO.getPagingDTO(), true);
 		} else {
 			pagingDTO = commentRequestDTO.getPagingDTO();
 		}
 
-		List<CommentDTO> commentDTOs = commentService.getListCommentByPostId(
+		List<CommentDTO> commentDTOs = null;
+
+		if (!Utils.isEmptyNumber(commentRequestDTO.getPostId())) {
+			commentDTOs = commentService.getListComment(
 				pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
-				commentRequestDTO.getPostId());
+				commentRequestDTO.getPostId(), true);
+		}
+		
+		if (!Utils.isEmptyNumber(commentRequestDTO.getJobId())) {
+			commentDTOs = commentService.getListComment(
+					pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
+					commentRequestDTO.getJobId(), false);
+		}
 
 		if (Utils.isEmptyList(commentDTOs)) {
 			commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -191,8 +172,8 @@ public class CompanyController {
 			commentResponseDTO.setLoadable(false);
 		}
 
-		pagingDTO = Utils.calculatorPaging(commentRequestDTO.getPagingDTO(),
-				false);
+
+		pagingDTO = Utils.calculatorPaging(commentRequestDTO.getPagingDTO(), false);
 		commentResponseDTO.setCommentDTOs(commentDTOs);
 		commentResponseDTO.setPagingDTO(pagingDTO);
 		commentResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
@@ -200,7 +181,7 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/company/post/replyComments", method = RequestMethod.POST)
-	public @ResponseBody ReplyCommentResponseDTO getReplyCommentOfPostByPage(
+	public @ResponseBody ReplyCommentResponseDTO getReplyComment(
 			@RequestBody ReplyCommentRequestDTO replyCommentRequestDTO,
 			HttpSession session) {
 
@@ -268,8 +249,7 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/company/addReplyComment", method = RequestMethod.POST)
-	public @ResponseBody CommentResponseDTO addComment(
-			@RequestBody ReplyCommentDTO replyCommentDTO, HttpSession session) {
+	public @ResponseBody CommentResponseDTO addReplyComment(@RequestBody ReplyCommentDTO replyCommentDTO, HttpSession session) {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
 
@@ -295,13 +275,11 @@ public class CompanyController {
 			company = LoginController.getCompanySession(session);
 		}
 
-		if (!Utils.isEmptyNumber(replyCommentService
-				.createReplyComment(replyCommentDTO))) {
+		if (!Utils.isEmptyNumber(replyCommentService.createReplyComment(replyCommentDTO))) {
 			commentResponseDTO.setAvatarImage(account.getAvatarImage());
 			commentResponseDTO.setNow(DateUtil.now());
 			commentResponseDTO.setComment(replyCommentDTO.getReplyComment());
-			commentResponseDTO
-					.setResult(StatusResponseEnum.SUCCESS.getStatus());
+			commentResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 			commentResponseDTO.setRoleId(account.getUserRole().getValue());
 			commentResponseDTO.setCommentId(replyCommentDTO.getCommentId());
 

@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -24,6 +25,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -55,6 +57,8 @@ public class Job implements Serializable {
 
 	private String requirement;
 
+	private Integer numberVisited;
+
 	private Integer size;
 
 	private Position position;
@@ -64,6 +68,8 @@ public class Job implements Serializable {
 	private boolean publish;
 
 	private Address workAddress;
+
+	private Set<Comment> commentSet;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -171,6 +177,15 @@ public class Job implements Serializable {
 		this.requirement = requirement;
 	}
 
+	@Column(name = "number_visited")
+	public Integer getNumberVisited() {
+		return numberVisited;
+	}
+
+	public void setNumberVisited(Integer numberVisited) {
+		this.numberVisited = numberVisited;
+	}
+
 	@Column(name = "size")
 	public Integer getSize() {
 		return size;
@@ -221,4 +236,15 @@ public class Job implements Serializable {
 		this.workAddress = workAddress;
 	}
 
+	@JsonIgnore
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "job_id")
+	public Set<Comment> getCommentSet() {
+		return commentSet;
+	}
+
+	public void setCommentSet(Set<Comment> commentSet) {
+		this.commentSet = commentSet;
+	}
 }
