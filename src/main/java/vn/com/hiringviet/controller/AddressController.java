@@ -16,7 +16,7 @@ import vn.com.hiringviet.service.ProvinceService;
 import vn.com.hiringviet.service.SkillService;
 
 @Controller
-public class RestController {
+public class AddressController {
 	@Autowired
 	private ProvinceService provinceService;
 	@Autowired
