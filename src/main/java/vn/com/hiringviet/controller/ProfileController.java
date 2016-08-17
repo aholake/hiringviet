@@ -113,12 +113,11 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/addSkills", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO addSkills(
-			@RequestBody Set<SkillDTO> skillDTOs, HttpSession session) {
+	public @ResponseBody CommonResponseDTO addSkills(@RequestBody Set<SkillDTO> skillDTOs) {
 
 		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
 
-		Account account = LoginController.getAccountSession(session);
+		Account account = getLoggedAccount();
 		if (!memberService.addSkillsOfMember(account, skillDTOs)) {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 		}
@@ -127,17 +126,15 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/deleteSkillOfProfile", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO deleteSkillOfProfile(
-			@RequestBody ResumeDTO resumeDTO, HttpSession session) {
+	public @ResponseBody CommonResponseDTO deleteSkillOfProfile(@RequestBody ResumeDTO resumeDTO) {
 
 		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
 
-		Account account = LoginController.getAccountSession(session);
+		Account account = getLoggedAccount();
 
 		if (account.getId().equals(resumeDTO.getAccountId())) {
 			if (resumeService.deleteSkillOfProfile(resumeDTO)) {
-				commonResponseDTO.setResult(StatusResponseEnum.SUCCESS
-						.getStatus());
+				commonResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
 			}
 		}
 
@@ -151,12 +148,11 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/endorse/add", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO addEndorse(
-			@RequestBody Integer skillResumeId, HttpSession session) {
+	public @ResponseBody CommonResponseDTO addEndorse(@RequestBody Integer skillResumeId) {
 
 		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
 
-		Account account = LoginController.getAccountSession(session);
+		Account account = getLoggedAccount();
 
 		if (Utils.isEmptyObject(account)) {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -177,12 +173,11 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/endorse/remove", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO removeEndorse(
-			@RequestBody Integer skillResumeId, HttpSession session) {
+	public @ResponseBody CommonResponseDTO removeEndorse(@RequestBody Integer skillResumeId) {
 
 		CommonResponseDTO commonResponseDTO = new CommonResponseDTO();
 
-		Account account = LoginController.getAccountSession(session);
+		Account account = getLoggedAccount();
 
 		if (Utils.isEmptyObject(account)) {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -199,8 +194,7 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/countNumberOfFollower", method = RequestMethod.POST)
-	public @ResponseBody MemberDTO countNumberOfFollower(
-			@RequestBody Integer accountId) {
+	public @ResponseBody MemberDTO countNumberOfFollower(@RequestBody Integer accountId) {
 
 		MemberDTO memberDTO = memberService.getMemberByAccountId(accountId);
 		if (!Utils.isEmptyObject(memberDTO)) {
@@ -216,11 +210,9 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/createEducation", method = RequestMethod.POST)
-	public String createEducation(
-			Model model,
+	public String createEducation(Model model,
 			@ModelAttribute("educationHistory") EducationHistory educationHistory,
-			@RequestParam("filterMemberId") String filterMemberId,
-			HttpSession session) {
+			@RequestParam("filterMemberId") String filterMemberId) {
 
 		Member memberLogin = null;
 		Account account = getLoggedAccount();
@@ -236,8 +228,7 @@ public class ProfileController {
 	}
 
 	private Account getLoggedAccount() {
-		Object principal = SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof Account) {
 			Account loginedAccount = (Account) principal;
 			return loginedAccount;
@@ -248,8 +239,7 @@ public class ProfileController {
 	@RequestMapping(value = "/profile/saveSummary", method = RequestMethod.POST)
 	public String saveSummary(Model model,
 			@ModelAttribute("educationHistory") Resume resume,
-			@RequestParam("filterMemberId") String filterMemberId,
-			HttpSession session) {
+			@RequestParam("filterMemberId") String filterMemberId) {
 
 		Member memberLogin = null;
 		Account account = getLoggedAccount();
@@ -264,12 +254,11 @@ public class ProfileController {
 	}
 
 	@RequestMapping(value = "/profile/addConnect", method = RequestMethod.POST)
-	public @ResponseBody CommonResponseDTO addConnect(
-			@RequestBody Integer toMemberId, HttpSession session) {
+	public @ResponseBody CommonResponseDTO addConnect(@RequestBody Integer toMemberId) {
 
 		CommonResponseDTO commonResponseDTO = new CommentResponseDTO();
 
-		Member member = LoginController.getMemberSession(session);
+		Member member = getLoggedAccount().getMember();
 
 		if (Utils.isEmptyObject(member)) {
 			commonResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -307,4 +296,5 @@ public class ProfileController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(
 				dateFormat, true));
 	}
+
 }

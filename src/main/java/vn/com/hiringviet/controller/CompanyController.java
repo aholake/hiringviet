@@ -2,9 +2,8 @@ package vn.com.hiringviet.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,8 +68,7 @@ public class CompanyController {
 	 * @return the string
 	 */
 	@RequestMapping(value = "/company/{companyId}", method = RequestMethod.GET)
-	public String goCompanyPage(@PathVariable("companyId") Integer companyId,
-			Model model, HttpSession session) {
+	public String goCompanyPage(@PathVariable("companyId") Integer companyId, Model model) {
 
 		Company company = companyService.getCompanyById(companyId);
 		List<PostDTO> postList = companyService.getListPosts(0,
@@ -97,7 +95,7 @@ public class CompanyController {
 	 * @return the string
 	 */
 	@RequestMapping(value = "/company/{companyId}/job", method = RequestMethod.GET)
-	public String goCompanyCarrersPage(@PathVariable("companyId") Integer companyId, Model model, HttpSession session) {
+	public String goCompanyCarrersPage(@PathVariable("companyId") Integer companyId, Model model) {
 
 		Company company = companyService.getCompanyById(companyId);
 		List<Job> jobList = companyService.getListJob(0, ConstantValues.MAX_RECORD_COUNT, companyId);
@@ -119,7 +117,7 @@ public class CompanyController {
 	 * @return the string
 	 */
 	@RequestMapping(value = "/layouts/companyBanner", method = RequestMethod.GET)
-	public String goCompanyBanner(Model model, HttpSession session) {
+	public String goCompanyBanner() {
 
 		return "/layouts/company_banner";
 	}
@@ -132,13 +130,13 @@ public class CompanyController {
 	 * @return the string
 	 */
 	@RequestMapping(value = "/layouts/companyHeader", method = RequestMethod.GET)
-	public String goCompanyHeader(Model model, HttpSession session) {
+	public String goCompanyHeader() {
 
 		return "/layouts/company_header";
 	}
 
 	@RequestMapping(value = {"/company/post/comments", "/company/careers/comments"}, method = RequestMethod.POST)
-	public @ResponseBody CommentResponseDTO getComment(@RequestBody CommentRequestDTO commentRequestDTO, HttpSession session) {
+	public @ResponseBody CommentResponseDTO getComment(@RequestBody CommentRequestDTO commentRequestDTO) {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
 
@@ -182,8 +180,7 @@ public class CompanyController {
 
 	@RequestMapping(value = "/company/post/replyComments", method = RequestMethod.POST)
 	public @ResponseBody ReplyCommentResponseDTO getReplyComment(
-			@RequestBody ReplyCommentRequestDTO replyCommentRequestDTO,
-			HttpSession session) {
+			@RequestBody ReplyCommentRequestDTO replyCommentRequestDTO) {
 
 		ReplyCommentResponseDTO replyCommentResponseDTO = new ReplyCommentResponseDTO();
 
@@ -221,13 +218,12 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/company/addComment", method = RequestMethod.POST)
-	public @ResponseBody CommentResponseDTO addComment(
-			@RequestBody CommentDTO commentDTO, HttpSession session) {
+	public @ResponseBody CommentResponseDTO addComment(@RequestBody CommentDTO commentDTO) {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
 
-		Member member = LoginController.getMemberSession(session);
-		Account account = LoginController.getAccountSession(session);
+		Account account = getLoggedAccount();
+		Member member = account.getMember();
 
 		commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 		if (!Utils.isEmptyObject(member)) {
@@ -249,11 +245,11 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/company/addReplyComment", method = RequestMethod.POST)
-	public @ResponseBody CommentResponseDTO addReplyComment(@RequestBody ReplyCommentDTO replyCommentDTO, HttpSession session) {
+	public @ResponseBody CommentResponseDTO addReplyComment(@RequestBody ReplyCommentDTO replyCommentDTO) {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
 
-		Account account = LoginController.getAccountSession(session);
+		Account account = getLoggedAccount();
 
 		commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 
@@ -268,11 +264,11 @@ public class CompanyController {
 		Company company = null;
 
 		if (AccountRoleEnum.USER == account.getUserRole()) {
-			member = LoginController.getMemberSession(session);
+			member = account.getMember();
 		}
 
 		if (AccountRoleEnum.COMPANY == account.getUserRole()) {
-			company = LoginController.getCompanySession(session);
+			company = account.getCompany();
 		}
 
 		if (!Utils.isEmptyNumber(replyCommentService.createReplyComment(replyCommentDTO))) {
@@ -305,5 +301,14 @@ public class CompanyController {
 		List<Company> companies = companyService.getListCompany(rowIndex,
 				LAZY_LOAD_COMPANY_NUMBER, true);
 		return companies;
+	}
+	
+	private Account getLoggedAccount() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof Account) {
+			Account loginedAccount = (Account) principal;
+			return loginedAccount;
+		}
+		return null;
 	}
 }

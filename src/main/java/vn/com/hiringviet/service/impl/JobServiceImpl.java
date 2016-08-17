@@ -19,14 +19,10 @@ public class JobServiceImpl implements JobService {
 	private JobDAO jobDAO;
 
 	@Override
-	public List<Job> getJobList(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, boolean isJobHot,
-			List<Integer> skills) {
+	public List<Job> getJobList(LoadMoreRequestDTO loadMoreRequestDTO,
+			Integer first, Integer max, boolean isHotJob, List<Integer> skills) {
 
-		if (isJobHot) {
-			return jobDAO.getListJobHot(loadMoreRequestDTO, first, max, skills);
-		} else {
-			return jobDAO.getListJobSuggest(first, max, skills);
-		}
+		return jobDAO.getListJob(loadMoreRequestDTO, first, max, skills, isHotJob);
 	}
 
 	@Override

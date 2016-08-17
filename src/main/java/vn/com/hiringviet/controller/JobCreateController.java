@@ -5,9 +5,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.dto.JobFormDTO;
+import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Skill;
@@ -44,19 +44,18 @@ public class JobCreateController {
 
 	@RequestMapping("/job/create")
 	public String goToJobCreatePage(Model model) {
-		model.addAttribute("newJob", new JobFormDTO());
 
+		model.addAttribute("newJob", new JobFormDTO());
 		model.addAttribute("countries", countryService.getCountryList());
-		model.addAttribute("jobCategories",
-				jobCategoryService.getJobCategoryList());
+		model.addAttribute("jobCategories", jobCategoryService.getJobCategoryList());
 		model.addAttribute("positions", positionService.getPositionList());
 		return "job-create";
 	}
 
 	@RequestMapping("/rest/job/add")
-	public @ResponseBody String addNewJob(
-			@ModelAttribute("newJob") JobFormDTO jobFormDTO, HttpSession session) throws ParseException {
-		Company company = LoginController.getCompanySession(session);
+	public @ResponseBody String addNewJob(@ModelAttribute("newJob") JobFormDTO jobFormDTO) throws ParseException {
+
+		Company company = getLoggedAccount().getCompany();
 		if (company == null) {
 			return "NOT LOGIN YET";
 		}
@@ -88,5 +87,14 @@ public class JobCreateController {
 			skills.add(skill);
 		}
 		return skills;
+	}
+
+	private Account getLoggedAccount() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof Account) {
+			Account loginedAccount = (Account) principal;
+			return loginedAccount;
+		}
+		return null;
 	}
 }
