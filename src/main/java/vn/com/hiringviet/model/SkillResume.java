@@ -44,7 +44,7 @@ public class SkillResume implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "resume_id")
 	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Resume getResume() {
@@ -55,7 +55,7 @@ public class SkillResume implements Serializable {
 		this.resume = resume;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "skill_id")
 	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Skill getSkill() {
@@ -68,7 +68,7 @@ public class SkillResume implements Serializable {
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "skill_resume_id")
-	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
+	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@OrderBy("createdDate DESC")
 	public Set<Endorse> getEndorseSet() {
 		return endorseSet;

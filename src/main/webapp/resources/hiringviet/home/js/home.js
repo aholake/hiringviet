@@ -39,7 +39,7 @@ $(function() {
 		var firstItem = $('#first_item').val();
 		var currentPage = $('#current_page').val();
 
-		var url = $('#get_job_hot').val();
+		var url = $('#url_load_more').val();
 
 		var data = {
 			"pagingDTO": {
@@ -502,7 +502,7 @@ function showResultJobHot(response) {
 									<div class="col m9 m9-div">\
 										<div class="col m12 p-0">\
 											<h1 class="col m9 p-0 title block-with-text">\
-												<a class="' + nameClass + '" href="/company/careers/' + jobListResponse[index].id + '">' + jobListResponse[index].title + '</a>\
+												<a class="' + nameClass + '" href="/company/careers?jobId=' + jobListResponse[index].id + '">' + jobListResponse[index].title + '</a>\
 											</h1>\
 										</div>\
 										<a href="#" class="company-name company-' + jobListResponse[index].company.displayName.replace(' ', '') + '">' + jobListResponse[index].company.displayName + '</a>\

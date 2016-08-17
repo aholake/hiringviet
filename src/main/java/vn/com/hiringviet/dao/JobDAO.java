@@ -14,7 +14,5 @@ public interface JobDAO extends CommonDAO<Job> {
 
 	public Job getJobByID(Integer jobID);
 
-	public List<Job> getListJobHot(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, List<Integer> skills);
-
-	public List<Job> getListJobSuggest(Integer first, Integer max, List<Integer> skills);
+	public List<Job> getListJob(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, List<Integer> skills, boolean isHotJob);
 }

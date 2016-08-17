@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="/resources/hiringviet/home/css/smart-home.css" />
 </head>
 <body>
-	<input type="hidden" id="get_job_hot" value="<c:url value='/job/hot' />" />
+	<input type="hidden" id="url_load_more" value="<c:url value='/job/hot' />" />
 	<input type="hidden" id="first_item" value="${firstItem}" />
 	<input type="hidden" id="max_item" value="${maxItem}" />
 	<input type="hidden" id="current_page" value="${currentPage}" />
@@ -141,12 +141,10 @@
 											<h1 class="col m9 p-0 title block-with-text">
 												<c:choose>
 													<c:when test="${job.company.isVip == 1}">
-														<a class="hot"
-															href="<c:url value='/company/careers/${job.id}' />">${job.title}</a>
+														<a class="hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</c:when>
 													<c:otherwise>
-														<a class="not-hot"
-															href="<c:url value='/company/careers/${job.id}' />">${job.title}</a>
+														<a class="not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</c:otherwise>
 												</c:choose>
 											</h1>

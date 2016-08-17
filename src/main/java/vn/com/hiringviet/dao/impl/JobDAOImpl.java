@@ -37,7 +37,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Job> getListJobHot(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, List<Integer> skills) {
+	public List<Job> getListJob(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, List<Integer> skills, boolean isHotJob) {
 
 		Session session = getSession();
 		Criteria criteria = session.createCriteria(Job.class, "job");
@@ -50,11 +50,8 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
 		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
 
-		if (!Utils.isEmptyList(skills)) {
-			criteria.createAlias("job.skillSet", "skillSet");
-		}
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
 
-		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 
 		if (!Utils.isEmptyList(skills)) {
@@ -79,9 +76,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 				criteria.add(Restrictions.in("province.provinceName", loadMoreRequestDTO.getProvinceNameList()));
 			}
 	
-			if (!Utils.isEmptyList(loadMoreRequestDTO.getSkillNameList())) {
-				criteria.add(Restrictions.in("skillSet.displayName", loadMoreRequestDTO.getSkillNameList()));
-			}
+//			if (!Utils.isEmptyList(loadMoreRequestDTO.getSkillNameList())) {
+//				criteria.add(Restrictions.in("skillSet.displayName", loadMoreRequestDTO.getSkillNameList()));
+//			}
 
 			if (!Utils.isEmptyNumber(loadMoreRequestDTO.getMaxSalary())) {
 				criteria.add(Restrictions.between("job.maxSalary", loadMoreRequestDTO.getMinSalary(), loadMoreRequestDTO.getMaxSalary()));
@@ -104,35 +101,35 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return jobList;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Job> getListJobSuggest(Integer first, Integer max, List<Integer> skills) {
-
-		Session session = getSession();
-		Criteria criteria = session.createCriteria(Job.class, "job");
-		criteria.createAlias("job.changeLog", "changeLog");
-		criteria.createAlias("job.company", "company");
-
-		if (!Utils.isEmptyList(skills)) {
-			criteria.createAlias("job.skillSet", "skillSet");
-		}
-
-		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
-		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
-
-		if (!Utils.isEmptyList(skills)) {
-			criteria.add(Restrictions.in("skillSet.id", skills));
-		}
-
-		criteria.addOrder(Order.desc("company.isVip"));
-		criteria.addOrder(Order.desc("changeLog.createdDate"));
-		criteria.addOrder(Order.desc("job.minSalary"));
-		criteria.addOrder(Order.desc("job.maxSalary"));
-		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		criteria.setFirstResult(first);
-		criteria.setMaxResults(max);
-
-		List<Job> jobList = criteria.list();
-		return jobList;
-	}
+//	@SuppressWarnings("unchecked")
+//	@Override
+//	public List<Job> getListJobSuggest(Integer first, Integer max, List<Integer> skills) {
+//
+//		Session session = getSession();
+//		Criteria criteria = session.createCriteria(Job.class, "job");
+//		criteria.createAlias("job.changeLog", "changeLog");
+//		criteria.createAlias("job.company", "company");
+//
+//		if (!Utils.isEmptyList(skills)) {
+//			criteria.createAlias("job.skillSet", "skillSet");
+//		}
+//
+//		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
+//		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
+//
+//		if (!Utils.isEmptyList(skills)) {
+//			criteria.add(Restrictions.in("skillSet.id", skills));
+//		}
+//
+//		criteria.addOrder(Order.desc("company.isVip"));
+//		criteria.addOrder(Order.desc("changeLog.createdDate"));
+//		criteria.addOrder(Order.desc("job.minSalary"));
+//		criteria.addOrder(Order.desc("job.maxSalary"));
+//		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+//		criteria.setFirstResult(first);
+//		criteria.setMaxResults(max);
+//
+//		List<Job> jobList = criteria.list();
+//		return jobList;
+//	}
 }

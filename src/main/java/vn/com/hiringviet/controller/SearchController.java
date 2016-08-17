@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,9 +59,9 @@ public class SearchController {
 	private CountryService countryService;
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String goSearch(Model model, HttpSession session) {
-		String result = null;
-		Account account = LoginController.getAccountSession(session);
+	public String goSearch(Model model) {
+
+		Account account = getLoggedAccount();
 
 		List<Job> jobList = null;
 		List<Company> companyList = null;
@@ -71,7 +72,6 @@ public class SearchController {
 					true, null);
 			companyList = companyService.getListCompany(0,
 					ConstantValues.MAX_RECORD_COUNT, true);
-			result = "home";
 		} else {
 
 			Member member = memberService.getMemberByAccount(account);
@@ -79,7 +79,6 @@ public class SearchController {
 			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
 			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, false);
 			model.addAttribute("account", account);
-			result = "home_login";
 		}
 
 		List<Country> countries = countryService.getCountryList();
@@ -93,6 +92,7 @@ public class SearchController {
 		}
 		model.addAttribute("jobList", jobList);
 		model.addAttribute("companyList", companyList);
+
 		return "/search";
 	}
 
@@ -109,10 +109,7 @@ public class SearchController {
 
 		List<SkillDTO> skills = skillService.searchSkillByKeyWord(keywork);
 
-//		JobSuggestDTO job = new JobSuggestDTO();
-//		job.setDisplayName("Cong Viec A");
 		List<JobSuggestDTO> jobSuggestDTOs = new ArrayList<JobSuggestDTO>();
-//		jobSuggestDTOs.add(job);
 
 		response.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		response.setCompanyResponseDTOs(companyResponseDTOs);
@@ -126,5 +123,14 @@ public class SearchController {
 	public @ResponseBody List<SkillDTO> suggestSkill(@RequestBody String keyWord, HttpSession session) {
 
 		return skillService.searchSkillByKeyWord(keyWord);
+	}
+
+	private Account getLoggedAccount() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof Account) {
+			Account loginedAccount = (Account) principal;
+			return loginedAccount;
+		}
+		return null;
 	}
 }

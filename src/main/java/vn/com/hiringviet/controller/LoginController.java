@@ -64,18 +64,6 @@ public class LoginController {
 		return "access_denied";
 	}
 
-	public static Account getAccountSession(HttpSession session) {
-		return (Account) session.getAttribute("account");
-	}
-
-	public static Member getMemberSession(HttpSession session) {
-		return (Member) session.getAttribute("memberSession");
-	}
-
-	public static Company getCompanySession(HttpSession session) {
-		return (Company) session.getAttribute("companySession");
-	}
-
 	@RequestMapping(value = "/action/login", method = RequestMethod.POST)
 	@ResponseBody
 	public StatusResponseEnum loginAjax(
