@@ -28,7 +28,7 @@
 
 		<app.id>hiringviet-nlu</app.id>
 		<app.version>1</app.version>
-		<appengine.version>1.9.25</appengine.version>
+		<appengine.version>1.9.34</appengine.version>
 		<gcloud.plugin.version>2.0.9.74.v20150814</gcloud.plugin.version>
 
 		<objectify.version>5.1.5</objectify.version>
@@ -380,9 +380,12 @@
 						<webResources>
 							<!-- in order to interpolate version from pom into appengine-web.xml -->
 							<resource>
-								<directory>${basedir}/src/main/webapp/WEB-INF</directory>
 								<filtering>true</filtering>
+								<directory>${basedir}/src/main/webapp/WEB-INF/deploy/${build.profile.id}</directory>
 								<targetPath>WEB-INF</targetPath>
+								<includes>
+									<include>hibernate-context.xml</include>
+								</includes>
 							</resource>
 						</webResources>
 					</configuration>
@@ -422,4 +425,21 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>gae</id>
+			<properties>
+				<build.profile.id>gae</build.profile.id>
+			</properties>
+			<build>
+				<finalName>hiringviet</finalName>
+				<resources>
+					<resource>
+						<directory>${basedir}/src/main/resources/deploy/gae</directory>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+	</profiles>
 </project>

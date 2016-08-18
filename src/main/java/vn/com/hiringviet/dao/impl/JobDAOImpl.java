@@ -50,7 +50,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
 		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
 
-		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 

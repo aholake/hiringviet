@@ -39,7 +39,6 @@ public class Member implements Serializable {
 
 	private String lastName;
 
-	@Formula(value="first_name || ' ' || last_name")
 	private String fullName;
 
 	private Date birthDate;
@@ -132,7 +131,8 @@ public class Member implements Serializable {
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
 	}
-
+	
+	@Formula("first_name || ' ' || last_name")
 	public String getFullName() {
 		return fullName;
 	}

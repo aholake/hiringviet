@@ -40,7 +40,7 @@
 	</a> </nav>
 	<header>
 	<div id="topnav">
-		<a href="#" class="navbar-logo left"> <img
+		<a href="/" class="navbar-logo left"> <img
 			class="navbar-logo-img responsive-img"
 			src="/resources/common/images/small_logo.png">
 		</a>
@@ -111,7 +111,7 @@
 									<img src="/resources/images/profile_photo.jpg"
 										class="circle profile-photo">
 									<h5>
-										<a href="#">${principal.member.firstName}</a>
+										<a href="#">${principal.member.fullName}</a>
 									</h5>
 									<h6>
 										<a href="#"><spring:message
