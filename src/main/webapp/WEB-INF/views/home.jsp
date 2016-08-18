@@ -188,9 +188,8 @@
 												</div>
 											</div>
 											<div class="row">
-												<p
-													class="col m12 none-padding-left text-justify block-with-text">
-													${job.description}</p>
+												<div class="col m12 none-padding-left text-justify block-with-text edit-text-ellipsis">
+													${job.description}</div>
 												<div class="col m12 none-padding-left margin-top-5">
 													<c:forEach items="${job.skillSet}" var="skill">
 														<input hidden="" value="${skill.displayName}" class="skill">
@@ -251,18 +250,10 @@
 						<ul class="collection fillter-wrapper">
 							<li class="collection-item"><b>Career</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-category-list" id="filter-category-list">
-									<li>
-										<input type="checkbox" class="filled-in" id="category-all" /> 
-										<label for="category-all">All</label>
-									</li>
 								</ul>
 							</li>
 							<li class="collection-item"><b>Company</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-company-list" id="filter-company-list">
-									<li>
-										<input type="checkbox" class="filled-in" id="company-all" /> 
-										<label for="company-all">All</label>
-									</li>
 								</ul>
 							</li>
 							<li class="collection-item"><b>Date Posted</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
@@ -291,18 +282,10 @@
 							</li>
 							<li class="collection-item"><b>Job Function</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-position-list" id="filter-position-list">
-									<li>
-										<input type="checkbox" class="filled-in" id="position-all"/> 
-										<label for="position-all">All</label>
-									</li>
 								</ul>
 							</li>
 							<li class="collection-item"><b>Skill</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-skill-list" id="filter-skill-list">
-									<li>
-										<input type="checkbox" class="filled-in" id="skill-all"/> 
-										<label for="skill-all">All</label>
-									</li>
 								</ul>
 							</li>
 							<li class="collection-item"><b>Salary</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
@@ -335,10 +318,6 @@
 							</li>
 							<li class="collection-item"><b>Province</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
 								<ul class="margin-top-10 display-none filter-list filter-province-list" id="filter-province-list">
-									<li>
-										<input type="checkbox" class="filled-in" id="province-all"  />
-										<label for="province-all">All</label>
-									</li>
 								</ul>
 							</li>
 						</ul>

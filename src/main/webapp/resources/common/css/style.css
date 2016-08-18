@@ -388,4 +388,11 @@ h1.title {
 	overflow: visible;
 }
 
+.edit-text-ellipsis {
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 55px;
+}
+
 @import url("smart.css");
