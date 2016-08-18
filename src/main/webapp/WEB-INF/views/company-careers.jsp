@@ -71,9 +71,9 @@
 													</div>
 												</div>
 												<div class="row">
-													<p class="col m12 none-padding-left text-justify block-with-text">
+													<div class="col m12 none-padding-left text-justify block-with-text edit-text-ellipsis">
 														${job.description}
-													</p>
+													</div>
 													<div class="col m12 none-padding-left margin-top-5">
 														<c:forEach items="${job.skillSet}" var="skill">
 															<a class="chip">${skill.displayName}</a>

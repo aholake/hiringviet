@@ -258,58 +258,82 @@ $(function() {
 });
 
 function showCompanyList(companyList) {
+	$('.filter-company-list').html('');
+	var html = '<li>\
+					<input type="checkbox" class="filled-in" id="company-all" />\
+					<label for="company-all">All</label>\
+				</li>';
 	$.map(companyList, function(elementOfArray, indexInArray) {
-		var html = '<li>\
+		html += '<li>\
 						<input type="checkbox" class="filled-in" id="company-' + elementOfArray.key.replace(' ', '') + '" />\
 						<label for="company-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
-		$('.filter-company-list').append(html);
 	});
+	$('.filter-company-list').append(html);
 }
 
 function showPositionList(positionList) {
+	$('.filter-position-list').html('');
+	var html = '<li>\
+					<input type="checkbox" class="filled-in" id="position-all"/> \
+					<label for="position-all">All</label>\
+				</li>';
 	$.map(positionList, function(elementOfArray, indexInArray) {
-		var html = '<li>\
+		html += '<li>\
 						<input type="checkbox" class="filled-in" id="position-' + elementOfArray.key.replace(' ', '') + '"/>\
 						<label for="position-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
-		$('.filter-position-list').append(html);
 	});
+	$('.filter-position-list').append(html);
 }
 
 function showSkillList(skillList) {
+	$('.filter-skill-list').html('');
+	var html = '<li>\
+					<input type="checkbox" class="filled-in" id="skill-all"/>\
+					<label for="skill-all">All</label>\
+				</li>';
 	$.map(skillList, function(elementOfArray, indexInArray) {
-		var html = '<li>\
+		html += '<li>\
 						<input type="checkbox" class="filled-in" id="skill-' + elementOfArray.key.replace(' ', '') + '"/>\
 						<label for="skill-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
-		$('.filter-skill-list').append(html);
 	});
+	$('.filter-skill-list').append(html);
 }
 
 function showCategoryList(categoryList) {
+	$('.filter-category-list').html('');
+	var html = '<li>\
+					<input type="checkbox" class="filled-in" id="category-all" />\
+					<label for="category-all">All</label>\
+				</li>';
 	$.map(categoryList, function(elementOfArray, indexInArray) {
-		var html = '<li>\
+		html += '<li>\
 						<input type="checkbox" class="filled-in" id="category-' + elementOfArray.key.replace(' ', '') + '"/>\
 						<label for="category-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
-		$('.filter-category-list').append(html);
 	});
+	$('.filter-category-list').append(html);
 }
 
 function showProvinceList(provinceList) {
+	var html = '<li>\
+					<input type="checkbox" class="filled-in" id="province-all"  />\
+					<label for="province-all">All</label>\
+				</li>';
 	$.map(provinceList, function(elementOfArray, indexInArray) {
-		var html = '<li>\
+		html += '<li>\
 						<input type="checkbox" class="filled-in" id="province-' + elementOfArray.key.replace(' ', '') + '"/>\
 						<label for="province-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
-		$('.filter-province-list').append(html);
 	});
+	$('.filter-province-list').append(html);
 }
 
 function showResultJobHot(response) {
@@ -356,19 +380,21 @@ function showResultJobHot(response) {
 					value : 1
 				});
 			}
-			var added = false;
-			$.map(newCategoryList, function(elementOfArray, indexInArray) {
-				if (elementOfArray.key == jobListResponse[index].jobCategory.categoryName) {
-					elementOfArray.value = elementOfArray.value + 1;
-					added = true;
-				}
-			});
-			if (!added) {
-				newCategoryList.push({
-					key : jobListResponse[index].jobCategory.categoryName,
-					value : 1
-				});
-			}
+//			if (!added) {
+//				var addedNew = false;
+//				$.map(newCategoryList, function(elementOfArray, indexInArray) {
+//					if (elementOfArray.key == jobListResponse[index].jobCategory.categoryName) {
+//						elementOfArray.value = elementOfArray.value + 1;
+//						addedNew = true;
+//					}
+//				});
+//				if (!addedNew) {
+//					newCategoryList.push({
+//						key : jobListResponse[index].jobCategory.categoryName,
+//						value : 1
+//					});
+//				}
+//			}
 			//====================================
 			var added = false;
 			$.map(companyList, function(elementOfArray, indexInArray) {
@@ -383,19 +409,21 @@ function showResultJobHot(response) {
 					value : 1
 				});
 			}
-			var added = false;
-			$.map(newCompanyList, function(elementOfArray, indexInArray) {
-				if (elementOfArray.key == jobListResponse[index].company.displayName) {
-					elementOfArray.value = elementOfArray.value + 1;
-					added = true;
-				}
-			});
-			if (!added) {
-				newCompanyList.push({
-					key : jobListResponse[index].company.displayName,
-					value : 1
-				});
-			}
+//			if (!added) {
+//				var addedNew = false;
+//				$.map(newCompanyList, function(elementOfArray, indexInArray) {
+//					if (elementOfArray.key == jobListResponse[index].company.displayName) {
+//						elementOfArray.value = elementOfArray.value + 1;
+//						addedNew = true;
+//					}
+//				});
+//				if (!addedNew) {
+//					newCompanyList.push({
+//						key : jobListResponse[index].company.displayName,
+//						value : 1
+//					});
+//				}
+//			}
 			//=====================================
 			var added = false;
 			$.map(positionList, function(elementOfArray, indexInArray) {
@@ -410,19 +438,21 @@ function showResultJobHot(response) {
 					value : 1
 				});
 			}
-			var added = false;
-			$.map(newPositionList, function(elementOfArray, indexInArray) {
-				if (elementOfArray.key == jobListResponse[index].position.displayName) {
-					elementOfArray.value = elementOfArray.value + 1;
-					added = true;
-				}
-			});
-			if (!added) {
-				newPositionList.push({
-					key : jobListResponse[index].position.displayName,
-					value : 1
-				});
-			}
+//			if (!added) {
+//				var addedNew = false;
+//				$.map(newPositionList, function(elementOfArray, indexInArray) {
+//					if (elementOfArray.key == jobListResponse[index].position.displayName) {
+//						elementOfArray.value = elementOfArray.value + 1;
+//						addedNew = true;
+//					}
+//				});
+//				if (!addedNew) {
+//					newPositionList.push({
+//						key : jobListResponse[index].position.displayName,
+//						value : 1
+//					});
+//				}
+//			}
 			//=====================================
 			var added = false;
 			$.map(provinceList, function(elementOfArray, indexInArray) {
@@ -437,19 +467,21 @@ function showResultJobHot(response) {
 					value : 1
 				});
 			}
-			var added = false;
-			$.map(newProvinceList, function(elementOfArray, indexInArray) {
-				if (elementOfArray.key == jobListResponse[index].workAddress.district.province.provinceName) {
-					elementOfArray.value = elementOfArray.value + 1;
-					added = true;
-				}
-			});
-			if (!added) {
-				newProvinceList.push({
-					key : jobListResponse[index].workAddress.district.province.provinceName,
-					value : 1
-				});
-			}
+//			if (!added) {
+//				var addedNew = false;
+//				$.map(newProvinceList, function(elementOfArray, indexInArray) {
+//					if (elementOfArray.key == jobListResponse[index].workAddress.district.province.provinceName) {
+//						elementOfArray.value = elementOfArray.value + 1;
+//						addedNew = true;
+//					}
+//				});
+//				if (!addedNew) {
+//					newProvinceList.push({
+//						key : jobListResponse[index].workAddress.district.province.provinceName,
+//						value : 1
+//					});
+//				}
+//			}
 			//=====================================
 
 			var tempItem = "";
@@ -470,18 +502,21 @@ function showResultJobHot(response) {
 						value : 1
 					});
 				}
-				$.map(newSkillList, function(elementOfArray, indexInArray) {
-					if (elementOfArray.key == skills[i].displayName) {
-						elementOfArray.value = elementOfArray.value + 1;
-						added = true;
-					}
-				});
-				if (!added) {
-					newSkillList.push({
-						key : skills[i].displayName,
-						value : 1
-					});
-				}
+//				if (!added) {
+//					var addedNew = false;
+//					$.map(newSkillList, function(elementOfArray, indexInArray) {
+//						if (elementOfArray.key == skills[i].displayName) {
+//							elementOfArray.value = elementOfArray.value + 1;
+//							addedNew = true;
+//						}
+//					});
+//					if (!addedNew) {
+//						newSkillList.push({
+//							key : skills[i].displayName,
+//							value : 1
+//						});
+//					}
+//				}
 			}
 
 			var nameClass = "";
@@ -531,8 +566,8 @@ function showResultJobHot(response) {
 												</div>\
 											</div>\
 											<div class="row">\
-												<p class="col m12 none-padding-left text-justify block-with-text">' + jobListResponse[index].description + '\
-												</p>\
+												<div class="col m12 none-padding-left text-justify block-with-text edit-text-ellipsis">' + jobListResponse[index].description + '\
+												</div>\
 												<div class="col m12 none-padding-left margin-top-5">' + tempItem + '</div>\
 											</div>\
 										</div>\
@@ -550,11 +585,11 @@ function showResultJobHot(response) {
 			$('#btn-load-more').addClass('disabled');
 		}
 
-		showCompanyList(newCompanyList);
-		showPositionList(newPositionList);
-		showSkillList(newSkillList);
-		showCategoryList(newCategoryList);
-		showProvinceList(newProvinceList);
+		showCompanyList(companyList);
+		showPositionList(positionList);
+		showSkillList(skillList);
+		showProvinceList(provinceList);
+		showCategoryList(categoryList)
 	}
 }
 

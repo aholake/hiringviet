@@ -45,10 +45,13 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		criteria.createAlias("job.company", "company");
 		criteria.createAlias("job.jobCategory", "jobCategory");
 		criteria.createAlias("job.position", "position");
-		criteria.createAlias("job.skillSet", "skillSet");
 		criteria.createAlias("job.workAddress", "address", JoinType.LEFT_OUTER_JOIN);
 		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
 		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
+
+		if (skills != null) {
+			criteria.createAlias("job.skillSet", "skillSet");
+		}
 
 		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 
