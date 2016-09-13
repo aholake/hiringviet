@@ -92,8 +92,7 @@ public class ProfileController {
 
 		boolean checkConnect = false;
 		if (!Utils.isEmptyObject(memberLogin)) {
-			Connect connect = connectService.getConnectByMemberId(
-					memberLogin.getId(), member.getId());
+			Connect connect = connectService.getConnectByMemberId(memberLogin.getId(), member.getId());
 			if (!Utils.isEmptyObject(connect)) {
 				checkConnect = true;
 			}
