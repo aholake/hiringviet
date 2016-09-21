@@ -9,23 +9,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/hiringviet/home/css/navbar.css'/>">
-<script type="text/javascript"
-	src="<c:url value='/resources/hiringviet/login/js/login.js'/>"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/home/css/navbar.css'/>">
+<script type="text/javascript"src="<c:url value='/resources/hiringviet/login/js/login.js'/>"></script>
 </head>
 <body>
-	<input type="hidden" id="url_redirect_page"
-		value="<c:url value='/home' />" />
-	<input type="hidden" id="url_check_account"
-		value="<c:url value='/account/checkAccount' />" />
-	<input type="hidden" id="url_search"
-		value="<c:url value='/search/suggest' />" />
+	<input type="hidden" id="url_redirect_page" value="<c:url value='/home' />" />
+	<input type="hidden" id="url_check_account" value="<c:url value='/account/checkAccount' />" />
+	<input type="hidden" id="url_search" value="<c:url value='/search/suggest' />" />
 
-	<input type="hidden" id="title_follow"
-		value="<spring:message code='label.navbar.title.follow'/>" />
-	<input type="hidden" id="title_employee"
-		value="<spring:message code='label.home.title.employee'/>" />
+	<input type="hidden" id="title_follow" value="<spring:message code='label.navbar.title.follow'/>" />
+	<input type="hidden" id="title_employee" value="<spring:message code='label.home.title.employee'/>" />
 
 	<nav>
 	<ul id="slide-out" class="side-nav">
@@ -50,27 +43,21 @@
 					<div class="mp0 display-flex">
 						<!-- Dropdown Trigger -->
 						<div class="dropdown-button" data-activates='search-menu'>
-							<i class="material-icons">menu</i>
+							<i class="material-icons menu-drop-icon">menu</i>
 						</div>
 						<!-- Dropdown Structure -->
 						<ul id="search-menu" class="dropdown-content">
-							<li><a href="#!"><spring:message
-										code="label.navbar.title.search.menu.add" /></a></li>
+							<li onclick="changeIcon('menu');"><a href="#!"><spring:message code="label.navbar.title.search.menu.add" /></a></li>
 							<li class="divider"></li>
-							<li><a href="#!"><spring:message
-										code="label.navbar.title.search.menu.company" /></a></li>
+							<li onclick="changeIcon('account_balance');"><a href="#!"><spring:message code="label.navbar.title.search.menu.company" /></a></li>
 							<li class="divider"></li>
-							<li><a href="#!"><spring:message
-										code="label.navbar.title.search.menu.member" /></a></li>
+							<li onclick="changeIcon('people');"><a href="#!"><spring:message code="label.navbar.title.search.menu.member" /></a></li>
 							<li class="divider"></li>
-							<li><a href="#!"><spring:message
-										code="label.navbar.title.search.menu.skill" /></a></li>
+							<li onclick="changeIcon('loyalty');"><a href="#!"><spring:message code="label.navbar.title.search.menu.skill" /></a></li>
 							<li class="divider"></li>
-							<li><a href="#!"><spring:message
-										code="label.navbar.title.search.menu.job" /></a></li>
+							<li onclick="changeIcon('share');"><a href="#!"><spring:message code="label.navbar.title.search.menu.job" /></a></li>
 						</ul>
-						<input type="text" id="search-auto-complete"
-							placeholder="<spring:message code='label.navbar.title.search.placeholder' />">
+						<input type="text" id="search-auto-complete" placeholder="<spring:message code='label.navbar.title.search.placeholder' />">
 					</div>
 					<p class="search-hint">
 						<spring:message code="label.navbar.title.key_word" />
@@ -278,6 +265,10 @@
 	$("#loginModal #closeBtn").click(function() {
 		$('#loginModal').closeModal();
 	})
+
+	function changeIcon(value){
+		$('.menu-drop-icon').text(value);
+	}
 </script>
 </body>
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import vn.com.hiringviet.api.dto.request.SearchRequestDTO;
 import vn.com.hiringviet.api.dto.response.JobSuggestDTO;
 import vn.com.hiringviet.api.dto.response.SearchSuggestResponseDTO;
 import vn.com.hiringviet.common.AccountRoleEnum;
@@ -97,19 +98,30 @@ public class SearchController {
 	}
 
 	@RequestMapping(value = "/search/suggest", method = RequestMethod.POST)
-	public @ResponseBody SearchSuggestResponseDTO getSuggest(@RequestBody String keywork, HttpSession session) {
+	public @ResponseBody SearchSuggestResponseDTO getSuggest(@RequestBody SearchRequestDTO searchRequestDTO, HttpSession session) {
 
-		System.out.println(keywork);
-		keywork = keywork.replace("\"", "");
+		searchRequestDTO.setKeyWord(searchRequestDTO.getKeyWord().replace("\"", ""));
 		SearchSuggestResponseDTO response = new SearchSuggestResponseDTO();
 
-		List<MemberDTO> memberResponseDTOs = memberService.getListMemberSuggest(keywork);
+		List<MemberDTO> memberResponseDTOs = null;
+		if (searchRequestDTO.isSearchMember()) {
+			memberResponseDTOs = memberService.getListMemberSuggest(searchRequestDTO.getKeyWord());
+		}
 
-		List<CompanyDTO> companyResponseDTOs = companyService.getListCompanySuggest(keywork);
+		List<CompanyDTO> companyResponseDTOs = null;
+		if (searchRequestDTO.isSearchCompany()) {
+			companyResponseDTOs = companyService.getListCompanySuggest(searchRequestDTO.getKeyWord());
+		}
 
-		List<SkillDTO> skills = skillService.searchSkillByKeyWord(keywork);
+		List<SkillDTO> skills = null;
+		if (searchRequestDTO.isSearchSkill()) {
+			skills = skillService.searchSkillByKeyWord(searchRequestDTO.getKeyWord());
+		}
 
-		List<JobSuggestDTO> jobSuggestDTOs = new ArrayList<JobSuggestDTO>();
+		List<JobSuggestDTO> jobSuggestDTOs = null;
+		if (searchRequestDTO.isSearchJob()) {
+			jobSuggestDTOs = new ArrayList<JobSuggestDTO>();
+		}
 
 		response.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		response.setCompanyResponseDTOs(companyResponseDTOs);
