@@ -1,6 +1,5 @@
 package vn.com.hiringviet.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.api.dto.request.SearchRequestDTO;
-import vn.com.hiringviet.api.dto.response.JobSuggestDTO;
 import vn.com.hiringviet.api.dto.response.SearchSuggestResponseDTO;
 import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.CompanyDTO;
+import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
@@ -113,21 +112,21 @@ public class SearchController {
 			companyResponseDTOs = companyService.getListCompanySuggest(searchRequestDTO.getKeyWord());
 		}
 
-		List<SkillDTO> skills = null;
+		List<SkillDTO> skillDTOs = null;
 		if (searchRequestDTO.isSearchSkill()) {
-			skills = skillService.searchSkillByKeyWord(searchRequestDTO.getKeyWord());
+			skillDTOs = skillService.searchSkillByKeyWord(searchRequestDTO.getKeyWord());
 		}
 
-		List<JobSuggestDTO> jobSuggestDTOs = null;
+		List<JobDTO> jobDTOs = null;
 		if (searchRequestDTO.isSearchJob()) {
-			jobSuggestDTOs = new ArrayList<JobSuggestDTO>();
+			jobDTOs = jobService.searchJobByKeyWord(searchRequestDTO.getKeyWord());
 		}
 
 		response.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		response.setCompanyResponseDTOs(companyResponseDTOs);
 		response.setMemberResponseDTOs(memberResponseDTOs);
-		response.setJobSuggestDTOs(jobSuggestDTOs);
-		response.setSkills(skills);
+		response.setJobDTOs(jobDTOs);
+		response.setSkillDTOs(skillDTOs);
 		return response;
 	}
 

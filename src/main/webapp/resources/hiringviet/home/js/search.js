@@ -84,12 +84,15 @@ function filter(valueSearch) {
 	isEmpty = true;
 	if (searchMemberFlag) {
 		if (cachedListMember.length > 0) {
-			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Member</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled member-title'><strong><b>Member</b></strong></li>");
+			$('.member-title').show();
 			COUNT_LI_ITEM++;
+			var contain = false;
 			$.map(cachedListMember, function(elementOfArray, indexInArray) {
 				var fullName = elementOfArray.value.firstName + " " + elementOfArray.value.lastName;
-				if (fullName.indexOf(VALUE_SEARCH) > 0) {
+				if (fullName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
 					isEmpty = false;
+					contain = true;
 					var item = "<a href='/profile?memberId=" + elementOfArray.value.id + "'><li class='search-item'>\
 									<img src='" + elementOfArray.value.avatarImage + "' />\
 									<div class='wrapper'>\
@@ -105,16 +108,22 @@ function filter(valueSearch) {
 					COUNT_LI_ITEM++;
 				}
 			});
+			if (!contain) {
+				$('.member-title').hide();
+			}
 		}
 	}
 
 	if (searchCompanyFlag) {
 		if (cachedListCompany.length > 0) {
-			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Company</b></strong></li>");
+			$('#suggestion-box ul').append("<li class='disabled company-title'><strong><b>Company</b></strong></li>");
 			COUNT_LI_ITEM++;
+			$('.company-title').show();
+			var contain = false;
 			$.map(cachedListCompany, function(elementOfArray, indexInArray) {
-				if (elementOfArray.value.displayName.indexOf(VALUE_SEARCH) > 0) {
+				if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
 					isEmpty = false;
+					contain = true;
 					var item = "<a href='/company/" + elementOfArray.value.id + "'><li class='search-item'>\
 									<img src='" + elementOfArray.value.avatarImage + "' />\
 									<div class='wrapper'>\
@@ -130,17 +139,22 @@ function filter(valueSearch) {
 					COUNT_LI_ITEM++;
 				}
 			});
+			if (!contain) {
+				$('.company-title').hide();
+			}
 		}
 	}
 
 	if (searchJobFlag) {
-		var listJob = result.jobSuggestDTOs;
-		if (listJob.length > 0) {
-			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Job</b></strong></li>");
+		if (cachedListJob.length > 0) {
+			$('#suggestion-box ul').append("<li class='disabled job-title'><strong><b>Job</b></strong></li>");
 			COUNT_LI_ITEM++;
+			$('.job-title').show();
+			var contain = false;
 			$.map(cachedListJob, function(elementOfArray, indexInArray) {
 				isEmpty = false;
-				if (elementOfArray.value.displayName.indexOf(VALUE_SEARCH) > 0) {
+				contain = true;
+				if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) > -1) {
 					var item = "<li class='search-item'>\
 									<i class='material-icons icon'>search</i>\
 									<div class='wrapper'>\
@@ -151,17 +165,22 @@ function filter(valueSearch) {
 					COUNT_LI_ITEM++;
 				}
 			});
+			if (!contain) {
+				$('.job-title').hide();
+			}
 		}
 	}
 
 	if (searchSkillFlag) {
-		var listSkill = result.skills;
-		if (listSkill.length > 0) {
-			$('#suggestion-box ul').append("<li class='disabled'><strong><b>Skill</b></strong></li>");
+		if (cachedListSkill.length > 0) {
+			$('#suggestion-box ul').append("<li class='disabled skill-title'><strong><b>Skill</b></strong></li>");
 			COUNT_LI_ITEM++;
+			$('.skill-title').show();
+			var contain = false;
 			$.map(cachedListSkill, function(elementOfArray, indexInArray) {
-				if (elementOfArray.value.displayName.indexOf(VALUE_SEARCH) > 0) {
+				if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
 					isEmpty = false;
+					contain = true;
 					var item = "<li class='search-item'>\
 									<i class='material-icons icon'>search</i>\
 									<div class='wrapper'>\
@@ -172,6 +191,9 @@ function filter(valueSearch) {
 					COUNT_LI_ITEM++;
 				}
 			});
+			if (!contain) {
+				$('.skill-title').hide();
+			}
 		}
 	}
 
@@ -271,7 +293,7 @@ function showResult(result) {
 		}
 
 		if (searchJobFlag) {
-			var listJob = result.jobSuggestDTOs;
+			var listJob = result.jobDTOs;
 			if (listJob.length > 0) {
 				$('#suggestion-box ul').append("<li class='disabled'><strong><b>Job</b></strong></li>");
 				COUNT_LI_ITEM++;
@@ -301,7 +323,7 @@ function showResult(result) {
 		}
 
 		if (searchSkillFlag) {
-			var listSkill = result.skills;
+			var listSkill = result.skillDTOs;
 			if (listSkill.length > 0) {
 				$('#suggestion-box ul').append("<li class='disabled'><strong><b>Skill</b></strong></li>");
 				COUNT_LI_ITEM++;
@@ -329,7 +351,6 @@ function showResult(result) {
 				}
 			}
 		}
-//		$('#suggestion-box ul').append("<li>" + result.data[index].title + "</li>");
 
 		
 		// set width

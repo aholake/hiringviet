@@ -3,6 +3,7 @@ package vn.com.hiringviet.api.dto.response;
 import java.util.List;
 
 import vn.com.hiringviet.dto.CompanyDTO;
+import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 
@@ -10,20 +11,20 @@ public class SearchSuggestResponseDTO extends CommonResponseDTO {
 
 	private static final long serialVersionUID = 5063631610545973463L;
 
-	private List<JobSuggestDTO> jobSuggestDTOs;
+	private List<JobDTO> jobDTOs;
 
 	private List<CompanyDTO> companyResponseDTOs;
 
 	private List<MemberDTO> memberResponseDTOs;
 
-	private List<SkillDTO> skills;
+	private List<SkillDTO> skillDTOs;
 
-	public List<JobSuggestDTO> getJobSuggestDTOs() {
-		return jobSuggestDTOs;
+	public List<JobDTO> getJobDTOs() {
+		return jobDTOs;
 	}
 
-	public void setJobSuggestDTOs(List<JobSuggestDTO> jobSuggestDTOs) {
-		this.jobSuggestDTOs = jobSuggestDTOs;
+	public void setJobDTOs(List<JobDTO> jobDTOs) {
+		this.jobDTOs = jobDTOs;
 	}
 
 	public List<CompanyDTO> getCompanyResponseDTOs() {
@@ -42,12 +43,12 @@ public class SearchSuggestResponseDTO extends CommonResponseDTO {
 		this.memberResponseDTOs = memberResponseDTOs;
 	}
 
-	public List<SkillDTO> getSkills() {
-		return skills;
+	public List<SkillDTO> getSkillDTOs() {
+		return skillDTOs;
 	}
 
-	public void setSkills(List<SkillDTO> skills) {
-		this.skills = skills;
+	public void setSkillDTOs(List<SkillDTO> skillDTOs) {
+		this.skillDTOs = skillDTOs;
 	}
 
 }

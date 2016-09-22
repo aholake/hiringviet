@@ -6,14 +6,18 @@ import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.common.StatusEnum;
+import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.JobDAO;
+import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.Utils;
@@ -102,6 +106,25 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 		List<Job> jobList = criteria.list();
 		return jobList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<JobDTO> searchJobByKeyWord(String keyWord) {
+
+		Session session = getSession();
+
+		Criteria criteria = session.createCriteria(Job.class, "job");
+		criteria.setProjection(Projections.projectionList()
+				.add(Projections.property("id"), "id")
+				.add(Projections.property("title"), "displayName"));
+		criteria.add(Restrictions.like("title", "%" + keyWord.replace("\"", "") + "%"));
+		criteria.setMaxResults(ConstantValues.MAX_RECORD_COUNT);
+		criteria.setResultTransformer(Transformers.aliasToBean(JobDTO.class));
+
+		List<JobDTO> skillDTOs = (List<JobDTO>) criteria.list();
+
+		return skillDTOs;
 	}
 
 //	@SuppressWarnings("unchecked")

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.dao.JobDAO;
+import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.service.JobService;
 
@@ -39,5 +40,10 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public Job getJobByID(Integer id) {
 		return jobDAO.getJobByID(id);
+	}
+
+	@Override
+	public List<JobDTO> searchJobByKeyWord(String keyWord) {
+		return jobDAO.searchJobByKeyWord(keyWord);
 	}
 }
