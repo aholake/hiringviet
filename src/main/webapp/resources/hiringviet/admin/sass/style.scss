@@ -1,0 +1,75 @@
+@mixin box-shadow-left() {
+	-webkit-box-shadow: 1px 0px 7px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 0px 7px 0px rgba(0,0,0,0.75);
+	box-shadow: 1px 0px 7px 0px rgba(0,0,0,0.75);
+}
+
+html {
+	overflow: hidden;
+}
+
+.row {
+	padding-top: 0;
+}
+
+.panel-left {
+	@include box-shadow-left();
+	height: 100vh;
+	padding: 0 !important;
+	overflow: auto;
+	
+	.welcome-box {
+		height: 100px;
+		border-bottom: 1px solid #c2c2c2;
+		text-align: center;
+	}
+	
+	.item-index-box {
+		$li-height: 50px;
+		li {
+			height: $li-height;
+			line-height: $li-height;
+			
+			a {
+				height: $li-height;
+				display:block;
+				padding-left: 10px;
+				&:hover {
+					background: #F3F3F3;
+				}
+				.active {
+					background: #d4d4d4
+				}
+				
+				i.material-icons {
+					margin-right: 10px;
+					vertical-align: middle;
+				}
+				
+			}
+			ul.sub-item-index {
+				li {
+					a {
+						padding-left: 30px;
+					}
+				}
+			}
+		}
+	}
+}
+
+.panel-right {
+	min-height: 100vh;
+	padding: 0 !important;
+	background: #FCFCFC;
+	.title-panel {
+		height:100px;
+		line-height: 100px;
+		
+		span {
+			font-size: 40px;
+		    margin-left: 33px;
+		    color: #fff;
+		}
+	}
+}

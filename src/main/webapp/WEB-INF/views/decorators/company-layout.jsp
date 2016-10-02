@@ -26,7 +26,7 @@
 <!--Common Style-->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/common/css/style.css'/>">
-<decorator:head></decorator:head>
+<decorator:head />
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/includes/header.jsp"%>

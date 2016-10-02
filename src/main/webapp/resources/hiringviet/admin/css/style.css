@@ -1,67 +1,47 @@
-.mp0 {
-	margin: 0 !important;
-	padding: 0 !important;
-}
+html {
+  overflow: hidden; }
 
-.bg {
-	background-color: #212121;
-}
-
-body {
-	position: relative;
-	overflow: hidden;
-}
-nav {
-	position: absolute;
-	top: 0;
-}
 .row {
-	padding-top: 64px !important;
-	height: 100vh;
-}
-.menu-left {
-	height: 100%;
-}
+  padding-top: 0; }
 
-.content {
-	overflow-y: scroll;
-	height: 100%;
-	padding-bottom: 20px !important;
-}
+.panel-left {
+  -webkit-box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.75);
+  height: 100vh;
+  padding: 0 !important;
+  overflow: auto; }
+  .panel-left .welcome-box {
+    height: 100px;
+    border-bottom: 1px solid #c2c2c2;
+    text-align: center; }
+  .panel-left .item-index-box li {
+    height: 50px;
+    line-height: 50px; }
+    .panel-left .item-index-box li a {
+      height: 50px;
+      display: block;
+      padding-left: 10px; }
+      .panel-left .item-index-box li a:hover {
+        background: #F3F3F3; }
+      .panel-left .item-index-box li a .active {
+        background: #d4d4d4; }
+      .panel-left .item-index-box li a i.material-icons {
+        margin-right: 10px;
+        vertical-align: middle; }
+    .panel-left .item-index-box li ul.sub-item-index li a {
+      padding-left: 30px; }
 
-.border-none {
-	border: none !important;
-}
+.panel-right {
+  min-height: 100vh;
+  padding: 0 !important;
+  background: #FCFCFC; }
+  .panel-right .title-panel {
+    height: 100px;
+    line-height: 100px; }
+    .panel-right .title-panel span {
+      font-size: 40px;
+      margin-left: 33px;
+      color: #fff; }
 
-.bg-black {
-	background: #000 !important;
-}
-
-.menu-left .collection-item {
-	display: flex !important;
-}
-
-.menu-left .collection-item b {
-	display: block;
-	line-height: 30px;
-	margin-left: 5px;
-}
-
-.mr-2 {
-
-}
-.brand-logo {
-	display: inline-flex !important;
-}
-
-.brand-logo img {
-	width: 60px;
-	height: 60px;
-	margin: 2px 2px 0px 2px;
-	line-height: 64px;
-}
-
-.brand-logo span {
-	display: block;
-	line-height: 64px;
-}
+/*# sourceMappingURL=style.css.map */

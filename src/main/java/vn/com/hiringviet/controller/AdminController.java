@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AdminController {
-
 	@RequestMapping(value = "/admin")
 	public String goHomePage(Model model, HttpSession session) {
 		return "/admin/home";
