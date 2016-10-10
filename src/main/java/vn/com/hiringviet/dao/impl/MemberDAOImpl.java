@@ -56,11 +56,13 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 		Criteria criteria = session.createCriteria(Member.class, "member");
 		criteria.createAlias("member.changeLog", "changeLog");
 		criteria.createAlias("member.account", "account");
-		criteria.setProjection(Projections.projectionList()
+		criteria.setProjection(Projections
+				.projectionList()
 				.add(Projections.property("member.id").as("id"))
 				.add(Projections.property("member.firstName").as("firstName"))
 				.add(Projections.property("member.lastName").as("lastName"))
-				.add(Projections.property("account.avatarImage").as("avatarImage"))
+				.add(Projections.property("account.avatarImage").as(
+						"avatarImage"))
 				.add(Projections.property("changeLog.status").as("status")));
 		criteria.add(Restrictions.eq("account.id", accountId));
 		criteria.setResultTransformer(Transformers.aliasToBean(MemberDTO.class));
@@ -75,25 +77,37 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 
 		Session session = this.sessionFactory.getCurrentSession();
 
-		LogicalExpression checkFirstNameAndLastName = Restrictions.or(Restrictions.like("member.firstName", keywork + "%"), Restrictions.like("member.lastName", keywork + "%"));
-		LogicalExpression checkFullName = Restrictions.or(checkFirstNameAndLastName, Restrictions.like("member.fullName", keywork + "%"));
+		LogicalExpression checkFirstNameAndLastName = Restrictions.or(
+				Restrictions.like("member.firstName", keywork + "%"),
+				Restrictions.like("member.lastName", keywork + "%"));
+		LogicalExpression checkFullName = Restrictions.or(
+				checkFirstNameAndLastName,
+				Restrictions.like("member.fullName", keywork + "%"));
 
 		Criteria criteria = session.createCriteria(Member.class, "member");
 		criteria.createAlias("member.changeLog", "changeLog");
 		criteria.createAlias("member.account", "account");
 		criteria.createAlias("member.resume", "resume");
 		criteria.createAlias("resume.address", "address");
-		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
-		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
-		criteria.createAlias("province.country", "country", JoinType.LEFT_OUTER_JOIN);
-		criteria.setProjection(Projections.projectionList()
+		criteria.createAlias("address.district", "district",
+				JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("district.province", "province",
+				JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("province.country", "country",
+				JoinType.LEFT_OUTER_JOIN);
+		criteria.setProjection(Projections
+				.projectionList()
 				.add(Projections.groupProperty("member.id").as("id"))
 				.add(Projections.property("member.firstName").as("firstName"))
 				.add(Projections.property("member.lastName").as("lastName"))
-				.add(Projections.property("account.avatarImage").as("avatarImage"))
-				.add(Projections.count("account.toFollows").as("numberFollower"))
-				.add(Projections.property("district.districtName").as("district"))
-				.add(Projections.property("province.provinceName").as("province"))
+				.add(Projections.property("account.avatarImage").as(
+						"avatarImage"))
+				.add(Projections.count("account.toFollows")
+						.as("numberFollower"))
+				.add(Projections.property("district.districtName").as(
+						"district"))
+				.add(Projections.property("province.provinceName").as(
+						"province"))
 				.add(Projections.property("country.countryName").as("country")));
 		criteria.add(checkFullName);
 		criteria.setMaxResults(ConstantValues.MAX_RECORD_COUNT);
@@ -111,5 +125,4 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 		session.persist(connect);
 
 	}
-
 }

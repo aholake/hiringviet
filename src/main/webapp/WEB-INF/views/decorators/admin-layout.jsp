@@ -12,7 +12,7 @@
 	href="<c:url value='/resources/hiringviet/admin/css/style.css' />">
 <!--Import materialize.css-->
 <link type="text/css" rel="stylesheet"
-	href="<c:url value='/resources/common/css/materialize.min.css' />"
+	href="<c:url value='/resources/common/css/materialize.css' />"
 	media="screen,projection" />
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript"
@@ -28,33 +28,31 @@
 <decorator:head />
 </head>
 <body>
-	<div class="row">
-		<div class="col m3 panel-left">
-			<div class="welcome-box">
-				<p>Welcome Administrator</p>
+	<div class="panel-left">
+		<div class="welcome-box">
+			<p>Welcome Administrator</p>
 
-			</div>
+		</div>
 
-			<div class="item-index-box">
-				<ul>
-					<li><a href="#" class="active"><i class="material-icons">home</i>Home</a></li>
-					<li><a href="#"><i class="material-icons">notifications_paused</i>Notification</a></li>
-					<li><a href="#"><i class="material-icons">contact_mail</i>Mail
-							Box</a></li>
-					<li><a href="#"><i class="material-icons">perm_data_setting</i>Data
-							Management</a>
-						<ul class="sub-item-index">
-							<li><a href="#"><i class="material-icons">supervisor_account</i>Member</a></li>
-							<li><a href="#"><i class="material-icons">account_balance</i>Company</a></li>
-							<li><a href="#"><i class="material-icons">work</i>Job</a></li>
-							<li><a href="#"><i class="material-icons">history</i>Log</a></li>
-						</ul></li>
-				</ul>
-			</div>
+		<div class="item-index-box">
+			<ul>
+				<li><a href="#" class="active"><i class="material-icons">home</i>Home</a></li>
+				<li><a href="#"><i class="material-icons">notifications_paused</i>Notification</a></li>
+				<li><a href="#"><i class="material-icons">contact_mail</i>Mail
+						Box</a></li>
+				<li><a href="#"><i class="material-icons">perm_data_setting</i>Data
+						Management</a>
+					<ul class="sub-item-index">
+						<li><a href="#"><i class="material-icons">supervisor_account</i>Member</a></li>
+						<li><a href="#"><i class="material-icons">account_balance</i>Company</a></li>
+						<li><a href="#"><i class="material-icons">work</i>Job</a></li>
+						<li><a href="#"><i class="material-icons">history</i>Log</a></li>
+					</ul></li>
+			</ul>
 		</div>
-		<div class="col m9 grey lighten-5 panel-right">
-			<decorator:body />
-		</div>
+	</div>
+	<div class="grey lighten-5 panel-right">
+		<decorator:body />
 	</div>
 </body>
 </html>

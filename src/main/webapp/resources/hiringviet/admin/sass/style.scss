@@ -4,19 +4,18 @@
 	box-shadow: 1px 0px 7px 0px rgba(0,0,0,0.75);
 }
 
-html {
-	overflow: hidden;
-}
-
 .row {
 	padding-top: 0;
 }
 
 .panel-left {
 	@include box-shadow-left();
+	position: fixed;
 	height: 100vh;
 	padding: 0 !important;
 	overflow: auto;
+	width: 25%;
+	float: left;
 	
 	.welcome-box {
 		height: 100px;
@@ -62,6 +61,9 @@ html {
 	min-height: 100vh;
 	padding: 0 !important;
 	background: #FCFCFC;
+	width: 75%;
+	float: right;
+	
 	.title-panel {
 		height:100px;
 		line-height: 100px;
@@ -71,5 +73,8 @@ html {
 		    margin-left: 33px;
 		    color: #fff;
 		}
+	}
+	.content {
+		padding: 10px;
 	}
 }

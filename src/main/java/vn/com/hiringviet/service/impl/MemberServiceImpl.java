@@ -1,12 +1,14 @@
 package vn.com.hiringviet.service.impl;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +16,10 @@ import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.SkillTypeEnum;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
+import vn.com.hiringviet.converter.MemberConverter;
 import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dao.SkillDAO;
+import vn.com.hiringviet.dto.MemberAdminTableDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
@@ -169,5 +173,18 @@ public class MemberServiceImpl implements MemberService {
 		connect.setChangeLog(Utils.generatorChangeLog());
 		connect.getChangeLog().setStatus(StatusEnum.INACTIVE);
 		memberDAO.addConnect(connect);
+	}
+
+	@Override
+	public List<MemberAdminTableDTO> getListMemberForAdminPage() {
+		List<MemberAdminTableDTO> adminTableDTOs = new ArrayList<MemberAdminTableDTO>();
+		List<Member> members = getMemberList();
+		LOGGER.info(members.size());
+		for (Member member : members) {
+			LOGGER.info(member.getId());
+			adminTableDTOs.add(MemberConverter
+					.convertToMemberAdminTableDTO(member));
+		}
+		return adminTableDTOs;
 	}
 }
