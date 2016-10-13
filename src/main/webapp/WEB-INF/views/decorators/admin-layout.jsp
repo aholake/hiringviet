@@ -8,22 +8,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>HOME</title>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/hiringviet/admin/css/style.css' />">
 <!--Import materialize.css-->
 <link type="text/css" rel="stylesheet"
-	href="<c:url value='/resources/common/css/materialize.css' />"
-	media="screen,projection" />
+	href="<c:url value='/resources/common/css/materialize.css' />" />
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/hiringviet/admin/css/style.css' />">
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link rel="stylesheet" href="/resources/common/css/font-awesome.min.css">
+
 <!--Import jQuery before materialize.js-->
 <script type="text/javascript"
 	src="<c:url value='/resources/common/js/jquery-2.1.1.min.js' />"></script>
 <script type="text/javascript"
 	src="<c:url value='/resources/common/js/materialize.min.js' />"></script>
-<!--Import Google Icon Font-->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
-<link rel="stylesheet" href="/resources/common/css/font-awesome.min.css">
-<!--Import materialize.css-->
+<script type="text/javascript"
+	src="<c:url value='/resources/common/js/jquery.dataTables.min.js'/>"></script>
 
 <decorator:head />
 </head>
