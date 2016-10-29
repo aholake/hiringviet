@@ -16,9 +16,11 @@ public interface MemberService {
 
 	public int addMember(Member member);
 
-	public boolean deleteMember(Member member);
+	public boolean deleteMember(int id);
 
 	public List<Member> getMemberList();
+	
+	public boolean updateMember(Member member);
 
 	public Member getMemberByID(Integer memberID);
 

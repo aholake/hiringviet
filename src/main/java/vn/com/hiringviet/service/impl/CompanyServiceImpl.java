@@ -1,6 +1,7 @@
 package vn.com.hiringviet.service.impl;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -12,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
+import vn.com.hiringviet.converter.CompanyConverter;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.dto.CompanyAdminTableDTO;
 import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
@@ -90,8 +93,12 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public boolean deleteCompany(Company company) {
-		return companyDAO.delete(company);
+	public boolean deleteCompany(int id) {
+		Company company = companyDAO.findOne(id);
+		if (company != null) {
+			return companyDAO.delete(company);
+		}
+		return false;
 	}
 
 	@Override
@@ -142,6 +149,19 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public Company getCompanyById(int id) {
 		return companyDAO.findOne(id);
+	}
+
+	@Override
+	public List<CompanyAdminTableDTO> getAllCompaniesForAdminTable() {
+		List<Company> companies = companyDAO.findAll();
+		List<CompanyAdminTableDTO> companyAdminTableDTOs = new ArrayList<CompanyAdminTableDTO>();
+
+		for (Company company : companies) {
+			companyAdminTableDTOs.add(CompanyConverter
+					.convertToCompanyAdminTableDTO(company));
+		}
+
+		return companyAdminTableDTOs;
 	}
 
 }

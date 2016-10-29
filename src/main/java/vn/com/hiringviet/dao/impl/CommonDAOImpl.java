@@ -2,7 +2,6 @@ package vn.com.hiringviet.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;

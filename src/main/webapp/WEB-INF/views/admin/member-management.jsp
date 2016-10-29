@@ -26,6 +26,7 @@
 					<th>Action</th>
 				</tr>
 			</thead>
+			<tbody></tbody>
 			<tfoot>
 				<tr>
 					<th>Id</th>
@@ -41,9 +42,9 @@
 	<script type="text/javascript">
 		console.log("init datatable");
 		$(function() {
-			$('#memberDataTable').DataTable({
+			var table = $('#memberDataTable').DataTable({
 				ajax : {
-					url : 'members',
+					url : '/admin/api/members',
 					dataSrc : ''
 				},
 				processing : true,
@@ -57,8 +58,25 @@
 					data : "lastName"
 				}, {
 					data : "active"
+				}],
+				columnDefs: [{
+					targets: 5,
+					data: null,
+					defaultContent: "<button id='delete'>Delete</button>"
 				}]
 			});
+			
+			function removeRow(response) {
+				alert(response);
+			}
+			
+			$('#memberDataTable tbody').on( "click", "#delete", function () {
+		        var data = table.row( $(this).parents('tr') ).data();
+		        var id = data.id;
+		        console.log(id);
+		        callAPI("/admin/api/members","DELETE", id, "removeRow");
+		    } );
+			
 		})
 	</script>
 </body>

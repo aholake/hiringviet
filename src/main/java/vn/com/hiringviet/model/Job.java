@@ -91,7 +91,7 @@ public class Job implements Serializable {
 		this.jobCategory = jobCategory;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "company_id")
 	public Company getCompany() {
 		return company;
@@ -219,11 +219,10 @@ public class Job implements Serializable {
 	public boolean getPublish() {
 		return publish;
 	}
-	
+
 	public void setPublish(boolean publish) {
 		this.publish = publish;
 	}
-	
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "work_address_id")

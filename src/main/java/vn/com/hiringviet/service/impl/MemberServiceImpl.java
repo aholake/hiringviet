@@ -8,7 +8,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -90,8 +89,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean deleteMember(Member member) {
-		return memberDAO.delete(member);
+	public boolean deleteMember(int id) {
+		Member member = memberDAO.findOne(id);
+		if (member != null) {
+			return memberDAO.delete(member);
+		}
+		return false;
 	}
 
 	@Override
@@ -187,4 +190,16 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return adminTableDTOs;
 	}
+
+	@Override
+	public boolean updateMember(Member member) {
+		try {
+			memberDAO.update(member);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
 }

@@ -13,6 +13,8 @@
 	href="<c:url value='/resources/common/css/materialize.css' />" />
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/hiringviet/admin/css/style.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/common/css/style.css' />">
 <!--Import Google Icon Font-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
@@ -25,6 +27,8 @@
 	src="<c:url value='/resources/common/js/materialize.min.js' />"></script>
 <script type="text/javascript"
 	src="<c:url value='/resources/common/js/jquery.dataTables.min.js'/>"></script>
+<script type="text/javascript"
+	src="<c:url value='/resources/hiringviet/home/js/common.js' />"></script>
 
 <decorator:head />
 </head>
@@ -54,6 +58,9 @@
 	</div>
 	<div class="grey lighten-5 panel-right">
 		<decorator:body />
+	</div>
+	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+		<a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
 	</div>
 </body>
 </html>
