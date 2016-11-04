@@ -17,7 +17,7 @@
 	<decorator name="company" page="company-layout.jsp">
 		<pattern>/company/*</pattern>
 	</decorator>
-	<decorator name="admin" page="admin-layout.jsp">
-		<pattern>/admin*</pattern>
+	<decorator name="company" page="admin-layout.jsp">
+		<pattern>/admin/*</pattern>
 	</decorator>
 </decorators>

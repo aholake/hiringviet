@@ -31,7 +31,7 @@ public class AdminController {
 
 	@RequestMapping({ "", "/" })
 	public String goHomePage(Model model, HttpSession session) {
-		return "/admin/member-management";
+		return "/admin/index";
 	}
 
 	@RequestMapping({ "/member" })
