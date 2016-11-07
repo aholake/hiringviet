@@ -3,7 +3,7 @@ pageEncoding="utf-8"%>
 <%@ include file="/WEB-INF/views/includes/taglibs.jsp"%>
 
 <head>
-	<title>Index Page</title>
+	<title>Dashboard</title>
 </head>
 <body>
 	<!-- top tiles -->

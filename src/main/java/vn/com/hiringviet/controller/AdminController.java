@@ -34,9 +34,9 @@ public class AdminController {
 		return "/admin/index";
 	}
 
-	@RequestMapping({ "/member" })
+	@RequestMapping({ "/account" })
 	public String goMemberManagementPage(Model model, HttpSession session) {
-		return "/admin/member-management";
+		return "/admin/account-management";
 	}
 
 	@RequestMapping({ "/company" })
@@ -72,8 +72,8 @@ public class AdminController {
 		return companyService.updateCompany(company);
 	}
 	
-	@RequestMapping("/message")
+	@RequestMapping("/inbox")
 	public String goToMessagePage() {
-		return "/admin/message-box";
+		return "/admin/inbox";
 	}
 }
