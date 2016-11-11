@@ -383,6 +383,7 @@ $(document).ready(function() {
 
 <script>
 $('#compose, .compose-close').click(function(){
+	console.log("Compose");
     $('.compose').slideToggle();
   });
 </script>

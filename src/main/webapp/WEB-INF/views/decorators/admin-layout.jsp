@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/views/includes/taglibs.jsp" %>
 
 <!DOCTYPE html>
-<html>
+<html ng-app="angularApp">
   <head>
     <!-- Meta, title, CSS, favicons, etc. -->
     <title>Gentallela Alela! | </title>
@@ -15,7 +15,13 @@
     
     <!-- Custom styling plus plugins -->
     <link href="/resources/hiringviet/admin/css/custom.min.css" rel="stylesheet">
+    
+       <!-- AngularJS -->
+    <script type="text/javascript" src="/resources/common/js/angular.js"></script>
+    
     <decorator:head/>
+    
+    <decorator:getProperty property="page.angular_script"></decorator:getProperty>
   </head>
 
   <body class="nav-md">
@@ -61,9 +67,9 @@
     <script src="/resources/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="/resources/vendors/nprogress/nprogress.js"></script>
-
+    
+    <decorator:getProperty property="page.js_lib"></decorator:getProperty>
     <!-- Custom Theme Scripts -->
     <script src="/resources/hiringviet/admin/js/custom.min.js"></script>
-    <decorator:getProperty property="page.js_lib"></decorator:getProperty>
   </body>
 </html>
