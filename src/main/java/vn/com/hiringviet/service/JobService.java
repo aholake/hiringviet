@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
+import vn.com.hiringviet.dto.JobAdminTableDTO;
 import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.model.Job;
 
@@ -22,4 +23,6 @@ public interface JobService {
 	public Job getJobByID(Integer id);
 
 	public List<JobDTO> searchJobByKeyWord(String keyWord);
+	
+	public List<JobAdminTableDTO> getJobsForAdminTable();
 }

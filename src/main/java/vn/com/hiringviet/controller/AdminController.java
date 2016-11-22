@@ -76,4 +76,9 @@ public class AdminController {
 	public String goToMessagePage() {
 		return "/admin/inbox";
 	}
+	
+	@RequestMapping("/job")
+	public String goToJobPage() {
+		return "/admin/job-management";
+	}
 }

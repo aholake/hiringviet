@@ -20,6 +20,7 @@ import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.api.dto.response.JobResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
+import vn.com.hiringviet.dto.JobAdminTableDTO;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Job;
@@ -35,7 +36,7 @@ import vn.com.hiringviet.util.Utils;
  */
 @Controller
 public class JobController {
-	
+
 	/** The job service. */
 	@Autowired
 	private JobService jobService;
@@ -46,10 +47,16 @@ public class JobController {
 	@Autowired
 	private ResumeService resumeService;
 
+	@RequestMapping(value = "/admin/api/jobs", method = RequestMethod.GET)
+	public @ResponseBody List<JobAdminTableDTO> getAllJobs() {
+		return jobService.getJobsForAdminTable();
+	}
+
 	/**
 	 * Gets the job.
 	 *
-	 * @param jobID the job id
+	 * @param jobID
+	 *            the job id
 	 * @return the job
 	 */
 	@RequestMapping(value = "/job/{jobID}", method = RequestMethod.GET)
@@ -61,17 +68,22 @@ public class JobController {
 	/**
 	 * Gets the job hot.
 	 *
-	 * @param pagingDTO the paging dto
+	 * @param pagingDTO
+	 *            the paging dto
 	 * @return the job hot
 	 */
 	@RequestMapping(value = "/job/hot", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody JobResponseDTO getJobHot(@RequestBody LoadMoreRequestDTO loadMoreRequestDTO) {
+	public @ResponseBody JobResponseDTO getJobHot(
+			@RequestBody LoadMoreRequestDTO loadMoreRequestDTO) {
 
 		JobResponseDTO jobResponseDTO = new JobResponseDTO();
 
-		PagingDTO pagingDTO = Utils.calculatorPaging(loadMoreRequestDTO.getPagingDTO(), false);
+		PagingDTO pagingDTO = Utils.calculatorPaging(
+				loadMoreRequestDTO.getPagingDTO(), false);
 
-		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO, pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, true, null);
+		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO,
+				pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
+				true, null);
 
 		if (Utils.isEmptyList(jobList)) {
 			jobResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -84,17 +96,22 @@ public class JobController {
 	}
 
 	@RequestMapping(value = "/job/suggest", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody JobResponseDTO getJobSuggest(@RequestBody LoadMoreRequestDTO loadMoreRequestDTO) {
+	public @ResponseBody JobResponseDTO getJobSuggest(
+			@RequestBody LoadMoreRequestDTO loadMoreRequestDTO) {
 
 		JobResponseDTO jobResponseDTO = new JobResponseDTO();
 
-		PagingDTO pagingDTO = Utils.calculatorPaging(loadMoreRequestDTO.getPagingDTO(), false);
+		PagingDTO pagingDTO = Utils.calculatorPaging(
+				loadMoreRequestDTO.getPagingDTO(), false);
 
 		Account account = getLoggedAccount();
 		Member member = account.getMember();
-		List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
+		List<Integer> skillIds = resumeService.getListSkillByMemberId(member
+				.getId());
 
-		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO, pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, false, skillIds);
+		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO,
+				pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
+				false, skillIds);
 
 		if (Utils.isEmptyList(jobList)) {
 			jobResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -109,22 +126,27 @@ public class JobController {
 	/**
 	 * Go job detail page.
 	 *
-	 * @param model the model
-	 * @param session the session
+	 * @param model
+	 *            the model
+	 * @param session
+	 *            the session
 	 * @return the string
 	 */
 	@RequestMapping(value = "/company/careers", method = RequestMethod.GET)
-	public String goJobDetailPage(@RequestParam("jobId") Integer jobId, Model model, HttpSession session) {
+	public String goJobDetailPage(@RequestParam("jobId") Integer jobId,
+			Model model, HttpSession session) {
 
 		Job job = jobService.getJobById(jobId);
-		Long numberFollower = followService.countNumberOfFollower(job.getCompany().getAccount().getId());
+		Long numberFollower = followService.countNumberOfFollower(job
+				.getCompany().getAccount().getId());
 		model.addAttribute("job", job);
 		model.addAttribute("numberFollower", numberFollower);
 		return "job-detail";
 	}
 
 	private Account getLoggedAccount() {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Object principal = SecurityContextHolder.getContext()
+				.getAuthentication().getPrincipal();
 		if (principal instanceof Account) {
 			Account loginedAccount = (Account) principal;
 			return loginedAccount;
