@@ -15,7 +15,11 @@ public interface JobDAO extends CommonDAO<Job> {
 
 	public Job getJobByID(Integer jobID);
 
-	public List<Job> getListJob(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, List<Integer> skills, boolean isHotJob);
+	public List<Job> getListJob(LoadMoreRequestDTO loadMoreRequestDTO,
+			Integer first, Integer max, List<Integer> skills, boolean isHotJob,
+			String mode, String keyValue);
 
 	public List<JobDTO> searchJobByKeyWord(String keyWord);
+
+	public List<JobDTO> getNewJobs(Integer companyId);
 }

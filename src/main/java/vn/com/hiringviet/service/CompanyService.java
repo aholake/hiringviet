@@ -29,4 +29,6 @@ public interface CompanyService {
 	public Company getCompanyByAccount(Account account);
 
 	public List<CompanyDTO> getListCompanySuggest(String keywork);
+
+	public boolean addPosts(PostDTO postDTO, Company company);
 }

@@ -48,7 +48,8 @@ public class CommentServiceImpl implements CommentService {
 		}
 		
 		if (!Utils.isEmptyNumber(commentDTO.getJobId())) {
-			Job job = jobDAO.findOne(commentDTO.getJobId());
+//			Job job = jobDAO.findOne(commentDTO.getJobId());
+			Job job = new Job();
 			job.setId(commentDTO.getJobId());
 			comment.setJob(job);
 		}

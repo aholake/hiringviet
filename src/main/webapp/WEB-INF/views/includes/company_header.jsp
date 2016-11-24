@@ -11,23 +11,42 @@
 	<div class="row company-header">
 		<div class="col m6 offset-m2">
 			<c:if test="${company != null}">
-				<p class="company-name"><a href="<c:url value='/company/${company.id}' />">${company.displayName}</a></p>
+				<p class="company-name"><a href="<c:url value='/company?companyId=${company.id}&mode=HOME' />">${company.displayName}</a></p>
 			</c:if>
 			<c:if test="${job != null}">
-				<p class="company-name"><a href="<c:url value='/company/${company.id}' />">${job.company.displayName}</a></p>
+				<p class="company-name"><a href="<c:url value='/company?companyId=${company.id}&mode=HOME' />">${job.company.displayName}</a></p>
 			</c:if>
 			<p>${numberFollower} <spring:message code="label.company.header.title.count_follow"/></p>
 			<ul class="menu-banner">
 				<c:if test="${company != null}">
 					<li>
-						<a href="/company/${company.id}" class="active">
-							<spring:message code="label.company.title.home"/>
-						</a>
+						<c:choose>
+							<c:when test="${param.mode == 'HOME'}">
+								<a href="<c:url value='/company?companyId=${company.id}&mode=HOME' />" class="active">
+									<spring:message code="label.company.title.home"/>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="<c:url value='/company?companyId=${company.id}&mode=HOME' />">
+									<spring:message code="label.company.title.home"/>
+								</a>
+							</c:otherwise>
+						</c:choose>
 					</li>
 					<li>
-						<a href="/company/${company.id}/job">
-							<spring:message code="label.company.title.careers"/>
-						</a>
+						<c:choose>
+							<c:when test="${param.mode == 'CAREER'}">
+								<a href="<c:url value='/company?companyId=${company.id}&mode=CAREER' />" class="active">
+									<spring:message code="label.company.title.careers"/>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="<c:url value='/company?companyId=${company.id}&mode=CAREER' />">
+									<spring:message code="label.company.title.careers"/>
+								</a>
+							</c:otherwise>
+						</c:choose>
+						
 					</li>
 				</c:if>
 				<c:if test="${job != null}">

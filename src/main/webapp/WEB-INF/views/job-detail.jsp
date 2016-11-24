@@ -15,11 +15,10 @@
 <!-- CSS media query on a link element -->
 <link rel="stylesheet" href="/resources/hiringviet/home/css/smart-home.css" />
 <link rel="stylesheet" href="/resources/hiringviet/company/css/company.css" />
-<script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </head>
 <body>
 	<input type="hidden" id="url_get_comments" value="<c:url value='/company/careers/comments' />" />
-	<input type="hidden" id="url_get_replyComments" value="<c:url value='' />" />
+	<input type="hidden" id="url_get_replyComments" value="<c:url value='/company/post/replyComments' />" />
 	<input type="hidden" id="url_redirect_member" value="<c:url value='/member/' />" />
 	<input type="hidden" id="reply_comment" value='<spring:message code="label.company.title.reply_comment"/>' />
 	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
@@ -30,6 +29,8 @@
 	<input type="hidden" id="job_id" value="${param.jobId}" />
 	<input type="hidden" id="firstItem-comment" value="0" />
 	<input type="hidden" id="currentPage-comment" value="1" />
+	<input type="hidden" id="id_of_account" value="${memberLogin.id}"/>
+
 		<div class="row">
 			<div class="col m8">
 				<!--GENERAL JOB INFO-->
@@ -40,7 +41,11 @@
 								<p class="title blue-text">${job.title}</p>
 							</div>
 							<div class="col m7 offset-m5 date-and-view right-align">
-								<span><i class="material-icons prefix-icon small-icon">date_range</i>Đăng ngày: ${job.postDate} | </span> <span><i class="material-icons prefix-icon small-icon">visibility</i> Lượt xem: ${job.numberVisited}</span>
+								<span>
+									<i class="material-icons prefix-icon small-icon">date_range</i>
+									Đăng ngày: <fmt:formatDate pattern="yyyy-MM-dd, hh:mm:ss a" value="${job.postDate}" /> | 
+								</span>
+								<span><i class="material-icons prefix-icon small-icon">visibility</i> Lượt xem: ${job.numberVisited}</span>
 							</div>
 							<div class="col m12">
 								<hr class="fancy-hr">
@@ -78,11 +83,12 @@
 							</div>
 							<div class="col m4">
 								<div class="row">
-									<a
-										class="waves-effect waves-light btn col m9 offset-m2 favourite-btn red lighten-2"><i
-										class="material-icons left white-text">bookmark</i>Yêu thích</a> <a
-										class="waves-effect waves-light btn col m9 offset-m2 margin-top-10"><i
-										class="material-icons left white-text">note_add</i>Ứng tuyển</a>
+									<c:if test="${memberLogin != null}">
+										<a class="waves-effect waves-light btn col m9 offset-m2 favourite-btn red lighten-2">
+										<i class="material-icons left white-text">bookmark</i>Yêu thích</a>
+									</c:if>
+									<a class="waves-effect waves-light btn col m9 offset-m2 margin-top-10">
+									<i class="material-icons left white-text">note_add</i>Ứng tuyển</a>
 								</div>
 							</div>
 						</div>
@@ -131,39 +137,14 @@
 							<li class="display-inline-flex">
 								<a class="margin-left-5 small-text a-text-color"><spring:message code="label.company.title.load_more_comment"/></a>
 							</li>
-							
-								<!-- 
-								<li class="collection-item avatar comment-bg">
-									<img src="" alt="" class="circle"> 
-									<p class="title"><a href="">Võ Tấn Lộc</a>
-									<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i></span></p>
-									<p class="small-text">Test</p> 
-									<p class="small-text display-inline-flex"><i class="material-icons small-icon">subdirectory_arrow_right</i>
-										<a class="a-text-color reply-" onclick="showReplyComment();">
-											<spring:message code="label.company.title.reply_comment"/>
-											(<span class="a-text-color numberReplyComment-">0</span>)
-										</a>
-										<input type="hidden" class="currentNumberReplyComment-" value="0"/>
-									</p>
-									<div class="reply-comment-" style="display: block;">
-										<input type="hidden" id="firstItem-reply-" value="0" />
-										<input type="hidden" id="currentPage-reply-" value="1" />
-										<ul class="collection remove-border" id="replyCommentList-">
-										</ul>
-										<div class="input-field col m12 p-0">
-											<input onkeypress="javascript:checkReplyComment(event);"
-												id="txtReplyComment-" type="text"
-												class="validate txtReplyComment"
-												placeholder="<spring:message code="label.company.title.write_comment"/>">
-										</div>
-									</div>
-								</li> -->
 						</ul>
-						<div class="post-comment">
-							<div class="input-field col m12">
-								<input id="last_name" type="text" class="validate" placeholder="<spring:message code='label.company.title.write_comment'/>">
+						<c:if test="${memberLogin != null}">
+							<div class="post-comment">
+								<div class="input-field col m12 mp0">
+									<input id="txtComment" type="text" onkeypress="javascript:checkComment(event);" class="validate" placeholder="<spring:message code='label.company.title.write_comment'/>">
+								</div>
 							</div>
-						</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -240,6 +221,7 @@
 				class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 		</div>
 	</div>
+	<div id="divLoading"></div>
 	<script type="text/javascript">
 		
 		CKEDITOR.replace('txtTitle');
@@ -256,5 +238,6 @@
 		});
 	</script>
 	<script src="<c:url value='/resources/hiringviet/job/js/job-details.js'/>"></script>
+	<script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
 </body>
 </html>

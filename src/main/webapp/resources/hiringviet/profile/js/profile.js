@@ -6,6 +6,22 @@ var skillName = null;
 var addingNumber = 0;
 $(function() { 
 
+	$("#dialog-connect").dialog({
+		autoOpen: false,
+		resizable : false,
+		height : "auto",
+		width : 400,
+		modal : true,
+		buttons : {
+			"Connect" : function() {
+				callAPI($('#url_add_connect').val(), 'POST', $('#paramMemberId').val(), "processAddConnect", true);
+			},
+			Cancel : function() {
+				$(this).dialog("close");
+			}
+		}
+	});
+
 	/* set current skill to list */
 	$(".list-skill-chip .current_skill").each(function() {
 		skillId = $(this).children('.temp').attr('id');
@@ -93,7 +109,7 @@ $(function() {
 	});
 
 	$('#btn-connect').on('click', function() {
-		callAPI($('#url_add_connect').val(), 'POST', $('#paramMemberId').val(), "processAddConnect", false);
+		$("#dialog-connect").dialog('open');
 	});
 
 	$( "#saveEmployee" ).submit(function( event ) {
@@ -138,7 +154,7 @@ function deleteSkillOfResume(accountId, resumeSkillId) {
 		resumeSkillId: resumeSkillId
 	}
 
-	callAPI($('#url_delete_skill_of_resume').val(), 'POST', data, 'processDeleteSkillOfResume', false);
+	callAPI($('#url_delete_skill_of_resume').val(), 'POST', data, 'processDeleteSkillOfResume', true);
 }
 
 function processDeleteSkillOfResume(responses) {
@@ -288,7 +304,7 @@ function showPopupAddExperience() {
 function setValueSettingSummary(select) {
 	var birthDate = $('.content-summary .birthDate').text();
 	var phoneNumber = $('.content-summary .phoneNumber').text();
-	var maleGender = $('.content-summary .maleGender').text();
+	var maleGender = $('.content-summary .maleGender').text().trim();
 	var nationality = $('.content-summary .nationality').text();
 	var summary = $('.content-summary .txtSummary').text();
 
@@ -302,12 +318,15 @@ function setValueSettingSummary(select) {
 	$('#saveSummary #nationality').val(nationality);
 
 	if ('Man' == maleGender) {
-		$('#saveSummary #r_man').prop('checked', true);
+		$('#saveSummary input:radio[name="maleGender"][value="true"]').prop('checked', true);
 	} else {
-		$('#saveSummary #r_woman').prop('checked', true);
+		$('#saveSummary input:radio[name="maleGender"][value="false"]').prop('checked', true);
 	}
 
-	CKEDITOR.instances['txtSummary'].setData(summary);
+	if (summary != undefined){
+		
+		CKEDITOR.instances['txtSummary'].setData(summary);
+	}
 
 	$('.panel-setting-summary').show();
 	$('.content-summary').hide();

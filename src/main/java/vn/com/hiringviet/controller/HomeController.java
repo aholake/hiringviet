@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.constant.ConstantValues;
@@ -63,8 +64,10 @@ public class HomeController {
 	 *            the session
 	 * @return home page
 	 */
-	@RequestMapping(value = { "/", "home" })
-	public String goHomePage(Model model) {
+	@RequestMapping(value = { "/", "home"})
+	public String goHomePage(Model model, 
+			@RequestParam(value = "mode", required = false) String mode, 
+			@RequestParam(value = "keyValue", required = false) String keyValue) {
 
 		String result = null;
 		Account account = getLoggedAccount();
@@ -74,14 +77,14 @@ public class HomeController {
 
 		if (Utils.isEmptyObject(account) || AccountRoleEnum.COMPANY == account.getUserRole()) {
 
-			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, true, null);
+			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, true, null, mode, keyValue);
 			companyList = companyService.getListCompany(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, true);
 			result = "home";
 		} else {
 
 			Member member = account.getMember();
 			List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
-			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
+			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, false, skillIds, mode, keyValue);
 			companyList = companyService.getListCompany(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, false);
 			model.addAttribute("account", account);
 			result = "home_login";

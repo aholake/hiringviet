@@ -185,16 +185,11 @@ public class Utils {
 	public static PagingDTO calculatorPaging(PagingDTO pagingDTO,
 			boolean fromStart) {
 
-		if (fromStart) {
-			if (ConstantValues.FIRST_RECORD == pagingDTO.getFirstItem()) {
-				pagingDTO.setFirstItem(ConstantValues.FIRST_RECORD);
-				pagingDTO.setCurrentPage(ConstantValues.CURRENT_PAGE);
-			} else {
-				pagingDTO.setFirstItem((pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT) + 1);
-				pagingDTO.setCurrentPage(pagingDTO.getCurrentPage() + 1);
-			}
+		if (fromStart && ConstantValues.FIRST_RECORD == pagingDTO.getFirstItem()) {
+			pagingDTO.setFirstItem(ConstantValues.FIRST_RECORD);
+			pagingDTO.setCurrentPage(ConstantValues.CURRENT_PAGE);
 		} else {
-			pagingDTO.setFirstItem((pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT) + 1);
+			pagingDTO.setFirstItem((pagingDTO.getCurrentPage() * ConstantValues.MAX_RECORD_COUNT));
 			pagingDTO.setCurrentPage(pagingDTO.getCurrentPage() + 1);
 		}
 
@@ -252,7 +247,7 @@ public class Utils {
 		return maps;
 	}
 
-	public static HttpServletResponse exportWord(HttpServletResponse response,
+	public static HttpServletResponse exportODT(HttpServletResponse response,
 			String fileName) {
 		response.setContentType("application/msword");
 		response.setHeader("Content-disposition", "inline; filename="
@@ -265,6 +260,14 @@ public class Utils {
 		response.setContentType("application/x-pdf");
 		response.setHeader("Content-disposition", "inline; filename="
 				+ fileName + ".pdf");
+		return response;
+	}
+
+	public static HttpServletResponse exportDocx(HttpServletResponse response,
+			String fileName) {
+		response.setContentType("application/msword");
+		response.setHeader("Content-disposition", "inline; filename="
+				+ fileName + ".docx");
 		return response;
 	}
 }

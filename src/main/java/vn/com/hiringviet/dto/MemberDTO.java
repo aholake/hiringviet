@@ -2,6 +2,8 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 
+import vn.com.hiringviet.common.StatusEnum;
+
 public class MemberDTO implements Serializable {
 
 	private static final long serialVersionUID = -4063470646119486134L;
@@ -14,7 +16,7 @@ public class MemberDTO implements Serializable {
 
 	private String avatarImage;
 
-	private Integer status;
+	private StatusEnum status;
 
 	private Long numberFollower;
 
@@ -60,11 +62,11 @@ public class MemberDTO implements Serializable {
 		this.avatarImage = avatarImage;
 	}
 
-	public Integer getStatus() {
+	public StatusEnum getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(StatusEnum status) {
 		this.status = status;
 	}
 

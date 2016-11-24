@@ -19,10 +19,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!--Import jQuery before materialize.js-->
-<script type="text/javascript"
-	src="/resources/common/js/jquery-2.1.1.min.js"></script>
-<script type="text/javascript"
-	src="<c:url value='/resources/common/js/materialize.min.js'/>"></script>
+<script type="text/javascript" src="/resources/common/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="<c:url value='/resources/common/js/materialize.min.js'/>"></script>
 
 <!--Common Style-->
 <link rel="stylesheet" type="text/css"

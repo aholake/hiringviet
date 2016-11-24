@@ -38,6 +38,7 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 		Criteria criteria = session.createCriteria(Comment.class, "comment");
 		criteria.createAlias("comment.member", "member");
 		criteria.createAlias("comment.member.resume", "resume");
+		criteria.createAlias("comment.member.account", "account", JoinType.LEFT_OUTER_JOIN);
 
 		if (isPost) {
 			criteria.createAlias("comment.post", "post");
@@ -50,7 +51,7 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.groupProperty("member.id").as("memberId"))
 				.add(Projections.groupProperty("comment.id").as("commentId"))
-				.add(Projections.property("resume.avatarImage").as("avatarImage"))
+				.add(Projections.property("account.avatarImage").as("avatarImage"))
 				.add(Projections.property("changeLog").as("changeLog"))
 				.add(Projections.property("comment.comment").as("comment"))
 				.add(Projections.property("member.firstName").as("firstName"))
@@ -63,7 +64,7 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 			criteria.add(Restrictions.eq("job.id", id));
 		}
 
-		criteria.addOrder(Order.desc("changeLog.createdDate"));
+		criteria.addOrder(Order.asc("comment.id"));
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);
 		criteria.setResultTransformer(Transformers.aliasToBean(CommentDTO.class));

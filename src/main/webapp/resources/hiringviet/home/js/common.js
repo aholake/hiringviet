@@ -28,22 +28,16 @@ var All = "All";
 
 var checkMemberTooltip = true;
 var isBeta = false;
+
 /** Global Constant for CSS pop-up Progressing */
-var popupCss = "background-color: #BCBCBC;\
-	opacity: 0.8;\
+var popupCss = "opacity: 0.5;\
 	position: fixed;\
 	top:0;\
 	left:0;\
 	width: 100%;\
 	height: 100%;\
-	z-index: 1001;";
-
-var wrap = "width: 40%;\
-    margin: 20% auto auto auto;\
-    height: 10px;\
-    background: #ffcdd2;";
-
-var process = "background: #e65100;";
+	z-index: 1001;\
+    background: url(../resources/images/icon/loading.gif) no-repeat 50% 50% #ffffff;";
 
 $(function() {
 	/* Close all dialog and navbar */
@@ -160,11 +154,7 @@ function callAPI(url, method, data, callback, isProgressing, isMobile) {
 
 function enableProgressing(isMobile) {
 
-	var progressingHTML = "<div id='progressingPopupSelector' style='" + popupCss + "'>\
-								<div class='progress' style='" + wrap + "'>\
-								    <div class='indeterminate' style='" + process + "'></div>\
-								</div>\
-							</div>";
+	var progressingHTML = "<div id='progressingPopupSelector' style='" + popupCss + "'></div>";
 	// Append to screen
 	$("body").append(progressingHTML);
 }

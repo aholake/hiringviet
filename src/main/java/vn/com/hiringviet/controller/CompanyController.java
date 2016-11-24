@@ -2,14 +2,17 @@ package vn.com.hiringviet.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.api.dto.request.CommentRequestDTO;
@@ -17,9 +20,11 @@ import vn.com.hiringviet.api.dto.request.ReplyCommentRequestDTO;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
 import vn.com.hiringviet.api.dto.response.ReplyCommentResponseDTO;
 import vn.com.hiringviet.common.AccountRoleEnum;
+import vn.com.hiringviet.common.ModeEnum;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.CommentDTO;
+import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.dto.ReplyCommentDTO;
@@ -30,6 +35,7 @@ import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.CommentService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.FollowService;
+import vn.com.hiringviet.service.JobService;
 import vn.com.hiringviet.service.ReplyCommentService;
 import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.Utils;
@@ -56,6 +62,9 @@ public class CompanyController {
 	@Autowired
 	private ReplyCommentService replyCommentService;
 
+	@Autowired
+	private JobService jobService;
+
 	/**
 	 * Go company page.
 	 *
@@ -67,46 +76,60 @@ public class CompanyController {
 	 *            the session
 	 * @return the string
 	 */
-	@RequestMapping(value = "/company/{companyId}", method = RequestMethod.GET)
-	public String goCompanyPage(@PathVariable("companyId") Integer companyId, Model model) {
+	@RequestMapping(value = "/company", method = RequestMethod.GET)
+	public String goCompanyPage(@RequestParam("companyId") Integer companyId,
+			@RequestParam(value = "mode", required = false) String mode, Model model) {
 
 		Company company = companyService.getCompanyById(companyId);
-		List<PostDTO> postList = companyService.getListPosts(0,
-				ConstantValues.MAX_RECORD_COUNT, companyId);
-		Long numberFollower = followService.countNumberOfFollower(company
-				.getAccount().getId());
+		Long numberFollower = followService.countNumberOfFollower(company.getAccount().getId());
 
-		if (ConstantValues.MAX_RECORD_COUNT > postList.size()) {
-			model.addAttribute("isDisabledLoadPosts", true);
+		Member memberLogin = null;
+		Company companyLogin = null;
+
+		Account account = getLoggedAccount();
+		if (account != null) {
+			memberLogin = account.getMember();
+			companyLogin = account.getCompany();
+
+			if (companyLogin != null && company != null) {
+				if (companyLogin.getId() == company.getId()) {
+					model.addAttribute("isOwner", 1);
+				}
+			}
+		}
+		model.addAttribute("memberLogin", memberLogin);
+		model.addAttribute("companyLogin", companyLogin);
+
+		if (ModeEnum.CAREER.getValue().equals(mode)) {
+
+			List<Job> jobList = companyService.getListJob(0, ConstantValues.MAX_RECORD_COUNT, companyId);
+
+			if (ConstantValues.MAX_RECORD_COUNT > jobList.size()) {
+				model.addAttribute("isDisabledLoadJob", true);
+			}
+
+			model.addAttribute("jobList", jobList);
+
+		} else {
+
+			List<PostDTO> postList = companyService.getListPosts(ConstantValues.FIRST_RECORD,
+					ConstantValues.MAX_RECORD_COUNT, companyId);
+
+			if (ConstantValues.MAX_RECORD_COUNT > postList.size()) {
+				model.addAttribute("isDisabledLoadPosts", true);
+			}
+
+			model.addAttribute("postList", postList);
 		}
 
-		model.addAttribute("postList", postList);
-		model.addAttribute("company", company);
 		model.addAttribute("numberFollower", numberFollower);
-		return "company";
-	}
 
-	/**
-	 * Go company carrers page.
-	 *
-	 * @param companyId the company id
-	 * @param model the model
-	 * @param session the session
-	 * @return the string
-	 */
-	@RequestMapping(value = "/company/{companyId}/job", method = RequestMethod.GET)
-	public String goCompanyCarrersPage(@PathVariable("companyId") Integer companyId, Model model) {
+		List<JobDTO> newJobs = jobService.getNewJobs(companyId);
+		model.addAttribute("newJobs", newJobs);
 
-		Company company = companyService.getCompanyById(companyId);
-		List<Job> jobList = companyService.getListJob(0, ConstantValues.MAX_RECORD_COUNT, companyId);
-
-		if (ConstantValues.MAX_RECORD_COUNT > jobList.size()) {
-			model.addAttribute("isDisabledLoadJob", true);
-		}
-
-		model.addAttribute("jobList", jobList);
 		model.addAttribute("company", company);
-		return "company-careers";
+
+		return "company";	
 	}
 
 	/**
@@ -163,6 +186,7 @@ public class CompanyController {
 
 		if (Utils.isEmptyList(commentDTOs)) {
 			commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+			commentResponseDTO.setPostId(commentRequestDTO.getPostId());
 			return commentResponseDTO;
 		}
 
@@ -221,11 +245,17 @@ public class CompanyController {
 	public @ResponseBody CommentResponseDTO addComment(@RequestBody CommentDTO commentDTO) {
 
 		CommentResponseDTO commentResponseDTO = new CommentResponseDTO();
+		commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 
 		Account account = getLoggedAccount();
+		
+		if (account == null)
+		{
+			return commentResponseDTO;
+		}
+
 		Member member = account.getMember();
 
-		commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
 		if (!Utils.isEmptyObject(member)) {
 			commentDTO.setMember(member);
 			if (!Utils.isEmptyNumber(commentService.create(commentDTO))) {
@@ -310,5 +340,49 @@ public class CompanyController {
 			return loginedAccount;
 		}
 		return null;
+	}
+
+	/**
+	 * Go job detail page.
+	 *
+	 * @param model the model
+	 * @param session the session
+	 * @return the string
+	 */
+	@RequestMapping(value = "/company/careers", method = RequestMethod.GET)
+	public String goJobDetailPage(@RequestParam("jobId") Integer jobId, Model model, HttpSession session) {
+
+		Job job = jobService.getJobById(jobId);
+		Long numberFollower = followService.countNumberOfFollower(job.getCompany().getAccount().getId());
+		model.addAttribute("job", job);
+		model.addAttribute("numberFollower", numberFollower);
+		
+		Member memberLogin = null;
+
+		Account account = getLoggedAccount();
+		if (account != null) {
+			memberLogin = account.getMember();
+		}
+		model.addAttribute("memberLogin", memberLogin);
+
+		return "job-detail";
+	}
+
+	@RequestMapping(value = "/company/addPosts", method = RequestMethod.POST)
+	public String addPosts(@ModelAttribute PostDTO postDTO, Model model) {
+		
+		Company companyLogin = null;
+
+		Account account = getLoggedAccount();
+		if (account != null) {
+			companyLogin = account.getCompany();
+		}
+		
+		if (companyLogin != null) {
+			companyService.addPosts(postDTO, companyLogin);
+			
+			return goCompanyPage(companyLogin.getId(), ModeEnum.HOME.getValue(), model);
+		}
+		return "redirect:/login";
 	}
 }

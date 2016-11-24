@@ -27,7 +27,7 @@
 	<input type="hidden" id="text_title_major" value="<spring:message code="label.home.title.major"/>" />
 	<input type="hidden" id="text_total_employee" value="<spring:message code="label.home.title.total_employee"/>" />
 	<input type="hidden" id="text_title_people" value="<spring:message code="label.home.title.people"/>" />
-	<input type="hidden" id="none_value" value="<spring:message code='label.default.dropdown.none_value'></spring:message>">
+	<input type="hidden" id="none_value" value="<spring:message code='label.default.dropdown.none_value'></spring:message>" />
 
 	<div class="row">
 		<div class="col m8 no-padding-on-med-and-down">
@@ -141,10 +141,10 @@
 											<h1 class="col m9 p-0 title block-with-text">
 												<c:choose>
 													<c:when test="${job.company.isVip == 1}">
-														<a class="hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
+														<a class="job-title hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</c:when>
 													<c:otherwise>
-														<a class="not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
+														<a class="job-title not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</c:otherwise>
 												</c:choose>
 											</h1>
@@ -216,7 +216,9 @@
 											</div>
 										</div>
 									</div>
-									<i class="material-icons right icon-arrow margin-right-5 cursor">keyboard_arrow_up</i>
+									<i class="material-icons right icon-arrow margin-right-5 cursor mp0">keyboard_arrow_up</i>
+									<input type="checkbox" class="filled-in right note-job" id="filled-in-box-${job.id}"/>
+									<label for="filled-in-box-${job.id}" class="right"></label>
 								</div>
 							</div>
 						</div>
@@ -374,6 +376,38 @@
 			</div>
 		</div>
 	</div>
+	<form id="applyForm" action="/job/apply">
+		<input type="hidden" id="jobList" name="jobList" value="" />
+		<div class="float-table-wrapper white">
+			<div class="selected-table-wrapper">
+				<table class="selected-job-table striped">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="mp0">
+								Selected Jobs
+								<i class="material-icons cursor right arrow" onclick="hideSelectedJobTable();">keyboard_arrow_down</i>
+							</th>
+							<th>
+								<i class="material-icons cursor" onclick="closeSelectedJobTable();">close</i>
+							</th>
+						</tr>
+					</thead>
+					<tbody class="tbody">
+						<tr class="job">
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3">
+								  <a class="waves-effect waves-light btn btn-apply-job orange right" href="#">Apply All</a>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</form>
 	<!-- Local js -->
 	<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/home.js'/>"></script>
 	<script type="text/javascript">
@@ -384,6 +418,17 @@
 				var url = "/company/getCompanyHot";
 				callAPI(url, "POST", scrollTime, 'appendCompanyToCard');
 			}
+			
+			$('.btn-apply-job').on('click', function() {
+				var jobList = new Array();
+				$(".apply-job-item").each(function( index ) {
+					var jobId = $(this).find('.job-id').val();
+					jobList += jobId + "-";
+				});
+				$('#jobList').val(jobList);
+
+				$('#applyForm').submit();
+			});
 		});
 	</script>
 </body>

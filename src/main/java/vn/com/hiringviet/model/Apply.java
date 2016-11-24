@@ -23,7 +23,11 @@ public class Apply implements Serializable {
 
 	private Member member;
 
+	private String curriculumVitae;
+
 	private Job job;
+
+	private String disscription;
 
 	private ChangeLog changeLog;
 
@@ -55,6 +59,24 @@ public class Apply implements Serializable {
 
 	public void setJob(Job job) {
 		this.job = job;
+	}
+
+	@JoinColumn(name = "curriculum_vitae")
+	public String getCurriculumVitae() {
+		return curriculumVitae;
+	}
+
+	public void setCurriculumVitae(String curriculumVitae) {
+		this.curriculumVitae = curriculumVitae;
+	}
+
+	@JoinColumn(name = "description")
+	public String getDisscription() {
+		return disscription;
+	}
+
+	public void setDisscription(String disscription) {
+		this.disscription = disscription;
 	}
 
 	@OneToOne(fetch = FetchType.LAZY)

@@ -178,7 +178,7 @@
 									<label><spring:message code="label.profile.title.summary.birth_date"/></label>
 								</div>
 								<div class="input-field col m5 p-0 offset-m2">
-									<form:input type="text" id="phoneNumber" path="phoneNumber" cssClass="validate"/>
+									<form:input placeholder="Phone number" type="text" id="phoneNumber" path="phoneNumber" cssClass="validate"/>
 									<label for="phoneNumber">
 										<spring:message code="label.profile.title.summary.phone_number"/>
 									</label>
@@ -195,7 +195,7 @@
 									</label>
 								</div>
 								<div class="input-field col m5 p-0 offset-m2">
-									<form:input type="text" id="nationality" path="nationality" cssClass="validate"/>
+									<form:input placeholder="Nationality"  type="text" id="nationality" path="nationality" cssClass="validate"/>
 									<label for="nationality">
 										<spring:message code="label.profile.title.summary.placeholder.nationality"/>
 									</label>
@@ -620,7 +620,7 @@
 														onmouseout="onMouseOutEndorsingEvent('add_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
 														onclick="onClickEndorsingEvent(true, '${skillResume.skill.id}', '${skillResume.id}');">add</i>
 													<i style="display: none;"
-														class="material-icons small-icon margin-top-3px icon_remove_endorse_${skillResume.skill.id} display-none"
+														class="material-icons small-icon margin-top-3px icon_remove_endorse_${skillResume.skill.id}"
 														onmouseover="onMouseOverEndorsingEvent('remove_endorse_title_${skillResume.skill.id}', '${skillResume.skill.id}');"
 														onmouseout="onMouseOutEndorsingEvent('remove_endorse_title_${skillResume.skill.id}', '${skillResume.id}');"
 														onclick="onClickEndorsingEvent(false, '${skillResume.skill.id}', '${skillResume.id}');">remove</i>
@@ -637,11 +637,11 @@
 				    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
 					    						<c:choose>
 					    							<c:when test="${not empty memberLogin.account && memberLogin.account.id == endorse.account.id && checkConnect == true}">
-														<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}${skillResume.skill.id}"
+														<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}_${skillResume.skill.id}"
 															onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
 															onmouseout="javascript:hideMemberToolTip()">
-															<a href="#"> <img class="img-full"
-																src="${endorse.account.avatarImage}">
+														<a href="/profile?memberId=${endorse.account.id}">
+															<img class="img-full" src="${endorse.account.avatarImage}">
 														</a>
 														</li>
 														<script type="text/javascript">
@@ -690,19 +690,20 @@
 				    						<a href="" class="endorse-item-name-text">${skillResume.skill.displayName}</a>
 				    					</span>
 				    					<c:if test="${not empty memberLogin.account && memberLogin.account.id != member.account.id}">
+			    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
+							    			<a class="icon-endorse">
+							    				<i class="material-icons small-icon icon_add_endorse_${skillResume.skill.id}"
+												onclick="onClickEndorsingDifferentEvent(true, '${skillResume.skill.id}', '${skillResume.id}');">add</i>
+											</a>
+							    			<a class="icon-endorse">
+							    				<i style="display: none;" class="material-icons small-icon icon_remove_endorse_${skillResume.skill.id}"
+												onclick="onClickEndorsingDifferentEvent(false, '${skillResume.skill.id}', '${skillResume.id}');">remove</i>
+											</a>
 				    						<c:forEach items="${skillResume.endorseSet}" var="endorse" varStatus="theCount">
-				    							<input type="hidden" class="skill_resume_${skillResume.skill.id}" value="${skillResume.skill.id}"/>
-								    			<a class="icon-endorse">
-								    				<i class="material-icons small-icon icon_add_endorse_${skillResume.skill.id}"
-													onclick="onClickEndorsingDifferentEvent(true, '${skillResume.skill.id}', '${skillResume.id}');">add</i>
-												</a>
-								    			<a class="icon-endorse">
-								    				<i class="material-icons small-icon display-none icon_remove_endorse_${skillResume.skill.id}"
-													onclick="onClickEndorsingDifferentEvent(false, '${skillResume.skill.id}', '${skillResume.id}');">remove</i>
-												</a>
 					    						<c:if test="${memberLogin.account.id == endorse.account.id}">
 					    							<script type="text/javascript">
 						    							var skillResumeId = $('.skill_resume_' + ${skillResume.skill.id}).val();
+						    							
 						    							$('.icon_add_endorse_' + skillResumeId).hide();
 						    							$('.icon_remove_endorse_' + skillResumeId).show();
 						    						</script>
@@ -716,13 +717,122 @@
 			    	</ul>
 		    		</div>
 				</div>
+				<div class="card-panel padding-10 hoverable">
+					<h1 class="title">Following</h1>
+					<p class="small-text">Companies</p>
+				</div>
 			</div>
 			<div class="col m4">
+				<div class="row">
+					<div class="col m12 mp0">
+						<ul class="collapsible" data-collapsible="accordion">
+							<li>
+								<div class="collapsible-header">
+									<i class="material-icons">filter_drama</i>Customize Your Public Profile
+								</div>
+								<div class="collapsible-body bg-white">
+									<div class="row">
+										<div class="col m12">
+											<p class="small-text">Public Profile</p>
+											<div class="switch margin-left-1em">
+												<label> Off <input type="checkbox" checked="checked" /> <span class="lever"></span> On </label>
+											</div>
+											<p class="small-text margin-top-10">Customize Your Public Profile</p>
+											<div class="margin-left-1em">
+												<input class="with-gap" name="isPublicProfile" type="radio" id="r_isPublicProfile" value="true"/>
+												<label for="r_isPublicProfile">Make my public profile visible to no one</label>
+											</div>
+											<div class="margin-left-1em">
+												<input class="with-gap" name="isPublicProfile" type="radio" id="r_notPublicProfile" value="false" checked="checked"/>
+												<label for="r_notPublicProfile">Make my public profile visible to everyone</label>
+											</div>
+											<div class="row">
+												<div class="col m12 margin-left-1em">
+													<ul class="make-public margin-left-23">
+														<li>
+															<input type="checkbox" class="filled-in" name="chkHeadline" id="chk-headline" checked="checked" />
+															<label for="chk-headline">Headline</label>
+														</li>
+														<li>
+															<input type="checkbox" class="filled-in" name="chkEducation" id="chk-eduation" checked="checked"/>
+															<label for="chk-eduation">Education</label>
+															<ul class="margin-left-35">
+																<li>
+																	<input type="checkbox" class="filled-in" name="chkEducationDetails" id="chk-edu-details" checked="checked"/>
+																	<label for="chk-edu-details">Details</label>
+																</li>
+															</ul>
+														</li>
+														<li>
+															<input type="checkbox" class="filled-in" name="chkCurrentPosition" id="chk-current-position" checked="checked"/>
+															<label for="chk-current-position">Current Positions</label>
+															<ul class="margin-left-35">
+																<li>
+																	<input type="checkbox" class="filled-in" name="chkCurrentPositionDetails" id="chk-current-position-details" checked="checked"/>
+																	<label for="chk-current-position-details">Details</label>
+																</li>
+															</ul>
+														</li>
+													</ul>
+													<button type="button" class="waves-effect waves-light btn right margin-right-10">Save</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header">
+									<i class="material-icons"><i class="material-icons">insert_drive_file</i></i>View file as
+								</div>
+								<div class="collapsible-body">
+									<div class="collection">
+										<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to PDF</a>
+										<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to Docx</a>
+										<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_upload</i>Import resume</a>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="collapsible-header">
+									<i class="material-icons">settings</i>Account settings
+								</div>
+								<div class="collapsible-body bg-white">
+									<div class="collection">
+										<a href="#" class="collection-item">
+											<b>Email address</b><br/>
+											<i class="small-text">Add or remove email addresses on your account</i>
+										</a>
+										<a href="#" class="collection-item">
+											<b>Phone numbers</b><br/>
+											<i class="small-text">Add a phone number in case you have trouble signing in</i>
+										</a>
+										<a href="#" class="collection-item">
+											<b>Language</b><br/>
+											<i class="small-text">Select the language you use on HiringViet</i>
+										</a>
+										<a href="#" class="collection-item">
+											<b>Showing profile photos</b><br/>
+											<i class="small-text">Choose whether to show or hide profile photos of other members</i>
+										</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
 				<div class="card-panel">
+					<div class="panel-title">Profile Management</div>
+					<div class="panel-content">
+						<div class="row">
+							<div class="col m12">
+								
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	<!-- Modal Structure -->
 	<div id="modal1" class="modal bottom-sheet">
 		<div class="modal-content">
@@ -730,8 +840,7 @@
 			<p>A bunch of text</p>
 		</div>
 		<div class="modal-footer">
-			<a href="#!"
-				class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
 		</div>
 	</div>
 	<div class="tooltil-show-member">
@@ -753,6 +862,14 @@
     		</div>
     	</div>
     </div>
+
+	<div id="dialog-connect" title="Notification">
+		<p>
+			<span class="ui-icon ui-icon-alert" style="float: left; margin: 12px 12px 20px 0;"></span>
+			Are you sure?
+		</p>
+	</div>
+
 	<script src="<c:url value='/resources/hiringviet/profile/js/profile.js'/>"></script>
 	<script src="<c:url value='/resources/hiringviet/profile/js/endorse.js'/>"></script>
 	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>
@@ -767,6 +884,9 @@
 		CKEDITOR.replace("txtEmployeeDescription");
 		CKEDITOR.replace("txtSocialActivity");
 		CKEDITOR.replace("txtSummary");
+		
+		$('.collapsible').collapsible();
+		
 	</script>
 </body>
 </html>

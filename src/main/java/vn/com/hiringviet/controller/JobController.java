@@ -1,14 +1,12 @@
 package vn.com.hiringviet.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,7 +69,9 @@ public class JobController {
 
 		PagingDTO pagingDTO = Utils.calculatorPaging(loadMoreRequestDTO.getPagingDTO(), false);
 
-		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO, pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, true, null);
+		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO,
+				pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
+				true, null, null, null);
 
 		if (Utils.isEmptyList(jobList)) {
 			jobResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -94,7 +94,9 @@ public class JobController {
 		Member member = account.getMember();
 		List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
 
-		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO, pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, false, skillIds);
+		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO,
+				pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
+				false, skillIds, null, null);
 
 		if (Utils.isEmptyList(jobList)) {
 			jobResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -106,23 +108,6 @@ public class JobController {
 		return jobResponseDTO;
 	}
 
-	/**
-	 * Go job detail page.
-	 *
-	 * @param model the model
-	 * @param session the session
-	 * @return the string
-	 */
-	@RequestMapping(value = "/company/careers", method = RequestMethod.GET)
-	public String goJobDetailPage(@RequestParam("jobId") Integer jobId, Model model, HttpSession session) {
-
-		Job job = jobService.getJobById(jobId);
-		Long numberFollower = followService.countNumberOfFollower(job.getCompany().getAccount().getId());
-		model.addAttribute("job", job);
-		model.addAttribute("numberFollower", numberFollower);
-		return "job-detail";
-	}
-
 	private Account getLoggedAccount() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof Account) {
@@ -130,5 +115,14 @@ public class JobController {
 			return loginedAccount;
 		}
 		return null;
+	}
+
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "/job/apply", method = RequestMethod.GET)
+	public String goApplyPage(@RequestParam("jobList") String jobList) {
+
+		String[] jobArray = jobList.split("-");
+
+		return "apply";
 	}
 }

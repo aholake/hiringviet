@@ -15,11 +15,15 @@ public interface JobService {
 
 	public int addJob(Job job);
 
-	public List<Job> getJobList(LoadMoreRequestDTO loadMoreRequestDTO, Integer first, Integer max, boolean isHotJob, List<Integer> skills);
+	public List<Job> getJobList(LoadMoreRequestDTO loadMoreRequestDTO,
+			Integer first, Integer max, boolean isHotJob, List<Integer> skills,
+			String mode, String keyValue);
 
 	public Job getJobById(Integer id);
 
 	public Job getJobByID(Integer id);
 
 	public List<JobDTO> searchJobByKeyWord(String keyWord);
+
+	public List<JobDTO> getNewJobs(Integer companyId);
 }

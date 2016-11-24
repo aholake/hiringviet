@@ -13,12 +13,14 @@ import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.dao.PostDAO;
 import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
+import vn.com.hiringviet.model.Post;
 import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.AddressService;
 import vn.com.hiringviet.service.CompanyService;
@@ -46,6 +48,9 @@ public class CompanyServiceImpl implements CompanyService {
 	private AddressService addressService;
 
 	private Properties configProperties;
+
+	@Autowired
+	private PostDAO postDAO;
 
 	@Override
 	public int addCompany(Company company) {
@@ -142,6 +147,22 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public Company getCompanyById(int id) {
 		return companyDAO.findOne(id);
+	}
+
+	@Override
+	public boolean addPosts(PostDTO postDTO, Company company) {
+		
+		Post post = new Post();
+		post.setTitle(postDTO.getTitle());
+		post.setDescription(postDTO.getDescription());
+		post.setCompany(company);
+		post.setChangeLog(Utils.generatorChangeLog());
+
+		if (postDAO.create(post) > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

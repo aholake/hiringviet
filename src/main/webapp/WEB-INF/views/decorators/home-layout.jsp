@@ -21,8 +21,7 @@
 <script type="text/javascript" src="/resources/common/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="<c:url value='/resources/common/js/materialize.min.js'/>"></script>
 <!--Common Style-->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/common/css/style.css'/>">
+<link rel="stylesheet" type="text/css" href="<c:url value='/resources/common/css/style.css'/>">
 <decorator:head />
 </head>
 <body>

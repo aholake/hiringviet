@@ -22,23 +22,29 @@ function onClickEndorsingEvent(isAdd, value, skillResumeId) {
 		$('.icon_add_endorse_' + value).hide();
 		$('.icon_remove_endorse_' + value).show();
 		$('.num-endorsements-' + value).html(parseInt($('.num-endorsements-' + value).html()) + 1);
-		callAPI($('#url_add_endorse').val(), 'POST', skillResumeId, 'processAddEndorse', false);
+		callAPI($('#url_add_endorse').val(), 'POST', skillResumeId, 'processAddEndorse', true);
 	} else {
-		$('.endorse_account_' + $('#id_of_account').val() + value).remove();
+
+		$('.endorsers-pics-' + value + ' li:first').remove();
+//		$('.endorse_account_' + $('#id_of_account').val() + '+' + value).remove();
 		$('.icon_add_endorse_' + value).show();
 		$('.icon_remove_endorse_' + value).hide();
 		$('.num-endorsements-' + value).html(parseInt($('.num-endorsements-' + value).html()) - 1);
-		callAPI($('#url_remove_endorse').val(), 'POST', skillResumeId, 'processRemoveEndorse', false);
+		callAPI($('#url_remove_endorse').val(), 'POST', skillResumeId, 'processRemoveEndorse', true);
 	}
 }
 
 function onClickEndorsingDifferentEvent(isAdd, value, skillResumeId) {
 	if (isAdd) {
 		$('.num-endorsements-' + value).html(parseInt($('.num-endorsements-' + value).html()) + 1);
-		callAPI($('#url_add_endorse').val(), 'POST', skillResumeId, 'processAddEndorse', false);
+		$('.icon_add_endorse_' + value).hide();
+		$('.icon_remove_endorse_' + value).show();
+		callAPI($('#url_add_endorse').val(), 'POST', skillResumeId, 'processAddEndorse', true);
 	} else {
 		$('.num-endorsements-' + value).html(parseInt($('.num-endorsements-' + value).html()) - 1);
-		callAPI($('#url_remove_endorse').val(), 'POST', skillResumeId, 'processRemoveEndorse', false);
+		$('.icon_add_endorse_' + value).show();
+		$('.icon_remove_endorse_' + value).hide();
+		callAPI($('#url_remove_endorse').val(), 'POST', skillResumeId, 'processRemoveEndorse', true);
 	}
 }
 

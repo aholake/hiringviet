@@ -21,9 +21,10 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public List<Job> getJobList(LoadMoreRequestDTO loadMoreRequestDTO,
-			Integer first, Integer max, boolean isHotJob, List<Integer> skills) {
+			Integer first, Integer max, boolean isHotJob, List<Integer> skills,
+			String mode, String keyValue) {
 
-		return jobDAO.getListJob(loadMoreRequestDTO, first, max, skills, isHotJob);
+		return jobDAO.getListJob(loadMoreRequestDTO, first, max, skills, isHotJob, mode, keyValue);
 	}
 
 	@Override
@@ -45,5 +46,9 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public List<JobDTO> searchJobByKeyWord(String keyWord) {
 		return jobDAO.searchJobByKeyWord(keyWord);
+	}
+
+	public List<JobDTO> getNewJobs(Integer companyId) {
+		return jobDAO.getNewJobs(companyId);
 	}
 }

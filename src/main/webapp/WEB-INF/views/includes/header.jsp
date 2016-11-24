@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -80,62 +80,64 @@
 					<i class="material-icons white-text">search</i>
 				</a>
 				<sec:authorize access="isAnonymous()">
-					<a class="menu-group modal-trigger" href="#loginModal"> <span
-						id="menu-btn" class="circle-btn noselect"> <i
-							class="material-icons">account_circle</i>
-					</span>
+					<a class="menu-group modal-trigger" href="#loginModal"> 
+						<span id="menu-btn" class="circle-btn noselect"> 
+							<i class="material-icons">account_circle</i>
+						</span>
 					</a>
 				</sec:authorize>
+				<!-- Begin USER -->
 				<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
 					<sec:authentication property="principal" var="principal" />
-					<a class="menu-group"> <span id="menu-btn"
-						class="circle-btn red lighten-2 noselect"> <i
-							class="material-icons white-text">menu</i>
-					</span>
+						<a class="menu-group"> 
+							<span id="menu-btn" class="circle-btn red lighten-2 noselect"> 
+							<i class="material-icons white-text">menu</i>
+							</span>
+						</a>
 						<div id="dropdown-menu" class="z-depth-1">
 							<div class="top-menu-box">
 								<div id="profile">
-									<img src="/resources/images/profile_photo.jpg"
-										class="circle profile-photo">
+									<img src="${principal.avatarImage}" class="circle profile-photo">
 									<h5>
-										<a href="#">${principal.member.fullName}</a>
+										<a href="#">${principal.member.firstName} ${principal.member.lastName}</a>
 									</h5>
 									<h6>
-										<a href="#"><spring:message
-												code="label.navbar.title.add_skill" /></a>
+										<a href="/profile?memberId=${principal.member.id}">
+											<spring:message code="label.navbar.title.add_skill" />
+										</a>
 									</h6>
 								</div>
 							</div>
 							<ul class="menu-item">
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">account_box</i>
-											<spring:message code="label.navbar.title.profile" /> </a>
+										<a href="/profile?memberId=${principal.member.id}">
+											<i class="material-icons prefix-icon">account_box</i>
+											<spring:message code="label.navbar.title.profile"/>
+										</a>
 									</div>
 									<div class="menu-item-body">
 										<ul>
-											<li><a href="#"><spring:message
-														code="label.navbar.title.edit_profile" /></a></li>
-											<li><a href="#"><spring:message
-														code="label.navbar.title.visiting_number" /></a></li>
-											<li><a href="#"><spring:message
-														code="label.navbar.title.activity_log" /></a></li>
-											<li><a href="#"><spring:message
-														code="label.navbar.title.mailbox" /></a></li>
+											<li><a href="#"><spring:message code="label.navbar.title.edit_profile" /></a></li>
+											<li><a href="#"><spring:message code="label.navbar.title.visiting_number" /></a></li>
+											<li><a href="#"><spring:message code="label.navbar.title.activity_log" /></a></li>
+											<li><a href="#"><spring:message code="label.navbar.title.mailbox" /></a></li>
 										</ul>
 									</div>
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">add_alert</i>Thông
-											báo</a>
+										<a href="#"><i class="material-icons prefix-icon">add_alert</i>Thông báo</a>
 										<div class="chip red lighten-2 white-text noti-count">5</div>
 									</div>
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">donut_large</i>
-											<spring:message code="label.navbar.title.follow" /></a>
+										<a href="#">
+											<i class="material-icons prefix-icon">donut_large</i>
+											<spring:message code="label.navbar.title.follow" />
+										</a>
+										<div class="chip red lighten-2 white-text noti-count">${fn:length(principal.toFollows)}</div>
 									</div>
 									<div class="menu-item-body">
 										<ul>
@@ -146,8 +148,9 @@
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">bookmark</i>Quản
-											lý nghề nghiệp</a>
+										<a href="#">
+											<i class="material-icons prefix-icon">bookmark</i>Quản lý nghề nghiệp
+										</a>
 									</div>
 									<div class="menu-item-body">
 										<ul>
@@ -158,20 +161,82 @@
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">account_circle</i>
-											<spring:message code="label.navbar.title.account" /> </a>
-									</div>
-								</li>
-								<li>
-									<div class="menu-item-header">
-										<a href="/logout"><i class="material-icons prefix-icon">exit_to_app</i>
-											<spring:message code="label.navbar.title.sign_out" /> </a>
+										<a href="/logout">
+											<i class="material-icons prefix-icon">exit_to_app</i>
+											<spring:message code="label.navbar.title.sign_out" />
+										</a>
 									</div>
 								</li>
 							</ul>
 						</div>
 					</a>
 				</sec:authorize>
+				<!-- End USER -->
+				<!-- Begin COMPANY -->
+				<sec:authorize access="hasAuthority('COMPANY') and isAuthenticated()">
+					<sec:authentication property="principal" var="principal" />
+						<a class="menu-group"> 
+							<span id="menu-btn" class="circle-btn red lighten-2 noselect"> 
+							<i class="material-icons white-text">menu</i>
+							</span>
+						</a>
+						<div id="dropdown-menu" class="z-depth-1">
+							<div class="top-menu-box">
+								<div id="profile">
+									<img src="${principal.avatarImage}" class="circle profile-photo">
+									<h5>
+										<a href="#">${principal.company.displayName}</a>
+									</h5>
+									<h6>
+										<a href="/company/${principal.company.id}">
+											Đăng tuyển
+										</a>
+									</h6>
+								</div>
+							</div>
+							<ul class="menu-item">
+								<li>
+									<div class="menu-item-header">
+										<a href="/company/${principal.company.id}">
+											<i class="material-icons prefix-icon">account_box</i>
+											Hồ sơ công ty
+										</a>
+									</div>
+								</li>
+								<li>
+									<div class="menu-item-header">
+										<a href="#"><i class="material-icons prefix-icon">add_alert</i>Thông báo</a>
+										<div class="chip red lighten-2 white-text noti-count">5</div>
+									</div>
+								</li>
+								<li>
+									<div class="menu-item-header">
+										<a href="#">
+											<i class="material-icons prefix-icon">donut_large</i>
+											<spring:message code="label.navbar.title.follow" />
+										</a>
+										<div class="chip red lighten-2 white-text noti-count">${fn:length(principal.toFollows)}</div>
+									</div>
+									<div class="menu-item-body">
+										<ul>
+											<li><a href="#">Người đang theo dõi</a></li>
+											<li><a href="#">Công ty đang theo dõi</a></li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<div class="menu-item-header">
+										<a href="/logout">
+											<i class="material-icons prefix-icon">exit_to_app</i>
+											<spring:message code="label.navbar.title.sign_out" />
+										</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</a>
+				</sec:authorize>
+				<!-- End COMPANY -->
 			</div>
 		</div>
 	</div>

@@ -85,16 +85,34 @@ public class ProfileController {
 		Member memberLogin = null;
 
 		Account account = getLoggedAccount();
+
 		if (account != null) {
 			memberLogin = account.getMember();
-			model.addAttribute("memberLogin", memberLogin);
 		}
 
+		model.addAttribute("memberLogin", memberLogin);
+
 		boolean checkConnect = false;
-		if (!Utils.isEmptyObject(memberLogin)) {
-			Connect connect = connectService.getConnectByMemberId(memberLogin.getId(), member.getId());
-			if (!Utils.isEmptyObject(connect)) {
-				checkConnect = true;
+
+		if (Utils.isEmptyObject(memberLogin)) {
+			
+			checkConnect = true;
+		} else {
+			
+			if (!Utils.isEmptyObject(member)) {
+				
+				if (memberLogin.getId().compareTo(member.getId()) == 0) {
+					
+					checkConnect = true;
+					
+				} else {
+					
+					Connect connect = connectService.getConnectByMemberId(memberLogin.getId(), member.getId());
+					
+					if (!Utils.isEmptyObject(connect)) {
+						checkConnect = true;
+					}
+				}
 			}
 		}
 
@@ -108,6 +126,7 @@ public class ProfileController {
 		model.addAttribute("project", new Project());
 		model.addAttribute("resume", new Resume());
 		model.addAttribute("degreeMap", Utils.generatorDegree());
+		
 		return "/profile";
 	}
 

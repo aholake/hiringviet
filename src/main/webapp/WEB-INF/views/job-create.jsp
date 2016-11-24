@@ -10,14 +10,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Tạo việc làm</title>
-<link type="text/css" rel="stylesheet"
-	href="<c:url value='/resources/hiringviet/jobcreate/jobcreate.css'/>" />
-<link type="text/css" rel="stylesheet"
-	href="<c:url value='/resources/common/css/materialize-tags.css'/>" />
-<link type="text/css" rel="stylesheet"
-	href="<c:url value='/resources/common/css/nouislider.min.css'/>" />
-<link type="text/css" rel="stylesheet"
-	href="<c:url value='/resources/common/css/nouislider.tooltips.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/hiringviet/jobcreate/jobcreate.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/common/css/materialize-tags.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/common/css/nouislider.min.css'/>" />
+<link type="text/css" rel="stylesheet" href="<c:url value='/resources/common/css/nouislider.tooltips.css'/>" />
 </head>
 <body>
 	<div class="card-panel">
@@ -135,19 +131,13 @@
 			</form:form>
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="/resources/hiringviet/register/js/address_auto_fill.js"></script>
-	<script type="text/javascript"
-		src="/resources/common/js/materialize-tags.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script>
-	<script type="text/javascript"
-		src="/resources/common/js/ckeditor/ckeditor.js"></script>
-	<script type="text/javascript"
-		src="/resources/common/js/nouislider.min.js"></script>
+	<script type="text/javascript" src="/resources/hiringviet/register/js/address_auto_fill.js"></script>
+	<script type="text/javascript" src="/resources/common/js/materialize-tags.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script>
+	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="/resources/common/js/nouislider.min.js"></script>
 	<script type="text/javascript" src="/resources/common/js/wNumb.js"></script>
-	<script type="text/javascript"
-		src="/resources/hiringviet/jobcreate/jobcreate.js"></script>
+	<script type="text/javascript" src="/resources/hiringviet/jobcreate/jobcreate.js"></script>
 	<script type="text/javascript" src="/resources/common/js/initDatePicker.js"></script>
 </body>
 </html>

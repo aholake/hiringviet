@@ -10,12 +10,12 @@
 		<pattern>/*</pattern>
 	</decorator>
 	<decorator name="home" page="home-layout.jsp">
-		<pattern>/home</pattern>
+		<pattern>/home**</pattern>
 	</decorator>
 	<decorator name="profile" page="profile-layout.jsp">
-		<pattern>/profile</pattern>
+		<pattern>/profile**</pattern>
 	</decorator>
 	<decorator name="company" page="company-layout.jsp">
-		<pattern>/company/*</pattern>
+		<pattern>/company**</pattern>
 	</decorator>
 </decorators>

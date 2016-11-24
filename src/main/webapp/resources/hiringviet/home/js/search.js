@@ -313,7 +313,7 @@ function showResult(result) {
 					var item = "<li class='search-item'>\
 									<i class='material-icons icon'>search</i>\
 									<div class='wrapper'>\
-										<p style='line-height: 50px;'>" + listJob[index].displayName + "</p>\
+										<p style='line-height: 50px;'>" + listJob[index].title + "</p>\
 									</div>\
 								</li>";
 					$('#suggestion-box ul').append(item);

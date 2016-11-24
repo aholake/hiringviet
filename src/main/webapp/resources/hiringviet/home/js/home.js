@@ -34,6 +34,8 @@ $(function() {
 		transition : 1000
 	});
 
+	$('.float-table-wrapper').hide();
+
 	$('#btn-load-more').on('click', function() {
 
 		var firstItem = $('#first_item').val();
@@ -246,16 +248,37 @@ $(function() {
 
 	});
 
-	$('.job-box').on('click', '.icon-arrow', function(event) {
-		var iconArrowText = $(this).text();
-		var jobBox = $(this).parents('.job-box');
-		if (ICON_ARROW_DOWN === iconArrowText) {
-			showJobBox(jobBox);
-		} else {
-			hideJobBox(jobBox);
-		}
-	});
+	caller();
 });
+
+function showSelectedJobTable() {
+	$('.selected-job-table >tbody').show();
+	$('.selected-job-table >tfoot').show();
+	$('.selected-job-table .arrow').attr('onclick', 'hideSelectedJobTable();');
+	$('.selected-job-table .arrow').text("keyboard_arrow_down");
+}
+
+function hideSelectedJobTable() {
+	$('.selected-job-table >tbody').hide();
+	$('.selected-job-table >tfoot').hide();
+	$('.selected-job-table .arrow').attr('onclick', 'showSelectedJobTable();');
+	$('.selected-job-table .arrow').text("keyboard_arrow_up");
+}
+
+function closeSelectedJobTable() {
+	$('.selected-job-table tbody').html("");
+	$('.float-table-wrapper').hide();
+	$('.job-box').find('.note-job').prop('checked', false);
+}
+
+function removeJob(jobId) {
+	$('.selected-job-table .' + jobId).remove();
+	$('.selected-job-table >tbody >tr').each(function() {
+		var row = $(this).index();
+		$(this).find('.order').html(row);
+	});
+	$('#' + jobId).find('.note-job').prop('checked', false);
+}
 
 function showCompanyList(companyList) {
 	$('.filter-company-list').html('');
@@ -322,6 +345,7 @@ function showCategoryList(categoryList) {
 }
 
 function showProvinceList(provinceList) {
+	$('.filter-province-list').html('');
 	var html = '<li>\
 					<input type="checkbox" class="filled-in" id="province-all"  />\
 					<label for="province-all">All</label>\
@@ -537,7 +561,7 @@ function showResultJobHot(response) {
 									<div class="col m9 m9-div">\
 										<div class="col m12 p-0">\
 											<h1 class="col m9 p-0 title block-with-text">\
-												<a class="' + nameClass + '" href="/company/careers?jobId=' + jobListResponse[index].id + '">' + jobListResponse[index].title + '</a>\
+												<a class="job-title ' + nameClass + '" href="/company/careers?jobId=' + jobListResponse[index].id + '">' + jobListResponse[index].title + '</a>\
 											</h1>\
 										</div>\
 										<a href="#" class="company-name company-' + jobListResponse[index].company.displayName.replace(' ', '') + '">' + jobListResponse[index].company.displayName + '</a>\
@@ -572,7 +596,9 @@ function showResultJobHot(response) {
 											</div>\
 										</div>\
 									</div>\
-									<i class="material-icons right icon-arrow margin-right-5 cursor">keyboard_arrow_up</i>\
+									<i class="material-icons right icon-arrow margin-right-5 cursor mp0">keyboard_arrow_up</i>\
+									<input type="checkbox" class="filled-in right note-job" id="filled-in-box-' + jobListResponse[index].id + '"/>\
+									<label for="filled-in-box-' + jobListResponse[index].id + '" class="right"></label>\
 								</div>\
 							</div>\
 						</div>';
@@ -590,6 +616,8 @@ function showResultJobHot(response) {
 		showSkillList(skillList);
 		showProvinceList(provinceList);
 		showCategoryList(categoryList)
+
+		caller();
 	}
 }
 
@@ -935,4 +963,47 @@ function days_between(date1, date2) {
 
     // Convert back to days and return
     return Math.round(difference_ms/ONE_DAY);
+}
+
+function caller() {
+	$('.job-box').on('click', '.icon-arrow', function(event) {
+		var iconArrowText = $(this).text();
+		var jobBox = $(this).parents('.job-box');
+		if (ICON_ARROW_DOWN === iconArrowText) {
+			showJobBox(jobBox);
+		} else {
+			hideJobBox(jobBox);
+		}
+	});
+
+	$('.job-box').on('click', '.note-job', function(event) {
+		$('.float-table-wrapper').show();
+		var jobBox = $(this).parents('.job-box');
+		var rowCount = $('.selected-job-table >tbody >tr').length;
+		if (rowCount < 2) {
+			rowCount = 1;
+		}
+		if ($(this).is(':checked')) {
+			var html = '<tr class="apply-job-item ' + jobBox.attr('id') + '">\
+							<input type="hidden" class="job-id" value="' + jobBox.attr('id') + '" />\
+							<td>\
+								<span class="order">' + rowCount +  '</span>\
+							</td>\
+							<td class="mp0">\
+								<a class="job-title" href="#" target="_blank">' + jobBox.find('.job-title').text() + '</a>\
+							</td>\
+							<td>\
+								<i class="material-icons cursor" onclick="removeJob(' + jobBox.attr('id') + ');">close</i>\
+							</td>\
+						</tr>';
+			
+			$('.selected-job-table tbody').append(html);
+		} else {
+			$('.selected-job-table .' + jobBox.attr('id')).remove();
+			$('.selected-job-table >tbody >tr').each(function() {
+				var row = $(this).index();
+				$(this).find('.order').html(row);
+			});
+		}
+	});
 }

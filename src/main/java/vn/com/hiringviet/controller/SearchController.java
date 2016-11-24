@@ -68,16 +68,16 @@ public class SearchController {
 
 		if (Utils.isEmptyObject(account) || AccountRoleEnum.COMPANY == account.getUserRole()) {
 
-			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT,
-					true, null);
-			companyList = companyService.getListCompany(0,
-					ConstantValues.MAX_RECORD_COUNT, true);
+//			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT,
+//					true, null);
+//			companyList = companyService.getListCompany(0,
+//					ConstantValues.MAX_RECORD_COUNT, true);
 		} else {
 
 			Member member = memberService.getMemberByAccount(account);
 			List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
-			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
-			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, false);
+//			jobList = jobService.getJobList(null, 0, ConstantValues.MAX_RECORD_COUNT, false, skillIds);
+//			companyList = companyService.getListCompany(0, ConstantValues.MAX_RECORD_COUNT, false);
 			model.addAttribute("account", account);
 		}
 

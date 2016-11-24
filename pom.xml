@@ -287,7 +287,7 @@
 			<version>1.9.2</version>
 		</dependency>
 
-		<!-- POI -->
+		<!-- POI 
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
@@ -302,7 +302,7 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>3.14</version>
-		</dependency>
+		</dependency>-->
 
 		<dependency>
 			<groupId>opensymphony</groupId>
@@ -315,10 +315,10 @@
 			<version>2.3.25-incubating</version>
 		</dependency>
 
-		<dependency>
-			<groupId>fr.opensagres.xdocreport</groupId>
-			<artifactId>xdocreport</artifactId>
-			<version>1.0.3</version>
+		<!-- <dependency>
+		  <groupId>fr.opensagres.xdocreport</groupId>
+		  <artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
+		  <version>1.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
@@ -334,13 +334,51 @@
 			<groupId>fr.opensagres.xdocreport</groupId>
 			<artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
 			<version>1.0.3</version>
-		</dependency>
+		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/com.intersult/jpa-fix -->
 		<dependency>
 			<groupId>com.intersult</groupId>
 			<artifactId>jpa-fix</artifactId>
 			<version>1.1</version>
 		</dependency>
+		
+		<!-- Begin report -->
+		<dependency>
+			<groupId>fr.opensagres.xdocreport</groupId>
+			<artifactId>xdocreport</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>fr.opensagres.xdocreport</groupId>
+		    <artifactId>fr.opensagres.xdocreport.core</artifactId>
+		    <version>1.0.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>fr.opensagres.xdocreport</groupId>
+		    <artifactId>fr.opensagres.xdocreport.document</artifactId>
+		    <version>1.0.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>fr.opensagres.xdocreport</groupId>
+		    <artifactId>fr.opensagres.xdocreport.template</artifactId>
+		    <version>1.0.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>fr.opensagres.xdocreport</groupId>
+		    <artifactId>fr.opensagres.xdocreport.converter</artifactId>
+		    <version>1.0.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>fr.opensagres.xdocreport</groupId>
+		    <artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
+		    <version>1.0.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>fr.opensagres.xdocreport</groupId>
+		    <artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
+		    <version>1.0.6</version>
+		</dependency>
+		<!-- End report -->
 	</dependencies>
 
 	<build>

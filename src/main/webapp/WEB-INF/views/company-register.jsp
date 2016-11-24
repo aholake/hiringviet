@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col m6 offset-m3">
+		<div class="col m8 offset-m2">
 			<div class="card-panel" id="register-panel">
 				<div class="panel-title">
 					<spring:message code="label.register.company.title"></spring:message>
@@ -49,7 +49,7 @@
 										code="label.register.company.input.address"></spring:message></label>
 							</div>
 							<div class="row">
-								<div class="input-field col m4 p-0">
+								<div class="input-field col m3 p-0">
 									<select id="countryAddress">
 										<option value="-1" disabled selected><spring:message
 												code="label.default.dropdown.none_value"></spring:message></option>
@@ -61,7 +61,7 @@
 									</select><label><spring:message
 											code="label.register.company.input.country"></spring:message></label>
 								</div>
-								<div class="input-field col m4">
+								<div class="input-field col m4 offset-m1 p-0">
 									<select id="provinceAddress">
 										<option value="-1" disabled selected><spring:message
 												code="label.default.dropdown.none_value"></spring:message></option>
@@ -69,7 +69,7 @@
 											code="label.register.company.input.province"></spring:message></label>
 								</div>
 
-								<div class="input-field col m4">
+								<div class="input-field col m3 offset-m1 p-0">
 									<spring:message code="label.default.dropdown.none_value"
 										var="dropdown_none_value"></spring:message>
 									<form:select id="districtAddress" path="address.district.id">
