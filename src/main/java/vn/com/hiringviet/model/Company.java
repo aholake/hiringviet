@@ -61,6 +61,8 @@ public class Company implements Serializable {
 
 	private Set<CompanyPhoto> companyPhotoSet;
 
+	private Set<Job> jobs;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
@@ -72,7 +74,7 @@ public class Company implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "account_id")
 	public Account getAccount() {
 		return account;
@@ -100,7 +102,7 @@ public class Company implements Serializable {
 		this.companySize = companySize;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval=true)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "address_id")
 	public Address getAddress() {
 		return address;
@@ -222,5 +224,4 @@ public class Company implements Serializable {
 	public void setCompanyPhotoSet(Set<CompanyPhoto> companyPhotoSet) {
 		this.companyPhotoSet = companyPhotoSet;
 	}
-
 }

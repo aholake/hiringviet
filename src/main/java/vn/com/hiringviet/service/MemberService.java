@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import vn.com.hiringviet.dto.MemberAdminTableDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
@@ -15,9 +16,11 @@ public interface MemberService {
 
 	public int addMember(Member member);
 
-	public boolean deleteMember(Member member);
+	public boolean deleteMember(int id);
 
 	public List<Member> getMemberList();
+	
+	public boolean updateMember(Member member);
 
 	public Member getMemberByID(Integer memberID);
 
@@ -30,4 +33,6 @@ public interface MemberService {
 	public List<MemberDTO> getListMemberSuggest(String keywork);
 
 	public void addConnect(Member formMember, Integer toMemberId);
+
+	public List<MemberAdminTableDTO> getListMemberForAdminPage();
 }

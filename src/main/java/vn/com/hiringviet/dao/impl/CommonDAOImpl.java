@@ -2,9 +2,9 @@ package vn.com.hiringviet.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +50,10 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 	@Override
 	@Transactional
 	public List<T> findAll() {
-		List<T> result = new ArrayList<T>();
 		try {
-			result = getSession().createCriteria(entityClass).list();
-			return result;
+			Query query = getSession().createQuery(
+					"FROM " + entityClass.getSimpleName());
+			return query.list();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,7 +64,7 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 	@Transactional
 	public int create(T entity) {
 		try {
-			return  (Integer) getSession().save(entity);
+			return (Integer) getSession().save(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

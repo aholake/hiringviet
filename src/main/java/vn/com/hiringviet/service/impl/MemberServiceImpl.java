@@ -1,6 +1,7 @@
 package vn.com.hiringviet.service.impl;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -14,8 +15,10 @@ import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.SkillTypeEnum;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
+import vn.com.hiringviet.converter.MemberConverter;
 import vn.com.hiringviet.dao.MemberDAO;
 import vn.com.hiringviet.dao.SkillDAO;
+import vn.com.hiringviet.dto.MemberAdminTableDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
@@ -86,8 +89,12 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean deleteMember(Member member) {
-		return memberDAO.delete(member);
+	public boolean deleteMember(int id) {
+		Member member = memberDAO.findOne(id);
+		if (member != null) {
+			return memberDAO.delete(member);
+		}
+		return false;
 	}
 
 	@Override
@@ -170,4 +177,29 @@ public class MemberServiceImpl implements MemberService {
 		connect.getChangeLog().setStatus(StatusEnum.INACTIVE);
 		memberDAO.addConnect(connect);
 	}
+
+	@Override
+	public List<MemberAdminTableDTO> getListMemberForAdminPage() {
+		List<MemberAdminTableDTO> adminTableDTOs = new ArrayList<MemberAdminTableDTO>();
+		List<Member> members = getMemberList();
+		LOGGER.info(members.size());
+		for (Member member : members) {
+			LOGGER.info(member.getId());
+			adminTableDTOs.add(MemberConverter
+					.convertToMemberAdminTableDTO(member));
+		}
+		return adminTableDTOs;
+	}
+
+	@Override
+	public boolean updateMember(Member member) {
+		try {
+			memberDAO.update(member);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	
 }

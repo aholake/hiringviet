@@ -9,7 +9,9 @@
 	<http auto-config="true">
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/home" access="permitAll" />
+		<!-- 
 		<intercept-url pattern="/admin**" access="hasAuthority('ADMIN')" />
+		-->
 		<intercept-url pattern="/user**" access="hasAuthority('USER')" />
 		<intercept-url pattern="/company" access="permitAll" />
 		<intercept-url pattern="/profile" access="permitAll" />

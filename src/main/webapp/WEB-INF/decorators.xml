@@ -4,7 +4,6 @@
 	<excludes>
 		<pattern>/login**</pattern>
 		<pattern>/logout</pattern>
-		<pattern>/admin**</pattern>
 	</excludes>
 	<decorator name="default" page="main-layout.jsp">
 		<pattern>/*</pattern>
@@ -17,5 +16,8 @@
 	</decorator>
 	<decorator name="company" page="company-layout.jsp">
 		<pattern>/company**</pattern>
+	</decorator>
+	<decorator name="admin" page="admin-layout.jsp">
+		<pattern>/admin**</pattern>
 	</decorator>
 </decorators>
