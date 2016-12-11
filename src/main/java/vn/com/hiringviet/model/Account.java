@@ -46,9 +46,13 @@ public class Account implements Serializable {
 	/** The avatar image. */
 	private String avatarImage;
 
+	private String avatarImageKey;
+
 	/** The cover image. */
 	private String coverImage;
 
+	private String coverImageKey;
+	
 	/** The role id. */
 	private AccountRoleEnum userRole;
 
@@ -310,6 +314,24 @@ public class Account implements Serializable {
 
 	public void setActiveUrl(String activeUrl) {
 		this.activeUrl = activeUrl;
+	}
+
+	@Column(name = "avatar_image_key")
+	public String getAvatarImageKey() {
+		return avatarImageKey;
+	}
+
+	public void setAvatarImageKey(String avatarImageKey) {
+		this.avatarImageKey = avatarImageKey;
+	}
+
+	@Column(name = "cover_image_key")
+	public String getCoverImageKey() {
+		return coverImageKey;
+	}
+
+	public void setCoverImageKey(String coverImageKey) {
+		this.coverImageKey = coverImageKey;
 	}
 
 }

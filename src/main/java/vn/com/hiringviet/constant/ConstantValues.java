@@ -26,4 +26,7 @@ public class ConstantValues {
 
 	public static final String VN_LOCALE = "VN";
 	public static final String EN_LOCALE = "EN";
+	
+	public static final String MODE_COMPANY_HOME = "HOME";
+	public static final String MODE_COMPANY_CAREER = "CAREER";
 }

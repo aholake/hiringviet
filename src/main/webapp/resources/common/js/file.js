@@ -1,4 +1,4 @@
-var MAX_UPLOAD_FILE_SIZE = 1048576;
+var MAX_UPLOAD_FILE_SIZE = 10485760;
 
 $(function() {
 	var _URL = window.URL || window.webkitURL;

@@ -100,4 +100,10 @@ public class AccountServiceImpl implements AccountService {
 	public void deleteAccount(Account account) {
 		accountDAO.delete(account);
 	}
+
+	@Override
+	public boolean updateAccount(Account account) {
+
+		return accountDAO.update(account);
+	}
 }

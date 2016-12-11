@@ -33,6 +33,12 @@ public class AccountDTO implements Serializable {
 
 	private boolean isRemembered;
 
+	private String avatarImage;
+
+	private String avatarImageKey;
+
+	private String coverImageKey;
+
 	public Integer getId() {
 		return id;
 	}
@@ -119,6 +125,30 @@ public class AccountDTO implements Serializable {
 
 	public void setRemembered(boolean isRemembered) {
 		this.isRemembered = isRemembered;
+	}
+
+	public String getAvatarImage() {
+		return avatarImage;
+	}
+
+	public void setAvatarImage(String avatarImage) {
+		this.avatarImage = avatarImage;
+	}
+
+	public String getAvatarImageKey() {
+		return avatarImageKey;
+	}
+
+	public void setAvatarImageKey(String avatarImageKey) {
+		this.avatarImageKey = avatarImageKey;
+	}
+
+	public String getCoverImageKey() {
+		return coverImageKey;
+	}
+
+	public void setCoverImageKey(String coverImageKey) {
+		this.coverImageKey = coverImageKey;
 	}
 
 }

@@ -1,12 +1,14 @@
 package vn.com.hiringviet.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,11 +83,7 @@ public class JobController {
 
 		List<Job> jobList = jobService.getJobList(loadMoreRequestDTO,
 				pagingDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT,
-<<<<<<< HEAD
 				true, null, null, null);
-=======
-				true, null);
->>>>>>> admin
 
 		if (Utils.isEmptyList(jobList)) {
 			jobResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
@@ -134,17 +132,17 @@ public class JobController {
 	 *            the session
 	 * @return the string
 	 */
-	@RequestMapping(value = "/company/careers", method = RequestMethod.GET)
-	public String goJobDetailPage(@RequestParam("jobId") Integer jobId,
-			Model model, HttpSession session) {
-
-		Job job = jobService.getJobById(jobId);
-		Long numberFollower = followService.countNumberOfFollower(job
-				.getCompany().getAccount().getId());
-		model.addAttribute("job", job);
-		model.addAttribute("numberFollower", numberFollower);
-		return "job-detail";
-	}
+//	@RequestMapping(value = "/company/careers", method = RequestMethod.GET)
+//	public String goJobDetailPage(@RequestParam("jobId") Integer jobId,
+//			Model model, HttpSession session) {
+//
+//		Job job = jobService.getJobById(jobId);
+//		Long numberFollower = followService.countNumberOfFollower(job
+//				.getCompany().getAccount().getId());
+//		model.addAttribute("job", job);
+//		model.addAttribute("numberFollower", numberFollower);
+//		return "job-detail";
+//	}
 
 
 	private Account getLoggedAccount() {

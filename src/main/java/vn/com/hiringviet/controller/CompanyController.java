@@ -2,12 +2,15 @@ package vn.com.hiringviet.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.repackaged.com.google.io.protocol.HtmlFormGenerator.Constants;
+
 import vn.com.hiringviet.api.dto.request.CommentRequestDTO;
 import vn.com.hiringviet.api.dto.request.ReplyCommentRequestDTO;
+import vn.com.hiringviet.api.dto.response.AccountDTO;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
 import vn.com.hiringviet.api.dto.response.ReplyCommentResponseDTO;
 import vn.com.hiringviet.common.AccountRoleEnum;
@@ -25,6 +33,7 @@ import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.CommentDTO;
 import vn.com.hiringviet.dto.JobDTO;
+import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.dto.ReplyCommentDTO;
@@ -32,12 +41,14 @@ import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Member;
+import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.CommentService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.FollowService;
 import vn.com.hiringviet.service.JobService;
 import vn.com.hiringviet.service.ReplyCommentService;
 import vn.com.hiringviet.util.DateUtil;
+import vn.com.hiringviet.util.ImageUtil;
 import vn.com.hiringviet.util.Utils;
 
 /**
@@ -47,6 +58,9 @@ import vn.com.hiringviet.util.Utils;
 public class CompanyController {
 
 	private static final int LAZY_LOAD_COMPANY_NUMBER = 10;
+
+	@Autowired
+	private AccountService accountService;
 
 	/** The company service. */
 	@Autowired
@@ -64,6 +78,8 @@ public class CompanyController {
 
 	@Autowired
 	private JobService jobService;
+
+	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
 	/**
 	 * Go company page.
@@ -129,6 +145,10 @@ public class CompanyController {
 
 		model.addAttribute("company", company);
 
+		model.addAttribute("fileUpload", blobstoreService.createUploadUrl("/company/image"));
+		model.addAttribute("mode", ConstantValues.MODE_COMPANY_HOME);
+		
+		model.addAttribute("memberDTO", new MemberDTO());
 		return "company";	
 	}
 
@@ -384,5 +404,26 @@ public class CompanyController {
 			return goCompanyPage(companyLogin.getId(), ModeEnum.HOME.getValue(), model);
 		}
 		return "redirect:/login";
+	}
+
+	@RequestMapping(value = "/company/image", method = RequestMethod.POST)
+	public String uploadAvatarImage(
+			@RequestParam("mode") String mode,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			HttpSession session) {
+
+		Company companyLogin = null;
+		Account account = getLoggedAccount();
+		if (account != null) {
+			companyLogin = account.getCompany();
+		}
+
+		AccountDTO accountDTO =  ImageUtil.convertImageToByte(blobstoreService, request, account);
+		account.setAvatarImage(accountDTO.getAvatarImage());
+		account.setAvatarImageKey(accountDTO.getAvatarImageKey());
+		accountService.updateAccount(account);
+
+		return "redirect:/company?companyId=" + companyLogin.getId() + "&mode=" + mode;
 	}
 }

@@ -1,7 +1,7 @@
 var loginMemberId = null;
 var isOwner = null;
 $(document).ready(function() {
-	enableProgressing();
+
 	loginMemberId = parseInt($('#id_of_account').val());
 	isOwner = parseInt($('#is_owner').val());
 		

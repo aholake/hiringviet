@@ -15,4 +15,7 @@ public interface AccountService {
 	public void activeAccount(String randomText) throws Exception;
 
 	public Account getAccountById(int id);
+
+	public boolean updateAccount(Account account);
+
 }
