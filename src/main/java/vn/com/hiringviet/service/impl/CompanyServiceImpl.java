@@ -171,7 +171,7 @@ public class CompanyServiceImpl implements CompanyService {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public List<CompanyAdminTableDTO> getAllCompaniesForAdminTable() {
 		List<Company> companies = companyDAO.findAll();

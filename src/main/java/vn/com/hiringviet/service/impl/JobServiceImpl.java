@@ -12,9 +12,7 @@ import vn.com.hiringviet.converter.JobConverter;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.dto.JobAdminTableDTO;
 import vn.com.hiringviet.dto.JobDTO;
-import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.JobService;
 
 @Service("JobService")

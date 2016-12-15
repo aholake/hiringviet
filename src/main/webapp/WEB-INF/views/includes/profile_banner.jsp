@@ -45,7 +45,7 @@
 		</div>
 		<div class="profile-logo">
 			<div class="position-relative" style="width: 140px; height: 140px;">
-				<img class="responsive-img img-full" src="${member.resume.avatarImage}" alt="profile logo" />
+				<img class="responsive-img img-full" src="${member.account.avatarImage}" alt="profile logo" />
 				<a class="wrap-avatar-img" href="#avatar-image-modal">
 					<i class="avatar-img material-icons cl-white small-font cursor" 
 					onmouseover="bigImg(this)" 
@@ -56,34 +56,37 @@
 	</div>
 	<!-- Modal Structure -->
 	<div id="avatar-image-modal" class="modal modal-fixed-footer">
-		<div class="modal-content">
-			<h4>Update Avatar Image</h4>
-			<div class="row">
-				<div class="col m8 mp0">
-					<p>Upload a picture from your computer</p>
-					<div class="file-field input-field">
+		<form action="${fileUpload}" method="post" enctype="multipart/form-data">
+			<div class="modal-content">
+				<h4>Update Avatar Image</h4>
+				<div class="row">
+					<div class="col m8 mp0">
+						<p>Upload a picture from your computer</p>
 						<div class="file-field input-field">
-							<div class="btn">
-								<span>File</span> <input id="new-avatar-image" type="file" />
-							</div>
-							<div class="file-path-wrapper">
-								<input class="file-path validate" type="text" placeholder="Upload one or more files" />
+							<div class="file-field input-field">
+								<input type="hidden" name="mode" value="AI"/>
+								<div class="btn">
+									<span>File</span> <input id="new-avatar-image" type="file" name="multipartFile" />
+								</div>
+								<div class="file-path-wrapper">
+									<input class="file-path validate" type="text" placeholder="Upload one or more files" />
+								</div>
 							</div>
 						</div>
+						<p class="color-red">Chọn file có dung lượng nhỏ hơn 10MB!</p>
 					</div>
-					<p class="color-red">Chọn file có dung lượng nhỏ hơn 10MB!</p>
-				</div>
-				<div class="col m4">
-					<div class="wrap-new-avatar-img text-align-center" ondrop="drop(event)" ondragover="allowDrop(event)">
-						<img id="current-avatar-image" class="responsive-img new-avatar-img" src="${member.resume.avatarImage}" alt="profile logo" />
+					<div class="col m4">
+						<div class="wrap-new-avatar-img text-align-center" ondrop="drop(event)" ondragover="allowDrop(event)">
+							<img id="current-avatar-image" class="responsive-img new-avatar-img" src="${member.account.avatarImage}" alt="profile logo" />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="modal-footer">
-			<button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</button>
-			<button href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
-		</div>
+			<div class="modal-footer">
+				<button type="button" onclick="javascript:void(0);" class="modal-action modal-close waves-effect waves-green btn-flat">Close</button>
+				<button type="submit" class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
+			</div>
+		</form>
 	</div>
 	<script type="text/javascript">
 		function bigImg() {

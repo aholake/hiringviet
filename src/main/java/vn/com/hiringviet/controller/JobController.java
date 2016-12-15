@@ -1,12 +1,10 @@
 package vn.com.hiringviet.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +17,6 @@ import vn.com.hiringviet.api.dto.response.JobResponseDTO;
 import vn.com.hiringviet.auth.AuthenticationUtil;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
-import vn.com.hiringviet.dto.ApplyDTO;
 import vn.com.hiringviet.dto.JobAdminTableDTO;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.model.Account;
@@ -144,14 +141,12 @@ public class JobController {
 	// return "job-detail";
 	// }
 
-	@RequestMapping(value = "/job/apply", method = RequestMethod.POST)
-	public String goApplyPage(@RequestParam("jobList") String jobList,
-			Model model) {
-		String[] jobIds = jobList.split("\\+");
-		System.out.println("JOB ID: " + Arrays.toString(jobIds));
-		ApplyDTO applyDTO = new ApplyDTO();
-		applyDTO.setJobList(jobList);
-		model.addAttribute("applyDTO", applyDTO);
+	@SuppressWarnings("unused")
+	@RequestMapping(value = "/job/apply", method = RequestMethod.GET)
+	public String goApplyPage(@RequestParam("jobList") String jobList) {
+
+		String[] jobArray = jobList.split("-");
+
 		return "apply";
 	}
 }

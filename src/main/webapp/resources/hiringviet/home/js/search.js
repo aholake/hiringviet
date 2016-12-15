@@ -124,7 +124,7 @@ function filter(valueSearch) {
 				if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
 					isEmpty = false;
 					contain = true;
-					var item = "<a href='/company/" + elementOfArray.value.id + "'><li class='search-item'>\
+					var item = "<a href='/company?companyId=" + elementOfArray.value.id + "&mode=HOME'><li class='search-item'>\
 									<img src='" + elementOfArray.value.avatarImage + "' />\
 									<div class='wrapper'>\
 										<p>" + elementOfArray.value.displayName + "</p>\
@@ -275,7 +275,7 @@ function showResult(result) {
 							value: listCompany[index]
 						});
 					}
-					var item = "<a href='/company/" + listCompany[index].id + "'><li class='search-item'>\
+					var item = "<a href='/company?companyId=" + listCompany[index].id + "&mode=HOME'><li class='search-item'>\
 									<img src='" + listCompany[index].avatarImage + "' />\
 									<div class='wrapper'>\
 										<p>" + listCompany[index].displayName + "</p>\

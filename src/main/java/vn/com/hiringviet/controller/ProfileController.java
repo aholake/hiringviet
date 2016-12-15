@@ -2,8 +2,12 @@ package vn.com.hiringviet.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import vn.com.hiringviet.api.dto.response.AccountDTO;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
 import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
@@ -35,16 +40,30 @@ import vn.com.hiringviet.model.EmploymentHistory;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.model.Project;
 import vn.com.hiringviet.model.Resume;
+import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.ConnectService;
 import vn.com.hiringviet.service.EndorseService;
 import vn.com.hiringviet.service.FollowService;
 import vn.com.hiringviet.service.MemberService;
 import vn.com.hiringviet.service.PositionService;
 import vn.com.hiringviet.service.ResumeService;
+import vn.com.hiringviet.util.ImageUtil;
 import vn.com.hiringviet.util.Utils;
+
+import com.google.appengine.api.blobstore.BlobInfo;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
 
 @Controller
 public class ProfileController {
+
+	@Autowired
+	private AccountService accountService;
 
 	@Autowired
 	private MemberService memberService;
@@ -63,6 +82,8 @@ public class ProfileController {
 
 	@Autowired
 	private PositionService positionService;
+
+	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
 	@RequestMapping(value = "/layouts/profileBanner", method = RequestMethod.GET)
 	public String goProfileBanner(Model model, HttpSession session) {
@@ -126,7 +147,7 @@ public class ProfileController {
 		model.addAttribute("project", new Project());
 		model.addAttribute("resume", new Resume());
 		model.addAttribute("degreeMap", Utils.generatorDegree());
-		
+		model.addAttribute("fileUpload", blobstoreService.createUploadUrl("/profile/image"));
 		return "/profile";
 	}
 
@@ -305,6 +326,26 @@ public class ProfileController {
 			model.addAttribute("errorMessage", "");
 		}
 		return "redirect:/profile?memberId=" + filterMemberId;
+	}
+
+	@RequestMapping(value = "/profile/image", method = RequestMethod.POST)
+	public String uploadAvatarImage(
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			HttpSession session) {
+
+		Member memberLogin = null;
+		Account account = getLoggedAccount();
+		if (account != null) {
+			memberLogin = account.getMember();
+		}
+
+		AccountDTO accountDTO =  ImageUtil.convertImageToByte(blobstoreService, request, account);
+		account.setAvatarImage(accountDTO.getAvatarImage());
+		account.setAvatarImageKey(accountDTO.getAvatarImageKey());
+		accountService.updateAccount(account);
+
+		return "redirect:/profile?memberId=" + memberLogin.getId();
 	}
 
 	@InitBinder
