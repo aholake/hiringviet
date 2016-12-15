@@ -51,12 +51,12 @@
 				</c:if>
 				<c:if test="${job != null}">
 					<li>
-						<a href="/company/${job.company.id}" class="active">
+						<a href="/company?companyId=${job.company.id}&mode=HOME'" class="active">
 							<spring:message code="label.company.title.home"/>
 						</a>
 					</li>
 					<li>
-						<a href="/company/${job.company.id}/job">
+						<a href="/company/${job.company.id}&mode=CAREER'">
 							<spring:message code="label.company.title.careers"/>
 						</a>
 					</li>

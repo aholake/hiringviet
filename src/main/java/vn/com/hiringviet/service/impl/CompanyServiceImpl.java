@@ -15,11 +15,8 @@ import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.converter.CompanyConverter;
 import vn.com.hiringviet.dao.CompanyDAO;
-<<<<<<< HEAD
 import vn.com.hiringviet.dao.PostDAO;
-=======
 import vn.com.hiringviet.dto.CompanyAdminTableDTO;
->>>>>>> admin
 import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
@@ -173,7 +170,8 @@ public class CompanyServiceImpl implements CompanyService {
 		} else {
 			return false;
 		}
-
+	}
+	
 	@Override
 	public List<CompanyAdminTableDTO> getAllCompaniesForAdminTable() {
 		List<Company> companies = companyDAO.findAll();

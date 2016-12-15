@@ -8,12 +8,32 @@ public class ApplyDTO implements Serializable {
 
 	private String jobList;
 
+	private String curriculumVitae;
+
+	private String description;
+
 	public String getJobList() {
 		return jobList;
 	}
 
 	public void setJobList(String jobList) {
 		this.jobList = jobList;
+	}
+
+	public String getCurriculumVitae() {
+		return curriculumVitae;
+	}
+
+	public void setCurriculumVitae(String curriculumVitae) {
+		this.curriculumVitae = curriculumVitae;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

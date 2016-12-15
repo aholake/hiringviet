@@ -27,7 +27,7 @@ var companyColumns = [ {
 }, {
 	data : "displayName",
 	render: function(data, type, full, meta) {
-		return '<a href="/company/' + full.id + '">' + data + '</a>';
+		return '<a href="/company?companyId=' + full.id + '">' + data + '</a>';
 	}
 }, {
 	data : "businessField"

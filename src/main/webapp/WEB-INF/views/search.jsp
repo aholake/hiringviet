@@ -191,7 +191,7 @@
 								<div class="location-sticky orange darken-1 province-${fn:replace(job.workAddress.district.province.provinceName, ' ','')}">${job.workAddress.district.province.provinceName}</div>
 								<div class="row none-margin-bottom">
 									<div class="col m3 center hide-on-med-and-down">
-										<a href="/company/${job.company.id}">
+										<a href="/company?companyId=${job.company.id}">
 											<img src="${job.company.avatar}"
 											class="responsive-img company-logo"></a> <a href="#"
 											class="btn margin-top-10 orange darken-1 waves-effect waves-light">
