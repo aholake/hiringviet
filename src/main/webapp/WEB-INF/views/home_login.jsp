@@ -273,9 +273,12 @@
 									</div>
 									<i
 										class="material-icons right icon-arrow margin-right-5 cursor">keyboard_arrow_up</i>
-									<input type="checkbox" class="filled-in right note-job"
-										id="filled-in-box-${job.id}" /> <label
-										for="filled-in-box-${job.id}" class="right"></label>
+
+									<c:if test="${empty applyMap[job.id] }">
+										<input type="checkbox" class="filled-in right note-job"
+											id="filled-in-box-${job.id}" />
+										<label for="filled-in-box-${job.id}" class="right"></label>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -481,13 +484,12 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th class="mp0">
-								Selected Jobs
-								<i class="material-icons cursor right arrow" onclick="hideSelectedJobTable();">keyboard_arrow_down</i>
+							<th class="mp0">Selected Jobs <i
+								class="material-icons cursor right arrow"
+								onclick="hideSelectedJobTable();">keyboard_arrow_down</i>
 							</th>
-							<th>
-								<i class="material-icons cursor" onclick="closeSelectedJobTable();">close</i>
-							</th>
+							<th><i class="material-icons cursor"
+								onclick="closeSelectedJobTable();">close</i></th>
 						</tr>
 					</thead>
 					<tbody class="tbody">
@@ -497,7 +499,9 @@
 					<tfoot>
 						<tr>
 							<td colspan="3">
-								  <button type="submit" class="waves-effect waves-light btn btn-apply-job orange right">Apply All</button>
+								<button type="submit"
+									class="waves-effect waves-light btn btn-apply-job orange right">Apply
+									All</button>
 							</td>
 						</tr>
 					</tfoot>

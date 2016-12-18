@@ -25,12 +25,12 @@
 					<a href="javascript:void(0)" class="">Create account now to save CV</a>
 					<div class="apply-form">
 						<div class="form-content col m6 mp0">
-							<form:form action="/doApply" method="post" modelAttribute="applyDTO">
+							<form action="${applyFormURL}" method="post" enctype="multipart/form-data">
 								<input id="jobList" name="jobList" type="hidden" value="${applyDTO.jobList }" />
 								<div class="row">
 									<div class="file-field input-field">
 										<div class="btn">
-											<span>Upload CV</span> <input type="file" id="fileCV">
+											<span>Upload CV</span> <input type="file" id="fileCV" name="curriculumVitae">
 										</div>
 										<div class="file-path-wrapper">
 											<!-- <input class="file-path validate" type="text"
@@ -54,7 +54,7 @@
 											class="waves-effect waves-light btn long-btn">Send</button>
 									</div>
 								</div>
-							</form:form>
+							</form>
 						</div>
 						<div class="apply-image col m4">
 							<img alt=""
@@ -73,7 +73,7 @@
 						function() {
 							var config = {};
 							config.placeholder = 'Details and specific examples will make your application stronger...';
-							CKEDITOR.replace("optional", config);
+							CKEDITOR.replace("description", config);
 						});
 	</script>
 </body>

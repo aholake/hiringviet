@@ -35,6 +35,7 @@ public class ApplyServiceImpl implements ApplyService {
 			apply.setJob(job);
 			apply.setMember(member);
 			apply.setDisscription(description);
+			apply.setCurriculumVitae(applyDTO.getCurriculumVitae());
 			applyDao.create(apply);
 		}
 		
