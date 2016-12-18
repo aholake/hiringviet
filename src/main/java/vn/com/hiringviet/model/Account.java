@@ -79,6 +79,8 @@ public class Account implements Serializable {
 
 	private Member member;
 
+	private Set<Logger> loggers;
+
 	/**
 	 * Gets the id.
 	 *
@@ -332,6 +334,16 @@ public class Account implements Serializable {
 
 	public void setCoverImageKey(String coverImageKey) {
 		this.coverImageKey = coverImageKey;
+	}
+
+	@Fetch(FetchMode.SUBSELECT)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "account")
+	public Set<Logger> getLoggers() {
+		return loggers;
+	}
+
+	public void setLoggers(Set<Logger> loggers) {
+		this.loggers = loggers;
 	}
 
 }

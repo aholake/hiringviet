@@ -7,17 +7,20 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.dao.AccountDAO;
+import vn.com.hiringviet.dto.AccountDTO;
+import vn.com.hiringviet.dto.CommentDTO;
 import vn.com.hiringviet.model.Account;
 
 @Repository
 @Transactional
-public class AccountDAOImpl extends CommonDAOImpl<Account> implements
-		AccountDAO {
+public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO {
+
 	private static final Logger LOGGER = Logger.getLogger(AccountDAOImpl.class);
 
 	@Override
@@ -67,5 +70,26 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements
 	@Override
 	public Account getAccountByActiveUrl(String activeCode) {
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AccountDTO> getFollowList(String accountId) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT ");
+		sb.append("account.id AS id, ");
+		sb.append("account.avatar_image AS avatarImage ");
+		sb.append("FROM account ");
+		sb.append("INNER JOIN follow ON (follow.from_account = account.id AND follow.to_account = :accountId)");
+		Query query = getSession().createSQLQuery(sb.toString());
+		query.setParameter("accountId", accountId);
+		query.setResultTransformer(Transformers.aliasToBean(AccountDTO.class));
+
+		List<AccountDTO> accountDTOs = query.list();
+		if (accountDTOs.isEmpty()) {
+			return null;
+		}
+		return accountDTOs;
 	}
 }

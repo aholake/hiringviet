@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.api.dto.request.SearchRequestDTO;
@@ -18,18 +19,22 @@ import vn.com.hiringviet.api.dto.response.SearchSuggestResponseDTO;
 import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
+import vn.com.hiringviet.dto.AccountDTO;
 import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.dto.MemberDTO;
+import vn.com.hiringviet.dto.MessageDTO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Country;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Member;
+import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.CountryService;
 import vn.com.hiringviet.service.JobService;
+import vn.com.hiringviet.service.MailboxService;
 import vn.com.hiringviet.service.MemberService;
 import vn.com.hiringviet.service.ResumeService;
 import vn.com.hiringviet.service.SkillService;
@@ -38,6 +43,12 @@ import vn.com.hiringviet.util.Utils;
 @Controller
 public class SearchController {
 
+	@Autowired
+	private MailboxService mailboxService;
+	
+	@Autowired
+	private AccountService accountService;
+	
 	@Autowired
 	private SkillService skillService;
 
@@ -136,6 +147,26 @@ public class SearchController {
 		return skillService.searchSkillByKeyWord(keyWord);
 	}
 
+	@RequestMapping(value = "/search/follow/list", method = RequestMethod.POST)
+	public @ResponseBody List<AccountDTO> getFollowList(@RequestBody AccountDTO accountDTO, HttpSession session) {
+
+		Account account = getLoggedAccount();
+		if (account != null) {
+		}
+
+		return accountService.getFollowList(String.valueOf(accountDTO.getId()));
+	}
+
+	@RequestMapping(value = "/search/message/owner", method = RequestMethod.POST)
+	public @ResponseBody List<MessageDTO> getOwnerMessageList(@RequestBody AccountDTO accountDTO, HttpSession session) {
+
+		Account account = getLoggedAccount();
+		if (account != null) {
+		}
+
+		return mailboxService.getOwnerMailList(accountDTO.getId());
+	}
+	
 	private Account getLoggedAccount() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof Account) {

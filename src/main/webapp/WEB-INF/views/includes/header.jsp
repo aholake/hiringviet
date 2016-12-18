@@ -16,10 +16,21 @@
 	<input type="hidden" id="url_redirect_page" value="<c:url value='/home' />" />
 	<input type="hidden" id="url_check_account" value="<c:url value='/account/checkAccount' />" />
 	<input type="hidden" id="url_search" value="<c:url value='/search/suggest' />" />
+	<input type="hidden" id="url_search_follow_list" value="<c:url value='/search/follow/list' />" />
 
 	<input type="hidden" id="title_follow" value="<spring:message code='label.navbar.title.follow'/>" />
 	<input type="hidden" id="title_employee" value="<spring:message code='label.home.title.employee'/>" />
 
+	<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
+		<sec:authentication property="principal" var="principal" />
+		<input type="hidden" id="account_id" value="${principal.id}" />
+	</sec:authorize>
+
+	<sec:authorize access="hasAuthority('COMPANY') and isAuthenticated()">
+		<sec:authentication property="principal" var="principal" />
+		<input type="hidden" id="account_id" value="${principal.id}" />
+	</sec:authorize>
+	
 	<nav>
 	<ul id="slide-out" class="side-nav">
 		<li class="mobile-search center"><input type="text"
@@ -127,13 +138,13 @@
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">add_alert</i>Thông báo</a>
+										<a href="#notificationModel" class="notificationModel"><i class="material-icons prefix-icon">add_alert</i>Thông báo</a>
 										<div class="chip red lighten-2 white-text noti-count">5</div>
 									</div>
 								</li>
 								<li>
-									<div class="menu-item-header">
-										<a href="#">
+									<div class="menu-item-header" id="btn-follow">
+										<a href="#followModel" class="followModel">
 											<i class="material-icons prefix-icon">donut_large</i>
 											<spring:message code="label.navbar.title.follow" />
 										</a>
@@ -211,7 +222,7 @@
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#">
+										<a href="#followModel" class="followModel">
 											<i class="material-icons prefix-icon">donut_large</i>
 											<spring:message code="label.navbar.title.follow" />
 										</a>
@@ -242,10 +253,9 @@
 	</div>
 	</header>
 	<!--common js-->
-	<script type="text/javascript"
-		src="<c:url value='/resources/hiringviet/home/js/common.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='/resources/hiringviet/home/js/search.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/common.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/search.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/follow.js'/>"></script>
 </head>
 
 <!-- Modal Structure -->
@@ -304,9 +314,58 @@
 		</div>
 	</div>
 </div>
+<!-- Modal Structure -->
+	<div id="notificationModel" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>Thông Báo</h4>
+			<div class="row">
+				<div class="col m12 mp0">
+					<table class="bordered">
+						<tbody>
+							<tr>
+								<sec:authorize access="isAuthenticated()">
+									<sec:authentication property="principal" var="principal" />
+									<c:forEach items="${principal.loggers}" var="logger">
+										<td width="10%">
+											<img width="50px" height="50px" alt="" src="${logger.image}" />
+										</td>
+										<td width="90%">
+											${logger.info}
+											<p>${logger.dateTime}</p>
+										</td>
+									</c:forEach>
+								</sec:authorize>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+		</div>
+	</div>
+	<!-- Modal Structure -->
+	<div id="followModel" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>Follow List</h4>
+			<p>${fn:length(principal.toFollows)} follow</p>
+			<div class="row">
+				<div class="col m12 mp0 image-item">
+					
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+		</div>
+	</div>
 <script>
 	$(function() {
 		$('.modal-trigger').leanModal();
+		
+		$('.notificationModel').leanModal();
+		$('.followModel').leanModal();
 	})
 
 	$("#loginForm").submit(function(e) {

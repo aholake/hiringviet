@@ -1,5 +1,8 @@
 package vn.com.hiringviet.service;
 
+import java.util.List;
+
+import vn.com.hiringviet.dto.AccountDTO;
 import vn.com.hiringviet.model.Account;
 
 public interface AccountService {
@@ -18,4 +21,5 @@ public interface AccountService {
 
 	public boolean updateAccount(Account account);
 
+	public List<AccountDTO> getFollowList(String accountId);
 }

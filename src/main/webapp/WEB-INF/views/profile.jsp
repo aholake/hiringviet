@@ -668,7 +668,7 @@
 					    						</c:choose>
 				    						</c:forEach>
 				    						<li class="endorsers-action">
-				    							<i class="material-icons padding-top-4">keyboard_arrow_right</i>
+				    							<a href="#endorseModal" class="endorseModal"><i class="material-icons padding-top-4">keyboard_arrow_right</i></a>
 				    						</li>
 				    					</ul>
 				    				</div>
@@ -869,11 +869,32 @@
 			Are you sure?
 		</p>
 	</div>
-
+	
+	<!-- Modal Structure -->
+	<div id="endorseModal" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>Endorse List</h4>
+			<div class="row">
+				<div class="col m12 mp0">
+					<img width="50px" height="50px" class="responsive-img" alt="" src="/resources/images/avatar-images/avatar.png" />
+					<img width="50px" height="50px" class="responsive-img" alt="" src="/resources/images/avatar-images/avatar.png" />
+					<img width="50px" height="50px" class="responsive-img" alt="" src="/resources/images/avatar-images/avatar.png" />
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+		</div>
+	</div>
+	
 	<script src="<c:url value='/resources/hiringviet/profile/js/profile.js'/>"></script>
 	<script src="<c:url value='/resources/hiringviet/profile/js/endorse.js'/>"></script>
 	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
+		$(function() {
+			$('.endorseModal').leanModal();
+		})
+	
 		$('.datepicker').pickadate({
 		    selectMonths: true, // Creates a dropdown to control month
 		    selectYears: 15, // Creates a dropdown of 15 years to control year

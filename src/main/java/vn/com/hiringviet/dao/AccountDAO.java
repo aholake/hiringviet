@@ -1,7 +1,10 @@
 package vn.com.hiringviet.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
+import vn.com.hiringviet.dto.AccountDTO;
 import vn.com.hiringviet.model.Account;
 
 @Repository
@@ -14,4 +17,6 @@ public interface AccountDAO extends CommonDAO<Account> {
 	public Account getAccountByEmail(String email);
 	
 	public Account getAccountByActiveUrl(String activeCode);
+
+	public List<AccountDTO> getFollowList(String accountId);
 }
