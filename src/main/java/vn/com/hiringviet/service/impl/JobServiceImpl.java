@@ -55,7 +55,7 @@ public class JobServiceImpl implements JobService {
 	public List<JobDTO> getNewJobs(Integer companyId) {
 		return jobDAO.getNewJobs(companyId);
 	}
-
+	
 	@Override
 	public List<JobAdminTableDTO> getJobsForAdminTable() {
 		List<JobAdminTableDTO> jobAdminTableDTOs = new ArrayList<JobAdminTableDTO>();

@@ -1,7 +1,10 @@
 
 package vn.com.hiringviet.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.model.Account;
+import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Country;
 import vn.com.hiringviet.model.Job;
@@ -81,12 +85,17 @@ public class HomeController {
 			companyList = companyService.getListCompany(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, true);
 			result = "home";
 		} else {
-
+			
 			Member member = account.getMember();
 			List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
 			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, false, skillIds, mode, keyValue);
 			companyList = companyService.getListCompany(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, false);
+			
 			model.addAttribute("account", account);
+			
+			Map<Integer, Apply> applyMap = setApplyMap(member.getApplySet());
+			model.addAttribute("applyMap", applyMap);
+			
 			result = "home_login";
 		}
 
@@ -105,6 +114,14 @@ public class HomeController {
 		return result;
 	}
 
+	private Map<Integer, Apply> setApplyMap(Set<Apply> applyList) {
+		Map<Integer, Apply> result = new HashMap<>();
+		for (Apply apply : applyList) {
+			result.put(apply.getApplyID(), apply);
+		}
+		return result;
+	}
+	
 	private Account getLoggedAccount() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof Account) {

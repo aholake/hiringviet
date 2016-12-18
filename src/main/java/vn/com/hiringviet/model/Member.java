@@ -112,7 +112,7 @@ public class Member implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public Set<Apply> getApplySet() {
 		return applySet;
 	}

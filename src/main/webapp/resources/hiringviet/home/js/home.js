@@ -998,12 +998,23 @@ function caller() {
 						</tr>';
 			
 			$('.selected-job-table tbody').append(html);
+			getJobList();
 		} else {
 			$('.selected-job-table .' + jobBox.attr('id')).remove();
 			$('.selected-job-table >tbody >tr').each(function() {
 				var row = $(this).index();
 				$(this).find('.order').html(row);
 			});
+			getJobList();
 		}
 	});
+}
+
+function getJobList() {
+	var jobList = "";
+	$(".selected-job-table .job-id").each(function(index, element) {
+		jobList += $(this).val() + "+";
+	});
+	
+	$("#jobList").val(jobList);
 }

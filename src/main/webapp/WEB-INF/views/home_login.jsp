@@ -4,30 +4,40 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <html>
 <head>
 <title>Home</title>
 <!-- Local style -->
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
 <!-- CSS media query on a link element -->
-<link rel="stylesheet" href="/resources/hiringviet/home/css/smart-home.css" />
+<link rel="stylesheet"
+	href="/resources/hiringviet/home/css/smart-home.css" />
 
 </head>
 <body>
-	<input type="hidden" id="url_load_more" value="<c:url value='/job/suggest' />" />
+	<input type="hidden" id="url_load_more"
+		value="<c:url value='/job/suggest' />" />
 	<input type="hidden" id="first_item" value="${firstItem}" />
 	<input type="hidden" id="max_item" value="${maxItem}" />
 	<input type="hidden" id="current_page" value="${currentPage}" />
 
-	<input type="hidden" id="text_company_follow" value="<spring:message code="label.home.button.follow_company" />" />
-	<input type="hidden" id="text_title_salary" value="<spring:message code="label.home.title.salary" />" />
-	<input type="hidden" id="text_title_post_date" value="<spring:message code="label.home.title.post_date"/>" />
-	<input type="hidden" id="text_title_major" value="<spring:message code="label.home.title.major"/>" />
-	<input type="hidden" id="text_total_employee" value="<spring:message code="label.home.title.total_employee"/>" />
-	<input type="hidden" id="text_title_people" value="<spring:message code="label.home.title.people"/>" />
-	<input type="hidden" id="none_value" value="<spring:message code='label.default.dropdown.none_value'></spring:message>">
+	<input type="hidden" id="text_company_follow"
+		value="<spring:message code="label.home.button.follow_company" />" />
+	<input type="hidden" id="text_title_salary"
+		value="<spring:message code="label.home.title.salary" />" />
+	<input type="hidden" id="text_title_post_date"
+		value="<spring:message code="label.home.title.post_date"/>" />
+	<input type="hidden" id="text_title_major"
+		value="<spring:message code="label.home.title.major"/>" />
+	<input type="hidden" id="text_total_employee"
+		value="<spring:message code="label.home.title.total_employee"/>" />
+	<input type="hidden" id="text_title_people"
+		value="<spring:message code="label.home.title.people"/>" />
+	<input type="hidden" id="none_value"
+		value="<spring:message code='label.default.dropdown.none_value'></spring:message>">
 
 	<div class="row">
 		<div class="col m8 no-padding-on-med-and-down">
@@ -45,20 +55,30 @@
 						var jobList = new Array();
 					</script>
 					<c:forEach items="${jobList}" var="job">
-						<input type="hidden" value="${job.jobCategory.categoryName}" class="category">
-						<input type="hidden" value="${job.company.displayName}" class="company">
-						<input type="hidden" value="${job.position.displayName}" class="position">
-						<input type="hidden" value="${job.workAddress.district.province.provinceName}" class="address">
+						<input type="hidden" value="${job.jobCategory.categoryName}"
+							class="category">
+						<input type="hidden" value="${job.company.displayName}"
+							class="company">
+						<input type="hidden" value="${job.position.displayName}"
+							class="position">
+						<input type="hidden"
+							value="${job.workAddress.district.province.provinceName}"
+							class="address">
 						<input type="hidden" value="${job.id}" class="jobId">
 
 						<script type="text/javascript">
 							var added = false;
-							$.map(categoryList, function(elementOfArray, indexInArray) {
-								if (elementOfArray.key == $('.category').val()) {
-									elementOfArray.value = elementOfArray.value + 1;
-									added = true;
-								}
-							});
+							$
+									.map(
+											categoryList,
+											function(elementOfArray,
+													indexInArray) {
+												if (elementOfArray.key == $(
+														'.category').val()) {
+													elementOfArray.value = elementOfArray.value + 1;
+													added = true;
+												}
+											});
 							if (!added) {
 								categoryList.push({
 									key : $('.category').val(),
@@ -70,12 +90,17 @@
 
 							// =======================
 							var added = false;
-							$.map(companyList, function(elementOfArray, indexInArray) {
-								if (elementOfArray.key == $('.company').val()) {
-									elementOfArray.value = elementOfArray.value + 1;
-									added = true;
-								}
-							});
+							$
+									.map(
+											companyList,
+											function(elementOfArray,
+													indexInArray) {
+												if (elementOfArray.key == $(
+														'.company').val()) {
+													elementOfArray.value = elementOfArray.value + 1;
+													added = true;
+												}
+											});
 							if (!added) {
 								companyList.push({
 									key : $('.company').val(),
@@ -86,12 +111,17 @@
 							console.log(companyList);
 							//=========================
 							var added = false;
-							$.map(positionList, function(elementOfArray, indexInArray) {
-								if (elementOfArray.key == $('.position').val()) {
-									elementOfArray.value = elementOfArray.value + 1;
-									added = true;
-								}
-							});
+							$
+									.map(
+											positionList,
+											function(elementOfArray,
+													indexInArray) {
+												if (elementOfArray.key == $(
+														'.position').val()) {
+													elementOfArray.value = elementOfArray.value + 1;
+													added = true;
+												}
+											});
 							if (!added) {
 								positionList.push({
 									key : $('.position').val(),
@@ -102,12 +132,17 @@
 							console.log(positionList);
 							//=========================
 							var added = false;
-							$.map(provinceList, function(elementOfArray, indexInArray) {
-								if (elementOfArray.key == $('.address').val()) {
-									elementOfArray.value = elementOfArray.value + 1;
-									added = true;
-								}
-							});
+							$
+									.map(
+											provinceList,
+											function(elementOfArray,
+													indexInArray) {
+												if (elementOfArray.key == $(
+														'.address').val()) {
+													elementOfArray.value = elementOfArray.value + 1;
+													added = true;
+												}
+											});
 							if (!added) {
 								provinceList.push({
 									key : $('.address').val(),
@@ -126,11 +161,12 @@
 						</script>
 						<div class="job-item">
 							<div class="job-box" id="${job.id}">
-								<div class="location-sticky orange darken-1 province-${fn:replace(job.workAddress.district.province.provinceName, ' ','')}">${job.workAddress.district.province.provinceName}</div>
+								<div
+									class="location-sticky orange darken-1 province-${fn:replace(job.workAddress.district.province.provinceName, ' ','')}">${job.workAddress.district.province.provinceName}</div>
 								<div class="row none-margin-bottom">
 									<div class="col m3 center hide-on-med-and-down m3-div">
-										<a href="/company/${job.company.id}">
-											<img src="${job.company.avatar}"
+										<a href="/company?companyId=${job.company.id}"> <img
+											src="${job.company.avatar}"
 											class="responsive-img company-logo"></a> <a href="#"
 											class="btn margin-top-10 orange darken-1 waves-effect waves-light">
 											<spring:message code="label.home.button.follow_company" />
@@ -141,15 +177,18 @@
 											<h1 class="col m9 p-0 title block-with-text">
 												<c:choose>
 													<c:when test="${job.company.isVip == 1}">
-														<a class="job-title hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
+														<a class="job-title hot"
+															href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</c:when>
 													<c:otherwise>
-														<a class="job-title not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
+														<a class="job-title not-hot"
+															href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</c:otherwise>
 												</c:choose>
 											</h1>
 										</div>
-										<a href="#" class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
+										<a href="#"
+											class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
 										<p class="work-location">
 											<a href="#">${job.workAddress.district.province.provinceName}</a>
 										</p>
@@ -160,8 +199,8 @@
 													<p>
 														<i class="material-icons prefix-icon">attach_money</i>
 														<spring:message code="label.home.title.salary" />
-														: <span class="info"><span class="minSalary">${job.minSalary}</span> -
-															<span class="maxSalary">${job.maxSalary}</span></span>
+														: <span class="info"><span class="minSalary">${job.minSalary}</span>
+															- <span class="maxSalary">${job.maxSalary}</span></span>
 													</p>
 												</div>
 												<div class="col m6 none-padding-left">
@@ -175,7 +214,8 @@
 													<p>
 														<i class="material-icons prefix-icon">loyalty</i>
 														<spring:message code="label.home.title.major" />
-														: <span class="info position-${fn:replace(job.position.displayName, ' ','')}">${job.position.displayName}</span>
+														: <span
+															class="info position-${fn:replace(job.position.displayName, ' ','')}">${job.position.displayName}</span>
 													</p>
 												</div>
 												<div class="col m6 none-padding-left">
@@ -188,37 +228,57 @@
 												</div>
 											</div>
 											<div class="row">
-												<div class="col m12 none-padding-left text-justify block-with-text edit-text-ellipsis">
+												<div
+													class="col m12 none-padding-left text-justify block-with-text edit-text-ellipsis">
 													${job.description}</div>
 												<div class="col m12 none-padding-left margin-top-5">
 													<c:forEach items="${job.skillSet}" var="skill">
-														<input hidden="" value="${skill.displayName}" class="skill">
+														<input hidden="" value="${skill.displayName}"
+															class="skill">
 														<script type="text/javascript">
 															var added = false;
-															$.map(skillList, function(elementOfArray, indexInArray) {
-																if (elementOfArray.key == $('.skill').val()) {
-																	elementOfArray.value = elementOfArray.value + 1;
-																	added = true;
-																}
-															});
+															$
+																	.map(
+																			skillList,
+																			function(
+																					elementOfArray,
+																					indexInArray) {
+																				if (elementOfArray.key == $(
+																						'.skill')
+																						.val()) {
+																					elementOfArray.value = elementOfArray.value + 1;
+																					added = true;
+																				}
+																			});
 															if (!added) {
-																skillList.push({
-																	key : $('.skill').val(),
-																	value : 1
-																});
+																skillList
+																		.push({
+																			key : $(
+																					'.skill')
+																					.val(),
+																			value : 1
+																		});
 															}
-															$('.skill').remove();
-															console.log(skillList);
+															$('.skill')
+																	.remove();
+															console
+																	.log(skillList);
 														</script>
-														<a class="chip skill-${fn:replace(skill.displayName, ' ','')}">${skill.displayName}</a>
+														<a
+															class="chip skill-${fn:replace(skill.displayName, ' ','')}">${skill.displayName}</a>
 													</c:forEach>
 												</div>
 											</div>
 										</div>
 									</div>
-									<i class="material-icons right icon-arrow margin-right-5 cursor">keyboard_arrow_up</i>
-									<input type="checkbox" class="filled-in right note-job" id="filled-in-box-${job.id}"/>
-									<label for="filled-in-box-${job.id}" class="right"></label>
+									<i
+										class="material-icons right icon-arrow margin-right-5 cursor">keyboard_arrow_up</i>
+
+									<c:if test="${empty applyMap[job.id] }">
+										<input type="checkbox" class="filled-in right note-job"
+											id="filled-in-box-${job.id}" />
+										<label for="filled-in-box-${job.id}" class="right"></label>
+									</c:if>
 								</div>
 							</div>
 						</div>
@@ -244,84 +304,85 @@
 		</div>
 		<div class="col m4 no-padding-on-med-and-down">
 			<div class="card-panel">
-				<div class="panel-title">
-					Điều kiện lọc
-				</div>
+				<div class="panel-title">Điều kiện lọc</div>
 				<div class="row">
 					<div class="col m12">
 						<ul class="collection fillter-wrapper">
-							<li class="collection-item"><b>Career</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-category-list" id="filter-category-list">
-								</ul>
-							</li>
-							<li class="collection-item"><b>Company</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-company-list" id="filter-company-list">
-								</ul>
-							</li>
-							<li class="collection-item"><b>Date Posted</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-date-post-list" id="filter-date-post-list">
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="0" type="radio" id="date-post-All"/> 
-										<label for="date-post-All">All</label>
-									</li>
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="1" type="radio" id="date-post-1" /> 
-										<label for="date-post-1">1 day ago</label>
-									</li>
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="2" type="radio" id="date-post-3" /> 
-										<label for="date-post-3">3 day ago</label>
-									</li>
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="3" type="radio" id="date-post-5" /> 
-										<label for="date-post-5">5 day ago</label>
-									</li>
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="4" type="radio" id="date-post-7" /> 
-										<label for="date-post-7">7 day ago</label>
-									</li>
-								</ul>
-							</li>
-							<li class="collection-item"><b>Job Function</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-position-list" id="filter-position-list">
-								</ul>
-							</li>
-							<li class="collection-item"><b>Skill</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-skill-list" id="filter-skill-list">
-								</ul>
-							</li>
-							<li class="collection-item"><b>Salary</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-salary-list" id="filter-salary-list">
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="0" type="radio" id="salary-all"  />
-										<label for="salary-all">All</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="1" type="radio" id="salary-500"  />
-										<label for="salary-500">Dưới 500$</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="2" type="radio" id="salary-1000"  />
-										<label for="salary-1000">500$ - 1000$</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="3" type="radio" id="salary-2000"  />
-										<label for="salary-2000">1000$ - 2000$</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="4" type="radio" id="salary-3000"  />
-										<label for="salary-3000">2000$ - 3000$</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="5" type="radio" id="salary-4000"  />
-										<label for="salary-4000">Trên 3000$</label>
-									</li>
-								</ul>
-							</li>
-							<li class="collection-item"><b>Province</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-province-list" id="filter-province-list">
-								</ul>
-							</li>
+							<li class="collection-item"><b>Career</b><i
+								class="material-icons right icon-arrow">keyboard_arrow_down</i>
+								<ul
+									class="margin-top-10 display-none filter-list filter-category-list"
+									id="filter-category-list">
+								</ul></li>
+							<li class="collection-item"><b>Company</b><i
+								class="material-icons right icon-arrow">keyboard_arrow_down</i>
+								<ul
+									class="margin-top-10 display-none filter-list filter-company-list"
+									id="filter-company-list">
+								</ul></li>
+							<li class="collection-item"><b>Date Posted</b><i
+								class="material-icons right icon-arrow">keyboard_arrow_down</i>
+								<ul
+									class="margin-top-10 display-none filter-list filter-date-post-list"
+									id="filter-date-post-list">
+									<li><input class="with-gap data-post-radio"
+										name="datePosts" value="0" type="radio" id="date-post-All" />
+										<label for="date-post-All">All</label></li>
+									<li><input class="with-gap data-post-radio"
+										name="datePosts" value="1" type="radio" id="date-post-1" /> <label
+										for="date-post-1">1 day ago</label></li>
+									<li><input class="with-gap data-post-radio"
+										name="datePosts" value="2" type="radio" id="date-post-3" /> <label
+										for="date-post-3">3 day ago</label></li>
+									<li><input class="with-gap data-post-radio"
+										name="datePosts" value="3" type="radio" id="date-post-5" /> <label
+										for="date-post-5">5 day ago</label></li>
+									<li><input class="with-gap data-post-radio"
+										name="datePosts" value="4" type="radio" id="date-post-7" /> <label
+										for="date-post-7">7 day ago</label></li>
+								</ul></li>
+							<li class="collection-item"><b>Job Function</b><i
+								class="material-icons right icon-arrow">keyboard_arrow_down</i>
+								<ul
+									class="margin-top-10 display-none filter-list filter-position-list"
+									id="filter-position-list">
+								</ul></li>
+							<li class="collection-item"><b>Skill</b><i
+								class="material-icons right icon-arrow">keyboard_arrow_down</i>
+								<ul
+									class="margin-top-10 display-none filter-list filter-skill-list"
+									id="filter-skill-list">
+								</ul></li>
+							<li class="collection-item"><b>Salary</b><i
+								class="material-icons right icon-arrow">keyboard_arrow_down</i>
+								<ul
+									class="margin-top-10 display-none filter-list filter-salary-list"
+									id="filter-salary-list">
+									<li><input class="with-gap salary-radio" name="salary"
+										value="0" type="radio" id="salary-all" /> <label
+										for="salary-all">All</label></li>
+									<li><input class="with-gap salary-radio" name="salary"
+										value="1" type="radio" id="salary-500" /> <label
+										for="salary-500">Dưới 500$</label></li>
+									<li><input class="with-gap salary-radio" name="salary"
+										value="2" type="radio" id="salary-1000" /> <label
+										for="salary-1000">500$ - 1000$</label></li>
+									<li><input class="with-gap salary-radio" name="salary"
+										value="3" type="radio" id="salary-2000" /> <label
+										for="salary-2000">1000$ - 2000$</label></li>
+									<li><input class="with-gap salary-radio" name="salary"
+										value="4" type="radio" id="salary-3000" /> <label
+										for="salary-3000">2000$ - 3000$</label></li>
+									<li><input class="with-gap salary-radio" name="salary"
+										value="5" type="radio" id="salary-4000" /> <label
+										for="salary-4000">Trên 3000$</label></li>
+								</ul></li>
+							<li class="collection-item"><b>Province</b><i
+								class="material-icons right icon-arrow">keyboard_arrow_down</i>
+								<ul
+									class="margin-top-10 display-none filter-list filter-province-list"
+									id="filter-province-list">
+								</ul></li>
 						</ul>
 					</div>
 				</div>
@@ -415,35 +476,39 @@
 			<div class="card-panel"></div>
 		</div>
 	</div>
-	<div class="float-table-wrapper white">
-		<div class="selected-table-wrapper">
-			<table class="selected-job-table striped">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th class="mp0">
-							Selected Jobs
-							<i class="material-icons cursor right arrow" onclick="hideSelectedJobTable();">keyboard_arrow_down</i>
-						</th>
-						<th>
-							<i class="material-icons cursor" onclick="closeSelectedJobTable();">close</i>
-						</th>
-					</tr>
-				</thead>
-				<tbody class="tbody">
-					<tr class="job">
-					</tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="3">
-							  <a class="waves-effect waves-light btn btn-apply-job orange right" href="#">Apply All</a>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
+	<form id="applyForm" action="/job/apply" method="post">
+		<input type="hidden" id="jobList" name="jobList" value="" />
+		<div class="float-table-wrapper white">
+			<div class="selected-table-wrapper">
+				<table class="selected-job-table striped">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th class="mp0">Selected Jobs <i
+								class="material-icons cursor right arrow"
+								onclick="hideSelectedJobTable();">keyboard_arrow_down</i>
+							</th>
+							<th><i class="material-icons cursor"
+								onclick="closeSelectedJobTable();">close</i></th>
+						</tr>
+					</thead>
+					<tbody class="tbody">
+						<tr class="job">
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3">
+								<button type="submit"
+									class="waves-effect waves-light btn btn-apply-job orange right">Apply
+									All</button>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
 		</div>
-	</div>
+	</form>
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="<c:url value='/resources/hiringviet/home/js/home.js'/>"></script>

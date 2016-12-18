@@ -376,38 +376,6 @@
 			</div>
 		</div>
 	</div>
-	<form id="applyForm" action="/job/apply">
-		<input type="hidden" id="jobList" name="jobList" value="" />
-		<div class="float-table-wrapper white">
-			<div class="selected-table-wrapper">
-				<table class="selected-job-table striped">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th class="mp0">
-								Selected Jobs
-								<i class="material-icons cursor right arrow" onclick="hideSelectedJobTable();">keyboard_arrow_down</i>
-							</th>
-							<th>
-								<i class="material-icons cursor" onclick="closeSelectedJobTable();">close</i>
-							</th>
-						</tr>
-					</thead>
-					<tbody class="tbody">
-						<tr class="job">
-						</tr>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="3">
-								  <a class="waves-effect waves-light btn btn-apply-job orange right" href="#">Apply All</a>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
-			</div>
-		</div>
-	</form>
 	<!-- Local js -->
 	<script type="text/javascript" src="<c:url value='/resources/hiringviet/home/js/home.js'/>"></script>
 	<script type="text/javascript">
@@ -418,17 +386,6 @@
 				var url = "/company/getCompanyHot";
 				callAPI(url, "POST", scrollTime, 'appendCompanyToCard');
 			}
-			
-			$('.btn-apply-job').on('click', function() {
-				var jobList = new Array();
-				$(".apply-job-item").each(function( index ) {
-					var jobId = $(this).find('.job-id').val();
-					jobList += jobId + "-";
-				});
-				$('#jobList').val(jobList);
-
-				$('#applyForm').submit();
-			});
 		});
 	</script>
 </body>

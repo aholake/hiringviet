@@ -1,12 +1,10 @@
 package vn.com.hiringviet.controller;
 
+import java.util.Arrays;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,10 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+
 import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.api.dto.response.JobResponseDTO;
+import vn.com.hiringviet.auth.AuthenticationUtil;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
+import vn.com.hiringviet.dto.ApplyDTO;
 import vn.com.hiringviet.dto.JobAdminTableDTO;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.model.Account;
@@ -46,6 +49,8 @@ public class JobController {
 
 	@Autowired
 	private ResumeService resumeService;
+
+	private BlobstoreService blobStoreService = BlobstoreServiceFactory.getBlobstoreService();
 
 	@RequestMapping(value = "/admin/api/jobs", method = RequestMethod.GET)
 	public @ResponseBody List<JobAdminTableDTO> getAllJobs() {
@@ -104,7 +109,7 @@ public class JobController {
 		PagingDTO pagingDTO = Utils.calculatorPaging(
 				loadMoreRequestDTO.getPagingDTO(), false);
 
-		Account account = getLoggedAccount();
+		Account account = AuthenticationUtil.getLoggedAccount();
 		Member member = account.getMember();
 		List<Integer> skillIds = resumeService.getListSkillByMemberId(member
 				.getId());
@@ -132,35 +137,27 @@ public class JobController {
 	 *            the session
 	 * @return the string
 	 */
-//	@RequestMapping(value = "/company/careers", method = RequestMethod.GET)
-//	public String goJobDetailPage(@RequestParam("jobId") Integer jobId,
-//			Model model, HttpSession session) {
-//
-//		Job job = jobService.getJobById(jobId);
-//		Long numberFollower = followService.countNumberOfFollower(job
-//				.getCompany().getAccount().getId());
-//		model.addAttribute("job", job);
-//		model.addAttribute("numberFollower", numberFollower);
-//		return "job-detail";
-//	}
+	// @RequestMapping(value = "/company/careers", method = RequestMethod.GET)
+	// public String goJobDetailPage(@RequestParam("jobId") Integer jobId,
+	// Model model, HttpSession session) {
+	//
+	// Job job = jobService.getJobById(jobId);
+	// Long numberFollower =
+	// followService.countNumberOfFollower(job.getCompany().getAccount().getId());
+	// model.addAttribute("job", job);
+	// model.addAttribute("numberFollower", numberFollower);
+	// return "job-detail";
+	// }
 
-
-	private Account getLoggedAccount() {
-		Object principal = SecurityContextHolder.getContext()
-				.getAuthentication().getPrincipal();
-		if (principal instanceof Account) {
-			Account loginedAccount = (Account) principal;
-			return loginedAccount;
-		}
-		return null;
-	}
-
-	@SuppressWarnings("unused")
-	@RequestMapping(value = "/job/apply", method = RequestMethod.GET)
-	public String goApplyPage(@RequestParam("jobList") String jobList) {
-
-		String[] jobArray = jobList.split("-");
-
+	@RequestMapping(value = "/job/apply", method = RequestMethod.POST)
+	public String goApplyPage(@RequestParam("jobList") String jobList,
+			Model model) {
+		String[] jobIds = jobList.split("\\+");
+		System.out.println("JOB ID: " + Arrays.toString(jobIds));
+		ApplyDTO applyDTO = new ApplyDTO();
+		applyDTO.setJobList(jobList);
+		model.addAttribute("applyDTO", applyDTO);
+		model.addAttribute("applyFormURL", blobStoreService.createUploadUrl("/doApply"));
 		return "apply";
 	}
 }

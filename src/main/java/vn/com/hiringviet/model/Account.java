@@ -345,5 +345,4 @@ public class Account implements Serializable {
 	public void setLoggers(Set<Logger> loggers) {
 		this.loggers = loggers;
 	}
-
 }
