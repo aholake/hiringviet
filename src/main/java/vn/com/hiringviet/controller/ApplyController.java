@@ -41,6 +41,11 @@ public class ApplyController {
 			applyDto.setCurriculumVitae(blobKey.getKeyString());
 			applyService.addApplyByDTO(applyDto, member);
 		}
-		return "redirect:/job/apply?jobList=" + jobList;
+		return "redirect:applySuccess";
+	}
+	
+	@RequestMapping("/applySuccess")
+	public String goToApplySuccess() {
+		return "apply-success";
 	}
 }
