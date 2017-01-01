@@ -61,8 +61,6 @@ public class Company implements Serializable {
 
 	private Set<CompanyPhoto> companyPhotoSet;
 
-	private Set<Job> jobs;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {

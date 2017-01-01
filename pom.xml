@@ -482,6 +482,9 @@
 		</profile>
 		<profile>
 			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<build.profile.id></build.profile.id>
 			</properties>

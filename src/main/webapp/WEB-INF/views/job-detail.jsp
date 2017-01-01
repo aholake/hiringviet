@@ -87,8 +87,11 @@
 										<a class="waves-effect waves-light btn col m9 offset-m2 favourite-btn red lighten-2">
 										<i class="material-icons left white-text">bookmark</i>Yêu thích</a>
 									</c:if>
-									<a class="waves-effect waves-light btn col m9 offset-m2 margin-top-10">
-									<i class="material-icons left white-text">note_add</i>Ứng tuyển</a>
+									<form action="/job/apply" method="post">
+										<input id="jobList" name="jobList" type="hidden" value="${job.id }">
+										<button type="submit" class="waves-effect waves-light btn col m9 offset-m2 margin-top-10">
+										<i class="material-icons left white-text">note_add</i>Ứng tuyển</button>
+									</form>
 								</div>
 							</div>
 						</div>
