@@ -22,8 +22,8 @@ import com.google.appengine.api.ThreadManager;
 @Service("accountService")
 @Transactional
 public class AccountServiceImpl implements AccountService {
-	private static final Logger LOGGER = Logger
-			.getLogger(AccountServiceImpl.class);
+
+	private static final Logger LOGGER = Logger.getLogger(AccountServiceImpl.class);
 
 	@Autowired
 	private AccountDAO accountDAO;
@@ -113,5 +113,11 @@ public class AccountServiceImpl implements AccountService {
 	public List<AccountDTO> getFollowList(String accountId) {
 
 		return accountDAO.getFollowList(accountId);
+	}
+
+	@Override
+	public boolean updateEmail(Integer accountId, String email) {
+
+		return accountDAO.updateEmail(accountId, email);
 	}
 }

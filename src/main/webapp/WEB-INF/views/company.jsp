@@ -98,6 +98,11 @@
 								</c:forEach>
 							</div>
 						</div>
+						<div class="text-align-center margin-top-10">
+							<a id="btn-load-more" class="btn-floating btn-large waves-effect waves-light red">
+								<i class="material-icons">add</i>
+							</a>
+						</div>
 					</div>
 				</div>	
 				</c:when>
@@ -189,7 +194,7 @@
 				</c:otherwise>
 			</c:choose>
 			<div class="col m4">
-				<div class="card-panel">
+				<div class="card-panel padding-bottom-0">
 					<div class="panel-title"><spring:message code="label.company.title.company_information"/></div>
 					<div class="panel-content">
 						<div class="overflow-auto">
@@ -232,6 +237,9 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<div id="btnShowPopupUpdateCompanyInfor" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateCompanyInfor();">
+						Update
 					</div>
 				</div>
 				<div class="card-panel">

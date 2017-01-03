@@ -21,4 +21,6 @@ public interface ResumeService {
 	public boolean saveEmployee(Resume resume, EmploymentHistory employmentHistory, Integer positionId);
 
 	public boolean update(Resume currentResume, Resume newResume);
+
+	public boolean updatePhoneNumber(Integer resumeId, String phoneNumber);
 }

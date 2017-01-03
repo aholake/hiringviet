@@ -66,7 +66,7 @@
 								});
 							}
 							$('.category').remove();
-							console.log(categoryList);
+							//console.log(categoryList);
 
 							// =======================
 							var added = false;
@@ -83,7 +83,7 @@
 								});
 							}
 							$('.company').remove();
-							console.log(companyList);
+							//console.log(companyList);
 							//=========================
 							var added = false;
 							$.map(positionList, function(elementOfArray, indexInArray) {
@@ -99,7 +99,7 @@
 								});
 							}
 							$('.position').remove();
-							console.log(positionList);
+							//console.log(positionList);
 							//=========================
 							var added = false;
 							$.map(provinceList, function(elementOfArray, indexInArray) {
@@ -115,7 +115,7 @@
 								});
 							}
 							$('.address').remove();
-							console.log(provinceList);
+							// console.log(provinceList);
 							//=========================
 							var checkContain = $.inArray($('.jobId').val(),
 									jobList);
@@ -126,7 +126,7 @@
 						</script>
 						<div class="job-item">
 							<div class="job-box" id="${job.id}">
-								<div class="location-sticky orange darken-1 province-${fn:replace(job.workAddress.district.province.provinceName, ' ','')}">${job.workAddress.district.province.provinceName}</div>
+								<div class="location-sticky orange darken-1 province-${fn:replace(job.workAddress.district.province.provinceName, ' ','')} category-${fn:replace(job.jobCategory.categoryName, ' ', '')}">${job.workAddress.district.province.provinceName}</div>
 								<div class="row none-margin-bottom">
 									<div class="col m3 center hide-on-med-and-down m3-div">
 										<a href="/company/${job.company.id}">

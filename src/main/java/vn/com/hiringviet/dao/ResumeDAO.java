@@ -14,4 +14,6 @@ public interface ResumeDAO extends CommonDAO<Resume> {
 	public List<Integer> getListSkillByMemberId(Integer memberId);
 
 //	public boolean deleteSkillOfProfile(ResumeDTO resumeDTO);
+
+	public boolean updatePhoneNumber(Integer resumeId, String phoneNumber);
 }

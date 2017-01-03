@@ -22,4 +22,10 @@ public interface JobDAO extends CommonDAO<Job> {
 	public List<JobDTO> searchJobByKeyWord(String keyWord);
 
 	public List<JobDTO> getNewJobs(Integer companyId);
+
+	public boolean updateDescription(Integer jobId, String description);
+
+	public boolean updateRequirement(Integer jobId, String requirement);
+
+	public boolean updateCompanyPolicies(Integer jobId, String cultureDescription);
 }

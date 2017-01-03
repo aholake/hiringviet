@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -177,6 +178,62 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		List<JobDTO> skillDTOs = (List<JobDTO>) criteria.list();
 
 		return skillDTOs;
+	}
+
+	@Override
+	public boolean updateDescription(Integer jobId, String description) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("UPDATE ");
+		sb.append("job ");
+		sb.append("SET description = :description ");
+		sb.append("WHERE id = :jobId");
+		Query query = getSession().createSQLQuery(sb.toString());
+		query.setParameter("description", description);
+		query.setParameter("jobId", jobId);
+
+		if (query.executeUpdate() > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean updateRequirement(Integer jobId, String requirement) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("UPDATE ");
+		sb.append("job ");
+		sb.append("SET requirement = :requirement ");
+		sb.append("WHERE id = :jobId");
+		Query query = getSession().createSQLQuery(sb.toString());
+		query.setParameter("requirement", requirement);
+		query.setParameter("jobId", jobId);
+
+		if (query.executeUpdate() > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean updateCompanyPolicies(Integer jobId, String cultureDescription) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("UPDATE ");
+		sb.append("job ");
+		sb.append("SET culture_description = :cultureDescription ");
+		sb.append("WHERE id = :jobId");
+		Query query = getSession().createSQLQuery(sb.toString());
+		query.setParameter("cultureDescription", cultureDescription);
+		query.setParameter("jobId", jobId);
+
+		if (query.executeUpdate() > 0) {
+			return true;
+		}
+
+		return false;
 	}
 
 	// @SuppressWarnings("unchecked")

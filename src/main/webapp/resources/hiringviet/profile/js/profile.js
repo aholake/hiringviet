@@ -117,6 +117,79 @@ $(function() {
 		$('#positionId').val($('#cbxPosition').val());
 		$('#description').val(CKEDITOR.instances['txtEmployeeDescription'].getData());
 	});
+	
+	$('#saveSummary ').on('click', '#btnSaveSummary', function() {
+		
+		var phoneNumber = $('#saveSummary #phoneNumber');
+		var nationality = $('#saveSummary #nationality');
+		
+		var check = true;
+		if (phoneNumber.val() == null || phoneNumber.val() == "" || !$.isNumeric(phoneNumber.val())) {
+			phoneNumber.get(0).setCustomValidity($('#phoneNumberIsEmpty').val());
+			check = false;
+		}
+		
+		if (nationality.val() == null || nationality.val() == "") {
+			nationality.get(0).setCustomValidity($('#notionalityIsEmpty').val());
+			check = false;
+		}
+		
+		if (check) {
+			
+			$('#saveSummary ').submit();
+		}
+	});
+	
+	$('#saveEmployee ').on('click', '#btnSaveEmployee', function() {
+		
+		var companyName = $('#saveEmployee #companyName');
+		
+		var check = true;
+		
+		if (companyName.val() == null || companyName.val() == "") {
+			companyName.get(0).setCustomValidity($('#companyNameIsEmpty').val());
+			check = false;
+		}
+		
+		if (check) {
+			
+			$('#saveEmployee ').submit();
+		}
+	});
+
+	$('#saveEducation ').on('click', '#btnSaveEducation', function() {
+		
+		var universityName = $('#saveEducation #universityName');
+		
+		var check = true;
+		
+		if (universityName.val() == null || universityName.val() == "") {
+			universityName.get(0).setCustomValidity($('#universityNameIsEmpty').val());
+			check = false;
+		}
+		
+		if (check) {
+			
+			$('#saveEducation ').submit();
+		}
+	});
+	
+//	$('#saveProject ').on('click', '#btnSaveEducation', function() {
+//		
+//		var cbxCompany = $('#saveProject #cbxCompany');
+//		
+//		var check = true;
+//		
+//		if (cbxCompany.val() == null || cbxCompany.val() == "") {
+//			cbxCompany.get(0).setCustomValidity($('#companyIsEmpty').val());
+//			check = false;
+//		}
+//
+//		if (check) {
+//
+//			$('#saveProject ').submit();
+//		}
+//	});
 });
 
 function processSuggestSkill(responses) {
@@ -297,7 +370,8 @@ function cancelSettingProject() {
 }
 
 function showPopupAddExperience() {
-	$('.panel-setting-project').show();
+	// $('.panel-setting-project').show();
+	$('.panel-setting-employee').show();
 	$('.list-experience').hide();
 }
 

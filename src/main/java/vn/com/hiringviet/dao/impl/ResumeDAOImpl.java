@@ -3,6 +3,7 @@ package vn.com.hiringviet.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -46,6 +47,25 @@ public class ResumeDAOImpl extends CommonDAOImpl<Resume> implements ResumeDAO {
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		List<Integer> skills = criteria.list();
 		return skills;
+	}
+
+	@Override
+	public boolean updatePhoneNumber(Integer resumeId, String phoneNumber) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("UPDATE ");
+		sb.append("resume ");
+		sb.append("SET phone_number = :phoneNumber ");
+		sb.append("WHERE id = :resumeId");
+		Query query = getSession().createSQLQuery(sb.toString());
+		query.setParameter("phoneNumber", phoneNumber);
+		query.setParameter("resumeId", resumeId);
+
+		if (query.executeUpdate() > 0) {
+			return true;
+		}
+
+		return false;
 	}
 
 //	@Override

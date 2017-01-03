@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -56,7 +57,7 @@
 	</div>
 	<!-- Modal Structure -->
 	<div id="avatar-image-modal" class="modal modal-fixed-footer">
-		<form action="${fileUpload}" method="post" enctype="multipart/form-data">
+		<form id="uploadAvatar" action="${fileUpload}" method="post" enctype="multipart/form-data">
 			<div class="modal-content">
 				<h4>Update Avatar Image</h4>
 				<div class="row">
@@ -65,8 +66,9 @@
 						<div class="file-field input-field">
 							<div class="file-field input-field">
 								<input type="hidden" name="mode" value="AI"/>
+								<input type="hidden" id="avatarIsEmpty" value='<spring:message code="message.error.profile.avatar.upload.is_empty"></spring:message>'/>
 								<div class="btn">
-									<span>File</span> <input id="new-avatar-image" type="file" name="multipartFile" />
+									<span>File</span> <input id="new-avatar-image" type="file" name="multipartFile"  accept=".png" />
 								</div>
 								<div class="file-path-wrapper">
 									<input class="file-path validate" type="text" placeholder="Upload one or more files" />
@@ -84,7 +86,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" onclick="javascript:void(0);" class="modal-action modal-close waves-effect waves-green btn-flat">Close</button>
-				<button type="submit" class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
+				<button type="submit" id="btnUploadAvatar" class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
 			</div>
 		</form>
 	</div>
@@ -101,6 +103,22 @@
 		
 		$(function() {
 			$('.wrap-avatar-img').leanModal();
+			
+			$('#uploadAvatar').on('click', '#btnUploadAvatar', function() {
+				var newAvatarImage = $('#uploadAvatar #new-avatar-image');
+				
+				var check = true;
+				
+				if (newAvatarImage.val() == null || newAvatarImage.val() == "") {
+					newAvatarImage.get(0).setCustomValidity($('#avatarIsEmpty').val());
+					check = false;
+				}
+				
+				if (check) {
+					
+					$('#uploadAvatar ').submit();
+				}
+			});
 		})
 	</script>
 	<script src="<c:url value='/resources/common/js/file.js'/>"></script>

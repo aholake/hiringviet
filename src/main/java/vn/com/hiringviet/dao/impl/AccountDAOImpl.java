@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.dao.AccountDAO;
 import vn.com.hiringviet.dto.AccountDTO;
-import vn.com.hiringviet.dto.CommentDTO;
 import vn.com.hiringviet.model.Account;
 
 @Repository
@@ -91,5 +90,24 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 			return null;
 		}
 		return accountDTOs;
+	}
+
+	@Override
+	public boolean updateEmail(Integer accountId, String email) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("UPDATE ");
+		sb.append("account ");
+		sb.append("SET email = :email ");
+		sb.append("WHERE id = :accountId");
+		Query query = getSession().createSQLQuery(sb.toString());
+		query.setParameter("email", email);
+		query.setParameter("accountId", accountId);
+
+		if (query.executeUpdate() > 0) {
+			return true;
+		}
+
+		return false;
 	}
 }

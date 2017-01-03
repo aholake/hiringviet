@@ -288,8 +288,8 @@ function showCompanyList(companyList) {
 				</li>';
 	$.map(companyList, function(elementOfArray, indexInArray) {
 		html += '<li>\
-						<input type="checkbox" class="filled-in" id="company-' + elementOfArray.key.replace(' ', '') + '" />\
-						<label for="company-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
+						<input type="checkbox" class="filled-in" id="company-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '" />\
+						<label for="company-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
 	});
@@ -304,8 +304,8 @@ function showPositionList(positionList) {
 				</li>';
 	$.map(positionList, function(elementOfArray, indexInArray) {
 		html += '<li>\
-						<input type="checkbox" class="filled-in" id="position-' + elementOfArray.key.replace(' ', '') + '"/>\
-						<label for="position-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
+						<input type="checkbox" class="filled-in" id="position-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '"/>\
+						<label for="position-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
 	});
@@ -320,8 +320,8 @@ function showSkillList(skillList) {
 				</li>';
 	$.map(skillList, function(elementOfArray, indexInArray) {
 		html += '<li>\
-						<input type="checkbox" class="filled-in" id="skill-' + elementOfArray.key.replace(' ', '') + '"/>\
-						<label for="skill-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
+						<input type="checkbox" class="filled-in" id="skill-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '"/>\
+						<label for="skill-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
 	});
@@ -336,8 +336,8 @@ function showCategoryList(categoryList) {
 				</li>';
 	$.map(categoryList, function(elementOfArray, indexInArray) {
 		html += '<li>\
-						<input type="checkbox" class="filled-in" id="category-' + elementOfArray.key.replace(' ', '') + '"/>\
-						<label for="category-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
+						<input type="checkbox" class="filled-in" id="category-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '"/>\
+						<label for="category-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
 	});
@@ -352,8 +352,8 @@ function showProvinceList(provinceList) {
 				</li>';
 	$.map(provinceList, function(elementOfArray, indexInArray) {
 		html += '<li>\
-						<input type="checkbox" class="filled-in" id="province-' + elementOfArray.key.replace(' ', '') + '"/>\
-						<label for="province-' + elementOfArray.key.replace(' ', '') + '">' + elementOfArray.key + '</label>\
+						<input type="checkbox" class="filled-in" id="province-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '"/>\
+						<label for="province-' + bodauTiengViet(elementOfArray.key.replace(/\s/g, '')) + '">' + elementOfArray.key + '</label>\
 						<span> (' + elementOfArray.value + ')</span>\
 					</li>';
 	});
@@ -716,13 +716,61 @@ function isEmptyJob() {
 
 function loadJobVisible() {
 
-	console.log(companysShow);
-	console.log(skillsShow);
-	console.log(jobFunctionsShow);
-	console.log(provincesShow);
-	console.log(salarysShow);
-	console.log(datePostShow);
+//	console.log(companysShow);
+//	console.log(skillsShow);
+//	console.log(jobFunctionsShow);
+//	console.log(provincesShow);
+//	console.log(salarysShow);
+//	console.log(datePostShow);
 
+	if (categorysShow.length > 0) {
+		$.each( categorysShow, function( i, categoryJobId ) {
+			$('#' + categoryJobId).show();
+
+			if (companysShow.length > 0) {
+				var checkContain = $.inArray(categoryJobId, companysShow);
+				if (checkContain < 0) {
+					$('#' + categoryJobId).hide();
+				}
+			}
+
+			if (skillsShow.length > 0) {
+				var checkContain = $.inArray(categoryJobId, skillsShow);
+				if (checkContain < 0) {
+					$('#' + categoryJobId).hide();
+				}
+			}
+
+			if (jobFunctionsShow.length > 0) {
+				var checkContain = $.inArray(categoryJobId, jobFunctionsShow);
+				if (checkContain < 0) {
+					$('#' + categoryJobId).hide();
+				}
+			}
+
+			if (provincesShow.length > 0) {
+				var checkContain = $.inArray(categoryJobId, provincesShow);
+				if (checkContain < 0) {
+					$('#' + categoryJobId).hide();
+				}
+			}
+
+			if (salarysShow.length > 0) {
+				var checkContain = $.inArray(categoryJobId, salarysShow);
+				if (checkContain < 0) {
+					$('#' + categoryJobId).hide();
+				}
+			}
+
+			if (datePostShow.length > 0) {
+				var checkContain = $.inArray(categoryJobId, datePostShow);
+				if (checkContain < 0) {
+					$('#' + categoryJobId).hide();
+				}
+			}
+		});
+	} else {
+		
 	if (companysShow.length > 0) {
 		$.each( companysShow, function( i, companyJobId ) {
 			$('#' + companyJobId).show();
@@ -890,6 +938,7 @@ function loadJobVisible() {
 			}
 		}
 	}
+	}
 
 }
 
@@ -1011,10 +1060,10 @@ function caller() {
 }
 
 function getJobList() {
-	var jobList = "";
+	var jobListSelect = "";
 	$(".selected-job-table .job-id").each(function(index, element) {
-		jobList += $(this).val() + "+";
+		jobListSelect += $(this).val() + "+";
 	});
 	
-	$("#jobList").val(jobList);
+	$("#jobList").val(jobListSelect);
 }

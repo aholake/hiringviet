@@ -109,4 +109,10 @@ public class ResumeServiceImpl implements ResumeService {
 		return resumeDAO.update(currentResume);
 	}
 
+	@Override
+	public boolean updatePhoneNumber(Integer resumeId, String phoneNumber) {
+
+		return resumeDAO.updatePhoneNumber(resumeId, phoneNumber);
+	}
+
 }

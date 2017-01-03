@@ -43,7 +43,7 @@ public class Follow implements Serializable {
 	}
 
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "from_account")
 	public Account getFromAccount() {
 		return fromAccount;
@@ -54,7 +54,7 @@ public class Follow implements Serializable {
 	}
 
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "to_account")
 	public Account getToAccount() {
 		return toAccount;

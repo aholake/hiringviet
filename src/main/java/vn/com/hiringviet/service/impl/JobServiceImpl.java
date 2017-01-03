@@ -66,4 +66,22 @@ public class JobServiceImpl implements JobService {
 		return jobAdminTableDTOs;
 
 	}
+
+	@Override
+	public boolean updateDescription(Integer jobId, String description) {
+
+		return jobDAO.updateDescription(jobId, description);
+	}
+
+	@Override
+	public boolean updateRequirement(Integer jobId, String requirement) {
+
+		return jobDAO.updateRequirement(jobId, requirement);
+	}
+
+	@Override
+	public boolean updateCompanyPolicies(Integer jobId, String cultureDescription) {
+
+		return jobDAO.updateCompanyPolicies(jobId, cultureDescription);
+	}
 }

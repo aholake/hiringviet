@@ -2,8 +2,6 @@ package vn.com.hiringviet.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -50,14 +48,8 @@ import vn.com.hiringviet.service.ResumeService;
 import vn.com.hiringviet.util.ImageUtil;
 import vn.com.hiringviet.util.Utils;
 
-import com.google.appengine.api.blobstore.BlobInfo;
-import com.google.appengine.api.blobstore.BlobInfoFactory;
-import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-import com.google.appengine.api.images.ImagesService;
-import com.google.appengine.api.images.ImagesServiceFactory;
-import com.google.appengine.api.images.ServingUrlOptions;
 
 @Controller
 public class ProfileController {
@@ -356,4 +348,23 @@ public class ProfileController {
 				dateFormat, true));
 	}
 
+	@RequestMapping(value = "/profile/settingPhoneNumber", method = RequestMethod.POST)
+	public String settingPhoneNumber(@RequestParam("memberId") Integer memberId,
+			@RequestParam("resumeId") Integer resumeId,
+			@RequestParam("newPhoneNumber") String newPhoneNumber) {
+
+		resumeService.updatePhoneNumber(resumeId, newPhoneNumber);
+
+		return "redirect:/profile?memberId=" + memberId;
+	}
+
+	@RequestMapping(value = "/profile/settingEmail", method = RequestMethod.POST)
+	public String settingEmail(@RequestParam("memberId") Integer memberId,
+			@RequestParam("accountId") Integer accountId,
+			@RequestParam("newEmail") String newEmail) {
+
+		accountService.updateEmail(accountId, newEmail);
+
+		return "redirect:/profile?memberId=" + memberId;
+	}
 }

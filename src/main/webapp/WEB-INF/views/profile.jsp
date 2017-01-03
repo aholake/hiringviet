@@ -61,10 +61,63 @@
 						<div class="margin-top-5 p-0">
 							<a id="btn_save_skill_list" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </a>
 							<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
-							<a href="" class="cl-white a-text-color"><spring:message code="label.profile.title.add_skill.done_add"/></a>
 						</div>
 					</div>
 				</c:if>
+				<!-- Begin form setting -->
+				<div class="card-panel padding-10 light-blue darken-3 hoverable">
+					<form action="/profile/settingEmail" method="POST">
+						<input type="hidden" name="memberId" value="${param.memberId}"/>
+						<input type="hidden" name="accountId" value="${memberLogin.account.id}"/>
+						<h1 class="title cl-white">Setting Email Address</h1>
+						<p class="cl-white small-text">Please enter a valid email address</p>
+						<div class="row chip-inputs">
+							<div class="input-field col m12 mp0">
+								<input id="newEmail" name="newEmail" type="email" class="validate" value="${memberLogin.account.email}">
+							</div>
+						</div>
+						<div class="margin-top-5 p-0">
+							<button id="btnSettingEmail" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
+							<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
+						</div>
+					</form>
+				</div>
+				<div class="card-panel padding-10 light-blue darken-3 hoverable">
+					<form action="/profile/settingPhoneNumber" method="POST">
+						<input type="hidden" name="memberId" value="${param.memberId}"/>
+						<input type="hidden" name="resumeId" value="${memberLogin.resume.id}"/>
+						<h1 class="title cl-white">Setting Phone Numbers</h1>
+						<p class="cl-white small-text">Please enter a valid phone number</p>
+						<div class="row chip-inputs">
+							<div class="input-field col m12 mp0">
+								<input id="newPhoneNumber" name="newPhoneNumber" type="text" class="validate" value="${memberLogin.resume.phoneNumber}">
+							</div>
+						</div>
+						<div class="margin-top-5 p-0">
+							<button id="btnSettingPhoneNumber" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
+							<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
+						</div>
+					</form>
+				</div>
+				<div class="card-panel padding-10 light-blue darken-3 hoverable">
+					<form action="">
+						<h1 class="title cl-white">Setting Language</h1>
+						<p class="cl-white small-text">Select a language you use on HiringViet</p>
+						<div class="row chip-inputs">
+							<div class="input-field col s12 mp0">
+								<select name="language">
+									<option value="VN">Vietnamese</option>
+									<option value="EN">English</option>
+								</select> 
+							</div>
+						</div>
+						<div class="margin-top-5 p-0">
+							<a id="btn_save_skill_list" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </a>
+							<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
+						</div>
+					</form>
+				</div>
+				<!-- End form setting -->
 				<!-- Begin resume -->
 				<div class="card-panel padding-10 hoverable position-relative summary">
 					<h1 class="title"><spring:message code="label.profile.title.summary.title"/></h1>
@@ -173,6 +226,8 @@
 						<div class="row">
 							<form:form id="saveSummary" action="/profile/saveSummary" method="POST" modelAttribute="resume">
 								<input type="hidden" id="filterMemberId" name="filterMemberId" value="${param.memberId}"/>
+								<input type="hidden" id="phoneNumberIsEmpty" value='<spring:message code="message.error.profile.summary.phoneNumber.is_empty"></spring:message>'/>
+								<input type="hidden" id="notionalityIsEmpty" value='<spring:message code="message.error.profile.summary.notionality.is_empty"></spring:message>'/>
 								<div class="input-field col m5 p-0">
 									<form:input type="date" class="display-none" id="birthDate" path="birthDate" cssClass="datepicker"/>
 									<label><spring:message code="label.profile.title.summary.birth_date"/></label>
@@ -205,7 +260,7 @@
 									<textarea  id="txtSummary" class="materialize-textarea"></textarea>
 								</div>
 								<div class="col m12 p-0 margin-top-10">
-									<button type="submit" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.summary.save"/></button>
+									<button type="submit" id="btnSaveSummary" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.summary.save"/></button>
 									<a class="waves-effect waves-light grey darken-2 btn margin-right-5" href="javascript:cancelSettingSummary();">
 										<spring:message code="label.profile.title.summary.cancel"/>
 									</a>
@@ -314,9 +369,10 @@
 						<div class="row">
 							<form:form id="saveEmployee" action="/profile/createEmployee" method="POST" modelAttribute="employeeHistory">
 								<input type="hidden" name="filterMemberId" value="${param.memberId}"/>
+								<input type="hidden" id="companyNameIsEmpty" value='<spring:message code="message.error.profile.experience.companyName.is_empty"></spring:message>'/>
 								<form:input type="hidden" id="employee-id" path="id"/>
 								<div class="input-field col m12 p-0">
-									<form:input placeholder="<spring:message code='label.profile.title.emp_history.placeholder.company_name'/>" type="text" id="companyName" path="companyName" cssClass="validate"/>
+									<form:input placeholder='<spring:message code="label.register.company.input.company_name"/>' type="text" id="companyName" path="companyName" cssClass="validate"/>
 									<label for="companyName">
 										<spring:message code="label.profile.title.emp_history.company_name"/>
 									</label>
@@ -345,7 +401,7 @@
 									<label for="txtEmployeeDescription"><spring:message code="label.profile.title.emp_history.description"/></label>
 								</div>
 								<div class="col m12 p-0 margin-top-10">
-									<button type="submit" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.emp_history.save"/></button>
+									<button type="submit" id="btnSaveEmployee" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.emp_history.save"/></button>
 									<a class="waves-effect waves-light grey darken-2 btn margin-right-5" href="javascript:cancelSettingEmployee();">
 										<spring:message code="label.profile.title.emp_history.cancel"/>
 									</a>
@@ -362,6 +418,7 @@
 						<div class="row">
 							<form:form id="saveProject" action="/profile/createProject" method="POST" modelAttribute="project">
 								<input type="hidden" id="filterMemberId" name="filterMemberId" value="${param.memberId}"/>
+								<input type="hidden" id="companyIsEmpty" value='<spring:message code="message.error.profile.project.company.is_empty"></spring:message>'/>
 								<div class="input-field col m12 p-0">
 									<select id="cbxCompany">
 										<option value="" disabled selected>Choose your option</option>
@@ -535,6 +592,7 @@
 						<div class="row">
 							<form:form id="saveEducation" action="/profile/createEducation" method="POST" modelAttribute="educationHistory">
 								<input type="hidden" id="filterMemberId" name="filterMemberId" value="${param.memberId}"/>
+								<input type="hidden" id="universityNameIsEmpty" value='<spring:message code="message.error.profile.education.universityName.is_empty"></spring:message>'/>
 								<form:input type="hidden" id="education-id" path="id"/>
 								<div class="input-field col m12 p-0">
 									<form:input type="hidden" id="universityName" path="universityName"/>
@@ -586,7 +644,7 @@
 									<label for="txtSocialActivity"><spring:message code="label.profile.title.edu_history.social_activity"/></label>
 								</div>
 								<div class="col m12 p-0 margin-top-10">
-									<button type="submit" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.edu_history.save"/></button>
+									<button type="submit" id="btnSaveEducation" class="waves-effect waves-light btn margin-right-5"><spring:message code="label.profile.title.edu_history.save"/></button>
 									<a class="waves-effect waves-light grey darken-2 btn margin-right-5" href="javascript:cancelSettingEducation();"><spring:message code="label.profile.title.edu_history.cancel"/></a>
 									<a href="" class="cl-white a-text-color margin-right-5"><spring:message code="label.profile.title.edu_history.remove"/></a>
 								</div>
@@ -641,6 +699,7 @@
 															onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
 															onmouseout="javascript:hideMemberToolTip()">
 														<a href="/profile?memberId=${endorse.account.id}">
+															<input type="hidden" class="avatar_image" value="${endorse.account.avatarImage}"/>
 															<img class="img-full" src="${endorse.account.avatarImage}">
 														</a>
 														</li>
@@ -660,6 +719,7 @@
 						    									onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
 						    									onmouseout="javascript:hideMemberToolTip()">
 								    							<a href="#">
+								    								<input type="hidden" class="avatar_image" value="${endorse.account.avatarImage}"/>
 								    								<img class="img-full" src="${endorse.account.avatarImage}">
 								    							</a>
 							    							</li>
@@ -875,10 +935,7 @@
 		<div class="modal-content">
 			<h4>Endorse List</h4>
 			<div class="row">
-				<div class="col m12 mp0">
-					<img width="50px" height="50px" class="responsive-img" alt="" src="/resources/images/avatar-images/avatar.png" />
-					<img width="50px" height="50px" class="responsive-img" alt="" src="/resources/images/avatar-images/avatar.png" />
-					<img width="50px" height="50px" class="responsive-img" alt="" src="/resources/images/avatar-images/avatar.png" />
+				<div class="col m12 mp0 list-member-endorse">
 				</div>
 			</div>
 		</div>
@@ -892,9 +949,21 @@
 	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$('.endorseModal').leanModal();
+			$('.endorseModal').leanModal({
+				ready: function(modal, trigger) {
+
+					$('.list-member-endorse').html('');
+					var parent = $(this).parents('ul');
+
+					var html = "";
+					$(parent).find('.avatar_image').each(function() {
+						html += '<img width="50px" height="50px" class="responsive-img" alt="" src="' + $(this).val(); + '" />';
+					});
+					$('.list-member-endorse').append(html);
+				}
+			});
 		})
-	
+
 		$('.datepicker').pickadate({
 		    selectMonths: true, // Creates a dropdown to control month
 		    selectYears: 15, // Creates a dropdown of 15 years to control year

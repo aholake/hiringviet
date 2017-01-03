@@ -93,10 +93,13 @@
 							</div>
 						</div>
 					</div>
+					<div class="btn-add-footer margin-top-30" onclick="javascript:void(0);">
+						Update
+					</div>
 				</div>
 				<!-- JOB DESCRIBE -->
-				<div class="card-panel">
-					<div class="row">
+				<div class="card-panel mp0 margin-top-30">
+					<div class="row" id="description">
 						<div class="col m12">
 							<h5>Công việc của bạn</h5>
 							<hr>
@@ -105,9 +108,30 @@
 							</div>
 						</div>
 					</div>
+					<div class="row display-none" id="settingDescription">
+						<div class="col m12">
+							<h5>Công việc của bạn</h5>
+							<hr>
+							<form action="/job/settingDescription" method="POST">
+								<input type="hidden" name="jobId" value="${param.jobId}" />
+								<div class="input-field col m12 p-0">
+									<textarea rows="10" cols="80" id="txtDescription" name="description">${job.description}</textarea>
+								</div>
+								<div class="text-right">
+									<button class="btn waves-effect waves-light margin-top-10" type="submit">Submit</button>
+									<a class="waves-effect waves-light grey darken-2 btn margin-right-5 margin-top-10" href="javascript:cancelSettingDescription();">
+										Cancel
+									</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div id="btnShowPopupUpdateDescription" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateDescription();">
+						Update
+					</div>
 				</div>
-				<div class="card-panel">
-					<div class="row">
+				<div class="card-panel mp0 margin-top-30">
+					<div class="row" id="requirement">
 						<div class="col m12">
 							<h5>Yêu cầu</h5>
 							<hr>
@@ -116,9 +140,30 @@
 							</div>
 						</div>
 					</div>
+					<div class="row display-none" id="settingRequirement">
+						<div class="col m12">
+							<h5>Yêu cầu</h5>
+							<hr>
+							<form action="/job/settingRequirement" method="POST">
+								<input type="hidden" name="jobId" value="${param.jobId}" />
+								<div class="input-field col m12 p-0">
+									<textarea rows="10" cols="80" id="txtRequirement" name="requirement">${job.requirement}</textarea>
+								</div>
+								<div class="text-right">
+									<button class="btn waves-effect waves-light margin-top-10" type="submit" name="action">Submit</button>
+									<a class="waves-effect waves-light grey darken-2 btn margin-right-5 margin-top-10" href="javascript:cancelSettingRequirement();">
+										Cancel
+									</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div id="btnShowPopupUpdateRequirement" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateRequirement();">
+						Update
+					</div>
 				</div>
-				<div class="card-panel">
-					<div class="row">
+				<div class="card-panel mp0 margin-top-30">
+					<div class="row" id="companyPolicies">
 						<div class="col m12">
 							<h5>Chính sách công ty</h5>
 							<hr>
@@ -126,6 +171,27 @@
 								${job.company.companyPolicies}
 							</div>
 						</div>
+					</div>
+					<div class="row display-none" id="settingCompanyPolicies">
+						<div class="col m12">
+							<h5>Chính sách công ty</h5>
+							<hr>
+							<form action="/job/settingCompanyPolicies" method="POST">
+								<input type="hidden" name="jobId" value="${param.jobId}" />
+								<div class="input-field col m12 p-0">
+									<textarea rows="10" cols="80" id="txtCompanyPolicies" name="companyPolicies">${job.company.companyPolicies}</textarea>
+								</div>
+								<div class="text-right">
+									<button class="btn waves-effect waves-light margin-top-10" type="submit" name="action">Submit</button>
+									<a class="waves-effect waves-light grey darken-2 btn margin-right-5 margin-top-10" href="javascript:cancelSettingCompanyPolicies();">
+										Cancel
+									</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div id="btnShowPopupUpdateCompanyPolicies" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateCompanyPolicies();">
+						Update
 					</div>
 				</div>
 				<div class="card-panel">
@@ -223,11 +289,41 @@
 	</div>
 	<div id="divLoading"></div>
 	<script type="text/javascript">
-		
-		CKEDITOR.replace('txtTitle');
-		CKEDITOR.replace('txtDescription');
-		CKEDITOR.addCss('textarea{display:block}');
-		CKEDITOR.addCss('code{border:solid 1px #fb8c00 !important}');
+		function showPopupUpdateDescription() {
+			$('#description').hide();
+			$('#settingDescription').show();
+			$('#btnShowPopupUpdateDescription').hide();
+		}
+
+		function cancelSettingDescription() {
+			$('#description').show();
+			$('#settingDescription').hide();
+			$('#btnShowPopupUpdateDescription').show();
+		}
+
+		function showPopupUpdateRequirement() {
+			$('#requirement').hide();
+			$('#settingRequirement').show();
+			$('#btnShowPopupUpdateRequirement').hide();
+		}
+
+		function cancelSettingRequirement() {
+			$('#requirement').show();
+			$('#settingRequirement').hide();
+			$('#btnShowPopupUpdateRequirement').show();
+		}
+
+		function showPopupUpdateCompanyPolicies() {
+			$('#companyPolicies').hide();
+			$('#settingCompanyPolicies').show();
+			$('#btnShowPopupUpdateCompanyPolicies').hide();
+		}
+
+		function cancelSettingCompanyPolicies() {
+			$('#companyPolicies').show();
+			$('#settingCompanyPolicies').hide();
+			$('#btnShowPopupUpdateCompanyPolicies').show();
+		}
 
 		$(document).ready(function() {
 			$('.slider').slider({
@@ -235,9 +331,15 @@
 			});
 
 			$('ul.tabs').tabs('select_tab', 'tab_id');
+			
+			CKEDITOR.replace('txtRequirement');
+			CKEDITOR.replace('txtCompanyPolicies');
+			CKEDITOR.replace('txtDescription');
+			//CKEDITOR.addCss('textarea{display:block}');
+			//CKEDITOR.addCss('code{border:solid 1px #fb8c00 !important}');
 		});
 	</script>
 	<script src="<c:url value='/resources/hiringviet/job/js/job-details.js'/>"></script>
-	<script src="<c:url value='/resources/common/js/ckeditor/ckeditor.js'/>"></script>
+	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>
 </body>
 </html>

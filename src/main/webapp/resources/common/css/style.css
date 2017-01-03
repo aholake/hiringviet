@@ -103,6 +103,7 @@ nav {
 
 .margin-0 {margin: 0 !important;}
 
+.padding-bottom-0 {padding-bottom: 0px !important;}
 .padding-bottom-10 {padding-bottom: 10px;}
 
 .padding-top-4 {padding-top: 4px !important;}
@@ -243,7 +244,7 @@ h1.title {
 }
 
 .display-none {
-	display: none !important;
+	display: none;
 }
 
 .chip {
@@ -400,4 +401,16 @@ h1.title {
 }
 
 .collapsible-body p {padding: 1em !important;}
+
+.btn-add-footer {
+	padding: 10px 0px;
+    background: #eeeeee;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-add-footer:hover {
+	 background: #e0e0e0;
+	 color: #039be5;
+}
 @import url("smart.css");

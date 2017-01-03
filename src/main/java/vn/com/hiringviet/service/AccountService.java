@@ -22,4 +22,6 @@ public interface AccountService {
 	public boolean updateAccount(Account account);
 
 	public List<AccountDTO> getFollowList(String accountId);
+
+	public boolean updateEmail(Integer accountId, String email);
 }

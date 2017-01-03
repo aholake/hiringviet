@@ -160,4 +160,31 @@ public class JobController {
 		model.addAttribute("applyFormURL", blobStoreService.createUploadUrl("/doApply"));
 		return "apply";
 	}
+
+	@RequestMapping(value = "/job/settingDescription", method = RequestMethod.POST)
+	public String settingDescription(@RequestParam("jobId") Integer jobId,
+			@RequestParam("description") String description) {
+		
+		jobService.updateDescription(jobId, description);
+
+		return "redirect:/company/careers?jobId=" + jobId;
+	}
+
+	@RequestMapping(value = "/job/settingRequirement", method = RequestMethod.POST)
+	public String settingRequirement(@RequestParam("jobId") Integer jobId,
+			@RequestParam("requirement") String requirement) {
+		
+		jobService.updateRequirement(jobId, requirement);
+
+		return "redirect:/company/careers?jobId=" + jobId;
+	}
+
+	@RequestMapping(value = "/job/settingCompanyPolicies", method = RequestMethod.POST)
+	public String settingCompanyPolicies(@RequestParam("jobId") Integer jobId,
+			@RequestParam("companyPolicies") String cultureDescription) {
+
+		jobService.updateCompanyPolicies(jobId, cultureDescription);
+
+		return "redirect:/company/careers?jobId=" + jobId;
+	}
 }

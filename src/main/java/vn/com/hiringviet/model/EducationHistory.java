@@ -32,6 +32,8 @@ public class EducationHistory implements Serializable {
 
 	private String degree;
 
+	private String document;
+
 	private String socialActivity;
 
 	private ChangeLog changeLog;
@@ -110,4 +112,14 @@ public class EducationHistory implements Serializable {
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
 	}
+
+	@Column(name = "document")
+	public String getDocument() {
+		return document;
+	}
+
+	public void setDocument(String document) {
+		this.document = document;
+	}
+
 }

@@ -8,9 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.dto.JobAdminTableDTO;
 import vn.com.hiringviet.dto.JobDTO;
-import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Member;
 
 @Service("JobService")
 @Transactional
@@ -33,4 +31,10 @@ public interface JobService {
 
 	
 	public List<JobAdminTableDTO> getJobsForAdminTable();
+
+	public boolean updateDescription(Integer jobId, String discription);
+
+	public boolean updateRequirement(Integer jobId, String requirement);
+
+	public boolean updateCompanyPolicies(Integer jobId, String cultureDescription);
 }
