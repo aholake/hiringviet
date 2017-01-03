@@ -4,3 +4,4 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
 	prefix="decorator"%>
+<%@ taglib prefix="time" uri="http://ocpsoft.org/prettytime/tags"%>

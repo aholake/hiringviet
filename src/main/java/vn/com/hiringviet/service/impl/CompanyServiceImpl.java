@@ -28,6 +28,7 @@ import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.AddressService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.MailService;
+import vn.com.hiringviet.util.FileUtil;
 import vn.com.hiringviet.util.SecurityUtil;
 import vn.com.hiringviet.util.TextGenerator;
 import vn.com.hiringviet.util.Utils;
@@ -50,7 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private AddressService addressService;
 
-	private Properties configProperties;
+	private Properties configProperties = FileUtil.getProperties();
 
 	@Autowired
 	private PostDAO postDAO;

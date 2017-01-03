@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -178,6 +179,16 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 		return skillDTOs;
 	}
+
+	@Override
+	public long countApplies(Job job) {
+		Session session = getSession();
+		Query query = session.createQuery("SELECT count(*) FROM Apply a WHERE a.job = ?");
+		query.setParameter(0, job);
+		return (long) query.uniqueResult();
+	}
+	
+	
 
 	// @SuppressWarnings("unchecked")
 	// @Override

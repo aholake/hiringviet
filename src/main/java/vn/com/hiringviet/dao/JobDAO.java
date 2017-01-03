@@ -22,4 +22,6 @@ public interface JobDAO extends CommonDAO<Job> {
 	public List<JobDTO> searchJobByKeyWord(String keyWord);
 
 	public List<JobDTO> getNewJobs(Integer companyId);
+	
+	long countApplies(Job job); 
 }

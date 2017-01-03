@@ -116,3 +116,40 @@
 .small-text {
 	font-size: 13px;
 }
+
+.apply-number {
+	position: absolute;
+	bottom: 20px;
+	right: 10px;
+}
+
+.apply-number div.label{
+	padding: 0 3px;
+	display: inline-block;
+	line-height: 30px;
+	height: 30px;
+	color: #FFF;
+	background: #689F39;
+}
+
+.apply-number div.value{
+	padding: 0 3px;
+	display: inline-block;
+	height: 30px;
+	color: #FFF;
+	line-height: 30px;
+	background: #0097A8;
+}
+
+.apply-card-title {
+	line-height: normal !important;
+	margin-bottom: 15px !important;
+}
+
+.apply-card-title .applier-name {
+	display: block;
+}
+
+.apply-card-title .timestamp {
+	float: right;
+}

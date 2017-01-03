@@ -33,4 +33,6 @@ public interface JobService {
 
 	
 	public List<JobAdminTableDTO> getJobsForAdminTable();
+	
+	long countApplies(Job job);
 }

@@ -94,6 +94,10 @@
 												</div>
 											</div>
 										</div>
+										<div class="apply-number">
+											<div class="label">Applied CV: </div>
+											<div class="value">${applyNumbers[job] }</div>
+										</div>
 									</div>
 								</c:forEach>
 							</div>

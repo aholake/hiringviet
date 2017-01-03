@@ -1,12 +1,27 @@
 package vn.com.hiringviet.dao.impl;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.dao.ApplyDAO;
 import vn.com.hiringviet.model.Apply;
+import vn.com.hiringviet.model.Job;
 
 @Repository
 @Transactional
 public class ApplyDAOImpl extends CommonDAOImpl<Apply> implements ApplyDAO {
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Apply> getApplies(Job job) {
+		Session session = getSession();
+		Criteria criteria = session.createCriteria(Apply.class);
+		criteria.add(Restrictions.eq("job", job));
+		return criteria.list();
+	}
 }
