@@ -126,6 +126,7 @@
 .apply-number div.label{
 	padding: 0 3px;
 	display: inline-block;
+	float: left;
 	line-height: 30px;
 	height: 30px;
 	color: #FFF;

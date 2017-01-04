@@ -21,111 +21,26 @@
 		<div class="col m8">
 			<div class="card-panel">
 				<div class="panel-title">Danh sách ứng tuyển cho vị trí này</div>
-				<div class="panel-content">
-					<div class="row">
-						<c:forEach var="apply" items="${applies }">
-							<div class="col s12 m6">
-							<div class="card blue-grey darken-1">
-								<div class="card-content white-text">
-									<p class="card-title apply-card-title">
-										<a href="#" class="applier-name">${apply.member.firstName } ${apply.member.lastName }</a> <span
-											class="email small-text">&lt;${apply.member.account.email }&gt;</span>
-										<span class="timestamp small-text">Hôm qua</span>
-									</p>
-									<p>${apply.disscription }</p>
-								</div>
-								<div class="card-action">
-									<a href="#">Đồng ý</a> <a href="#">Từ chối</a>
-								</div>
-							</div>
-						</div>
-						</c:forEach>
-						<div class="col s12 m6">
-							<div class="card blue-grey darken-1">
-								<div class="card-content white-text">
-									<p class="card-title apply-card-title">
-										<a href="#" class="applier-name">Tuan Anh Nguyen</a> <span
-											class="email small-text">&lt;anh.nguyen@gmail.com&gt;</span>
-										<span class="timestamp small-text">Hôm qua</span>
-									</p>
-									<p>Dear Acxon Active Vietnam, I graduated from Hue
-										university with two majors : Vietnamese studies and teaching
-										English. Now, I am an English teacher at an English center in
-										Da nang. I really love to work in Acxon Active Vietnam Company
-										so much. How can I cooperate with you when i just have English
-										skill like my " money earning tool"♥? Does Acxon Active
-										Vietnam in Danang branch have any vacancies?Please tell me the
-										way and position which I am able to apply for. Thanks all of
-										you. Wish Active Acxon Vietnam a successful year!</p>
-								</div>
-								<div class="card-action">
-									<a href="#">Đồng ý</a> <a href="#">Từ chối</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="col s12 m6">
-							<div class="card blue-grey darken-1">
-								<div class="card-content white-text">
-									<p class="card-title apply-card-title">
-										<a href="#" class="applier-name">Tuan Anh Nguyen</a> <span
-											class="email small-text">&lt;anh.nguyen@gmail.com&gt;</span>
-										<span class="timestamp small-text">Hôm qua</span>
-									</p>
-									<p>Dear Acxon Active Vietnam, I graduated from Hue
-										university with two majors : Vietnamese studies and teaching
-										English. Now, I am an English teacher at an English center in
-										Da nang. I really love to work in Acxon Active Vietnam Company
-										so much. How can I cooperate with you when i just have English
-										skill like my " money earning tool"♥? Does Acxon Active
-										Vietnam in Danang branch have any vacancies?</p>
-								</div>
-								<div class="card-action">
-									<a href="#">Đồng ý</a> <a href="#">Từ chối</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="col s12 m6">
-							<div class="card blue-grey darken-1">
-								<div class="card-content white-text">
-									<p class="card-title apply-card-title">
-										<a href="#" class="applier-name">Tuan Anh Nguyen</a> <span
-											class="email small-text">&lt;anh.nguyen@gmail.com&gt;</span>
-										<span class="timestamp small-text">Hôm qua</span>
-									</p>
-									<p>Dear Acxon Active Vietnam, Does Acxon Active Vietnam in
-										Danang branch have any vacancies?Please tell me the way and
-										position which I am able to apply for. Thanks all of you. Wish
-										Active Acxon Vietnam a successful year!</p>
-								</div>
-								<div class="card-action">
-									<a href="#">Đồng ý</a> <a href="#">Từ chối</a>
-								</div>
-							</div>
-						</div>
-
-						<div class="col s12 m6">
-							<div class="card blue-grey darken-1">
-								<div class="card-content white-text">
+				<div id="jobWall" class="panel-content">
+					<c:if test="${empty applies }">
+						<h5 class="center">Chưa có đơn ứng tuyển cho công việc này</h5>
+					</c:if>
+					<c:forEach var="apply" items="${applies }">
+						<div class="card blue-grey darken-1">
+							<div class="card-content white-text">
 								<p class="card-title apply-card-title">
-										<a href="#" class="applier-name">Tuan Anh Nguyen</a> <span
-											class="email small-text">&lt;anh.nguyen@gmail.com&gt;</span>
-										<span class="timestamp small-text">Hôm qua</span>
-									</p>
-									<p>Dear Acxon Active Vietnam, I graduated from Hue
-										university with two majors : Vietnamese studies and teaching
-										English. Now, I am an English teacher at an English center in
-										Da nang. I really love to work in Acxon Active Vietnam Company
-										so much. How can I cooperate with you when i just have English
-										skill like my " money earning tool"♥?!</p>
-								</div>
-								<div class="card-action">
-									<a href="#">Đồng ý</a> <a href="#">Từ chối</a>
-								</div>
+									<a href="=/profile?memberId=${apply.member.id }"
+										class="applier-name">${apply.member.firstName }
+										${apply.member.lastName }</a> <span class="email small-text">&lt;${apply.member.account.email }&gt;</span>
+									<span class="timestamp small-text">Hôm qua</span>
+								</p>
+								<p>${apply.disscription }</p>
+							</div>
+							<div class="card-action">
+								<a href="#">Đồng ý</a> <a href="#">Từ chối</a>
 							</div>
 						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
@@ -248,5 +163,12 @@
 		src="<c:url value='/resources/hiringviet/company/js/company.js'/>"></script>
 	<script type="text/javascript"
 		src="/resources/common/js/ckeditor/ckeditor.js"></script>
+	<script type="text/javascript" src="/resources/common/js/freewall.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			var wall = new Freewall("#jobWall");
+			wall.fitWidth();
+		})
+	</script>
 </body>
 </html>
