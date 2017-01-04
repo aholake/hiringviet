@@ -51,7 +51,7 @@ public class Apply implements Serializable {
 		this.member = member;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "job_id")
 	public Job getJob() {
 		return job;
@@ -79,7 +79,7 @@ public class Apply implements Serializable {
 		this.disscription = disscription;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "change_log_id")
 	public ChangeLog getChangeLog() {
 		return changeLog;

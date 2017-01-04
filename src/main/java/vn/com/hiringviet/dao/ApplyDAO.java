@@ -12,4 +12,6 @@ import vn.com.hiringviet.model.Job;
 @Transactional
 public interface ApplyDAO extends CommonDAO<Apply>{
 	List<Apply> getApplies(Job job);
+
+	void addApplyByNativeSQL(Apply apply);
 }
