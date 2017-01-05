@@ -1,6 +1,6 @@
 var loginMemberId = null;
 var isOwner = null;
-$(document).ready(function() {
+$(function() {
 
 	loginMemberId = parseInt($('#id_of_account').val());
 	isOwner = parseInt($('#is_owner').val());
@@ -93,7 +93,7 @@ function showPostComments(response) {
 							<img src="' + commentDTOs[index].avatarImage + '" alt="" class="circle"> \
 							<p class="title"><a href="' + $('#url_redirect_member').val() + commentDTOs[index].memberId + '" onmouseenter="javascript:showMemberTooltip(this, 1);" onmouseout="javascript:hideMemberToolTip()">' + commentDTOs[index].firstName + ' ' + commentDTOs[index].lastName + '</a>';
 	
-				if (loginMemberId == commentDTOs[index].memberId) {
+				if (commentDTOs[index].memberId == loginMemberId) {
 					html += '<i class="material-icons small-icon cursor right" onclick="javascript:removeComment(' + commentDTOs[index].commentId + ');" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>';
 				}
 	
@@ -110,7 +110,7 @@ function showPostComments(response) {
 								<input type="hidden" id="currentPage-reply-' + commentDTOs[index].commentId + '" value="1" />\
 								<ul class="collection remove-border" id="replyCommentList-' + commentDTOs[index].commentId + '">\
 								</ul>';
-				if (!isNaN(loginMemberId) || !isNaN(isOwner)) {
+				if ( (loginMemberId != null && !isNaN(loginMemberId)) || (isOwner != null && !isNaN(isOwner))) {
 					html += '<div class="input-field col m12 p-0">\
 										<input onkeypress="javascript:checkReplyComment(event, ' + commentDTOs[index].commentId + ');" id="txtReplyComment-' + commentDTOs[index].commentId + '" type="text" class="validate txtReplyComment" placeholder="' + $('#write_comment').val() + '">\
 									</div>';
@@ -124,7 +124,7 @@ function showPostComments(response) {
 			$('#currentPage-comment-' + currentPostId).val(response.pagingDTO.currentPage);
 		} else {
 
-			if (!isNaN(loginMemberId) || !isNaN(isOwner)) {
+			if ((loginMemberId != null && !isNaN(loginMemberId)) || (isOwner != null && !isNaN(isOwner))) {
 				commentList.append("<p>Hãy là người đầu tiên bình luận</p>");
 			} else {
 				commentList.append("<p>Chưa có bình luận nào!</p>");
@@ -159,7 +159,7 @@ function showPostReplyComments(response) {
 					<input type="hidden" id="currentPage-reply-' + currentCommentId + '" value="1" />\
 					<ul class="collection remove-border" id="replyCommentList-' + currentCommentId + '">\
 					</ul>';
-		if (!isNaN(loginMemberId) || !isNaN(isOwner)) {
+		if ((loginMemberId != null && !isNaN(loginMemberId)) || (isOwner != null && !isNaN(isOwner))) {
 			html += '<div class="input-field col m12 p-0">\
 							<input onkeypress="javascript:checkReplyComment(event, ' + currentCommentId + ');" id="txtReplyComment-' + currentCommentId + '" type="text" class="validate txtReplyComment" placeholder="' + $('#write_comment').val() + '">\
 						</div>';
@@ -207,7 +207,7 @@ function showPostReplyComments(response) {
 				html += '<li class="collection-item avatar comment-bg" style="padding-right: 0px;">\
 							<img src="' + replyCommentDTOs[index].avatarImage + '" alt="" class="circle"> \
 							<p class="title"><a href="' + $('#url_redirect_member').val() + replyCommentDTOs[index].memberId + '">' + replyCommentDTOs[index].firstName + ' ' + replyCommentDTOs[index].lastName + '</a>';
-				if (!isNaN(loginMemberId)) {
+				if (loginMemberId != null && !isNaN(loginMemberId)) {
 					html += '<i class="material-icons small-icon cursor right" onclick="javascript:removeComment(' + replyCommentDTOs[index].replyCommentId + ');" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>';
 				}
 				html += '<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(replyCommentDTOs[index].changeLog.createdDate).toLocaleString() + '</span></p>\

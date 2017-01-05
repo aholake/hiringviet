@@ -31,6 +31,58 @@
 			<c:choose>
 				<c:when test="${param.mode == 'CAREER'}">
 				<div class="col m8">
+					<c:if test="${param.companyId == companyLogin.id}">
+					<!-- Begin form setting -->
+					<div class="card-panel padding-10 light-blue darken-3 hoverable display-none" id="card-panel-setting-email">
+						<form action="/company/settingEmail" method="POST">
+							<input type="hidden" name="companyId" value="${param.companyId}"/>
+							<input type="hidden" name="mode" value="${param.mode}"/>
+							<input type="hidden" name="accountId" value="${companyLogin.account.id}"/>
+							<h1 class="title cl-white">Setting Email Address</h1>
+							<p class="cl-white small-text">Please enter a valid email address</p>
+							<div class="row chip-inputs">
+								<div class="input-field col m12 mp0">
+									<input id="newEmail" name="newEmail" type="email" class="validate" value="${companyLogin.account.email}">
+								</div>
+							</div>
+							<div class="margin-top-5 p-0">
+								<button id="btnSettingEmail" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
+								<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn" onclick="hideSettingEmailPanel()"><spring:message code="label.profile.title.add_skill.skill"/></a>
+							</div>
+						</form>
+					</div>
+					<div class="card-panel padding-10 light-blue darken-3 hoverable" id="card-panel-setting-language">
+						<form action="/company/settingLanguage" method="POST">
+							<input type="hidden" name="companyId" value="${param.companyId}"/>
+							<input type="hidden" name="mode" value="${param.mode}"/>
+							<input type="hidden" name="accountId" value="${companyLogin.account.id}"/>
+							<h1 class="title cl-white">Setting Language</h1>
+							<p class="cl-white small-text">Select a language you use on HiringViet</p>
+							<div class="row chip-inputs">
+								<div class="input-field col s12 mp0">
+									<select name="locale">
+										<c:choose>
+											<c:when test="${companyLogin.account.locale == 'EN'}">
+												<option value="VN">Vietnamese</option>
+												<option value="EN" selected="selected">English</option>
+											</c:when>
+											<c:otherwise>
+												<option value="VN" selected="selected">Vietnamese</option>
+												<option value="EN">English</option>
+											</c:otherwise>
+										</c:choose>
+										
+									</select>
+								</div>
+							</div>
+							<div class="margin-top-5 p-0">
+								<button id="btnSettingLanguage" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
+								<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn" onclick="hideSettingLanguagePanel()"><spring:message code="label.profile.title.add_skill.skill"/></a>
+							</div>
+						</form>
+					</div>
+					<!-- End form setting -->
+				</c:if>
 					<div class="card-panel">
 						<div class="panel-title"><spring:message code="label.company.title.active"/></div>
 							<div class="panel-content">
@@ -108,6 +160,58 @@
 				</c:when>
 				<c:otherwise>
 				<div class="col m8">
+					<c:if test="${param.companyId == companyLogin.id}">
+						<!-- Begin form setting -->
+						<div class="card-panel padding-10 light-blue darken-3 hoverable display-none" id="card-panel-setting-email">
+							<form action="/company/settingEmail" method="POST">
+								<input type="hidden" name="companyId" value="${param.companyId}"/>
+								<input type="hidden" name="mode" value="${param.mode}"/>
+								<input type="hidden" name="accountId" value="${companyLogin.account.id}"/>
+								<h1 class="title cl-white">Setting Email Address</h1>
+								<p class="cl-white small-text">Please enter a valid email address</p>
+								<div class="row chip-inputs">
+									<div class="input-field col m12 mp0">
+										<input id="newEmail" name="newEmail" type="email" class="validate" value="${companyLogin.account.email}">
+									</div>
+								</div>
+								<div class="margin-top-5 p-0">
+									<button id="btnSettingEmail" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
+									<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn" onclick="hideSettingEmailPanel()"><spring:message code="label.profile.title.add_skill.skill"/></a>
+								</div>
+							</form>
+						</div>
+						<div class="card-panel padding-10 light-blue darken-3 hoverable" id="card-panel-setting-language">
+							<form action="/company/settingLanguage" method="POST">
+								<input type="hidden" name="companyId" value="${param.companyId}"/>
+								<input type="hidden" name="mode" value="${param.mode}"/>
+								<input type="hidden" name="accountId" value="${companyLogin.account.id}"/>
+								<h1 class="title cl-white">Setting Language</h1>
+								<p class="cl-white small-text">Select a language you use on HiringViet</p>
+								<div class="row chip-inputs">
+									<div class="input-field col s12 mp0">
+										<select name="locale">
+											<c:choose>
+												<c:when test="${companyLogin.account.locale == 'EN'}">
+													<option value="VN">Vietnamese</option>
+													<option value="EN" selected="selected">English</option>
+												</c:when>
+												<c:otherwise>
+													<option value="VN" selected="selected">Vietnamese</option>
+													<option value="EN">English</option>
+												</c:otherwise>
+											</c:choose>
+											
+										</select>
+									</div>
+								</div>
+								<div class="margin-top-5 p-0">
+									<button id="btnSettingLanguage" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
+									<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn" onclick="hideSettingLanguagePanel()"><spring:message code="label.profile.title.add_skill.skill"/></a>
+								</div>
+							</form>
+						</div>
+						<!-- End form setting -->
+					</c:if>
 					<div class="card-panel">
 						<div class="slider">
 							<ul class="slides">
@@ -194,6 +298,46 @@
 				</c:otherwise>
 			</c:choose>
 			<div class="col m4">
+				<c:if test="${param.companyId == companyLogin.id}">
+					<div class="row">
+						<div class="col m12 mp0">
+							<ul class="collapsible" data-collapsible="accordion">
+								<li>
+									<div class="collapsible-header">
+										<i class="material-icons">filter_drama</i>Customize Your Public Profile
+									</div>
+									<div class="collapsible-body bg-white">
+										<div class="row">
+											<div class="col m12">
+												<p class="small-text">Public Careers</p>
+												<div class="switch margin-left-1em">
+													<label> Off <input type="checkbox" checked="checked" /> <span class="lever"></span> On </label>
+												</div>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li>
+									<div class="collapsible-header">
+										<i class="material-icons">settings</i>Account settings
+									</div>
+									<div class="collapsible-body bg-white">
+										<div class="collection">
+											<a class="collection-item" onclick="showSettingEmailPanel()">
+												<b>Email address</b><br/>
+												<i class="small-text">Add or remove email addresses on your account</i>
+											</a>
+											<a class="collection-item" onclick="showSettingLanguagePanel()">
+												<b>Language</b><br/>
+												<i class="small-text">Select the language you use on HiringViet</i>
+											</a>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</c:if>
 				<div class="card-panel padding-bottom-0">
 					<div class="panel-title"><spring:message code="label.company.title.company_information"/></div>
 					<div class="panel-content">
@@ -304,6 +448,26 @@
 			$('ul.tabs').tabs('select_tab', 'tab_id');
 			CKEDITOR.replace("content");
 		});
+		
+function showSettingEmailPanel() {
+			
+			$('#card-panel-setting-email').show();
+		}
+		
+		function hideSettingEmailPanel() {
+
+			$('#card-panel-setting-email').hide();
+		}
+
+		function showSettingLanguagePanel() {
+			
+			$('#card-panel-setting-language').show();
+		}
+
+		function hideSettingLanguagePanel() {
+			
+			$('#card-panel-setting-language').hide();
+		}
 	</script>
 	<script src="<c:url value='/resources/hiringviet/company/js/company.js'/>"></script>
 	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>

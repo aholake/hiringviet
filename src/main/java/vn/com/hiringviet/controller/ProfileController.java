@@ -367,4 +367,14 @@ public class ProfileController {
 
 		return "redirect:/profile?memberId=" + memberId;
 	}
+
+	@RequestMapping(value = "/profile/settingLanguage", method = RequestMethod.POST)
+	public String settingLocale(@RequestParam("memberId") Integer memberId,
+			@RequestParam("accountId") Integer accountId,
+			@RequestParam("locale") String locale) {
+
+		accountService.updateLocale(accountId, locale);
+
+		return "redirect:/profile?memberId=" + memberId;
+	}
 }

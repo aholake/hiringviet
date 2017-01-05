@@ -110,4 +110,23 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 
 		return false;
 	}
+
+	@Override
+	public boolean updateLocale(Integer accountId, String locale) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("UPDATE ");
+		sb.append("account ");
+		sb.append("SET locale = :locale ");
+		sb.append("WHERE id = :accountId");
+		Query query = getSession().createSQLQuery(sb.toString());
+		query.setParameter("locale", locale);
+		query.setParameter("accountId", accountId);
+
+		if (query.executeUpdate() > 0) {
+			return true;
+		}
+
+		return false;
+	}
 }

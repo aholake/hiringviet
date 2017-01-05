@@ -4,7 +4,19 @@ var listSkillNew = new Array();
 var skillId = null;
 var skillName = null;
 var addingNumber = 0;
-$(function() { 
+$(function() {
+
+	$('.endorsers-action').on('click', '.endorseModal', function() {
+		$('#list-member-endorse').html('');
+		var parent = $(this).parents('.endorsers-pics');
+
+		var html = "";
+		$(parent).find('.avatar_image').each(function() {
+			html += '<img width="50px" height="50px" class="margin-right-5" alt="" src="' + $(this).val() + '" />';
+		});
+		$('#list-member-endorse').append(html);
+		$('#endorseModal').openModal();
+	});
 
 	$("#dialog-connect").dialog({
 		autoOpen: false,

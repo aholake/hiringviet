@@ -413,4 +413,10 @@ h1.title {
 	 background: #e0e0e0;
 	 color: #039be5;
 }
+
+.chip-inputs {
+    background: #fff;
+    padding: 10px;
+    border-radius: 2px;
+}
 @import url("smart.css");

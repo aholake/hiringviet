@@ -35,7 +35,7 @@
 		<div class="row">
 			<div class="col m8">
 				<c:if test="${memberLogin.account.id == member.account.id}">
-					<div class="card-panel padding-10 light-blue darken-3 hoverable">
+					<div class="card-panel padding-10 light-blue darken-3 hoverable display-none" id="card-panel-add-skill">
 						<h1 class="title cl-white"><spring:message code="label.profile.title.addSkill"/></h1>
 						<p class="cl-white small-text"><spring:message code="label.profile.title.value_statement"/></p>
 						<div class="chip-inputs">
@@ -63,61 +63,73 @@
 							<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
 						</div>
 					</div>
+					<!-- Begin form setting -->
+					<div class="card-panel padding-10 light-blue darken-3 hoverable display-none" id="card-panel-setting-email">
+						<form action="/profile/settingEmail" method="POST">
+							<input type="hidden" name="memberId" value="${param.memberId}"/>
+							<input type="hidden" name="accountId" value="${memberLogin.account.id}"/>
+							<h1 class="title cl-white">Setting Email Address</h1>
+							<p class="cl-white small-text">Please enter a valid email address</p>
+							<div class="row chip-inputs">
+								<div class="input-field col m12 mp0">
+									<input id="newEmail" name="newEmail" type="email" class="validate" value="${memberLogin.account.email}">
+								</div>
+							</div>
+							<div class="margin-top-5 p-0">
+								<button id="btnSettingEmail" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
+								<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn" onclick="hideSettingEmailPanel()"><spring:message code="label.profile.title.add_skill.skill"/></a>
+							</div>
+						</form>
+					</div>
+					<div class="card-panel padding-10 light-blue darken-3 hoverable display-none" id="card-panel-setting-phone-number">
+						<form action="/profile/settingPhoneNumber" method="POST">
+							<input type="hidden" name="memberId" value="${param.memberId}"/>
+							<input type="hidden" name="resumeId" value="${memberLogin.resume.id}"/>
+							<h1 class="title cl-white">Setting Phone Numbers</h1>
+							<p class="cl-white small-text">Please enter a valid phone number</p>
+							<div class="row chip-inputs">
+								<div class="input-field col m12 mp0">
+									<input id="newPhoneNumber" name="newPhoneNumber" type="text" class="validate" value="${memberLogin.resume.phoneNumber}">
+								</div>
+							</div>
+							<div class="margin-top-5 p-0">
+								<button id="btnSettingPhoneNumber" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
+								<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn" onclick="hideSettingPhoneNumberPanel()"><spring:message code="label.profile.title.add_skill.skill"/></a>
+							</div>
+						</form>
+					</div>
+					<div class="card-panel padding-10 light-blue darken-3 hoverable" id="card-panel-setting-language">
+						<form action="/profile/settingLanguage" method="POST">
+							<input type="hidden" name="memberId" value="${param.memberId}"/>
+							<input type="hidden" name="accountId" value="${memberLogin.account.id}"/>
+							<h1 class="title cl-white">Setting Language</h1>
+							<p class="cl-white small-text">Select a language you use on HiringViet</p>
+							<div class="row chip-inputs">
+								<div class="input-field col s12 mp0">
+									<select name="locale">
+										<c:choose>
+											<c:when test="${memberLogin.account.locale == 'EN'}">
+												<option value="VN">Vietnamese</option>
+												<option value="EN" selected="selected">English</option>
+											</c:when>
+											<c:otherwise>
+												<option value="VN" selected="selected">Vietnamese</option>
+												<option value="EN">English</option>
+											</c:otherwise>
+										</c:choose>
+										
+									</select>
+								</div>
+							</div>
+							<div class="margin-top-5 p-0">
+								<button id="btnSettingLanguage" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
+								<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn" onclick="hideSettingLanguagePanel()"><spring:message code="label.profile.title.add_skill.skill"/></a>
+							</div>
+						</form>
+					</div>
+					<!-- End form setting -->
 				</c:if>
-				<!-- Begin form setting -->
-				<div class="card-panel padding-10 light-blue darken-3 hoverable">
-					<form action="/profile/settingEmail" method="POST">
-						<input type="hidden" name="memberId" value="${param.memberId}"/>
-						<input type="hidden" name="accountId" value="${memberLogin.account.id}"/>
-						<h1 class="title cl-white">Setting Email Address</h1>
-						<p class="cl-white small-text">Please enter a valid email address</p>
-						<div class="row chip-inputs">
-							<div class="input-field col m12 mp0">
-								<input id="newEmail" name="newEmail" type="email" class="validate" value="${memberLogin.account.email}">
-							</div>
-						</div>
-						<div class="margin-top-5 p-0">
-							<button id="btnSettingEmail" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
-							<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
-						</div>
-					</form>
-				</div>
-				<div class="card-panel padding-10 light-blue darken-3 hoverable">
-					<form action="/profile/settingPhoneNumber" method="POST">
-						<input type="hidden" name="memberId" value="${param.memberId}"/>
-						<input type="hidden" name="resumeId" value="${memberLogin.resume.id}"/>
-						<h1 class="title cl-white">Setting Phone Numbers</h1>
-						<p class="cl-white small-text">Please enter a valid phone number</p>
-						<div class="row chip-inputs">
-							<div class="input-field col m12 mp0">
-								<input id="newPhoneNumber" name="newPhoneNumber" type="text" class="validate" value="${memberLogin.resume.phoneNumber}">
-							</div>
-						</div>
-						<div class="margin-top-5 p-0">
-							<button id="btnSettingPhoneNumber" type="submit" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </button>
-							<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
-						</div>
-					</form>
-				</div>
-				<div class="card-panel padding-10 light-blue darken-3 hoverable">
-					<form action="">
-						<h1 class="title cl-white">Setting Language</h1>
-						<p class="cl-white small-text">Select a language you use on HiringViet</p>
-						<div class="row chip-inputs">
-							<div class="input-field col s12 mp0">
-								<select name="language">
-									<option value="VN">Vietnamese</option>
-									<option value="EN">English</option>
-								</select> 
-							</div>
-						</div>
-						<div class="margin-top-5 p-0">
-							<a id="btn_save_skill_list" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </a>
-							<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
-						</div>
-					</form>
-				</div>
-				<!-- End form setting -->
+				
 				<!-- Begin resume -->
 				<div class="card-panel padding-10 hoverable position-relative summary">
 					<h1 class="title"><spring:message code="label.profile.title.summary.title"/></h1>
@@ -728,7 +740,7 @@
 					    						</c:choose>
 				    						</c:forEach>
 				    						<li class="endorsers-action">
-				    							<a href="#endorseModal" class="endorseModal"><i class="material-icons padding-top-4">keyboard_arrow_right</i></a>
+				    							<a class="endorseModal"><i class="material-icons padding-top-4">keyboard_arrow_right</i></a>
 				    						</li>
 				    					</ul>
 				    				</div>
@@ -783,104 +795,106 @@
 				</div>
 			</div>
 			<div class="col m4">
-				<div class="row">
-					<div class="col m12 mp0">
-						<ul class="collapsible" data-collapsible="accordion">
-							<li>
-								<div class="collapsible-header">
-									<i class="material-icons">filter_drama</i>Customize Your Public Profile
-								</div>
-								<div class="collapsible-body bg-white">
-									<div class="row">
-										<div class="col m12">
-											<p class="small-text">Public Profile</p>
-											<div class="switch margin-left-1em">
-												<label> Off <input type="checkbox" checked="checked" /> <span class="lever"></span> On </label>
-											</div>
-											<p class="small-text margin-top-10">Customize Your Public Profile</p>
-											<div class="margin-left-1em">
-												<input class="with-gap" name="isPublicProfile" type="radio" id="r_isPublicProfile" value="true"/>
-												<label for="r_isPublicProfile">Make my public profile visible to no one</label>
-											</div>
-											<div class="margin-left-1em">
-												<input class="with-gap" name="isPublicProfile" type="radio" id="r_notPublicProfile" value="false" checked="checked"/>
-												<label for="r_notPublicProfile">Make my public profile visible to everyone</label>
-											</div>
-											<div class="row">
-												<div class="col m12 margin-left-1em">
-													<ul class="make-public margin-left-23">
-														<li>
-															<input type="checkbox" class="filled-in" name="chkHeadline" id="chk-headline" checked="checked" />
-															<label for="chk-headline">Headline</label>
-														</li>
-														<li>
-															<input type="checkbox" class="filled-in" name="chkEducation" id="chk-eduation" checked="checked"/>
-															<label for="chk-eduation">Education</label>
-															<ul class="margin-left-35">
-																<li>
-																	<input type="checkbox" class="filled-in" name="chkEducationDetails" id="chk-edu-details" checked="checked"/>
-																	<label for="chk-edu-details">Details</label>
-																</li>
-															</ul>
-														</li>
-														<li>
-															<input type="checkbox" class="filled-in" name="chkCurrentPosition" id="chk-current-position" checked="checked"/>
-															<label for="chk-current-position">Current Positions</label>
-															<ul class="margin-left-35">
-																<li>
-																	<input type="checkbox" class="filled-in" name="chkCurrentPositionDetails" id="chk-current-position-details" checked="checked"/>
-																	<label for="chk-current-position-details">Details</label>
-																</li>
-															</ul>
-														</li>
-													</ul>
-													<button type="button" class="waves-effect waves-light btn right margin-right-10">Save</button>
+				<c:if test="${memberLogin.account.id == member.account.id}">
+					<div class="row">
+						<div class="col m12 mp0">
+							<ul class="collapsible" data-collapsible="accordion">
+								<li>
+									<div class="collapsible-header">
+										<i class="material-icons">filter_drama</i>Customize Your Public Profile
+									</div>
+									<div class="collapsible-body bg-white">
+										<div class="row">
+											<div class="col m12">
+												<p class="small-text">Public Profile</p>
+												<div class="switch margin-left-1em">
+													<label> Off <input type="checkbox" checked="checked" /> <span class="lever"></span> On </label>
+												</div>
+												<p class="small-text margin-top-10">Customize Your Public Profile</p>
+												<div class="margin-left-1em">
+													<input class="with-gap" name="isPublicProfile" type="radio" id="r_isPublicProfile" value="true"/>
+													<label for="r_isPublicProfile">Make my public profile visible to no one</label>
+												</div>
+												<div class="margin-left-1em">
+													<input class="with-gap" name="isPublicProfile" type="radio" id="r_notPublicProfile" value="false" checked="checked"/>
+													<label for="r_notPublicProfile">Make my public profile visible to everyone</label>
+												</div>
+												<div class="row">
+													<div class="col m12 margin-left-1em">
+														<ul class="make-public margin-left-23">
+															<li>
+																<input type="checkbox" class="filled-in" name="chkHeadline" id="chk-headline" checked="checked" />
+																<label for="chk-headline">Headline</label>
+															</li>
+															<li>
+																<input type="checkbox" class="filled-in" name="chkEducation" id="chk-eduation" checked="checked"/>
+																<label for="chk-eduation">Education</label>
+																<ul class="margin-left-35">
+																	<li>
+																		<input type="checkbox" class="filled-in" name="chkEducationDetails" id="chk-edu-details" checked="checked"/>
+																		<label for="chk-edu-details">Details</label>
+																	</li>
+																</ul>
+															</li>
+															<li>
+																<input type="checkbox" class="filled-in" name="chkCurrentPosition" id="chk-current-position" checked="checked"/>
+																<label for="chk-current-position">Current Positions</label>
+																<ul class="margin-left-35">
+																	<li>
+																		<input type="checkbox" class="filled-in" name="chkCurrentPositionDetails" id="chk-current-position-details" checked="checked"/>
+																		<label for="chk-current-position-details">Details</label>
+																	</li>
+																</ul>
+															</li>
+														</ul>
+														<button type="button" class="waves-effect waves-light btn right margin-right-10">Save</button>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</li>
-							<li>
-								<div class="collapsible-header">
-									<i class="material-icons"><i class="material-icons">insert_drive_file</i></i>View file as
-								</div>
-								<div class="collapsible-body">
-									<div class="collection">
-										<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to PDF</a>
-										<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to Docx</a>
-										<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_upload</i>Import resume</a>
+								</li>
+								<li>
+									<div class="collapsible-header">
+										<i class="material-icons"><i class="material-icons">insert_drive_file</i></i>View file as
 									</div>
-								</div>
-							</li>
-							<li>
-								<div class="collapsible-header">
-									<i class="material-icons">settings</i>Account settings
-								</div>
-								<div class="collapsible-body bg-white">
-									<div class="collection">
-										<a href="#" class="collection-item">
-											<b>Email address</b><br/>
-											<i class="small-text">Add or remove email addresses on your account</i>
-										</a>
-										<a href="#" class="collection-item">
-											<b>Phone numbers</b><br/>
-											<i class="small-text">Add a phone number in case you have trouble signing in</i>
-										</a>
-										<a href="#" class="collection-item">
-											<b>Language</b><br/>
-											<i class="small-text">Select the language you use on HiringViet</i>
-										</a>
-										<a href="#" class="collection-item">
-											<b>Showing profile photos</b><br/>
-											<i class="small-text">Choose whether to show or hide profile photos of other members</i>
-										</a>
+									<div class="collapsible-body">
+										<div class="collection">
+											<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to PDF</a>
+											<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to Docx</a>
+											<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_upload</i>Import resume</a>
+										</div>
 									</div>
-								</div>
-							</li>
-						</ul>
+								</li>
+								<li>
+									<div class="collapsible-header">
+										<i class="material-icons">settings</i>Account settings
+									</div>
+									<div class="collapsible-body bg-white">
+										<div class="collection">
+											<a class="collection-item" onclick="showSettingEmailPanel()">
+												<b>Email address</b><br/>
+												<i class="small-text">Add or remove email addresses on your account</i>
+											</a>
+											<a class="collection-item" onclick="showSettingPhoneNumberPanel()">
+												<b>Phone numbers</b><br/>
+												<i class="small-text">Add a phone number in case you have trouble signing in</i>
+											</a>
+											<a class="collection-item" onclick="showSettingLanguagePanel()">
+												<b>Language</b><br/>
+												<i class="small-text">Select the language you use on HiringViet</i>
+											</a>
+											<a href="#" class="collection-item">
+												<b>Showing profile photos</b><br/>
+												<i class="small-text">Choose whether to show or hide profile photos of other members</i>
+											</a>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
 					</div>
-				</div>
+				</c:if>
 				<div class="card-panel">
 					<div class="panel-title">Profile Management</div>
 					<div class="panel-content">
@@ -935,7 +949,7 @@
 		<div class="modal-content">
 			<h4>Endorse List</h4>
 			<div class="row">
-				<div class="col m12 mp0 list-member-endorse">
+				<div class="col m12 mp0" id="list-member-endorse">
 				</div>
 			</div>
 		</div>
@@ -949,20 +963,42 @@
 	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$('.endorseModal').leanModal({
+			/*$('.endorseModal').leanModal({
 				ready: function(modal, trigger) {
 
-					$('.list-member-endorse').html('');
-					var parent = $(this).parents('ul');
-
-					var html = "";
-					$(parent).find('.avatar_image').each(function() {
-						html += '<img width="50px" height="50px" class="responsive-img" alt="" src="' + $(this).val(); + '" />';
-					});
-					$('.list-member-endorse').append(html);
 				}
-			});
-		})
+			});*/
+		});
+
+		function showSettingEmailPanel() {
+			
+			$('#card-panel-setting-email').show();
+		}
+		
+		function hideSettingEmailPanel() {
+
+			$('#card-panel-setting-email').hide();
+		}
+
+		function showSettingPhoneNumberPanel() {
+
+			$('#card-panel-setting-phone-number').show();
+		}
+	
+		function hideSettingPhoneNumberPanel() {
+
+			$('#card-panel-setting-phone-number').hide();
+		}
+
+		function showSettingLanguagePanel() {
+			
+			$('#card-panel-setting-language').show();
+		}
+
+		function hideSettingLanguagePanel() {
+			
+			$('#card-panel-setting-language').hide();
+		}
 
 		$('.datepicker').pickadate({
 		    selectMonths: true, // Creates a dropdown to control month

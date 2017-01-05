@@ -12,25 +12,24 @@
 <body>
 	<input type="hidden" id="url_get_owner_message_list" value="/search/message/owner"/>
 	
-	<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
-		<sec:authentication property="principal" var="principal" />
-		<input type="hidden" id="account_id" value="${principal.id}" />
-	</sec:authorize>
+	<c:if test="${memberLogin.account.id == member.account.id}">
+		<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
+			<sec:authentication property="principal" var="principal" />
+			<input type="hidden" id="account_id" value="${principal.id}" />
+		</sec:authorize>
+	</c:if>
 
-	<sec:authorize access="hasAuthority('COMPANY') and isAuthenticated()">
-		<sec:authentication property="principal" var="principal" />
-		<input type="hidden" id="account_id" value="${principal.id}" />
-	</sec:authorize>
-	
 	<div class="row profile-header">
 		<div class="col m6 offset-m2">
 			<p class="profile-name"><a href="<c:url value='/profile/${member.id}' />">${member.firstName}  ${member.lastName}</a></p>
 			<p>100 <spring:message code="label.profile.header.title.count_follow"/></p>
 		</div>
 		<div class="col m4 margin-top-10 right-align">
-			<a href="#messageModal" class="messageModal btn waves-effect waves-light">
-				<spring:message code="label.profile.title.message"/>
-			</a>
+			<c:if test="${memberLogin.account.id == member.account.id}">
+				<a href="#messageModal" class="messageModal btn waves-effect waves-light">
+					<spring:message code="label.profile.title.message"/>
+				</a>
+			</c:if>
 			<c:choose>
 				<c:when test="${checkConnect == false}">
 					<a class="btn waves-effect waves-light orange" id="btn-connect">

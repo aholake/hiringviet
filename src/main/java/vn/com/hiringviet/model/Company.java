@@ -73,9 +73,9 @@ public class Company implements Serializable {
 		this.id = companyID;
 	}
 
-	@JsonIgnore
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "account_id")
+	@Cascade(value = { org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Account getAccount() {
 		return account;
 	}

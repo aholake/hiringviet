@@ -10,17 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-import com.google.appengine.repackaged.com.google.io.protocol.HtmlFormGenerator.Constants;
 
 import vn.com.hiringviet.api.dto.request.CommentRequestDTO;
 import vn.com.hiringviet.api.dto.request.ReplyCommentRequestDTO;
@@ -50,6 +45,9 @@ import vn.com.hiringviet.service.ReplyCommentService;
 import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.ImageUtil;
 import vn.com.hiringviet.util.Utils;
+
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 /**
  * The Class CompanyController.
@@ -94,7 +92,9 @@ public class CompanyController {
 	 */
 	@RequestMapping(value = "/company", method = RequestMethod.GET)
 	public String goCompanyPage(@RequestParam("companyId") Integer companyId,
-			@RequestParam(value = "mode", required = false) String mode, Model model) {
+			@RequestParam(value = "mode", required = false) String mode,
+			Model model,
+			HttpSession session) {
 
 		Company company = companyService.getCompanyById(companyId);
 		Long numberFollower = followService.countNumberOfFollower(company.getAccount().getId());
@@ -114,7 +114,18 @@ public class CompanyController {
 			}
 		}
 		model.addAttribute("memberLogin", memberLogin);
-		model.addAttribute("companyLogin", companyLogin);
+
+		Company companySession = (Company) session.getAttribute("companySession");
+
+		if (companySession == null) {
+
+			session.setAttribute("companySession", companyLogin);
+			model.addAttribute("companyLogin", companyLogin);
+		} else {
+
+			model.addAttribute("companyLogin", companySession);
+		}
+
 
 		if (ModeEnum.CAREER.getValue().equals(mode)) {
 
@@ -389,7 +400,7 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/company/addPosts", method = RequestMethod.POST)
-	public String addPosts(@ModelAttribute PostDTO postDTO, Model model) {
+	public String addPosts(@ModelAttribute PostDTO postDTO, Model model, HttpSession session) {
 		
 		Company companyLogin = null;
 
@@ -401,7 +412,7 @@ public class CompanyController {
 		if (companyLogin != null) {
 			companyService.addPosts(postDTO, companyLogin);
 			
-			return goCompanyPage(companyLogin.getId(), ModeEnum.HOME.getValue(), model);
+			return goCompanyPage(companyLogin.getId(), ModeEnum.HOME.getValue(), model, session);
 		}
 		return "redirect:/login";
 	}
@@ -425,5 +436,43 @@ public class CompanyController {
 		accountService.updateAccount(account);
 
 		return "redirect:/company?companyId=" + companyLogin.getId() + "&mode=" + mode;
+	}
+
+	@RequestMapping(value = "/company/settingEmail", method = RequestMethod.POST)
+	public String settingEmail(@RequestParam("companyId") Integer companyId,
+			@RequestParam("mode") String mode,
+			@RequestParam("accountId") Integer accountId,
+			@RequestParam("newEmail") String newEmail,
+			HttpSession session) {
+
+		accountService.updateEmail(accountId, newEmail);
+
+		Company companySession = (Company) session.getAttribute("companySession");
+
+		if (companySession != null) {
+			companySession.getAccount().setEmail(newEmail);
+			session.setAttribute("companySession", companySession);
+		}
+
+		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
+	}
+
+	@RequestMapping(value = "/company/settingLanguage", method = RequestMethod.POST)
+	public String settingLocale(@RequestParam("companyId") Integer companyId,
+			@RequestParam("mode") String mode,
+			@RequestParam("accountId") Integer accountId,
+			@RequestParam("locale") String locale,
+			HttpSession session) {
+
+		accountService.updateLocale(accountId, locale);
+
+		Company companySession = (Company) session.getAttribute("companySession");
+
+		if (companySession != null) {
+			companySession.getAccount().setLocale(locale);
+			session.setAttribute("companySession", companySession);
+		}
+
+		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
 	}
 }

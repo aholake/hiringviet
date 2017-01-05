@@ -21,4 +21,6 @@ public interface AccountDAO extends CommonDAO<Account> {
 	public List<AccountDTO> getFollowList(String accountId);
 
 	public boolean updateEmail(Integer accountId, String email);
+
+	public boolean updateLocale(Integer accountId, String locale);
 }

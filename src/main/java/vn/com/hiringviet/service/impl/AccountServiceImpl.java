@@ -120,4 +120,10 @@ public class AccountServiceImpl implements AccountService {
 
 		return accountDAO.updateEmail(accountId, email);
 	}
+
+	@Override
+	public boolean updateLocale(Integer accountId, String locale) {
+
+		return accountDAO.updateLocale(accountId, locale);
+	}
 }

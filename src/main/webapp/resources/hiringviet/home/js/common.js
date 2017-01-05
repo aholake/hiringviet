@@ -113,6 +113,28 @@ $(function() {
 			$(this).find('.icon-arrow').text(ICON_ARROW_UP);
 		}
 	});
+	
+	
+	$('#card-panel-add-skill').hide();
+	$('#card-panel-setting-email').hide();
+	$('#card-panel-setting-phone-number').hide();
+	$('#card-panel-setting-language').hide();
+	// random
+	var random = Math.floor((Math.random() * 10) + 1);
+	switch(random) {
+	case 1:
+		$('#card-panel-add-skill').show();
+		break;
+	case 2:
+		$('#card-panel-setting-email').show();
+		break;
+	case 3:
+		$('#card-panel-setting-phone-number').show();
+		break;
+	case 4:
+		$('#card-panel-setting-language').show();
+		break;
+	}
 })
 
 /**
