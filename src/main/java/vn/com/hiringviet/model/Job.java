@@ -2,6 +2,7 @@ package vn.com.hiringviet.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -245,5 +246,10 @@ public class Job implements Serializable {
 
 	public void setCommentSet(Set<Comment> commentSet) {
 		this.commentSet = commentSet;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 }

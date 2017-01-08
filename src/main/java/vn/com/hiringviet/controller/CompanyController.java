@@ -1,6 +1,8 @@
 package vn.com.hiringviet.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,10 +36,12 @@ import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.dto.ReplyCommentDTO;
 import vn.com.hiringviet.model.Account;
+import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
+import vn.com.hiringviet.service.ApplyService;
 import vn.com.hiringviet.service.CommentService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.FollowService;
@@ -76,6 +81,9 @@ public class CompanyController {
 
 	@Autowired
 	private JobService jobService;
+	
+	@Autowired
+	private ApplyService applyService;
 
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
@@ -136,6 +144,13 @@ public class CompanyController {
 			}
 
 			model.addAttribute("jobList", jobList);
+			
+			Map<Job, Long> applyNumbers = new HashMap<>();
+			
+			for (Job job : jobList) {
+				applyNumbers.put(job, jobService.countApplies(job));
+			}
+			model.addAttribute("applyNumbers", applyNumbers);
 
 		} else {
 
@@ -153,7 +168,7 @@ public class CompanyController {
 
 		List<JobDTO> newJobs = jobService.getNewJobs(companyId);
 		model.addAttribute("newJobs", newJobs);
-
+		
 		model.addAttribute("company", company);
 
 		model.addAttribute("fileUpload", blobstoreService.createUploadUrl("/company/image"));
@@ -474,5 +489,12 @@ public class CompanyController {
 		}
 
 		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
+	}
+	
+	@RequestMapping("/company/apply/{jobId}")
+	public String goToCompaniesApply(@PathVariable("jobId") int jobId, Model model) {
+		List<Apply> applies = applyService.findApplies(jobId);
+		model.addAttribute("applies", applies);
+		return "company-applies";
 	}
 }

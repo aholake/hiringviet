@@ -63,12 +63,14 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 	@Override
 	@Transactional
 	public int create(T entity) {
+		int result=-1;
 		try {
-			return (Integer) getSession().save(entity);
+			result = (Integer) getSession().save(entity);
+			getSession().evict(entity);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -1;
+		return result;
 	}
 
 	@Override

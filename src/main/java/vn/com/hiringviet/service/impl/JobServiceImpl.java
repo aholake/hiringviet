@@ -84,4 +84,9 @@ public class JobServiceImpl implements JobService {
 
 		return jobDAO.updateCompanyPolicies(jobId, cultureDescription);
 	}
+
+	@Override
+	public long countApplies(Job job) {
+		return jobDAO.countApplies(job);
+	}
 }

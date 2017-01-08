@@ -1,5 +1,7 @@
 package vn.com.hiringviet.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.dto.ApplyDTO;
@@ -11,4 +13,6 @@ public interface ApplyService {
 	public void addApply(Apply apply);
 
 	public void addApplyByDTO(ApplyDTO applyDTO, Member member);
+	
+	public List<Apply> findApplies(int jobId);
 }

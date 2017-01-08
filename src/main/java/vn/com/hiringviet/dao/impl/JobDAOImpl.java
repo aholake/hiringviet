@@ -236,6 +236,16 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return false;
 	}
 
+	@Override
+	public long countApplies(Job job) {
+		Session session = getSession();
+		Query query = session.createQuery("SELECT count(*) FROM Apply a WHERE a.job = ?");
+		query.setParameter(0, job);
+		return (long) query.uniqueResult();
+	}
+	
+	
+
 	// @SuppressWarnings("unchecked")
 	// @Override
 	// public List<Job> getListJobSuggest(Integer first, Integer max,

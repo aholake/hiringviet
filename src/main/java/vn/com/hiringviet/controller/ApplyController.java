@@ -24,13 +24,17 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 public class ApplyController {
 	@Autowired
 	private ApplyService applyService;
-	
-	private BlobstoreService blobStoreService = BlobstoreServiceFactory.getBlobstoreService();
-	
+
+	private BlobstoreService blobStoreService = BlobstoreServiceFactory
+			.getBlobstoreService();
+
 	@RequestMapping(value = "/doApply", method = RequestMethod.POST)
-	public String doApply(@RequestParam("jobList") String jobList, @RequestParam("description") String description, HttpServletRequest request) {
-		Map<String, List<BlobKey>> blobInfos = blobStoreService.getUploads(request);
-		
+	public String doApply(@RequestParam("jobList") String jobList,
+			@RequestParam("description") String description,
+			HttpServletRequest request) {
+		Map<String, List<BlobKey>> blobInfos = blobStoreService
+				.getUploads(request);
+
 		BlobKey blobKey = blobInfos.get("curriculumVitae").get(0);
 		System.out.println(blobKey.getKeyString());
 		Member member = AuthenticationUtil.getLoggedAccount().getMember();
@@ -41,6 +45,11 @@ public class ApplyController {
 			applyDto.setCurriculumVitae(blobKey.getKeyString());
 			applyService.addApplyByDTO(applyDto, member);
 		}
-		return "redirect:/job/apply?jobList=" + jobList;
+		return "redirect:/applySuccess";
+	}
+
+	@RequestMapping(value = "/applySuccess", method = RequestMethod.GET)
+	public String goToApplySuccess() {
+		return "apply-success";
 	}
 }
