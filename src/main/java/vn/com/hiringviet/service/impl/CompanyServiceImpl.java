@@ -51,7 +51,7 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private AddressService addressService;
 
-	private Properties configProperties = FileUtil.getProperties();
+	private Properties configProperties = FileUtil.getConfigProperties();
 
 	@Autowired
 	private PostDAO postDAO;

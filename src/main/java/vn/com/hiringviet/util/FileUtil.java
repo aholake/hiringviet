@@ -12,11 +12,24 @@ public class FileUtil {
 	/**
 	 * Get properties from message properties file
 	 */
-	public static Properties getProperties() {
+	public static Properties getConfigProperties() {
 
 		// read properites file:
 		Properties props = new Properties();
 		InputStream in = FileUtil.class.getResourceAsStream("/config.properties");
+		try {
+			props.load(in);
+		} catch (Exception e) {
+			return null;
+		}
+		return props;
+	}
+	
+	public static Properties getMessageProperties() {
+
+		// read properites file:
+		Properties props = new Properties();
+		InputStream in = FileUtil.class.getResourceAsStream("/messages_en.properties");
 		try {
 			props.load(in);
 		} catch (Exception e) {

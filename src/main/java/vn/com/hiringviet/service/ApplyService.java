@@ -9,10 +9,14 @@ import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Member;
 
 @Service("applyService")
-public interface ApplyService {
+public interface ApplyService{
+	public Apply get(int id);
+	
 	public void addApply(Apply apply);
 
 	public void addApplyByDTO(ApplyDTO applyDTO, Member member);
 	
 	public List<Apply> findApplies(int jobId);
+	
+	void update(Apply apply);
 }

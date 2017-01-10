@@ -37,7 +37,9 @@
 								<p>${apply.disscription }</p>
 							</div>
 							<div class="card-action">
-								<a href="#">Đồng ý</a> <a href="#">Từ chối</a>
+								<a href="#sendMessageModal">Đồng ý</a> <a href="#"
+									onclick="sendDeniedMessage(${apply.applyID},'${apply.member.account.email}');return false;">Từ
+									chối</a>
 							</div>
 						</div>
 					</c:forEach>
@@ -148,6 +150,30 @@
 				class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
 		</div>
 	</div>
+	<div id="sendMessageModal" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>Send Message</h4>
+			<div class="row">
+				<div class="col m12 mp0">
+					<div class="input-field col m12 p-0">
+						<input id="toAccount" type="text" class="validate"> <label
+							for="toAccount">To</label>
+					</div>
+					<div class="input-field col m12 p-0">
+						<input id="title" type="text" class="validate"> <label
+							for="title">Title</label>
+					</div>
+					<div class="input-field col m12 p-0">
+						<textarea id="txtContent" class="materialize-textarea"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!"
+				class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+		</div>
+	</div>
 	<div id="divLoading"></div>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -166,9 +192,26 @@
 	<script type="text/javascript" src="/resources/common/js/freewall.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			var wall = new Freewall("#jobWall");
-			wall.fitWidth();
-		})
+			$('#sendMessageModal').leanModal();
+		});
+		
+		function sendDeniedMessage(applyId, receiverEmail) {
+			console.log('Apply ID: '+applyId);
+			console.log('Receiver email: '+receiverEmail);
+			var deniedMessageUrl = '/api/message/deniedMessage?applyId=' + applyId + '&receiver=' + receiverEmail;
+			
+			callAPI(deniedMessageUrl, 'POST', '', 'showStatusMessage');
+		}
+		
+		function showStatusMessage(response) {
+			console.log('Denied Response: '+ response);
+			if(response == 'FAIL') {
+				var $toastContent = $('<span>An error occured while calling service</span>');
+			} else {
+				$toastContent = $('<span>Sent denied message to employee successfully</span>');
+			}
+			Materialize.toast($toastContent, 5000);
+		}
 	</script>
 </body>
 </html>

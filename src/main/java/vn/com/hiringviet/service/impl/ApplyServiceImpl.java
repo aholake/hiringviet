@@ -51,4 +51,14 @@ public class ApplyServiceImpl implements ApplyService {
 		Job job = jobService.getJobById(jobId);
 		return applyDao.getApplies(job);
 	}
+
+	@Override
+	public Apply get(int id) {
+		return applyDao.findOne(id);
+	}
+
+	@Override
+	public void update(Apply apply) {
+		applyDao.update(apply);
+	}
 }

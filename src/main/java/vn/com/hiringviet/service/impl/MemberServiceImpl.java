@@ -50,7 +50,7 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private AccountService accountService;
 
-	private Properties configProperties = FileUtil.getProperties();
+	private Properties configProperties = FileUtil.getConfigProperties();
 
 	@Override
 	public int addMember(Member member) {

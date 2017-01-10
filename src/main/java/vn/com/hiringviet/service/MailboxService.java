@@ -10,4 +10,6 @@ import vn.com.hiringviet.dto.MessageDTO;
 public interface MailboxService {
 
 	public List<MessageDTO> getOwnerMailList(Integer accountId);
+	
+	public void sendDeniedApplyMessage(int applyId, String receiverEmail);
 }

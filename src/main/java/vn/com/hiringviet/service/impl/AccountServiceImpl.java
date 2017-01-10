@@ -59,7 +59,7 @@ public class AccountServiceImpl implements AccountService {
 			@Override
 			public void run() {
 				try {
-					Properties configProperties = FileUtil.getProperties();
+					Properties configProperties = FileUtil.getConfigProperties();
 					long countTime = TimeUtil.convertMinuteToSecond(Integer
 							.parseInt(configProperties
 									.getProperty("time.inactive")));

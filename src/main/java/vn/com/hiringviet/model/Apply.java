@@ -31,6 +31,8 @@ public class Apply implements Serializable {
 
 	private ChangeLog changeLog;
 
+	private boolean accepted;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getApplyID() {
@@ -89,4 +91,11 @@ public class Apply implements Serializable {
 		this.changeLog = changeLog;
 	}
 
+	public boolean isAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(boolean isAccepted) {
+		this.accepted = isAccepted;
+	}
 }
