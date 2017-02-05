@@ -70,4 +70,40 @@ public class MailboxServiceImpl implements MailboxService {
 
 	}
 
+	@Override
+	public void sendMessageNativeSQL(Message message) {
+		mailboxDAO.createMessageByNativeSQL(message);
+	}
+
+	@Override
+	public void sendApprovalApplyMessage(int applyId, String receiverEmail) {
+		String title = ConstantValues.MESSAGE_PROPS.getProperty("apply.approvalTitle");
+		String content = ConstantValues.MESSAGE_PROPS
+				.getProperty("apply.approvalContent");
+		Apply apply = applyService.get(applyId);
+		Account receiverAcc = accountService.getAccountByEmail(receiverEmail);
+		Account company = AuthenticationUtil.getLoggedAccount();
+
+		if (receiverAcc != null && company != null && apply != null) {
+			Member receiverMember = receiverAcc.getMember();
+			title = MessageFormat.format(title, apply.getJob().getId(), apply.getJob().getCompany().getDisplayName());
+			
+			content = MessageFormat.format(
+					content,
+					receiverMember.getFirstName()
+							+ receiverMember.getLastName(), apply.getJob().getCompany().getDisplayName());
+			Message message = new Message();
+			message.setOwnerAccount(receiverAcc);
+			message.setSenderAccount(company);
+			message.setTitle(title);
+			message.setContent(content);
+			
+			apply.setAccepted(true);
+			applyService.update(apply);
+			
+			mailboxDAO.createMessageByNativeSQL(message);
+		} else {
+			throw new RuntimeException("Internal Error");
+		}
+	}
 }

@@ -5,11 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.dto.MessageDTO;
+import vn.com.hiringviet.model.Message;
 
 @Service("mailboxService")
 public interface MailboxService {
 
-	public List<MessageDTO> getOwnerMailList(Integer accountId);
+	List<MessageDTO> getOwnerMailList(Integer accountId);
 	
-	public void sendDeniedApplyMessage(int applyId, String receiverEmail);
+	void sendMessageNativeSQL(Message message);
+	
+	void sendDeniedApplyMessage(int applyId, String receiverEmail);
+	
+	void sendApprovalApplyMessage(int applyId, String receiverEmail);
 }
