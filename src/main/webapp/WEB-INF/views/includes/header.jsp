@@ -139,7 +139,7 @@
 								<li>
 									<div class="menu-item-header">
 										<a href="#notificationModel" class="notificationModel"><i class="material-icons prefix-icon">add_alert</i>Thông báo</a>
-										<div class="chip red lighten-2 white-text noti-count">5</div>
+										<div class="chip red lighten-2 white-text noti-count">${fn:length(principal.loggers)}</div>
 									</div>
 								</li>
 								<li>
@@ -216,8 +216,8 @@
 								</li>
 								<li>
 									<div class="menu-item-header">
-										<a href="#"><i class="material-icons prefix-icon">add_alert</i>Thông báo</a>
-										<div class="chip red lighten-2 white-text noti-count">5</div>
+										<a href="#notificationModel" class="notificationModel"><i class="material-icons prefix-icon">add_alert</i>Thông báo</a>
+										<div class="chip red lighten-2 white-text noti-count">${fn:length(principal.loggers)}</div>
 									</div>
 								</li>
 								<li>
@@ -351,7 +351,7 @@
 			<h4>Follow List</h4>
 			<p>${fn:length(principal.toFollows)} follow</p>
 			<div class="row">
-				<div class="col m12 mp0 image-item">
+				<div class="col m12 mp0" id="follow_list">
 					
 				</div>
 			</div>

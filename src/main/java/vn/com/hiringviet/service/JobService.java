@@ -10,7 +10,7 @@ import vn.com.hiringviet.dto.JobAdminTableDTO;
 import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.model.Job;
 
-@Service("JobService")
+@Service("jobService")
 @Transactional
 public interface JobService {
 

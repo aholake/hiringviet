@@ -38,6 +38,7 @@ import vn.com.hiringviet.dto.ReplyCommentDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Follow;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
@@ -46,6 +47,7 @@ import vn.com.hiringviet.service.CommentService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.FollowService;
 import vn.com.hiringviet.service.JobService;
+import vn.com.hiringviet.service.LoggerService;
 import vn.com.hiringviet.service.ReplyCommentService;
 import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.ImageUtil;
@@ -61,6 +63,9 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 public class CompanyController {
 
 	private static final int LAZY_LOAD_COMPANY_NUMBER = 10;
+
+	@Autowired
+	private LoggerService loggerService;
 
 	@Autowired
 	private AccountService accountService;
@@ -162,6 +167,15 @@ public class CompanyController {
 			}
 
 			model.addAttribute("postList", postList);
+		}
+
+		// check follow
+		if (memberLogin != null) {
+			
+			if(accountService.hasFollow(memberLogin.getAccount().getId(), company.getAccount().getId())) {
+
+				model.addAttribute("hasFollow", true);
+			}
 		}
 
 		model.addAttribute("numberFollower", numberFollower);
@@ -490,11 +504,27 @@ public class CompanyController {
 
 		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
 	}
-	
+
 	@RequestMapping("/company/apply/{jobId}")
 	public String goToCompaniesApply(@PathVariable("jobId") int jobId, Model model) {
 		List<Apply> applies = applyService.findApplies(jobId);
 		model.addAttribute("applies", applies);
 		return "company-applies";
+	}
+
+	@RequestMapping(value = "/company/subscribe", method = RequestMethod.POST)
+	public String settingLocale(@RequestParam("companyId") Integer companyId,
+			@RequestParam("mode") String mode,
+			@RequestParam("accountId") Integer accountId) {
+
+		Account accountFrom = getLoggedAccount(); // member
+
+		Account accountTo = accountService.getAccountById(accountId); // company
+
+		followService.create(accountFrom, accountTo);
+
+		loggerService.create(accountTo, accountFrom.getAvatarImage());
+
+		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
 	}
 }

@@ -5,6 +5,7 @@
 		<pattern>/login**</pattern>
 		<pattern>/logout</pattern>
 		<pattern>/_ah**</pattern>
+		<pattern>/error**</pattern>
 	</excludes>
 	<decorator name="default" page="main-layout.jsp">
 		<pattern>/*</pattern>

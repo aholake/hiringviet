@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.LongType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,9 +78,10 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT ");
-		sb.append("account.id AS id, ");
+		sb.append("member.id AS id, ");
 		sb.append("account.avatar_image AS avatarImage ");
 		sb.append("FROM account ");
+		sb.append("INNER JOIN member ON member.account_id = account.id ");
 		sb.append("INNER JOIN follow ON (follow.from_account = account.id AND follow.to_account = :accountId)");
 		Query query = getSession().createSQLQuery(sb.toString());
 		query.setParameter("accountId", accountId);
@@ -124,6 +126,26 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		query.setParameter("accountId", accountId);
 
 		if (query.executeUpdate() > 0) {
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean hasFollow(Integer fromAccountId, Integer toAccountId) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT ");
+		sb.append("COUNT(*) AS count ");
+		sb.append("FROM follow ");
+		sb.append("WHERE from_account = :fromAccountId AND to_account = :toAccountId");
+		Query query = getSession().createSQLQuery(sb.toString()).addScalar("count", LongType.INSTANCE);
+		query.setParameter("fromAccountId", fromAccountId);
+		query.setParameter("toAccountId", toAccountId);
+
+		Long result = (Long) query.uniqueResult();
+		if (result != null && result > 0) {
 			return true;
 		}
 

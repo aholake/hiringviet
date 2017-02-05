@@ -18,7 +18,7 @@ import vn.com.hiringviet.model.Follow;
  */
 @Repository
 @Transactional
-public class FollowDAOImpl implements FollowDAO {
+public class FollowDAOImpl extends CommonDAOImpl<Follow> implements FollowDAO {
 
 	/** The session factory. */
 	@Autowired

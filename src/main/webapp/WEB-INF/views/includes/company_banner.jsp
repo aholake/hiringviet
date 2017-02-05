@@ -92,7 +92,7 @@
 			</div>
 		</form>
 	</div>
-<script type="text/javascript">
+	<script type="text/javascript">
 		function bigImg() {
 			$('.avatar-img').removeClass('small-font');
 			$('.avatar-img').addClass('big-font');

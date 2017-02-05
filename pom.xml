@@ -361,7 +361,11 @@
 			<artifactId>prettytime-integration-jstl</artifactId>
 			<version>4.0.1.Final</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
