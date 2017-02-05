@@ -130,4 +130,9 @@ public class HomeController {
 		}
 		return null;
 	}
+
+	@RequestMapping(value = {"error/500"})
+	public String goErrorPage(Model model) {
+		return "500";
+	}
 }

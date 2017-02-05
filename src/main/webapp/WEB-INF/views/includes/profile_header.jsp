@@ -22,7 +22,7 @@
 	<div class="row profile-header">
 		<div class="col m6 offset-m2">
 			<p class="profile-name"><a href="<c:url value='/profile/${member.id}' />">${member.firstName}  ${member.lastName}</a></p>
-			<p>100 <spring:message code="label.profile.header.title.count_follow"/></p>
+			<p>100 connect</p>
 		</div>
 		<div class="col m4 margin-top-10 right-align">
 			<c:if test="${memberLogin.account.id == member.account.id}">

@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.dao.FollowDAO;
+import vn.com.hiringviet.model.Account;
+import vn.com.hiringviet.model.Follow;
 import vn.com.hiringviet.service.FollowService;
+import vn.com.hiringviet.util.Utils;
 
 /**
  * The Class FolllowServiceImpl.
  */
 @Service("followService")
-public class FolllowServiceImpl implements FollowService {
+public class FollowServiceImpl implements FollowService {
 
 	/** The follow dao. */
 	@Autowired
@@ -23,6 +26,20 @@ public class FolllowServiceImpl implements FollowService {
 	public Long countNumberOfFollower(Integer accountId) {
 
 		return followDAO.countNumberOfFollower(accountId);
+	}
+
+	@Override
+	public boolean create(Account accountFrom, Account accountTo) {
+
+		Follow follow = new Follow();
+		follow.setFromAccount(accountFrom);
+		follow.setToAccount(accountTo);
+		follow.setChangeLog(Utils.generatorChangeLog());
+		if (followDAO.create(follow) > 0) {
+			return true;
+		}
+
+		return false;
 	}
 
 }

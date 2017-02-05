@@ -3,12 +3,14 @@ package vn.com.hiringviet.dao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.hiringviet.model.Follow;
+
 /**
  * The Interface FollowDAO.
  */
 @Repository
 @Transactional
-public interface FollowDAO {
+public interface FollowDAO extends CommonDAO<Follow>  {
 
 	/**
 	 * Count number of follower.

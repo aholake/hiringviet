@@ -15,7 +15,7 @@ import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.service.JobService;
 
-@Service("JobService")
+@Service("jobService")
 @Transactional
 public class JobServiceImpl implements JobService {
 

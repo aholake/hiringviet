@@ -126,4 +126,9 @@ public class AccountServiceImpl implements AccountService {
 
 		return accountDAO.updateLocale(accountId, locale);
 	}
+
+	@Override
+	public boolean hasFollow(Integer fromAccountId, Integer toAccountId) {
+		return accountDAO.hasFollow(fromAccountId, toAccountId);
+	}
 }

@@ -26,4 +26,6 @@ public interface AccountService {
 	public boolean updateEmail(Integer accountId, String email);
 
 	public boolean updateLocale(Integer accountId, String locale);
+
+	public boolean hasFollow(Integer fromAccountId, Integer toAccountId);
 }
