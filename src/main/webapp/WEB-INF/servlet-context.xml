@@ -16,7 +16,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
 	<context:property-placeholder location="classpath:*.properties" />
-	<context:component-scan base-package="vn.com.hiringviet"></context:component-scan>
+	<context:component-scan base-package="vn.com.hiringviet.*"></context:component-scan>
 
 	<mvc:default-servlet-handler />
 	<mvc:resources location="/resources/" mapping="/resources/**" />
@@ -60,10 +60,4 @@
 	<import resource="hibernate-context.xml" />
 	<import resource="spring-security.xml" />
 	<import resource="spring-mail.xml" />
-	
-	<!-- Task Schedule -->
-	<task:scheduled-tasks scheduler="myScheduler">
-		<task:scheduled ref="myTask" method="printMessage" fixed-delay="5000" />
-	</task:scheduled-tasks>
-	<task:scheduler id="myScheduler" pool-size="10" />
 </beans>
