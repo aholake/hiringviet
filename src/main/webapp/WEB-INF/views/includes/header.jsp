@@ -199,7 +199,7 @@
 										<a href="#">${principal.company.displayName}</a>
 									</h5>
 									<h6>
-										<a href="/company/${principal.company.id}">
+										<a href="/job/create">
 											Đăng tuyển
 										</a>
 									</h6>
