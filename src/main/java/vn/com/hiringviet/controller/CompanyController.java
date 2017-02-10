@@ -142,7 +142,7 @@ public class CompanyController {
 
 		if (ModeEnum.CAREER.getValue().equals(mode)) {
 
-			List<Job> jobList = companyService.getListJob(0, ConstantValues.MAX_RECORD_COUNT, companyId);
+			List<Job> jobList = companyService.getListJob(0, ConstantValues.MAX_RECORD_COUNT, companyId, true);
 
 			if (ConstantValues.MAX_RECORD_COUNT > jobList.size()) {
 				model.addAttribute("isDisabledLoadJob", true);
@@ -412,6 +412,7 @@ public class CompanyController {
 	@RequestMapping(value = "/company/careers", method = RequestMethod.GET)
 	public String goJobDetailPage(@RequestParam("jobId") Integer jobId, Model model, HttpSession session) {
 
+		jobService.updateVisited(jobId);
 		Job job = jobService.getJobById(jobId);
 		Long numberFollower = followService.countNumberOfFollower(job.getCompany().getAccount().getId());
 		model.addAttribute("job", job);

@@ -105,17 +105,19 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Job> getListJob(Integer first, Integer max, Integer companyId) {
+	public List<Job> getListJob(Integer first, Integer max, Integer companyId, boolean getAll) {
 
 		Session session = sessionFactory.getCurrentSession();
 		Criteria criteria = session.createCriteria(Job.class, "job");
 		criteria.createAlias("job.company", "company");
 		criteria.createAlias("job.changeLog", "changeLog");
 		criteria.add(Restrictions.eq("company.id", companyId));
-		criteria.add(Restrictions.eq("changeLog.status",
-				StatusEnum.ACTIVE));
-		criteria.add(Restrictions.eq("job.publish",
-				PublishResponseEnum.PUBLISH.getValue()));
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
+
+		if (!getAll) {
+			criteria.add(Restrictions.eq("job.publish", PublishResponseEnum.PUBLISH.getValue()));
+		}
+
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);
 		criteria.addOrder(Order.desc("changeLog.updatedDate"));

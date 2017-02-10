@@ -26,11 +26,13 @@
 	<input type="hidden" id="hide_comment" value='<spring:message code="label.company.title.hide_comment"/>' />
 	<input type="hidden" id="url_add_comment" value="<c:url value='/company/addComment' />" />
 	<input type="hidden" id="url_add_reply_comment" value="<c:url value='/company/addReplyComment' />" />
+	<input type="hidden" id="url_setting_publish" value="<c:url value='/job/settingPublish' />" />
 	<input type="hidden" id="job_id" value="${param.jobId}" />
 	<input type="hidden" id="firstItem-comment" value="0" />
 	<input type="hidden" id="currentPage-comment" value="1" />
 	<input type="hidden" id="id_of_account" value="${memberLogin.id}"/>
-
+	<input type="hidden" id="message_publish_success" value='<spring:message code="message.success.setting.job.publish"/>'/>
+	<input type="hidden" id="message_publish_fail" value='<spring:message code="message.fail.setting.job.publish"/>'/>
 		<div class="row">
 			<div class="col m8">
 				<!--GENERAL JOB INFO-->
@@ -92,6 +94,18 @@
 										<button type="submit" class="waves-effect waves-light btn col m9 offset-m2 margin-top-10">
 										<i class="material-icons left white-text">note_add</i>Ứng tuyển</button>
 									</form>
+									<div class="col m9 offset-m2 margin-top-10">
+										<input type="hidden" value="${job.id}"/>
+										<c:choose>
+											<c:when test="${job.publish == true}">
+												<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}" checked="checked" />
+											</c:when>
+											<c:otherwise>
+												<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}"/>
+											</c:otherwise>
+										</c:choose>
+										<label for="publishJob${job.id}" style="margin-left: -12px;">Publish</label>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -343,6 +357,7 @@
 		});
 	</script>
 	<script src="<c:url value='/resources/hiringviet/job/js/job-details.js'/>"></script>
+	<script src="<c:url value='/resources/hiringviet/job/js/publish.js'/>"></script>
 	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>
 </body>
 </html>

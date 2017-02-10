@@ -53,7 +53,7 @@ public class Comment implements Serializable {
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Cascade({ org.hibernate.annotations.CascadeType.DELETE })
+	//@Cascade({ org.hibernate.annotations.CascadeType.ALL })
 	@JoinColumn(name = "member_id")
 	public Member getMember() {
 		return member;

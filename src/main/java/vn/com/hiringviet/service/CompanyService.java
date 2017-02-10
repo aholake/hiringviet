@@ -27,7 +27,7 @@ public interface CompanyService {
 	public List<PostDTO> getListPosts(Integer first, Integer max,
 			Integer companyId);
 
-	public List<Job> getListJob(Integer first, Integer max, Integer companyId);
+	public List<Job> getListJob(Integer first, Integer max, Integer companyId, boolean getAll);
 
 	public Company getCompanyByAccount(Account account);
 

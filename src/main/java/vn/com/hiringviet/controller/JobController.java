@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-
 import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
+import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
+import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.api.dto.response.JobResponseDTO;
 import vn.com.hiringviet.auth.AuthenticationUtil;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.ApplyDTO;
 import vn.com.hiringviet.dto.JobAdminTableDTO;
+import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Job;
@@ -32,6 +32,9 @@ import vn.com.hiringviet.service.FollowService;
 import vn.com.hiringviet.service.JobService;
 import vn.com.hiringviet.service.ResumeService;
 import vn.com.hiringviet.util.Utils;
+
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -186,5 +189,17 @@ public class JobController {
 		jobService.updateCompanyPolicies(jobId, cultureDescription);
 
 		return "redirect:/company/careers?jobId=" + jobId;
+	}
+
+	@RequestMapping(value = "/job/settingPublish", method = RequestMethod.POST)
+	public @ResponseBody CommonResponseDTO settingPublish(@RequestBody JobDTO jobDTO) {
+
+		CommonResponseDTO response = new CommentResponseDTO();
+		if (!jobService.setPublish(jobDTO.getJobId(), jobDTO.getIsPublish())) {
+			response.setResult(StatusResponseEnum.FAIL.getStatus());
+		}
+
+		response.setResult(StatusResponseEnum.SUCCESS.getStatus());
+		return response;
 	}
 }
