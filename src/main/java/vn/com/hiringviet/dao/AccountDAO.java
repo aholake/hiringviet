@@ -16,8 +16,6 @@ public interface AccountDAO extends CommonDAO<Account> {
 	
 	public Account getAccountByEmail(String email);
 	
-	public Account getAccountByActiveUrl(String activeCode);
-
 	public List<AccountDTO> getFollowList(String accountId);
 
 	public boolean updateEmail(Integer accountId, String email);
