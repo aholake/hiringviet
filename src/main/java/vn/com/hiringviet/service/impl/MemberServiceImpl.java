@@ -24,6 +24,7 @@ import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.Member;
+import vn.com.hiringviet.model.Resume;
 import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.model.SkillResume;
 import vn.com.hiringviet.service.AccountService;
@@ -63,6 +64,7 @@ public class MemberServiceImpl implements MemberService {
 		member.getAccount().setStatus(StatusEnum.INACTIVE);
 		member.getAccount()
 				.setActiveUrl(TextGenerator.generateRandomString(11));
+		member.setResume(new Resume());
 		int memberId = memberDAO.create(member);
 		if (memberId > 0) {
 			final Account account = getMemberByID(memberId).getAccount();
