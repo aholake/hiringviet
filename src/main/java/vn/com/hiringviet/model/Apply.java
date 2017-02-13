@@ -3,6 +3,7 @@ package vn.com.hiringviet.model;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -91,6 +92,7 @@ public class Apply implements Serializable {
 		this.changeLog = changeLog;
 	}
 
+	@Column(name="accepted")
 	public boolean isAccepted() {
 		return accepted;
 	}

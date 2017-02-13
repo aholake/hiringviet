@@ -41,6 +41,7 @@ public class ApplyServiceImpl implements ApplyService {
 			apply.setDisscription(description);
 			apply.setCurriculumVitae(applyDTO.getCurriculumVitae());
 			apply.setChangeLog(Utils.createDefaultChangeLog());
+			apply.setAccepted(false);
 			applyDao.addApplyByNativeSQL(apply);
 		}
 
