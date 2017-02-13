@@ -130,11 +130,21 @@
 								<div class="row none-margin-bottom">
 									<div class="col m3 center hide-on-med-and-down m3-div">
 										<a href="/company/${job.company.id}">
-											<img src="${job.company.avatar}"
-											class="responsive-img company-logo"></a> <a href="#"
-											class="btn margin-top-10 orange darken-1 waves-effect waves-light">
-											<spring:message code="label.home.button.follow_company" />
+											<img src="${job.company.avatar}" class="responsive-img company-logo">
 										</a>
+										<c:if test="${account != null}">
+											<c:set var="contains" value="false" />
+											<c:forEach var="item" items="${job.company.account.toFollows}">
+												<c:if test="${item.fromAccount.id eq account.id}">
+													<c:set var="contains" value="true" />
+												</c:if>
+											</c:forEach>
+											<c:if test="${contains == 'true'}">
+												<a href="#" class="btn margin-top-10 orange darken-1 waves-effect waves-light">
+													<spring:message code="label.home.button.follow_company" />
+												</a>
+											</c:if>
+										</c:if>
 									</div>
 									<div class="col m9 m9-div">
 										<div class="col m12 p-0">
@@ -149,7 +159,7 @@
 												</c:choose>
 											</h1>
 										</div>
-										<a href="#" class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
+										<a href="/company?companyId=${job.company.id}" class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
 										<p class="work-location">
 											<a href="#">${job.workAddress.district.province.provinceName}</a>
 										</p>
@@ -342,9 +352,9 @@
 				<c:forEach items="${companyList}" var="company">
 					<div class="panel-content">
 						<div class="company-box padding-bottom-10">
-							<a href="#" class="follow-sticky"> <spring:message
-									code="label.home.button.follow_company" />
-							</a>
+							<!--<a href="#" class="follow-sticky">
+								<spring:message code="label.home.button.follow_company" />
+							</a>-->
 							<div class="row">
 								<div class="col m9">
 									<h1 class="title">${company.displayName}</h1>

@@ -75,11 +75,13 @@
 				<spring:message code="label.profile.title.message"/>
 			</a>
 			<c:if test="${hasFollow != true}">
-				<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
-					<a href="#subscribeModal" class="subscribeModal btn waves-effect waves-light orange">
-						<spring:message code="label.company.title.subscribe"/>
-					</a>
-				</sec:authorize>
+				<c:if test="${param.companyId != null}">
+					<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
+						<a href="#subscribeModal" class="subscribeModal btn waves-effect waves-light orange">
+							<spring:message code="label.company.title.subscribe"/>
+						</a>
+					</sec:authorize>
+				</c:if>
 			</c:if>
 		</div>
 	</div>

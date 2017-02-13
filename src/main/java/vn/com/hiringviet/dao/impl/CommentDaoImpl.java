@@ -11,7 +11,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.LongType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,6 +53,7 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 		criteria.createAlias("comment.replyCommentSet", "replyCommentSet", JoinType.LEFT_OUTER_JOIN);
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.groupProperty("member.id").as("memberId"))
+				.add(Projections.groupProperty("account.id").as("accountId"))
 				.add(Projections.groupProperty("comment.id").as("commentId"))
 				.add(Projections.property("account.avatarImage").as("avatarImage"))
 				.add(Projections.property("changeLog").as("changeLog"))
@@ -115,6 +115,17 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 
 		return result;
 
+	}
+
+	@Override
+	public boolean delete(Integer commentId) {
+
+		Comment comment = findOne(commentId);
+
+		if (comment != null) {
+			return delete(comment);
+		}
+		return false;
 	}
 
 }

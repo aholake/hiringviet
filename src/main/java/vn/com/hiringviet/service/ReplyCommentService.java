@@ -12,4 +12,6 @@ public interface ReplyCommentService {
 	public List<ReplyCommentDTO> getListCommentByPostId(Integer first, Integer max, Integer commentId);
 
 	public Integer createReplyComment(ReplyCommentDTO replyCommentDTO);
+
+	public boolean delete(Integer replyCommentId);
 }

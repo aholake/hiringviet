@@ -43,6 +43,8 @@ public class ReplyCommentDTO implements Serializable {
 	/** The display name. */
 	private String displayName;
 
+	private Integer accountId;
+
 	/**
 	 * Gets the reply comment id.
 	 *
@@ -221,6 +223,14 @@ public class ReplyCommentDTO implements Serializable {
 	 */
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
+	}
+
+	public Integer getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(Integer accountId) {
+		this.accountId = accountId;
 	}
 
 }

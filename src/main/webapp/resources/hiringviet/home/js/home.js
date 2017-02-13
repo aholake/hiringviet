@@ -555,7 +555,7 @@ function showResultJobHot(response) {
 									<div class="row none-margin-bottom">\
 									<div class="col m3 center hide-on-med-and-down m3-div">\
 									<a href="/company/' + jobListResponse[index].company.id + '"><img src="' + jobListResponse[index].company.avatar + '" class="responsive-img company-logo"></a>\
-										<a href="#" class="btn margin-top-10 orange darken-1 waves-effect waves-light">'+ $('#text_company_follow').val() + '\
+										<!--<a href="#" class="btn margin-top-10 orange darken-1 waves-effect waves-light">'+ $('#text_company_follow').val() + '-->\
 										</a>\
 									</div>\
 									<div class="col m9 m9-div">\

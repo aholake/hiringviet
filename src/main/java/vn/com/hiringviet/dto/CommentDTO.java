@@ -50,6 +50,8 @@ public class CommentDTO implements Serializable {
 	/** The number reply comment. */
 	private Long numberReplyComment;
 
+	private Integer accountId;
+
 	/**
 	 * Gets the id.
 	 *
@@ -276,4 +278,11 @@ public class CommentDTO implements Serializable {
 		this.numberReplyComment = numberReplyComment;
 	}
 
+	public Integer getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(Integer accountId) {
+		this.accountId = accountId;
+	}
 }

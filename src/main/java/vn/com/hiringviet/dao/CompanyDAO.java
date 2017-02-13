@@ -21,4 +21,6 @@ public interface CompanyDAO extends CommonDAO<Company> {
 	public Company getCompanyByAccount(Account account);
 
 	public List<CompanyDTO> getListCompanySuggest(String keywork);
+
+	public List<CompanyDTO> getListCompanyFollow(Integer accountId);
 }

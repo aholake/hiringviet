@@ -11,6 +11,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
+import org.hibernate.type.LongType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +20,12 @@ import vn.com.hiringviet.common.PublishResponseEnum;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
+import vn.com.hiringviet.dto.AccountDTO;
 import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Follow;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Post;
 
@@ -160,6 +163,31 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		criteria.setResultTransformer(Transformers.aliasToBean(CompanyDTO.class));
 
 		List<CompanyDTO> companyDTOs = (List<CompanyDTO>) criteria.list();
+		return companyDTOs;
+	}
+
+	@Override
+	public List<CompanyDTO> getListCompanyFollow(Integer accountId) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT ");
+		sb.append("c.id AS id, ");
+		sb.append("c.display_name AS displayName, ");
+		sb.append("a.avatar_image AS avatarImage ");
+		sb.append("FROM company c ");
+		sb.append("INNER JOIN account a ON a.id = c.account_id ");
+		sb.append("LEFT JOIN follow f ON a.id = f.to_account ");
+		sb.append("WHERE f.from_account = :accountId");
+
+		Query query = getSession().createSQLQuery(sb.toString());
+		query.setParameter("accountId", accountId);
+
+		query.setResultTransformer(Transformers.aliasToBean(CompanyDTO.class));
+
+		List<CompanyDTO> companyDTOs = query.list();
+		if (companyDTOs.isEmpty()) {
+			return null;
+		}
 		return companyDTOs;
 	}
 }

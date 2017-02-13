@@ -57,4 +57,10 @@ public class CommentServiceImpl implements CommentService {
 		return commentDAO.create(commentDTO);
 	}
 
+	@Override
+	public boolean delete(Integer commentId) {
+
+		return commentDAO.delete(commentId);
+	}
+
 }

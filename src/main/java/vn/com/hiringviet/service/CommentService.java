@@ -12,4 +12,6 @@ public interface CommentService {
 	public List<CommentDTO> getListComment(Integer first, Integer max, Integer Id, boolean isPost);
 
 	public Integer create(CommentDTO commentDTO);
+
+	public boolean delete(Integer commentId);
 }

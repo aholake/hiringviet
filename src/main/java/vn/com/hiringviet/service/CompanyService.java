@@ -38,4 +38,6 @@ public interface CompanyService {
 
 	public List<CompanyAdminTableDTO> getAllCompaniesForAdminTable();
 
+	public List<CompanyDTO> getListCompanyFollow(Integer accountId);
+
 }

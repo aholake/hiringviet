@@ -27,6 +27,7 @@
 	<input type="hidden" id="url_add_comment" value="<c:url value='/company/addComment' />" />
 	<input type="hidden" id="url_add_reply_comment" value="<c:url value='/company/addReplyComment' />" />
 	<input type="hidden" id="url_setting_publish" value="<c:url value='/job/settingPublish' />" />
+	<input type="hidden" id="url_delete_reply_comment" value="<c:url value='/company/replyComment/delete' />" />
 	<input type="hidden" id="job_id" value="${param.jobId}" />
 	<input type="hidden" id="firstItem-comment" value="0" />
 	<input type="hidden" id="currentPage-comment" value="1" />

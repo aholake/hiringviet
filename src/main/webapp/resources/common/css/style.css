@@ -419,4 +419,14 @@ h1.title {
     padding: 10px;
     border-radius: 2px;
 }
+
+.company-logo {
+    height: 150px;
+    width: 150px;
+    padding: 5px;
+    line-height: 150px;
+    border-radius: 5px;
+    background: #fff;
+}
+
 @import url("smart.css");

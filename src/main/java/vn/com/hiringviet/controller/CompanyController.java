@@ -24,8 +24,10 @@ import vn.com.hiringviet.api.dto.request.CommentRequestDTO;
 import vn.com.hiringviet.api.dto.request.ReplyCommentRequestDTO;
 import vn.com.hiringviet.api.dto.response.AccountDTO;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
+import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.api.dto.response.ReplyCommentResponseDTO;
 import vn.com.hiringviet.common.AccountRoleEnum;
+import vn.com.hiringviet.common.CommonEnum;
 import vn.com.hiringviet.common.ModeEnum;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.constant.ConstantValues;
@@ -38,7 +40,6 @@ import vn.com.hiringviet.dto.ReplyCommentDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Company;
-import vn.com.hiringviet.model.Follow;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
@@ -369,6 +370,12 @@ public class CompanyController {
 			commentResponseDTO.setRoleId(account.getUserRole().getValue());
 			commentResponseDTO.setCommentId(replyCommentDTO.getCommentId());
 
+//			if (replyCommentDTO.getAccountId() != null && account.getId() != replyCommentDTO.getAccountId()) {
+//				if(!loggerService.create(account.getId(), null, CommonEnum.REPLY_COMMENT.getStatus())) {
+//					commentResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+//				}
+//			}
+
 			if (AccountRoleEnum.USER == account.getUserRole()) {
 				commentResponseDTO.setFirstName(member.getFirstName());
 				commentResponseDTO.setLastName(member.getLastName());
@@ -514,7 +521,7 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/company/subscribe", method = RequestMethod.POST)
-	public String settingLocale(@RequestParam("companyId") Integer companyId,
+	public String settingFollow(@RequestParam("companyId") Integer companyId,
 			@RequestParam("mode") String mode,
 			@RequestParam("accountId") Integer accountId) {
 
@@ -524,8 +531,32 @@ public class CompanyController {
 
 		followService.create(accountFrom, accountTo);
 
-		loggerService.create(accountTo, accountFrom.getAvatarImage());
+		loggerService.create(accountTo.getId(), accountFrom.getId(), accountFrom.getAvatarImage(), CommonEnum.FOLLOW.getStatus());
 
 		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
+	}
+
+	@RequestMapping(value = "/company/comment/delete", method = RequestMethod.POST)
+	public @ResponseBody CommonResponseDTO deleteComment(@RequestBody CommentDTO commentDTO) {
+
+		CommonResponseDTO response = new CommentResponseDTO();
+		if (!commentService.delete(commentDTO.getCommentId())) {
+			response.setResult(StatusResponseEnum.FAIL.getStatus());
+		}
+
+		response.setResult(StatusResponseEnum.SUCCESS.getStatus());
+		return response;
+	}
+
+	@RequestMapping(value = "/company/replyComment/delete", method = RequestMethod.POST)
+	public @ResponseBody CommonResponseDTO deleteReplyComment(@RequestBody ReplyCommentDTO replyCommentDTO) {
+
+		CommonResponseDTO response = new CommentResponseDTO();
+		if (!replyCommentService.delete(replyCommentDTO.getReplyCommentId())) {
+			response.setResult(StatusResponseEnum.FAIL.getStatus());
+		}
+
+		response.setResult(StatusResponseEnum.SUCCESS.getStatus());
+		return response;
 	}
 }

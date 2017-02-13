@@ -187,4 +187,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 	}
 
+	@Override
+	public List<CompanyDTO> getListCompanyFollow(Integer accountId) {
+		return companyDAO.getListCompanyFollow(accountId);
+	}
+
 }
