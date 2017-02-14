@@ -13,4 +13,6 @@ import vn.com.hiringviet.model.ReplyComment;
 public interface ReplyCommentDAO extends CommonDAO<ReplyComment> {
 
 	public List<ReplyCommentDTO> getListCommentByPostId(Integer first, Integer max, Integer commentId);
+
+	public boolean delete(Integer replyCommentId);
 }

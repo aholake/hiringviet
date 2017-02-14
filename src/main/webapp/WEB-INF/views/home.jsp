@@ -130,11 +130,21 @@
 								<div class="row none-margin-bottom">
 									<div class="col m3 center hide-on-med-and-down m3-div">
 										<a href="/company/${job.company.id}">
-											<img src="${job.company.avatar}"
-											class="responsive-img company-logo"></a> <a href="#"
-											class="btn margin-top-10 orange darken-1 waves-effect waves-light">
-											<spring:message code="label.home.button.follow_company" />
+											<img src="${job.company.avatar}" class="responsive-img company-logo">
 										</a>
+										<c:if test="${account != null}">
+											<c:set var="contains" value="false" />
+											<c:forEach var="item" items="${job.company.account.toFollows}">
+												<c:if test="${item.fromAccount.id eq account.id}">
+													<c:set var="contains" value="true" />
+												</c:if>
+											</c:forEach>
+											<c:if test="${contains == 'true'}">
+												<a href="#" class="btn margin-top-10 orange darken-1 waves-effect waves-light">
+													<spring:message code="label.home.button.follow_company" />
+												</a>
+											</c:if>
+										</c:if>
 									</div>
 									<div class="col m9 m9-div">
 										<div class="col m12 p-0">
@@ -149,7 +159,7 @@
 												</c:choose>
 											</h1>
 										</div>
-										<a href="#" class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
+										<a href="/company?companyId=${job.company.id}" class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
 										<p class="work-location">
 											<a href="#">${job.workAddress.district.province.provinceName}</a>
 										</p>
@@ -249,78 +259,87 @@
 				</div>
 				<div class="row">
 					<div class="col m12">
-						<ul class="collection fillter-wrapper">
-							<li class="collection-item"><b>Career</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-category-list" id="filter-category-list">
-								</ul>
-							</li>
-							<li class="collection-item"><b>Company</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-company-list" id="filter-company-list">
-								</ul>
-							</li>
-							<li class="collection-item"><b>Date Posted</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-date-post-list" id="filter-date-post-list">
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="0" type="radio" id="date-post-All"/> 
-										<label for="date-post-All">All</label>
-									</li>
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="1" type="radio" id="date-post-1" /> 
-										<label for="date-post-1">1 day ago</label>
-									</li>
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="2" type="radio" id="date-post-3" /> 
-										<label for="date-post-3">3 day ago</label>
-									</li>
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="3" type="radio" id="date-post-5" /> 
-										<label for="date-post-5">5 day ago</label>
-									</li>
-									<li>
-										<input class="with-gap data-post-radio" name="datePosts" value="4" type="radio" id="date-post-7" /> 
-										<label for="date-post-7">7 day ago</label>
-									</li>
-								</ul>
-							</li>
-							<li class="collection-item"><b>Job Function</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-position-list" id="filter-position-list">
-								</ul>
-							</li>
-							<li class="collection-item"><b>Skill</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-skill-list" id="filter-skill-list">
-								</ul>
-							</li>
-							<li class="collection-item"><b>Salary</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-salary-list" id="filter-salary-list">
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="0" type="radio" id="salary-all"  />
-										<label for="salary-all">All</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="1" type="radio" id="salary-500"  />
-										<label for="salary-500">Dưới 500$</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="2" type="radio" id="salary-1000"  />
-										<label for="salary-1000">500$ - 1000$</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="3" type="radio" id="salary-2000"  />
-										<label for="salary-2000">1000$ - 2000$</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="4" type="radio" id="salary-3000"  />
-										<label for="salary-3000">2000$ - 3000$</label>
-									</li>
-									<li>
-										<input class="with-gap salary-radio" name="salary" value="5" type="radio" id="salary-4000"  />
-										<label for="salary-4000">Trên 3000$</label>
-									</li>
-								</ul>
-							</li>
-							<li class="collection-item"><b>Province</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul class="margin-top-10 display-none filter-list filter-province-list" id="filter-province-list">
-								</ul>
+						<ul class="wrap-filter" data-collapsible="accordion">
+							<li>
+								<div class="collapsible-header">
+									<i class="material-icons">filter_drama</i><spring:message code="label.home.filter" />
+								</div>
+								<div class="collapsible-body">
+									<ul class="collection fillter-wrapper">
+										<li class="collection-item"><b>Career</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul class="margin-top-10 display-none filter-list filter-category-list" id="filter-category-list">
+											</ul>
+										</li>
+										<li class="collection-item"><b>Company</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul class="margin-top-10 display-none filter-list filter-company-list" id="filter-company-list">
+											</ul>
+										</li>
+										<li class="collection-item"><b>Date Posted</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul class="margin-top-10 display-none filter-list filter-date-post-list" id="filter-date-post-list">
+												<li>
+													<input class="with-gap data-post-radio" name="datePosts" value="0" type="radio" id="date-post-All"/> 
+													<label for="date-post-All">All</label>
+												</li>
+												<li>
+													<input class="with-gap data-post-radio" name="datePosts" value="1" type="radio" id="date-post-1" /> 
+													<label for="date-post-1">1 day ago</label>
+												</li>
+												<li>
+													<input class="with-gap data-post-radio" name="datePosts" value="2" type="radio" id="date-post-3" /> 
+													<label for="date-post-3">3 day ago</label>
+												</li>
+												<li>
+													<input class="with-gap data-post-radio" name="datePosts" value="3" type="radio" id="date-post-5" /> 
+													<label for="date-post-5">5 day ago</label>
+												</li>
+												<li>
+													<input class="with-gap data-post-radio" name="datePosts" value="4" type="radio" id="date-post-7" /> 
+													<label for="date-post-7">7 day ago</label>
+												</li>
+											</ul>
+										</li>
+										<li class="collection-item"><b>Job Function</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul class="margin-top-10 display-none filter-list filter-position-list" id="filter-position-list">
+											</ul>
+										</li>
+										<li class="collection-item"><b>Skill</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul class="margin-top-10 display-none filter-list filter-skill-list" id="filter-skill-list">
+											</ul>
+										</li>
+										<li class="collection-item"><b>Salary</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul class="margin-top-10 display-none filter-list filter-salary-list" id="filter-salary-list">
+												<li>
+													<input class="with-gap salary-radio" name="salary" value="0" type="radio" id="salary-all"  />
+													<label for="salary-all">All</label>
+												</li>
+												<li>
+													<input class="with-gap salary-radio" name="salary" value="1" type="radio" id="salary-500"  />
+													<label for="salary-500">Dưới 500$</label>
+												</li>
+												<li>
+													<input class="with-gap salary-radio" name="salary" value="2" type="radio" id="salary-1000"  />
+													<label for="salary-1000">500$ - 1000$</label>
+												</li>
+												<li>
+													<input class="with-gap salary-radio" name="salary" value="3" type="radio" id="salary-2000"  />
+													<label for="salary-2000">1000$ - 2000$</label>
+												</li>
+												<li>
+													<input class="with-gap salary-radio" name="salary" value="4" type="radio" id="salary-3000"  />
+													<label for="salary-3000">2000$ - 3000$</label>
+												</li>
+												<li>
+													<input class="with-gap salary-radio" name="salary" value="5" type="radio" id="salary-4000"  />
+													<label for="salary-4000">Trên 3000$</label>
+												</li>
+											</ul>
+										</li>
+										<li class="collection-item"><b>Province</b><i class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul class="margin-top-10 display-none filter-list filter-province-list" id="filter-province-list">
+											</ul>
+										</li>
+									</ul>
+								</div>
 							</li>
 						</ul>
 					</div>
@@ -333,9 +352,9 @@
 				<c:forEach items="${companyList}" var="company">
 					<div class="panel-content">
 						<div class="company-box padding-bottom-10">
-							<a href="#" class="follow-sticky"> <spring:message
-									code="label.home.button.follow_company" />
-							</a>
+							<!--<a href="#" class="follow-sticky">
+								<spring:message code="label.home.button.follow_company" />
+							</a>-->
 							<div class="row">
 								<div class="col m9">
 									<h1 class="title">${company.displayName}</h1>
@@ -381,7 +400,7 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('select').material_select();
-
+			$('.wrap-filter').collapsible();
 			function loadMoreHotCompany(scrollTime) {
 				var url = "/company/getCompanyHot";
 				callAPI(url, "POST", scrollTime, 'appendCompanyToCard');

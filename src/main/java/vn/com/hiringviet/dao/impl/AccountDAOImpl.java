@@ -74,6 +74,7 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		StringBuffer sb = new StringBuffer();
 		sb.append("SELECT ");
 		sb.append("member.id AS id, ");
+		//sb.append("c.display_name AS displayName,  ");
 		sb.append("account.avatar_image AS avatarImage ");
 		sb.append("FROM account ");
 		sb.append("INNER JOIN member ON member.account_id = account.id ");

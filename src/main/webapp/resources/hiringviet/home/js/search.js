@@ -181,7 +181,7 @@ function filter(valueSearch) {
 				if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
 					isEmpty = false;
 					contain = true;
-					var item = "<li class='search-item'>\
+					var item = "<li class='search-item' onclick='searchBySkill(" + elementOfArray.key + ")'>\
 									<i class='material-icons icon'>search</i>\
 									<div class='wrapper'>\
 										<p style='line-height: 50px;'>" + elementOfArray.value.displayName + "</p>\
@@ -340,7 +340,7 @@ function showResult(result) {
 							value: listSkill[index]
 						});
 					}
-					var item = "<li class='search-item'>\
+					var item = "<li class='search-item' onclick='searchBySkill(" + listSkill[index].id + ")'>\
 									<i class='material-icons icon'>search</i>\
 									<div class='wrapper'>\
 										<p style='line-height: 50px;'>" + listSkill[index].displayName + "</p>\
@@ -447,4 +447,10 @@ function addFirstItem() {
  
  function setTextColorBlue(value) {
 	 return "<a>" + value + "</a>";
+ }
+ 
+ function searchBySkill(skillId) {
+	 $("#skillId").val(skillId);
+
+	 $("#search-event").submit();
  }

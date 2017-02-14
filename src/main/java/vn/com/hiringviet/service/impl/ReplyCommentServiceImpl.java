@@ -63,4 +63,10 @@ public class ReplyCommentServiceImpl implements ReplyCommentService{
 		return replyCommentDAO.create(replyComment);
 	}
 
+	@Override
+	public boolean delete(Integer replyCommentId) {
+
+		return replyCommentDAO.delete(replyCommentId);
+	}
+
 }

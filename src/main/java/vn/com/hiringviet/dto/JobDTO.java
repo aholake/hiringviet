@@ -25,6 +25,10 @@ public class JobDTO implements Serializable {
 	/** The address. */
 	private Address address;
 
+	private Integer jobId;
+
+	private Integer isPublish;
+
 	/**
 	 * Gets the id.
 	 *
@@ -95,6 +99,22 @@ public class JobDTO implements Serializable {
 	 */
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	public Integer getJobId() {
+		return jobId;
+	}
+
+	public void setJobId(Integer jobId) {
+		this.jobId = jobId;
+	}
+
+	public Integer getIsPublish() {
+		return isPublish;
+	}
+
+	public void setIsPublish(Integer isPublish) {
+		this.isPublish = isPublish;
 	}
 
 }

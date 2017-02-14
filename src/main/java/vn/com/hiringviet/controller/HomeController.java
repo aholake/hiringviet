@@ -1,6 +1,7 @@
 
 package vn.com.hiringviet.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,23 +72,28 @@ public class HomeController {
 	@RequestMapping(value = { "/", "home"})
 	public String goHomePage(Model model, 
 			@RequestParam(value = "mode", required = false) String mode, 
-			@RequestParam(value = "keyValue", required = false) String keyValue) {
+			@RequestParam(value = "keyValue", required = false) String keyValue,
+			@RequestParam(value = "skillId", required = false) Integer skillId) {
 
 		String result = null;
 		Account account = getLoggedAccount();
 
 		List<Job> jobList = null;
 		List<Company> companyList = null;
-
+		List<Integer> skillIds = null;
 		if (Utils.isEmptyObject(account) || AccountRoleEnum.COMPANY == account.getUserRole()) {
 
-			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, true, null, mode, keyValue);
+			if (skillId != null) {
+				skillIds = new ArrayList<Integer>();
+				skillIds.add(skillId);
+			}
+			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, true, skillIds, mode, keyValue);
 			companyList = companyService.getListCompany(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, true);
 			result = "home";
 		} else {
 			
 			Member member = account.getMember();
-			List<Integer> skillIds = resumeService.getListSkillByMemberId(member.getId());
+			skillIds = resumeService.getListSkillByMemberId(member.getId());
 			jobList = jobService.getJobList(null, ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, false, skillIds, mode, keyValue);
 			companyList = companyService.getListCompany(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, false);
 			

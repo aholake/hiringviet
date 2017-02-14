@@ -13,4 +13,8 @@ import vn.com.hiringviet.model.Comment;
 public interface CommentDAO extends CommonDAO<Comment> {
 
 	public List<CommentDTO> getListComment(Integer first, Integer max, Integer id, boolean isPost);
+
+	public Integer create(CommentDTO commentDTO);
+
+	public boolean delete(Integer commentId);
 }

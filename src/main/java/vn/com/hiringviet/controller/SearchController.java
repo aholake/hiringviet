@@ -154,7 +154,10 @@ public class SearchController {
 		if (account != null) {
 		}
 
-		return accountService.getFollowList(String.valueOf(accountDTO.getId()));
+		if (accountService.getFollowList(String.valueOf(accountDTO.getId())) != null) {
+			accountService.getFollowList(String.valueOf(accountDTO.getId()));
+		}
+		return null;
 	}
 
 	@RequestMapping(value = "/search/message/owner", method = RequestMethod.POST)

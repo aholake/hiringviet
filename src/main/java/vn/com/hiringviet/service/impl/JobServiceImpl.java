@@ -89,4 +89,16 @@ public class JobServiceImpl implements JobService {
 	public long countApplies(Job job) {
 		return jobDAO.countApplies(job);
 	}
+
+	@Override
+	public boolean updateVisited(Integer jobId) {
+		// TODO Auto-generated method stub
+		return jobDAO.updateVisited(jobId);
+	}
+
+	@Override
+	public boolean setPublish(Integer jobId, Integer isPublish) {
+		// TODO Auto-generated method stub
+		return jobDAO.setPublish(jobId, isPublish);
+	}
 }

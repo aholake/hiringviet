@@ -199,7 +199,7 @@
 										<a href="#">${principal.company.displayName}</a>
 									</h5>
 									<h6>
-										<a href="/company/${principal.company.id}">
+										<a href="/job/create">
 											Đăng tuyển
 										</a>
 									</h6>
@@ -360,6 +360,10 @@
 			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
 		</div>
 	</div>
+	<form id="search-event" action="/home">
+		<input type="hidden" id="skillId" name="skillId"/>
+		<input type="hidden" name="search"/>
+	</form>
 <script>
 	$(function() {
 		$('.modal-trigger').leanModal();

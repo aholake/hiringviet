@@ -16,9 +16,11 @@ public interface CompanyDAO extends CommonDAO<Company> {
 
 	public List<PostDTO> getListPosts(Integer first, Integer max, Integer companyId);
 
-	public List<Job> getListJob(Integer first, Integer max, Integer companyId);
+	public List<Job> getListJob(Integer first, Integer max, Integer companyId, boolean getAll);
 
 	public Company getCompanyByAccount(Account account);
 
 	public List<CompanyDTO> getListCompanySuggest(String keywork);
+
+	public List<CompanyDTO> getListCompanyFollow(Integer accountId);
 }

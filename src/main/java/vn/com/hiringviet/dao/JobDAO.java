@@ -29,5 +29,9 @@ public interface JobDAO extends CommonDAO<Job> {
 
 	public boolean updateCompanyPolicies(Integer jobId, String cultureDescription);
 	
-	long countApplies(Job job); 
+	long countApplies(Job job);
+
+	boolean updateVisited(Integer jobId);
+
+	boolean setPublish(Integer jobId, Integer isPublish);
 }

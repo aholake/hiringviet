@@ -52,8 +52,8 @@ public class Comment implements Serializable {
 	}
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@Cascade({ org.hibernate.annotations.CascadeType.DELETE })
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	//@Cascade({ org.hibernate.annotations.CascadeType.ALL })
 	@JoinColumn(name = "member_id")
 	public Member getMember() {
 		return member;
@@ -72,7 +72,7 @@ public class Comment implements Serializable {
 		this.comment = comment;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "change_log_id")
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public ChangeLog getChangeLog() {
@@ -84,7 +84,7 @@ public class Comment implements Serializable {
 	}
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "post_id")
 	public Post getPost() {
 		return post;
@@ -95,7 +95,7 @@ public class Comment implements Serializable {
 	}
 
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "job_id")
 	public Job getJob() {
 		return job;

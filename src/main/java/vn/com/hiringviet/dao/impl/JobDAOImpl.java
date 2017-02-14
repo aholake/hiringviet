@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
+import vn.com.hiringviet.common.PublishResponseEnum;
 import vn.com.hiringviet.common.SearchEnum;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
@@ -55,10 +56,8 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		criteria.createAlias("job.jobCategory", "jobCategory");
 		criteria.createAlias("job.position", "position");
 		criteria.createAlias("job.workAddress", "address");
-		criteria.createAlias("address.district", "district",
-				JoinType.LEFT_OUTER_JOIN);
-		criteria.createAlias("district.province", "province",
-				JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
 
 		if (skills != null
 				&& (Utils.isEmptyString(mode)
@@ -69,6 +68,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 
+		criteria.add(Restrictions.eq("job.publish", PublishResponseEnum.PUBLISH.getValue()));
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
 
 		if (!Utils.isEmptyList(skills)) {
@@ -145,6 +145,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.property("id"), "id")
 				.add(Projections.property("title"), "title"));
+		criteria.add(Restrictions.eq("job.publish", PublishResponseEnum.PUBLISH.getValue()));
 		criteria.add(Restrictions.like("title", "%" + keyWord.replace("\"", "")
 				+ "%"));
 		criteria.setMaxResults(ConstantValues.MAX_RECORD_COUNT);
@@ -162,8 +163,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		Session session = getSession();
 
 		Criteria criteria = session.createCriteria(Job.class, "job");
-		criteria.createAlias("job.changeLog", "changeLog",
-				JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("job.changeLog", "changeLog", JoinType.LEFT_OUTER_JOIN);
 		criteria.createAlias("job.company", "company", JoinType.LEFT_OUTER_JOIN);
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.property("id"), "id")
@@ -172,6 +172,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 				.add(Projections.property("job.workAddress"), "address"));
 		criteria.add(Restrictions.eq("company.id", companyId));
 		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
+		criteria.add(Restrictions.eq("job.publish", PublishResponseEnum.PUBLISH.getValue()));
 		criteria.setMaxResults(ConstantValues.MAX_RECORD_COUNT);
 		criteria.setResultTransformer(Transformers.aliasToBean(JobDTO.class));
 		criteria.addOrder(Order.desc("postDate"));
@@ -242,6 +243,37 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		Query query = session.createQuery("SELECT count(*) FROM Apply a WHERE a.job = ?");
 		query.setParameter(0, job);
 		return (long) query.uniqueResult();
+	}
+
+	@Override
+	public boolean updateVisited(Integer jobId) {
+
+		Query query = null;
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE job SET number_visited = (number_visited + 1) WHERE id = :jobId");
+		query = getSession().createSQLQuery(sql.toString());
+		query.setParameter("jobId", jobId);
+
+		if (query.executeUpdate() <= 0) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean setPublish(Integer jobId, Integer isPublish) {
+
+		Query query = null;
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE job SET is_publish = :isPublish WHERE id = :jobId");
+		query = getSession().createSQLQuery(sql.toString());
+		query.setParameter("jobId", jobId);
+		query.setParameter("isPublish", isPublish);
+
+		if (query.executeUpdate() <= 0) {
+			return false;
+		}
+		return true;
 	}
 	
 	

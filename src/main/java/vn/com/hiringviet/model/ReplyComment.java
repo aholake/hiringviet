@@ -51,8 +51,9 @@ public class ReplyComment implements Serializable {
 		this.replyComment = replyComment;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "comment_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Comment getComment() {
 		return comment;
 	}
@@ -61,9 +62,9 @@ public class ReplyComment implements Serializable {
 		this.comment = comment;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "change_log_id")
-	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
+	@Cascade({ org.hibernate.annotations.CascadeType.ALL })
 	public ChangeLog getChangeLog() {
 		return changeLog;
 	}
@@ -72,8 +73,9 @@ public class ReplyComment implements Serializable {
 		this.changeLog = changeLog;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "account_id")
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	public Account getAccount() {
 		return account;
 	}

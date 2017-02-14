@@ -789,9 +789,15 @@
 			    	</ul>
 		    		</div>
 				</div>
-				<div class="card-panel padding-10 hoverable">
+				<div class="card-panel padding-10 hoverable" style="overflow: auto;">
 					<h1 class="title">Following</h1>
 					<p class="small-text">Companies</p>
+					<c:forEach items="${follows}" var="company">
+						<div class="col m3">
+							<a href="/company?companyId=${company.id}"><img src="${company.avatarImage}" class="company-logo"></a>
+							<p><a href="/company?companyId=${company.id}">${company.displayName}</a></p>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="col m4">

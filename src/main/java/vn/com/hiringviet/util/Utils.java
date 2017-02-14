@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import vn.com.hiringviet.common.CommonEnum;
 import vn.com.hiringviet.common.DegreeEnum;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
@@ -269,5 +270,18 @@ public class Utils {
 		response.setHeader("Content-disposition", "inline; filename="
 				+ fileName + ".docx");
 		return response;
+	}
+
+	public static String getMessage(String commonStatus, String name) {
+
+		if (CommonEnum.FOLLOW.getStatus().equalsIgnoreCase(commonStatus)) {
+			return name + " vừa follow bạn";
+		}
+
+		if (CommonEnum.REPLY_COMMENT.getStatus().equalsIgnoreCase(commonStatus)) {
+			return name + " vừa trả lời comment của bạn";
+		}
+
+		return null;
 	}
 }

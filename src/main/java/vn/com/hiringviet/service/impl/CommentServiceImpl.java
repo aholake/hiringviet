@@ -36,25 +36,31 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public Integer create(CommentDTO commentDTO) {
 
-		Comment comment = new Comment();
-		comment.setChangeLog(Utils.generatorChangeLog());
-		comment.setComment(commentDTO.getComment());
-		comment.setMember(commentDTO.getMember());
+//		Comment comment = new Comment();
+//		comment.setChangeLog(Utils.generatorChangeLog());
+//		comment.setComment(commentDTO.getComment());
+//		comment.setMember(commentDTO.getMember());
+//
+//		if (!Utils.isEmptyNumber(commentDTO.getPostId())) {
+//			Post post = postDAO.findOne(commentDTO.getPostId());
+//			post.setId(commentDTO.getPostId());
+//			comment.setPost(post);;
+//		}
+//		
+//		if (!Utils.isEmptyNumber(commentDTO.getJobId())) {
+////			Job job = jobDAO.findOne(commentDTO.getJobId());
+//			Job job = new Job();
+//			job.setId(commentDTO.getJobId());
+//			comment.setJob(job);
+//		}
 
-		if (!Utils.isEmptyNumber(commentDTO.getPostId())) {
-			Post post = postDAO.findOne(commentDTO.getPostId());
-			post.setId(commentDTO.getPostId());
-			comment.setPost(post);;
-		}
-		
-		if (!Utils.isEmptyNumber(commentDTO.getJobId())) {
-//			Job job = jobDAO.findOne(commentDTO.getJobId());
-			Job job = new Job();
-			job.setId(commentDTO.getJobId());
-			comment.setJob(job);
-		}
+		return commentDAO.create(commentDTO);
+	}
 
-		return commentDAO.create(comment);
+	@Override
+	public boolean delete(Integer commentId) {
+
+		return commentDAO.delete(commentId);
 	}
 
 }

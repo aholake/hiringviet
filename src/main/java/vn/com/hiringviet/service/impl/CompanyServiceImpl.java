@@ -138,8 +138,8 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
-	public List<Job> getListJob(Integer first, Integer max, Integer companyId) {
-		return companyDAO.getListJob(first, max, companyId);
+	public List<Job> getListJob(Integer first, Integer max, Integer companyId, boolean getAll) {
+		return companyDAO.getListJob(first, max, companyId, getAll);
 	}
 
 	@Override
@@ -185,6 +185,11 @@ public class CompanyServiceImpl implements CompanyService {
 
 		return companyAdminTableDTOs;
 
+	}
+
+	@Override
+	public List<CompanyDTO> getListCompanyFollow(Integer accountId) {
+		return companyDAO.getListCompanyFollow(accountId);
 	}
 
 }

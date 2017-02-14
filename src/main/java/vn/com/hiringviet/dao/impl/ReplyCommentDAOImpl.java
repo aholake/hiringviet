@@ -3,6 +3,7 @@ package vn.com.hiringviet.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -51,4 +52,15 @@ public class ReplyCommentDAOImpl extends CommonDAOImpl<ReplyComment> implements 
 		return resulCommentDTOs;
 	}
 
+	@Override
+	public boolean delete(Integer replyCommentId) {
+
+		ReplyComment replyComment = findOne(replyCommentId);
+
+		if (replyComment != null) {
+			return delete(replyComment);
+		}
+
+		return false;
+	}
 }

@@ -39,4 +39,8 @@ public interface JobService {
 	public boolean updateCompanyPolicies(Integer jobId, String cultureDescription);
 	
 	long countApplies(Job job);
+
+	boolean updateVisited(Integer jobId);
+
+	boolean setPublish(Integer jobId, Integer isPublish);
 }

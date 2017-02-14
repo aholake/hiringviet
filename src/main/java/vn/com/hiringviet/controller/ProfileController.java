@@ -2,6 +2,7 @@ package vn.com.hiringviet.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import vn.com.hiringviet.api.dto.response.AccountDTO;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
 import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
+import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.EndorseDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.ResumeDTO;
@@ -39,6 +41,7 @@ import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.model.Project;
 import vn.com.hiringviet.model.Resume;
 import vn.com.hiringviet.service.AccountService;
+import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.ConnectService;
 import vn.com.hiringviet.service.EndorseService;
 import vn.com.hiringviet.service.FollowService;
@@ -74,6 +77,9 @@ public class ProfileController {
 
 	@Autowired
 	private PositionService positionService;
+
+	@Autowired
+	private CompanyService companyService;
 
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
@@ -129,6 +135,8 @@ public class ProfileController {
 			}
 		}
 
+		List<CompanyDTO> follows = companyService.getListCompanyFollow(member.getAccount().getId());
+		model.addAttribute("follows", follows);
 		model.addAttribute("member", member);
 		model.addAttribute("checkConnect", checkConnect);
 

@@ -3,6 +3,7 @@ package vn.com.hiringviet.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -16,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.dao.CommentDAO;
 import vn.com.hiringviet.dto.CommentDTO;
+import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Comment;
+import vn.com.hiringviet.util.Utils;
 
 @Repository
 @Transactional
@@ -50,6 +53,7 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 		criteria.createAlias("comment.replyCommentSet", "replyCommentSet", JoinType.LEFT_OUTER_JOIN);
 		criteria.setProjection(Projections.projectionList()
 				.add(Projections.groupProperty("member.id").as("memberId"))
+				.add(Projections.groupProperty("account.id").as("accountId"))
 				.add(Projections.groupProperty("comment.id").as("commentId"))
 				.add(Projections.property("account.avatarImage").as("avatarImage"))
 				.add(Projections.property("changeLog").as("changeLog"))
@@ -71,6 +75,57 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 
 		List<CommentDTO> comments = (List<CommentDTO>) criteria.list();
 		return comments;
+	}
+
+	@Override
+	public Integer create(CommentDTO commentDTO) {
+
+		Integer result = 1;
+		Query query = null;
+		StringBuffer insertChangeLogSQL = new StringBuffer();
+		ChangeLog changeLog = Utils.createDefaultChangeLog();
+		insertChangeLogSQL.append("INSERT INTO change_log (created_date, status, updated_date) VALUES (:createdDate, 1, :updatedDate)");
+		query = getSession().createSQLQuery(insertChangeLogSQL.toString());
+		query.setParameter("createdDate", changeLog.getCreatedDate());
+		query.setParameter("updatedDate", changeLog.getUpdatedDate());
+
+		result = query.executeUpdate();
+		if (result <= 0) {
+			return result;
+		}
+
+		StringBuffer getLastIdSQL = new StringBuffer();
+		getLastIdSQL.append("SELECT change_log.id FROM change_log ORDER BY id desc LIMIT 0,1");
+		query = getSession().createSQLQuery(getLastIdSQL.toString());
+		Integer clId = (Integer) query.uniqueResult();
+
+		StringBuffer insertCommentSQL = new StringBuffer();
+		insertCommentSQL.append("INSERT INTO comment (comment, change_log_id, job_id, member_id, post_id) VALUES (:comment, :changeLogId, :jobId, :memberId, :postId)");
+		query = getSession().createSQLQuery(insertCommentSQL.toString());
+		query.setParameter("comment", commentDTO.getComment());
+		query.setParameter("changeLogId", clId);
+		query.setParameter("jobId", commentDTO.getJobId());
+		query.setParameter("memberId", commentDTO.getMember().getId());
+		query.setParameter("postId", commentDTO.getPostId());
+
+		result = query.executeUpdate();
+		if (result <= 0) {
+			return result;
+		}
+
+		return result;
+
+	}
+
+	@Override
+	public boolean delete(Integer commentId) {
+
+		Comment comment = findOne(commentId);
+
+		if (comment != null) {
+			return delete(comment);
+		}
+		return false;
 	}
 
 }

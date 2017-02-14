@@ -12,6 +12,7 @@
 <!-- Local style -->
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/home/css/home.css'/>">
 <link rel="stylesheet" href="/resources/hiringviet/company/css/company.css" />
+<script src="<c:url value='/resources/hiringviet/company/js/company.js'/>"></script>
 </head>
 <body>
 
@@ -25,6 +26,13 @@
 	<input type="hidden" id="url_add_comment" value="<c:url value='/company/addComment' />" />
 	<input type="hidden" id="url_add_reply_comment" value="<c:url value='/company/addReplyComment' />" />
 	<input type="hidden" id="url_count_member_of_follwer" value="<c:url value='/profile/countNumberOfFollower'/>"/>
+	<input type="hidden" id="url_setting_publish" value="<c:url value='/job/settingPublish' />" />
+	<input type="hidden" id="url_delete_reply_comment" value="<c:url value='/company/replyComment/delete' />" />
+	<input type="hidden" id="url_delete_comment" value="<c:url value='/company/comment/delete' />" />
+	<input type="hidden" id="message_publish_success" value='<spring:message code="message.success.setting.job.publish"/>'/>
+	<input type="hidden" id="message_publish_fail" value='<spring:message code="message.fail.setting.job.publish"/>'/>
+	<input type="hidden" id="message_delete_success" value='<spring:message code="message.success.setting.delete"/>'/>
+	<input type="hidden" id="message_delete_fail" value='<spring:message code="message.fail.setting.delete"/>'/>
 	<input type="hidden" id="id_of_account" value="${memberLogin.id}"/>
 	<input type="hidden" id="is_owner" value="${isOwner}"/>
 		<div class="row">
@@ -93,10 +101,22 @@
 											<div class="col m12">
 												<div class="col m12 p-0">
 													<h1 class="col m9 p-0 title block-with-text">
-														<a class="not-hot" href="<c:url value='/company/${company.id}/careers/${job.id}' />">${job.title}</a>
+														<a class="not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</h1>
+													<div class="col m3" style="text-align: right;">
+														<input type="hidden" value="${job.id}"/>
+														<c:choose>
+															<c:when test="${job.publish == true}">
+																<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}" checked="checked" />
+															</c:when>
+															<c:otherwise>
+																<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}"/>
+															</c:otherwise>
+														</c:choose>
+														<label for="publishJob${job.id}" style="margin-left: -12px;">Publish</label>
+													</div>
 												</div>
-												<a href="#" class="company-name">${job.company.displayName}</a>
+												<!-- <a href="#" class="company-name">${job.company.displayName}</a> -->
 												<p class="work-location">
 													<a href="#">${job.company.address.district.province.provinceName}</a>
 												</p>
@@ -442,6 +462,7 @@
 		</div>
 	</div>
 	<div id="divLoading"></div>
+	<script src="<c:url value='/resources/hiringviet/job/js/publish.js'/>"></script>
 	<script type="text/javascript">
 
 		$(document).ready(function() {
@@ -453,7 +474,7 @@
 			CKEDITOR.replace("content");
 		});
 		
-function showSettingEmailPanel() {
+		function showSettingEmailPanel() {
 			
 			$('#card-panel-setting-email').show();
 		}
@@ -473,7 +494,6 @@ function showSettingEmailPanel() {
 			$('#card-panel-setting-language').hide();
 		}
 	</script>
-	<script src="<c:url value='/resources/hiringviet/company/js/company.js'/>"></script>
 	<script type="text/javascript" src="/resources/common/js/ckeditor/ckeditor.js"></script>
 </body>
 </html>
