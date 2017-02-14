@@ -3,14 +3,13 @@ package vn.com.hiringviet.dao.impl;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.dao.MailboxDAO;
-import vn.com.hiringviet.dto.AccountDTO;
 import vn.com.hiringviet.dto.MessageDTO;
-import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Message;
 
 @Repository
@@ -41,6 +40,19 @@ public class MailboxDAOImpl extends CommonDAOImpl<Message> implements MailboxDAO
 			return null;
 		}
 		return messageDTOs;
+	}
+
+	@Override
+	public void createMessageByNativeSQL(Message message) {
+		StringBuilder query = new StringBuilder();
+		query = query.append("INSERT INTO message(title, content, owner_account_id, sender_account_id) VALUES(")
+				.append("'"+message.getTitle()+"',")
+				.append("'"+message.getContent()+"',")
+				.append("'"+message.getOwnerAccount().getId()+"',")
+				.append("'"+message.getSenderAccount().getId()+"')");
+		
+		SQLQuery sqlQuery = getSession().createSQLQuery(query.toString());
+		sqlQuery.executeUpdate();
 	}
 
 }

@@ -3,6 +3,7 @@ package vn.com.hiringviet.model;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,6 +31,8 @@ public class Apply implements Serializable {
 	private String disscription;
 
 	private ChangeLog changeLog;
+
+	private boolean accepted;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,4 +92,12 @@ public class Apply implements Serializable {
 		this.changeLog = changeLog;
 	}
 
+	@Column(name="accepted")
+	public boolean isAccepted() {
+		return accepted;
+	}
+
+	public void setAccepted(boolean isAccepted) {
+		this.accepted = isAccepted;
+	}
 }

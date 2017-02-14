@@ -28,8 +28,8 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		LOGGER.info("check Login");
 		Session session = getSession();
 
-		Criteria criteria = session.createCriteria(Account.class);
-		criteria.add(Restrictions.eq("status", StatusEnum.ACTIVE))
+		Criteria criteria = session.createCriteria(Account.class)
+				.add(Restrictions.eq("status", StatusEnum.ACTIVE))
 				.add(Restrictions.eq("email", email))
 				.add(Restrictions.eq("password", password));
 		Account account = (Account) criteria.uniqueResult();
@@ -65,11 +65,6 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 			return null;
 		}
 		return accounts.get(0);
-	}
-
-	@Override
-	public Account getAccountByActiveUrl(String activeCode) {
-		return null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -150,5 +145,11 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		}
 
 		return false;
+	}
+
+	@Override
+	public Account getAccountByActiveUrl(String activeCode) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

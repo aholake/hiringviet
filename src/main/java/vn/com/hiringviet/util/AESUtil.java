@@ -10,7 +10,7 @@ import org.apache.commons.codec.binary.Hex;
 
 public class AESUtil {
 
-	private static Properties props = FileUtil.getProperties();
+	private static Properties props = FileUtil.getConfigProperties();
 
 	private static SecretKeySpec generateMySQLAESKey(final String key,
 			final String encoding) {

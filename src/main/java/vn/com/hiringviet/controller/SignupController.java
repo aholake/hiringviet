@@ -73,18 +73,6 @@ public class SignupController {
 		return null;
 	}
 
-	@RequestMapping(value = "/rest/saveMember", method = RequestMethod.POST)
-	public @ResponseBody String saveNewMember(
-			@ModelAttribute("newMember") Member member) {
-		LOGGER.info("Save a new member");
-		LOGGER.info(member.getBirthDate());
-		if (memberService.addMember(member) > 0) {
-			return "Added successfully";
-
-		}
-		return "Add failed";
-	}
-
 	@RequestMapping(value = "/rest/checkExistedEmail", method = RequestMethod.POST)
 	public @ResponseBody boolean checkExistedEmail(@RequestBody String email) {
 		return accountService.isExistedAccount(email);

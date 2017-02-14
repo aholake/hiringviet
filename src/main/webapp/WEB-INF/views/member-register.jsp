@@ -19,7 +19,7 @@
 				</div>
 				<div class="panel-content">
 					<form:form modelAttribute="newMember"
-						cssClass="margin-10 member-register" action="/rest/saveMember"
+						cssClass="margin-10 member-register" action="/rest/addNewMember"
 						method="POST">
 						<div class="input-field">
 							<form:input path="firstName" id="firstName" cssClass="validate"

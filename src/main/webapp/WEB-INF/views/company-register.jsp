@@ -124,7 +124,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- Local js -->
+	
 	<script type="text/javascript"
 		src="/resources/hiringviet/register/js/validate.js"></script>
 	<script type="text/javascript"

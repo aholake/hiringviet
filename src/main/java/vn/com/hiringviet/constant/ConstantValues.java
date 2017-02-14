@@ -12,7 +12,9 @@ import vn.com.hiringviet.util.FileUtil;
  */
 public class ConstantValues {
 
-	public static final Properties CONFIG_PROPS = FileUtil.getProperties();
+	public static final Properties CONFIG_PROPS = FileUtil.getConfigProperties();
+	
+	public static final Properties MESSAGE_PROPS = FileUtil.getMessageProperties();
 
 	public static final int EXPIRY_TIME_COOKIE = 60 * 60 * 24 * 7;
 

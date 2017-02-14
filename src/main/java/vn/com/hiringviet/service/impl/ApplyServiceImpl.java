@@ -41,6 +41,7 @@ public class ApplyServiceImpl implements ApplyService {
 			apply.setDisscription(description);
 			apply.setCurriculumVitae(applyDTO.getCurriculumVitae());
 			apply.setChangeLog(Utils.createDefaultChangeLog());
+			apply.setAccepted(false);
 			applyDao.addApplyByNativeSQL(apply);
 		}
 
@@ -50,5 +51,15 @@ public class ApplyServiceImpl implements ApplyService {
 	public List<Apply> findApplies(int jobId) {
 		Job job = jobService.getJobById(jobId);
 		return applyDao.getApplies(job);
+	}
+
+	@Override
+	public Apply get(int id) {
+		return applyDao.findOne(id);
+	}
+
+	@Override
+	public void update(Apply apply) {
+		applyDao.update(apply);
 	}
 }

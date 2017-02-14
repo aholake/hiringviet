@@ -3,6 +3,7 @@ package vn.com.hiringviet.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -29,12 +30,13 @@ public class ApplyDAOImpl extends CommonDAOImpl<Apply> implements ApplyDAO {
 	@Override
 	public void addApplyByNativeSQL(Apply apply) {
 		Session session = getSession();
-		SQLQuery sqlQuery= session.createSQLQuery("INSERT INTO apply (curriculumVitae, disscription, job_id, member_id) VALUES (?,?,?,?)");
-		sqlQuery.setParameter(0, apply.getCurriculumVitae());
-		sqlQuery.setParameter(1, apply.getDisscription());
-		sqlQuery.setParameter(2, apply.getJob().getId());
-		sqlQuery.setParameter(3, apply.getMember().getId());
-		System.out.println(sqlQuery.getQueryString());
-		sqlQuery.executeUpdate();
+		SQLQuery sqlQuery = session
+				.createSQLQuery("INSERT INTO apply (curriculumVitae, disscription, job_id, member_id, accepted) VALUES (?,?,?,?,?)");
+		Query hibernateQuery = sqlQuery.setParameter(0, apply.getCurriculumVitae())
+				.setParameter(1, apply.getDisscription())
+				.setParameter(2, apply.getJob().getId())
+				.setParameter(3, apply.getMember().getId())
+				.setParameter(4, apply.isAccepted());
+		hibernateQuery.executeUpdate();
 	}
 }
