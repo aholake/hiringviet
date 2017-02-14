@@ -154,13 +154,13 @@ function filter(valueSearch) {
 			$.map(cachedListJob, function(elementOfArray, indexInArray) {
 				isEmpty = false;
 				contain = true;
-				if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) > -1) {
-					var item = "<li class='search-item'>\
+				if (elementOfArray.value.title.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) > -1) {
+					var item = "<a href='/company/careers?jobId=" + elementOfArray.key + "'><li class='search-item'>\
 									<i class='material-icons icon'>search</i>\
 									<div class='wrapper'>\
-										<p style='line-height: 50px;'>" + elementOfArray.value.displayName + "</p>\
+										<p style='line-height: 50px;'>" + elementOfArray.value.title + "</p>\
 									</div>\
-								</li>";
+								</li></a>";
 					$('#suggestion-box ul').append(item);
 					COUNT_LI_ITEM++;
 				}
@@ -181,7 +181,7 @@ function filter(valueSearch) {
 				if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
 					isEmpty = false;
 					contain = true;
-					var item = "<li class='search-item' onclick='searchBySkill(" + elementOfArray.key + ")'>\
+					var item = "<li class='search-item' onclick='searchBySkillId(" + elementOfArray.key + ")'>\
 									<i class='material-icons icon'>search</i>\
 									<div class='wrapper'>\
 										<p style='line-height: 50px;'>" + elementOfArray.value.displayName + "</p>\
@@ -310,12 +310,12 @@ function showResult(result) {
 							value: listJob[index]
 						});
 					}
-					var item = "<li class='search-item'>\
+					var item = "<a href='/company/careers?jobId=" + listJob[index].id + "'><li class='search-item'>\
 									<i class='material-icons icon'>search</i>\
 									<div class='wrapper'>\
 										<p style='line-height: 50px;'>" + listJob[index].title + "</p>\
 									</div>\
-								</li>";
+								</li></a>";
 					$('#suggestion-box ul').append(item);
 					COUNT_LI_ITEM++;
 				}
@@ -340,7 +340,7 @@ function showResult(result) {
 							value: listSkill[index]
 						});
 					}
-					var item = "<li class='search-item' onclick='searchBySkill(" + listSkill[index].id + ")'>\
+					var item = "<li class='search-item' onclick='searchBySkillId(" + listSkill[index].id + ")'>\
 									<i class='material-icons icon'>search</i>\
 									<div class='wrapper'>\
 										<p style='line-height: 50px;'>" + listSkill[index].displayName + "</p>\
@@ -365,16 +365,16 @@ function showResult(result) {
 }
 
 function addFirstItem() {
-	var item = "<a href=''><li class='search-item'>\
-		<i class='material-icons icon'>work</i>\
-		<div class='wrapper'>\
-			<p style='line-height: 50px;'><a>Jobs</a> requiring " + setTextColorBlue(VALUE_SEARCH)  + " skills</p>\
-		</div>\
-		</li></a>";
-	COUNT_LI_ITEM++;
-	$('#suggestion-box ul').append(item);
+//	var item = "<a href=''><li class='search-item'>\
+//		<i class='material-icons icon'>work</i>\
+//		<div class='wrapper'>\
+//			<p style='line-height: 50px;'><a>Jobs</a> requiring " + setTextColorBlue(VALUE_SEARCH)  + " skills</p>\
+//		</div>\
+//		</li></a>";
+//	COUNT_LI_ITEM++;
+//	$('#suggestion-box ul').append(item);
 
-	var item = "<a href=''><li class='search-item'>\
+	var item = "<a href=''><li class='search-item' onclick='searchBySkill('" + VALUE_SEARCH + "')'>\
 				<i class='material-icons icon'>work</i>\
 				<div class='wrapper'>\
 					<p style='line-height: 50px;'><a>Jobs</a> requiring " + setTextColorBlue(VALUE_SEARCH)  + " skills</p>\
@@ -383,7 +383,7 @@ function addFirstItem() {
 	COUNT_LI_ITEM++;
 	$('#suggestion-box ul').append(item);
 
-	var item = "<a href=''><li class='search-item'>\
+	var item = "<a href=''><li class='search-item' onclick='searchByJobTitle('" + VALUE_SEARCH + "')'>\
 		<i class='material-icons icon'>work</i>\
 		<div class='wrapper'>\
 			<p style='line-height: 50px;'><a>Jobs</a> for " + setTextColorBlue(VALUE_SEARCH)  + " titles</p>\
@@ -392,14 +392,14 @@ function addFirstItem() {
 	COUNT_LI_ITEM++;
 	$('#suggestion-box ul').append(item);
 
-	var item = "<a href=''><li class='search-item'>\
-		<i class='material-icons icon'>supervisor_account</i>\
-		<div class='wrapper'>\
-			<p style='line-height: 50px;'><a>People</a> with " + setTextColorBlue(VALUE_SEARCH) + " skills</p>\
-		</div>\
-		</li></a>";
-	COUNT_LI_ITEM++;
-	$('#suggestion-box ul').append(item);
+//	var item = "<a href=''><li class='search-item'>\
+//		<i class='material-icons icon'>supervisor_account</i>\
+//		<div class='wrapper'>\
+//			<p style='line-height: 50px;'><a>People</a> with " + setTextColorBlue(VALUE_SEARCH) + " skills</p>\
+//		</div>\
+//		</li></a>";
+//	COUNT_LI_ITEM++;
+//	$('#suggestion-box ul').append(item);
 }
 
 /**
@@ -448,9 +448,21 @@ function addFirstItem() {
  function setTextColorBlue(value) {
 	 return "<a>" + value + "</a>";
  }
- 
- function searchBySkill(skillId) {
-	 $("#skillId").val(skillId);
+
+ function searchByJobTitle(jobTitle) {
+	 $("#search-event #jobTitle").val(jobTitle);
+
+	 $("#search-event").submit();
+ }
+
+ function searchBySkill(skill) {
+	 $("#search-event #skill").val(skill);
+
+	 $("#search-event").submit();
+ }
+
+ function searchBySkillId(skillId) {
+	 $("#search-event #skillId").val(skillId);
 
 	 $("#search-event").submit();
  }

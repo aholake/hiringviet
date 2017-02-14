@@ -17,6 +17,8 @@ import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.model.ChangeLog;
+import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Job;
 
 public class Utils {
 
@@ -283,5 +285,13 @@ public class Utils {
 		}
 
 		return null;
+	}
+
+	public static String genLogApply(Company company, Job job) {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("<p><a href='/company?companyId=" + company.getId() + "'>" + company.getDisplayName() + "</a> vừa đăng 1 <b>công việc</b> mới</p>");
+		sb.append("<p class='small-text'>" + job.getDescription().substring(1, 100) + "...</p>");
+		return sb.toString();
 	}
 }

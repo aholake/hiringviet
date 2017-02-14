@@ -322,10 +322,10 @@
 				<div class="col m12 mp0">
 					<table class="bordered">
 						<tbody>
-							<tr>
-								<sec:authorize access="isAuthenticated()">
-									<sec:authentication property="principal" var="principal" />
-									<c:forEach items="${principal.loggers}" var="logger">
+							<sec:authorize access="isAuthenticated()">
+								<sec:authentication property="principal" var="principal" />
+								<c:forEach items="${principal.loggers}" var="logger">
+									<tr>
 										<td width="10%">
 											<img width="50px" height="50px" alt="" src="${logger.image}" />
 										</td>
@@ -333,9 +333,9 @@
 											${logger.info}
 											<p>${logger.dateTime}</p>
 										</td>
-									</c:forEach>
-								</sec:authorize>
-							</tr>
+									</tr>
+								</c:forEach>
+							</sec:authorize>
 						</tbody>
 					</table>
 				</div>
@@ -360,8 +360,10 @@
 			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
 		</div>
 	</div>
-	<form id="search-event" action="/home">
+	<form id="search-event" action="/home" method="post">
 		<input type="hidden" id="skillId" name="skillId"/>
+		<input type="hidden" id="skill" name="skill"/>
+		<input type="hidden" id="jobTitle" name="jobTitle"/>
 		<input type="hidden" name="search"/>
 	</form>
 <script>

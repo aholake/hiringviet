@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.dao.AccountDAO;
 import vn.com.hiringviet.dto.AccountDTO;
+import vn.com.hiringviet.dto.LoggerDTO;
 import vn.com.hiringviet.model.Account;
 
 @Repository
@@ -151,5 +152,27 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		}
 
 		return false;
+	}
+
+	@Override
+	public List<LoggerDTO> getListLogger(Integer accountId) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("SELECT ");
+		sb.append("id AS id, ");
+		sb.append("date_time AS dateTime, ");
+		sb.append("image AS image, ");
+		sb.append("info AS info ");
+		sb.append("FROM logger ");
+		sb.append("WHERE account_id = :accountId AND type = 1");
+		Query query = getSession().createSQLQuery(sb.toString());
+		query.setParameter("accountId", accountId);
+		query.setResultTransformer(Transformers.aliasToBean(LoggerDTO.class));
+
+		List<LoggerDTO> loggerDTOs = query.list();
+		if (loggerDTOs.isEmpty()) {
+			return null;
+		}
+		return loggerDTOs;
 	}
 }

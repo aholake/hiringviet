@@ -26,7 +26,7 @@ public class LoggerServiceImpl implements LoggerService {
 	private MemberDAO memberDAO;
 
 	@Override
-	public boolean create(Integer ownerAccountId, Integer guestAccountId, String image, String info) {
+	public boolean create(Integer ownerAccountId, Integer guestAccountId, String image, String info, boolean isActivity) {
 
 		MemberDTO member = memberDAO.getMemberByAccountId(guestAccountId);
 		Account account = accountDAO.findOne(ownerAccountId);
@@ -37,7 +37,7 @@ public class LoggerServiceImpl implements LoggerService {
 			logger.setDateTime(DateUtil.now());
 			logger.setInfo(Utils.getMessage(info, member.getFirstName() + " " + member.getLastName()));
 			logger.setImage(account.getAvatarImage());
-	
+			logger.setType(isActivity);
 			if (loggerDAO.create(logger) > 0) {
 				return true;
 			}

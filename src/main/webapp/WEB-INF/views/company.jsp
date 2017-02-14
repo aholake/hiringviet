@@ -423,7 +423,7 @@
 								</p>
 								<p class="small-text display-inline-flex">
 									<i class="material-icons small-icon">date_range</i>
-									<fmt:formatDate pattern="yyyy-MM-dd, hh:mm:ss a" value="${job.postDate}" />
+									<fmt:formatDate pattern="yyyy-MM-dd, HH:mm" value="${job.postDate}" />
 								</p>
 							</div>
 						</c:forEach>

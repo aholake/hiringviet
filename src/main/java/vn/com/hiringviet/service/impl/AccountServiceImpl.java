@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.dao.AccountDAO;
 import vn.com.hiringviet.dto.AccountDTO;
+import vn.com.hiringviet.dto.LoggerDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.util.FileUtil;
@@ -130,5 +131,10 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public boolean hasFollow(Integer fromAccountId, Integer toAccountId) {
 		return accountDAO.hasFollow(fromAccountId, toAccountId);
+	}
+
+	@Override
+	public List<LoggerDTO> getListLogger(Integer accountId) {
+		return accountDAO.getListLogger(accountId);
 	}
 }

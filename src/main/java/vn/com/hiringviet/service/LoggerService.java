@@ -7,5 +7,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface LoggerService {
 
-	public boolean create(Integer ownerAccountId, Integer guestAccountId, String image, String info);
+	public boolean create(Integer ownerAccountId, Integer guestAccountId, String image, String info, boolean isActivity);
 }

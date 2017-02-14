@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import vn.com.hiringviet.dto.AccountDTO;
+import vn.com.hiringviet.dto.LoggerDTO;
 import vn.com.hiringviet.model.Account;
 
 @Repository
@@ -25,4 +26,6 @@ public interface AccountDAO extends CommonDAO<Account> {
 	public boolean updateLocale(Integer accountId, String locale);
 
 	public boolean hasFollow(Integer fromAccountId, Integer toAccountIds);
+
+	public List<LoggerDTO> getListLogger(Integer accountId);
 }
