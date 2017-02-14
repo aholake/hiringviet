@@ -40,6 +40,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider,
 		String email = auth.getName();
 		String password = (String) auth.getCredentials();
 		password = SecurityUtil.encodeStringToBase64(password);
+		System.out.println("Password: "+password); 
 
 		if (email.isEmpty() || password.isEmpty()) {
 			LOGGER.info("Empty Field");

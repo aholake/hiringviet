@@ -154,3 +154,13 @@
 .apply-card-title .timestamp {
 	float: right;
 }
+
+.apply-item .card-content {
+	position: relative;
+}
+
+.apply-item .attachment-file {
+	position: absolute;
+    right: 5px;
+    bottom: 5px;
+}

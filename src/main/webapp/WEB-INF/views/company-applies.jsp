@@ -26,7 +26,7 @@
 						<h5 class="center">Chưa có đơn ứng tuyển cho công việc này</h5>
 					</c:if>
 					<c:forEach var="apply" items="${applies }">
-						<div class="card blue-grey darken-1">
+						<div class="apply-item card blue-grey darken-1">
 							<div class="card-content white-text">
 								<p class="card-title apply-card-title">
 									<a href="=/profile?memberId=${apply.member.id }"
@@ -35,6 +35,7 @@
 									<span class="timestamp small-text">Hôm qua</span>
 								</p>
 								<p>${apply.disscription }</p>
+								<a href="/file/download" class="attachment-file white-text"><i class="material-icons">attach_file</i></a>
 							</div>
 							<div class="card-action">
 								<a href="#">Đồng ý</a> <a href="#">Từ chối</a>
