@@ -16,6 +16,7 @@ import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.model.Message;
 import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.ApplyService;
+import vn.com.hiringviet.service.LoggerService;
 import vn.com.hiringviet.service.MailboxService;
 
 @Service("mailboxService")
@@ -29,6 +30,9 @@ public class MailboxServiceImpl implements MailboxService {
 
 	@Autowired
 	private ApplyService applyService;
+	
+	@Autowired
+	private LoggerService logger;
 
 	@Override
 	public List<MessageDTO> getOwnerMailList(Integer accountId) {
@@ -73,6 +77,7 @@ public class MailboxServiceImpl implements MailboxService {
 	@Override
 	public void sendMessageNativeSQL(Message message) {
 		mailboxDAO.createMessageByNativeSQL(message);
+		triggerLogger(message);
 	}
 
 	@Override
@@ -105,5 +110,25 @@ public class MailboxServiceImpl implements MailboxService {
 		} else {
 			throw new RuntimeException("Internal Error");
 		}
+	}
+
+	@Override
+	public void sendMessageViaDto(MessageDTO messageDTO) {
+		Message message = new Message();
+		Account sender = AuthenticationUtil.getLoggedAccount();
+		if(sender != null) {
+			message.setOwnerAccount(accountService.getAccountByEmail(messageDTO.getEmailReceiver()));
+			message.setTitle(message.getTitle());
+			message.setContent(messageDTO.getDateTime());
+			message.setSenderAccount(sender);
+			
+			sendMessageNativeSQL(message);
+		} else {
+			throw new RuntimeException("Haven't login yet");
+		}
+	}
+	
+	private void triggerLogger(Message message) {
+		logger.create(message.getSenderAccount().getId(), message.getOwnerAccount().getId(), null, "You have received a message");
 	}
 }

@@ -34,6 +34,7 @@ import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dto.CommentDTO;
 import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.dto.MemberDTO;
+import vn.com.hiringviet.dto.MessageDTO;
 import vn.com.hiringviet.dto.PagingDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.dto.ReplyCommentDTO;
@@ -517,6 +518,7 @@ public class CompanyController {
 	public String goToCompaniesApply(@PathVariable("jobId") int jobId, Model model) {
 		List<Apply> applies = applyService.findApplies(jobId);
 		model.addAttribute("applies", applies);
+		model.addAttribute(new MessageDTO());
 		return "company-applies";
 	}
 

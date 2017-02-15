@@ -137,29 +137,33 @@
 			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
 		</div>
 	</div>
-	<div id="sendMessageModal" class="modal modal-fixed-footer">
-		<div class="modal-content">
-			<h4>Send Message</h4>
-			<div class="row">
-				<div class="col m12 mp0">
-					<div class="input-field col m12 p-0">
-						<input id="toAccount" type="text" class="validate">
-						<label for="toAccount">To</label>
-					</div>
-					<div class="input-field col m12 p-0">
-						<input id="title" type="text" class="validate">
-						<label for="title">Title</label>
-					</div>
-					<div class="input-field col m12 p-0">
-						<textarea id="txtContent" class="materialize-textarea"></textarea>
+	
+	<form action="/api/message/send" method="post" id="sendMessageModal" class="modal modal-fixed-footer">
+			<div class="modal-content">
+				<h4>Send Message</h4>
+				<div class="row">
+					<div class="col m12 mp0">
+						<div class="input-field col m12 p-0">
+							<input id="toAccount" type="text" class="validate" name="emailReceiver"> <label
+								for="toAccount">To</label>
+						</div>
+						<div class="input-field col m12 p-0">
+							<input id="title" type="text" class="validate" name="title"> <label
+								for="title">Title</label>
+						</div>
+						<div class="input-field col m12 p-0">
+							<textarea id="txtContent" class="materialize-textarea" name="content"></textarea>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="modal-footer">
-			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
-		</div>
-	</div>
+			<div class="modal-footer">
+				<button type="submit"
+					class="modal-action waves-effect waves-green btn-flat">Send</button>
+				<a href="#!"
+					class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+			</div>
+		</form>
 	<!-- Modal Structure -->
 	<div id="subscribeModal" class="modal">
 		<form action="/company/subscribe" method="POST">

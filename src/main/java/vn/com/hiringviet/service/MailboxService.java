@@ -17,4 +17,6 @@ public interface MailboxService {
 	void sendDeniedApplyMessage(int applyId, String receiverEmail);
 	
 	void sendApprovalApplyMessage(int applyId, String receiverEmail);
+	
+	void sendMessageViaDto(MessageDTO messageDTO);
 }

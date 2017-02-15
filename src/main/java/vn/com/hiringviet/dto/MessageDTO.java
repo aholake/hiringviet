@@ -9,11 +9,13 @@ public class MessageDTO implements Serializable {
 	private Integer id;
 
 	private String emailSender;
+	
+	private String emailReceiver;
 
 	private Integer typeMail;
 
 	private String title;
-
+	
 	private String content;
 
 	private String dateTime;
@@ -66,4 +68,11 @@ public class MessageDTO implements Serializable {
 		this.emailSender = emailSender;
 	}
 
+	public String getEmailReceiver() {
+		return emailReceiver;
+	}
+
+	public void setEmailReceiver(String emailReceiver) {
+		this.emailReceiver = emailReceiver;
+	}
 }

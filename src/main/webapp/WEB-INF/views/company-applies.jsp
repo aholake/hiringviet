@@ -35,18 +35,20 @@
 									<span class="timestamp small-text">Hôm qua</span>
 								</p>
 								<p>${apply.disscription }</p>
-								<a href="/file/download" class="attachment-file white-text"><i class="material-icons">attach_file</i></a>
+								<c:if test="${not empty apply.curriculumVitae }">
+									<a href="/file/download/${apply.curriculumVitae }" class="attachment-file white-text"><i class="material-icons">attach_file</i></a>
+								</c:if>
 							</div>
 							<div class="card-action">
-								<a href="#sendMessageModal">Đồng ý</a> <a href="#"
-									onclick="sendDeniedMessage(${apply.applyID},'${apply.member.account.email}');return false;">Từ
-									chối</a>
+								<a href="#sendMessageModal" class="sendMessageModal" onclick="initSendMessageDialog('${apply.member.account.email}');">Đồng ý</a> 
+								<a href="#" onclick="sendDeniedMessage(${apply.applyID},'${apply.member.account.email}');return false;">Từ chối</a>
 							</div>
 						</div>
 					</c:forEach>
 				</div>
 			</div>
 		</div>
+
 		<div class="col m4">
 			<div class="card-panel">
 				<div class="panel-title">
@@ -192,10 +194,6 @@
 		src="/resources/common/js/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="/resources/common/js/freewall.js"></script>
 	<script type="text/javascript">
-		$(function() {
-			$('#sendMessageModal').leanModal();
-		});
-		
 		function sendDeniedMessage(applyId, receiverEmail) {
 			console.log('Apply ID: '+applyId);
 			console.log('Receiver email: '+receiverEmail);
@@ -212,6 +210,11 @@
 				$toastContent = $('<span>Sent denied message to employee successfully</span>');
 			}
 			Materialize.toast($toastContent, 5000);
+		}
+		
+		function initSendMessageDialog(receiver) {
+			$("#toAccount").val(receiver);
+			$("#title").val("ĐƠN ỨNG TUYỂN");
 		}
 	</script>
 </body>
