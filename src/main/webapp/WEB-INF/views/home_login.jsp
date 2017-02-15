@@ -18,8 +18,7 @@
 
 </head>
 <body>
-	<input type="hidden" id="url_load_more"
-		value="<c:url value='/job/suggest' />" />
+	<input type="hidden" id="url_load_more" value="<c:url value='/job/suggest' />" />
 	<input type="hidden" id="first_item" value="${firstItem}" />
 	<input type="hidden" id="max_item" value="${maxItem}" />
 	<input type="hidden" id="current_page" value="${currentPage}" />
@@ -165,12 +164,12 @@
 									class="location-sticky orange darken-1 province-${fn:replace(job.workAddress.district.province.provinceName, ' ','')}">${job.workAddress.district.province.provinceName}</div>
 								<div class="row none-margin-bottom">
 									<div class="col m3 center hide-on-med-and-down m3-div">
-										<a href="/company?companyId=${job.company.id}"> <img
-											src="${job.company.avatar}"
-											class="responsive-img company-logo"></a> <a href="#"
+										<a href="/company?companyId=${job.company.id}"> 
+										<img src="${job.company.avatar}" class="responsive-img company-logo"></a> 
+										<!-- <a href="#"
 											class="btn margin-top-10 orange darken-1 waves-effect waves-light">
 											<spring:message code="label.home.button.follow_company" />
-										</a>
+										</a> -->
 									</div>
 									<div class="col m9 m9-div">
 										<div class="col m12 p-0">
@@ -187,8 +186,7 @@
 												</c:choose>
 											</h1>
 										</div>
-										<a href="#"
-											class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
+										<a href="/company?companyId=${job.company.id}&mode=HOME" class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
 										<p class="work-location">
 											<a href="#">${job.workAddress.district.province.provinceName}</a>
 										</p>
@@ -307,173 +305,113 @@
 				<div class="panel-title">Điều kiện lọc</div>
 				<div class="row">
 					<div class="col m12">
-						<ul class="collection fillter-wrapper">
-							<li class="collection-item"><b>Career</b><i
-								class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul
-									class="margin-top-10 display-none filter-list filter-category-list"
-									id="filter-category-list">
-								</ul></li>
-							<li class="collection-item"><b>Company</b><i
-								class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul
-									class="margin-top-10 display-none filter-list filter-company-list"
-									id="filter-company-list">
-								</ul></li>
-							<li class="collection-item"><b>Date Posted</b><i
-								class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul
-									class="margin-top-10 display-none filter-list filter-date-post-list"
-									id="filter-date-post-list">
-									<li><input class="with-gap data-post-radio"
-										name="datePosts" value="0" type="radio" id="date-post-All" />
-										<label for="date-post-All">All</label></li>
-									<li><input class="with-gap data-post-radio"
-										name="datePosts" value="1" type="radio" id="date-post-1" /> <label
-										for="date-post-1">1 day ago</label></li>
-									<li><input class="with-gap data-post-radio"
-										name="datePosts" value="2" type="radio" id="date-post-3" /> <label
-										for="date-post-3">3 day ago</label></li>
-									<li><input class="with-gap data-post-radio"
-										name="datePosts" value="3" type="radio" id="date-post-5" /> <label
-										for="date-post-5">5 day ago</label></li>
-									<li><input class="with-gap data-post-radio"
-										name="datePosts" value="4" type="radio" id="date-post-7" /> <label
-										for="date-post-7">7 day ago</label></li>
-								</ul></li>
-							<li class="collection-item"><b>Job Function</b><i
-								class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul
-									class="margin-top-10 display-none filter-list filter-position-list"
-									id="filter-position-list">
-								</ul></li>
-							<li class="collection-item"><b>Skill</b><i
-								class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul
-									class="margin-top-10 display-none filter-list filter-skill-list"
-									id="filter-skill-list">
-								</ul></li>
-							<li class="collection-item"><b>Salary</b><i
-								class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul
-									class="margin-top-10 display-none filter-list filter-salary-list"
-									id="filter-salary-list">
-									<li><input class="with-gap salary-radio" name="salary"
-										value="0" type="radio" id="salary-all" /> <label
-										for="salary-all">All</label></li>
-									<li><input class="with-gap salary-radio" name="salary"
-										value="1" type="radio" id="salary-500" /> <label
-										for="salary-500">Dưới 500$</label></li>
-									<li><input class="with-gap salary-radio" name="salary"
-										value="2" type="radio" id="salary-1000" /> <label
-										for="salary-1000">500$ - 1000$</label></li>
-									<li><input class="with-gap salary-radio" name="salary"
-										value="3" type="radio" id="salary-2000" /> <label
-										for="salary-2000">1000$ - 2000$</label></li>
-									<li><input class="with-gap salary-radio" name="salary"
-										value="4" type="radio" id="salary-3000" /> <label
-										for="salary-3000">2000$ - 3000$</label></li>
-									<li><input class="with-gap salary-radio" name="salary"
-										value="5" type="radio" id="salary-4000" /> <label
-										for="salary-4000">Trên 3000$</label></li>
-								</ul></li>
-							<li class="collection-item"><b>Province</b><i
-								class="material-icons right icon-arrow">keyboard_arrow_down</i>
-								<ul
-									class="margin-top-10 display-none filter-list filter-province-list"
-									id="filter-province-list">
-								</ul></li>
+						<ul class="wrap-filter" data-collapsible="accordion">
+							<li>
+								<div class="collapsible-header">
+									<i class="material-icons">filter_drama</i><spring:message code="label.home.filter" />
+								</div>
+								<div class="collapsible-body">
+									<ul class="collection fillter-wrapper">
+										<li class="collection-item"><b>Career</b><i
+											class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul
+												class="margin-top-10 display-none filter-list filter-category-list"
+												id="filter-category-list">
+											</ul></li>
+										<li class="collection-item"><b>Company</b><i
+											class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul
+												class="margin-top-10 display-none filter-list filter-company-list"
+												id="filter-company-list">
+											</ul></li>
+										<li class="collection-item"><b>Date Posted</b><i
+											class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul
+												class="margin-top-10 display-none filter-list filter-date-post-list"
+												id="filter-date-post-list">
+												<li><input class="with-gap data-post-radio"
+													name="datePosts" value="0" type="radio" id="date-post-All" />
+													<label for="date-post-All">All</label></li>
+												<li><input class="with-gap data-post-radio"
+													name="datePosts" value="1" type="radio" id="date-post-1" /> <label
+													for="date-post-1">1 day ago</label></li>
+												<li><input class="with-gap data-post-radio"
+													name="datePosts" value="2" type="radio" id="date-post-3" /> <label
+													for="date-post-3">3 day ago</label></li>
+												<li><input class="with-gap data-post-radio"
+													name="datePosts" value="3" type="radio" id="date-post-5" /> <label
+													for="date-post-5">5 day ago</label></li>
+												<li><input class="with-gap data-post-radio"
+													name="datePosts" value="4" type="radio" id="date-post-7" /> <label
+													for="date-post-7">7 day ago</label></li>
+											</ul></li>
+										<li class="collection-item"><b>Job Function</b><i
+											class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul
+												class="margin-top-10 display-none filter-list filter-position-list"
+												id="filter-position-list">
+											</ul></li>
+										<li class="collection-item"><b>Skill</b><i
+											class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul
+												class="margin-top-10 display-none filter-list filter-skill-list"
+												id="filter-skill-list">
+											</ul></li>
+										<li class="collection-item"><b>Salary</b><i
+											class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul
+												class="margin-top-10 display-none filter-list filter-salary-list"
+												id="filter-salary-list">
+												<li><input class="with-gap salary-radio" name="salary"
+													value="0" type="radio" id="salary-all" /> <label
+													for="salary-all">All</label></li>
+												<li><input class="with-gap salary-radio" name="salary"
+													value="1" type="radio" id="salary-500" /> <label
+													for="salary-500">Dưới 500$</label></li>
+												<li><input class="with-gap salary-radio" name="salary"
+													value="2" type="radio" id="salary-1000" /> <label
+													for="salary-1000">500$ - 1000$</label></li>
+												<li><input class="with-gap salary-radio" name="salary"
+													value="3" type="radio" id="salary-2000" /> <label
+													for="salary-2000">1000$ - 2000$</label></li>
+												<li><input class="with-gap salary-radio" name="salary"
+													value="4" type="radio" id="salary-3000" /> <label
+													for="salary-3000">2000$ - 3000$</label></li>
+												<li><input class="with-gap salary-radio" name="salary"
+													value="5" type="radio" id="salary-4000" /> <label
+													for="salary-4000">Trên 3000$</label></li>
+											</ul></li>
+										<li class="collection-item"><b>Province</b><i
+											class="material-icons right icon-arrow">keyboard_arrow_down</i>
+											<ul
+												class="margin-top-10 display-none filter-list filter-province-list"
+												id="filter-province-list">
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="card-panel center">
+			<div class="card-panel">
 				<div class="panel-title">HOẠT ĐỘNG</div>
 				<div class="panel-content">
-					<div class="activity-box">
-						<p>
-							<a href="#">Công ty TNHH MTV</a> vừa đăng 1 <a href="">công
-								việc</a> mới
-						</p>
-						<p class="small-text">
-							Xây dựng các ứng dụng trên Android cho các hệ thống tài
-							chính, Ngân hàng.Nghiên cứu, tìm kiếm giải pháp <a href="">xem
-								thêm...</a>
-						</p>
-						<div class="row none-margin-bottom margin-top-5">
-							<i class="material-icons left warning-text">favorite</i> <span
-								class="small-text right">Hôm qua</span>
+					<c:forEach items="${loggers}" var="logger">
+						<div class="activity-box">
+							${logger.info}
+							<div class="row none-margin-bottom margin-top-5">
+								<p class="right">
+									<i class="material-icons prefix-icon">date_range</i> 
+									<span class="info"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${logger.dateTime}" /></span>
+								</p>
+							</div>
 						</div>
-					</div>
-					<div class="activity-box">
-						<p>
-							<a href="#">Công ty TNHH MTV</a> vừa đăng 1 hoạt động mới
-						</p>
-						<p class="small-text">
-							Ngày hội việc làm sẽ được tổ chức ngày 20/4/2014, đăng ký tại <a
-								href="#">www.abc.com</a>
-						</p>
-						<div class="row none-margin-bottom margin-top-5">
-							<i class="material-icons left warning-text">favorite</i> <span
-								class="small-text right">Hôm qua</span>
-						</div>
-					</div>
-					<div class="activity-box">
-						<p>
-							<a href="#">Công ty TNHH MTV</a> vừa đăng 1 hoạt động mới
-						</p>
-						<p class="small-text">
-							Ngày hội việc làm sẽ được tổ chức ngày 20/4/2014, đăng ký tại <a
-								href="#">www.abc.com</a>
-						</p>
-						<div class="row none-margin-bottom margin-top-5">
-							<i class="material-icons left warning-text">favorite</i> <span
-								class="small-text right">Hôm qua</span>
-						</div>
-					</div>
-					<div class="activity-box">
-						<p>
-							<a href="#">Công ty TNHH MTV</a> vừa đăng 1 hoạt động mới
-						</p>
-						<p class="small-text">
-							Ngày hội việc làm sẽ được tổ chức ngày 20/4/2014, đăng ký tại <a
-								href="#">www.abc.com</a>
-						</p>
-						<div class="row none-margin-bottom margin-top-5">
-							<i class="material-icons left warning-text">favorite</i> <span
-								class="small-text right">Hôm qua</span>
-						</div>
-					</div>
-					<div class="activity-box">
-						<p>
-							<a href="#">Công ty TNHH MTV</a> vừa đăng 1 hoạt động mới
-						</p>
-						<p class="small-text">
-							Ngày hội việc làm sẽ được tổ chức ngày 20/4/2014, đăng ký tại <a
-								href="#">www.abc.com</a>
-						</p>
-						<div class="row none-margin-bottom margin-top-5">
-							<i class="material-icons left warning-text">favorite</i> <span
-								class="small-text right">Hôm qua</span>
-						</div>
-					</div>
-					<div class="activity-box">
-						<p>
-							<a href="#">Công ty TNHH MTV</a> vừa đăng 1 hoạt động mới
-						</p>
-						<p class="small-text">
-							Ngày hội việc làm sẽ được tổ chức ngày 20/4/2014, đăng ký tại <a
-								href="#">www.abc.com</a>
-						</p>
-						<div class="row none-margin-bottom margin-top-5">
-							<i class="material-icons left warning-text">favorite</i> <span
-								class="small-text right">Hôm qua</span>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
-				<a class="btn waves-effect waves-light">Tải thêm</a>
+				<!-- <a class="btn waves-effect waves-light">Tải thêm</a> -->
 			</div>
-			<div class="card-panel"></div>
 		</div>
 	</div>
 	<form id="applyForm" action="/job/apply" method="post">
@@ -499,9 +437,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="3">
-								<button type="submit"
-									class="waves-effect waves-light btn btn-apply-job orange right">Apply
-									All</button>
+								<button type="submit" class="waves-effect waves-light btn btn-apply-job orange right">Apply All</button>
 							</td>
 						</tr>
 					</tfoot>
@@ -512,5 +448,10 @@
 	<!-- Local js -->
 	<script type="text/javascript"
 		src="<c:url value='/resources/hiringviet/home/js/home.js'/>"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('.wrap-filter').collapsible();
+	}
+	</script>
 </body>
 </html>

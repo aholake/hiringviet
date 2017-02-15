@@ -30,6 +30,8 @@ public class Logger implements Serializable {
 
 	private String info;
 
+	private Boolean type;
+
 	private Date dateTime;
 
 	private String image;
@@ -82,6 +84,15 @@ public class Logger implements Serializable {
 
 	public void setAccount(Account account) {
 		this.account = account;
+	}
+
+	@Column(name = "type")
+	public Boolean getType() {
+		return type;
+	}
+
+	public void setType(Boolean type) {
+		this.type = type;
 	}
 
 }

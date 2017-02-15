@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.dto.JobAdminTableDTO;
 import vn.com.hiringviet.dto.JobDTO;
+import vn.com.hiringviet.dto.SearchDTO;
 import vn.com.hiringviet.model.Job;
 
 @Service("jobService")
@@ -43,4 +44,6 @@ public interface JobService {
 	boolean updateVisited(Integer jobId);
 
 	boolean setPublish(Integer jobId, Integer isPublish);
+
+	public List<Job> searchJob(Integer first, Integer max, SearchDTO searchDTO);
 }

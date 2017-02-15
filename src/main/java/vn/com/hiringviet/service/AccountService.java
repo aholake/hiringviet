@@ -3,6 +3,7 @@ package vn.com.hiringviet.service;
 import java.util.List;
 
 import vn.com.hiringviet.dto.AccountDTO;
+import vn.com.hiringviet.dto.LoggerDTO;
 import vn.com.hiringviet.model.Account;
 
 public interface AccountService {
@@ -28,4 +29,6 @@ public interface AccountService {
 	public boolean updateLocale(Integer accountId, String locale);
 
 	public boolean hasFollow(Integer fromAccountId, Integer toAccountId);
+
+	public List<LoggerDTO> getListLogger(Integer accountId);
 }

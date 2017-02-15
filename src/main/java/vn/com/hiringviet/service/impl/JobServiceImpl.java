@@ -12,6 +12,7 @@ import vn.com.hiringviet.converter.JobConverter;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.dto.JobAdminTableDTO;
 import vn.com.hiringviet.dto.JobDTO;
+import vn.com.hiringviet.dto.SearchDTO;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.service.JobService;
 
@@ -100,5 +101,11 @@ public class JobServiceImpl implements JobService {
 	public boolean setPublish(Integer jobId, Integer isPublish) {
 		// TODO Auto-generated method stub
 		return jobDAO.setPublish(jobId, isPublish);
+	}
+
+	@Override
+	public List<Job> searchJob(Integer first, Integer max, SearchDTO searchDTO) {
+
+		return jobDAO.searchJob(first, max, searchDTO);
 	}
 }

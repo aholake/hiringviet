@@ -533,7 +533,7 @@ public class CompanyController {
 
 		followService.create(accountFrom, accountTo);
 
-		loggerService.create(accountTo.getId(), accountFrom.getId(), accountFrom.getAvatarImage(), CommonEnum.FOLLOW.getStatus());
+		loggerService.create(accountTo.getId(), accountFrom.getId(), accountFrom.getAvatarImage(), CommonEnum.FOLLOW.getStatus(), false);
 
 		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
 	}

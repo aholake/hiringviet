@@ -2,10 +2,12 @@ package vn.com.hiringviet.dao.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -21,6 +23,7 @@ import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.dto.JobDTO;
+import vn.com.hiringviet.dto.SearchDTO;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.Utils;
@@ -274,6 +277,48 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<Job> searchJob(Integer first, Integer max, SearchDTO searchDTO) {
+
+		Session session = getSession();
+		Criteria criteria = session.createCriteria(Job.class, "job");
+		criteria.createAlias("job.changeLog", "changeLog");
+		criteria.createAlias("job.company", "company");
+		criteria.createAlias("job.jobCategory", "jobCategory");
+		criteria.createAlias("job.position", "position");
+		criteria.createAlias("job.workAddress", "address");
+		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("job.skillSet", "skillSet");
+
+		if (searchDTO.getSkillId() != null) {
+			criteria.add(Restrictions.eq("skillSet.id", searchDTO.getSkillId()));
+		}
+
+		if (!StringUtils.isEmpty(searchDTO.getJobTitle())) {
+			criteria.add(Restrictions.like("job.title", searchDTO.getJobTitle(), MatchMode.ANYWHERE));
+		}
+
+		if (!StringUtils.isEmpty(searchDTO.getSkill())) {
+			criteria.add(Restrictions.like("skillSet.displayName", searchDTO.getSkill(), MatchMode.ANYWHERE));
+		}
+
+		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
+		criteria.add(Restrictions.eq("job.publish", PublishResponseEnum.PUBLISH.getValue()));
+		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));
+
+		criteria.addOrder(Order.desc("company.isVip"));
+		criteria.addOrder(Order.desc("changeLog.createdDate"));
+		criteria.addOrder(Order.desc("job.minSalary"));
+		criteria.addOrder(Order.desc("job.maxSalary"));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		criteria.setFirstResult(first);
+		criteria.setMaxResults(max);
+
+		List<Job> jobList = criteria.list();
+		return jobList;
 	}
 	
 	

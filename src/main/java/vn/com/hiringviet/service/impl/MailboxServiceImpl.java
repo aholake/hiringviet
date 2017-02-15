@@ -129,6 +129,6 @@ public class MailboxServiceImpl implements MailboxService {
 	}
 	
 	private void triggerLogger(Message message) {
-		logger.create(message.getSenderAccount().getId(), message.getOwnerAccount().getId(), null, "You have received a message");
+		logger.create(message.getSenderAccount().getId(), message.getOwnerAccount().getId(), null, "You have received a message", true);
 	}
 }
