@@ -8,13 +8,21 @@
 	<http pattern="/resources/**" security="none"></http>
 	<http auto-config="true">
 		<intercept-url pattern="/" access="permitAll" />
+		
 		<intercept-url pattern="/home" access="permitAll" />
-		<!-- 
+		
 		<intercept-url pattern="/admin**" access="hasAuthority('ADMIN')" />
-		-->
+		
 		<intercept-url pattern="/user**" access="hasAuthority('USER')" />
-		<intercept-url pattern="/company" access="permitAll" />
+		
+		<intercept-url pattern="/company/apply**" access="hasAuthority('COMPANY')"/>
+		
 		<intercept-url pattern="/profile" access="permitAll" />
+		
+		<intercept-url pattern="/company" access="permitAll" />
+		
+		<intercept-url pattern="/job/create**" access="hasAuthority('COMPANY')"/>
+		
 		<access-denied-handler error-page="/access-denied" />
 		<form-login login-page="/login" default-target-url="/"
 			authentication-failure-url="/login?error=incorrect"

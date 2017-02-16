@@ -166,10 +166,10 @@
 												</div>
 											</div>
 										</div>
-										<div class="apply-number">
-											<div class="label">Applied CV: </div>
-											<div class="value">${applyNumbers[job] }</div>
-										</div>
+										<a href="/company/apply/${job.id }" class="apply-number">
+											<span class="label">Applied people: </span>
+											<span class="value">${applyNumbers[job] } people</span>
+										</a>
 									</div>
 								</c:forEach>
 							</div>

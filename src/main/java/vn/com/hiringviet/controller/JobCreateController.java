@@ -82,7 +82,6 @@ public class JobCreateController {
 	}
 
 	private Set<Skill> convertIdListToSkillList(String skillListString) {
-
 		String[] idArr = skillListString.split(",");
 		System.out.println(idArr.toString());
 		Set<Skill> skills = new HashSet<Skill>();

@@ -32,7 +32,6 @@ public class LoggerServiceImpl implements LoggerService {
 		Account account = accountDAO.findOne(ownerAccountId);
 		if (account != null) {
 			Logger logger = new Logger();
-	
 			logger.setAccount(account);
 			logger.setDateTime(DateUtil.now());
 			logger.setInfo(Utils.getMessage(info, member.getFirstName() + " " + member.getLastName()));
