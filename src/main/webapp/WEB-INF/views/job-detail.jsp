@@ -60,8 +60,8 @@
 									<div class="col m12">
 										<span class="bold-text"><i class="material-icons prefix-icon small-icon">location_on</i>Nơi làm việc: </span>
 										<span>
-										${job.company.address.district.districtName}, 
-										${job.company.address.district.province.provinceName}
+										${job.workAddress.district.districtName}, 
+										${job.workAddress.district.province.provinceName}
 										</span>
 									</div>
 									<div class="col m12">

@@ -63,7 +63,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="/company/${job.company.id}&mode=CAREER'">
+						<a href="/company?companyId=${job.company.id}&mode=CAREER'">
 							<spring:message code="label.company.title.careers"/>
 						</a>
 					</li>

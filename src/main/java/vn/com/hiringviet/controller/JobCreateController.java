@@ -53,12 +53,13 @@ public class JobCreateController {
 	}
 
 	@RequestMapping("/rest/job/add")
-	public @ResponseBody String addNewJob(@ModelAttribute("newJob") JobFormDTO jobFormDTO) throws ParseException {
+	public String addNewJob(@ModelAttribute("newJob") JobFormDTO jobFormDTO) throws ParseException {
 
 		Company company = getLoggedAccount().getCompany();
 		if (company == null) {
-			return "NOT LOGIN YET";
+			return "redirect:/home";
 		}
+
 		Job job = new Job();
 		job.setCompany(company);
 		job.setTitle(jobFormDTO.getTitle());
@@ -73,12 +74,15 @@ public class JobCreateController {
 		job.setWorkAddress(jobFormDTO.getWorkAddress());
 		job.setExpiredDate(jobFormDTO.getExpiredDate());
 		job.setSkillSet(convertIdListToSkillList(jobFormDTO.getSkillListId()));
+		job.setPosition(positionService.findOne(jobFormDTO.getPosition().getPositionID()));
+		job.setNumberVisited(0);
 		jobService.addJob(job);
 
-		return jobFormDTO.getDescription() + jobFormDTO.getSkillListId();
+		return "redirect:/company?companyId=" + company.getId() + "&mode=CAREER";
 	}
 
 	private Set<Skill> convertIdListToSkillList(String skillListString) {
+
 		String[] idArr = skillListString.split(",");
 		System.out.println(idArr.toString());
 		Set<Skill> skills = new HashSet<Skill>();
