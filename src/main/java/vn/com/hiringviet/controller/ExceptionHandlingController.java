@@ -17,7 +17,7 @@ public class ExceptionHandlingController {
 	 */
 	@ExceptionHandler(Exception.class)
 	public String systemError() {
-		return "500";
+		return "redirect:/error/500";
 	}
 
 }

@@ -104,6 +104,7 @@ public class Job implements Serializable {
 
 	@Fetch(FetchMode.SUBSELECT)
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
 	@JoinTable(name = "job_skill", joinColumns = { @JoinColumn(name = "job_id") }, inverseJoinColumns = { @JoinColumn(name = "skill_id") })
 	public Set<Skill> getSkillSet() {
 		return skillSet;
