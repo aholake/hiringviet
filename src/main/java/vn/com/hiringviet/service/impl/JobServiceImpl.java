@@ -108,4 +108,10 @@ public class JobServiceImpl implements JobService {
 
 		return jobDAO.searchJob(first, max, searchDTO);
 	}
+
+	@Override
+	public boolean insertJobSkill(Integer jobId, List<String> skills) {
+		// TODO Auto-generated method stub
+		return jobDAO.insertJobSkill(jobId, skills);
+	}
 }

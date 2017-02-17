@@ -41,11 +41,13 @@ import vn.com.hiringviet.dto.ReplyCommentDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.CompanyPhoto;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.ApplyService;
 import vn.com.hiringviet.service.CommentService;
+import vn.com.hiringviet.service.CompanyPhotoService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.FollowService;
 import vn.com.hiringviet.service.JobService;
@@ -55,6 +57,7 @@ import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.ImageUtil;
 import vn.com.hiringviet.util.Utils;
 
+import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
@@ -91,6 +94,9 @@ public class CompanyController {
 	
 	@Autowired
 	private ApplyService applyService;
+
+	@Autowired
+	private CompanyPhotoService companyPhotoService;
 
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
@@ -169,6 +175,7 @@ public class CompanyController {
 			}
 
 			model.addAttribute("postList", postList);
+			model.addAttribute("uploadBanner", blobstoreService.createUploadUrl("/company/photo/add"));
 		}
 
 		// check follow
@@ -427,13 +434,16 @@ public class CompanyController {
 		model.addAttribute("numberFollower", numberFollower);
 		
 		Member memberLogin = null;
-
 		Account account = getLoggedAccount();
+		model.addAttribute("showUpdate", 0);
 		if (account != null) {
 			memberLogin = account.getMember();
+			if(account.getCompany().getId() == job.getCompany().getId()) {
+				model.addAttribute("showUpdate", 1);
+			}
 		}
 		model.addAttribute("memberLogin", memberLogin);
-
+		
 		return "job-detail";
 	}
 
@@ -445,6 +455,8 @@ public class CompanyController {
 		Account account = getLoggedAccount();
 		if (account != null) {
 			companyLogin = account.getCompany();
+		} else {
+			return "redirect:/login";
 		}
 		
 		if (companyLogin != null) {
@@ -466,6 +478,8 @@ public class CompanyController {
 		Account account = getLoggedAccount();
 		if (account != null) {
 			companyLogin = account.getCompany();
+		} else {
+			return "redirect:/login";
 		}
 
 		AccountDTO accountDTO =  ImageUtil.convertImageToByte(blobstoreService, request, account);
@@ -560,5 +574,48 @@ public class CompanyController {
 
 		response.setResult(StatusResponseEnum.SUCCESS.getStatus());
 		return response;
+	}
+
+	@RequestMapping(value = "/company/photo/add", method = RequestMethod.POST)
+	public String uploadBanner(
+			@RequestParam("title") String title,
+			@RequestParam("description") String description,
+			HttpServletRequest request, 
+			HttpServletResponse response,
+			HttpSession session) {
+
+		Company companyLogin = null;
+		Account account = getLoggedAccount();
+		if (account != null) {
+			companyLogin = account.getCompany();
+		} else {
+			return "redirect:/login";
+		}
+
+		CompanyPhoto companyPhoto = new CompanyPhoto();
+		companyPhoto = ImageUtil.convertImageToByte(blobstoreService, request, companyPhoto);
+		companyPhoto.setTitle(title);
+		companyPhoto.setDescription(description);
+		companyPhotoService.createPhotoBanner(companyLogin.getId(), companyPhoto);
+
+		return "redirect:/company?companyId=" + companyLogin.getId() + "&mode=HOME";
+	}
+
+	@RequestMapping(value = "/company/photo/delete", method = RequestMethod.POST)
+	public String uploadBanner(@RequestParam("photoId") Integer photoId, @RequestParam("photoKey") String photoKey) {
+
+		Company companyLogin = null;
+		Account account = getLoggedAccount();
+		if (account != null) {
+			companyLogin = account.getCompany();
+		} else {
+			return "redirect:/login";
+		}
+
+		companyPhotoService.deletePhotoBanner(photoId);
+		BlobKey blobKeyDelete = new BlobKey(photoKey);
+		blobstoreService.delete(blobKeyDelete);
+
+		return "redirect:/company?companyId=" + companyLogin.getId() + "&mode=HOME";
 	}
 }

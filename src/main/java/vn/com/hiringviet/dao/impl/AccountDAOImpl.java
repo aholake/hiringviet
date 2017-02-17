@@ -2,7 +2,6 @@ package vn.com.hiringviet.dao.impl;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -22,11 +21,8 @@ import vn.com.hiringviet.model.Account;
 @Transactional
 public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO {
 
-	private static final Logger LOGGER = Logger.getLogger(AccountDAOImpl.class);
-
 	@Override
 	public Account checkLogin(String email, String password) {
-		LOGGER.info("check Login");
 		Session session = getSession();
 
 		Criteria criteria = session.createCriteria(Account.class)

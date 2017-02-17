@@ -257,6 +257,8 @@ public class ProfileController {
 		Account account = getLoggedAccount();
 		if (account != null) {
 			memberLogin = account.getMember();
+		} else {
+			return "redirect:/login";
 		}
 
 		if (!resumeService.saveEducation(memberLogin.getResume(),
@@ -284,6 +286,8 @@ public class ProfileController {
 		Account account = getLoggedAccount();
 		if (account != null) {
 			memberLogin = account.getMember();
+		} else {
+			return "redirect:/login";
 		}
 
 		if (!resumeService.update(memberLogin.getResume(), resume)) {
@@ -319,6 +323,8 @@ public class ProfileController {
 		Account account = getLoggedAccount();
 		if (account != null) {
 			memberLogin = account.getMember();
+		} else {
+			return "redirect:/login";
 		}
 
 		if (!resumeService.saveEmployee(memberLogin.getResume(),
@@ -338,6 +344,8 @@ public class ProfileController {
 		Account account = getLoggedAccount();
 		if (account != null) {
 			memberLogin = account.getMember();
+		} else {
+			return "redirect:/login";
 		}
 
 		AccountDTO accountDTO =  ImageUtil.convertImageToByte(blobstoreService, request, account);

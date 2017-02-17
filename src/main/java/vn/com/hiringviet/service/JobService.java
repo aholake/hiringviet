@@ -46,4 +46,6 @@ public interface JobService {
 	boolean setPublish(Integer jobId, Integer isPublish);
 
 	public List<Job> searchJob(Integer first, Integer max, SearchDTO searchDTO);
+
+	public boolean insertJobSkill(Integer jobId, List<String> skills);
 }

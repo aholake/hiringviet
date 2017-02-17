@@ -240,7 +240,13 @@
 						<div class="slider">
 							<ul class="slides">
 								<c:forEach items="${company.companyPhotoSet}" var="companyPhotoSet">
-									<li><img class="materialboxed" data-caption="${companyPhotoSet.photo}" src="${companyPhotoSet.photo}">
+									<li>
+										<input type="hidden" id="companyPhotoId" value="${companyPhotoSet.id}"/>
+										<input type="hidden" id="companyPhotoKey" value="${companyPhotoSet.photoKey}"/>
+										<c:if test="${param.companyId == companyLogin.id}">
+											<a class="waves-effect waves-light btn btnDeletePhoto">Delete</a>
+										</c:if>
+										<img class="materialboxed" data-caption="${companyPhotoSet.photo}" src="${companyPhotoSet.photo}">
 										<!-- random image -->
 										<div class="caption center-align">
 											<h3>${companyPhotoSet.title}</h3>
@@ -252,22 +258,56 @@
 						</div>
 					</div>
 					<c:if test="${param.companyId == companyLogin.id}">
-						<form action="/company/addPosts" method="POST">
-							<div class="card-panel padding-10">
-								<h1 class="title">Trạng thái</h1>
-								<h6 class="title">Title</h6>
-								<div class="input-field col m12 p-0">
-							    	<input id="title" type="text" class="validate" name="title" />
-							    </div>
-							    <h6 class="title">Content</h6>
-								<div class="input-field col m12 p-0">
-									<textarea rows="10" cols="80" id="content" name="description"></textarea>
+						<ul class="collapsible" data-collapsible="accordion">
+							<li>
+						 		<div class="collapsible-header"><i class="material-icons">filter_drama</i>Cập Nhật Slider</div>
+						 		<div class="collapsible-body">
+						 			<form action="${uploadBanner}" method="POST" enctype="multipart/form-data">
+										<div class="card-panel padding-10">
+											<h6 class="title">Tiêu đề</h6>
+											<div class="input-field col m12 p-0">
+										    	<input id="title" type="text" class="validate" name="title" />
+										    </div>
+										    <h6 class="title">Mô tả</h6>
+											<div class="input-field col m12 p-0">
+												<input id="title" type="text" class="validate" name="description" />
+											</div>
+											<div class="file-field input-field col m12 p-0">
+												<div class="btn">
+													<span>File</span> <input id="new-photo" type="file" name="multipartFile"  accept=".png" />
+												</div>
+												<div class="file-path-wrapper">
+													<input class="file-path validate" type="text" placeholder="Please choose one file" />
+												</div>
+											</div>
+											<div class="text-right">
+												<button class="btn waves-effect waves-light margin-top-10" type="submit" name="action">Submit</button>
+											</div>
+										</div>
+									</form>
+						 		</div>
+						 	</li>
+						 	<li>
+						 		<div class="collapsible-header"><i class="material-icons">filter_drama</i>Đăng trạng thái</div>
+						 		<div class="collapsible-body">
+									<form action="/company/addPosts" method="POST">
+										<div class="card-panel padding-10">
+											<h6 class="title">Title</h6>
+											<div class="input-field col m12 p-0">
+										    	<input id="title" type="text" class="validate" name="title" />
+										    </div>
+										    <h6 class="title">Content</h6>
+											<div class="input-field col m12 p-0">
+												<textarea rows="10" cols="80" id="content" name="description"></textarea>
+											</div>
+											<div class="text-right">
+												<button class="btn waves-effect waves-light margin-top-10" type="submit" name="action">Submit</button>
+											</div>
+										</div>
+									</form>
 								</div>
-								<div class="text-right">
-									<button class="btn waves-effect waves-light margin-top-10" type="submit" name="action">Submit</button>
-								</div>
-							</div>
-						</form>
+							</li>
+					  	</ul>
 					</c:if>
 					<c:forEach items="${postList}" var="post">
 						<div class="card-panel padding-10">
@@ -384,7 +424,7 @@
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">web</i>
 											<spring:message code="label.home.title.website" />
-											: <span class="info"><a target="_blank" href="${company.website}">${company.website}</a></span>
+											: <span class="info"><a target="_blank" href="http://${company.website}">${company.website}</a></span>
 										</p>
 									</div>
 								</div>
@@ -406,16 +446,16 @@
 							</div>
 						</div>
 					</div>
-					<div id="btnShowPopupUpdateCompanyInfor" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateCompanyInfor();">
+					<!-- <div id="btnShowPopupUpdateCompanyInfor" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateCompanyInfor();">
 						Update
-					</div>
+					</div> -->
 				</div>
 				<div class="card-panel">
 					<div class="panel-title">Công việc mới nhất</div>
 					<div class="panel-content row">
 						<c:forEach items="${newJobs}" var="job">
 							<div class="new-job col m12">
-								<a href="/company/careers?jobId=${job.id}">${job.title}</a>
+								<a target="_blank" href="/company/careers?jobId=${job.id}">${job.title}</a>
 								<p class="small-text">
 									${job.address.explicitAddress},&nbsp;
 									${job.address.district.type}&nbsp;${job.address.district.districtName},&nbsp;
@@ -462,6 +502,10 @@
 		</div>
 	</div>
 	<div id="divLoading"></div>
+	<form id="deletePhoto" action="/company/photo/delete" method="post">
+		<input type="hidden" id="photoId" name="photoId"/>
+		<input type="hidden" id="photoKey" name="photoKey"/>
+	</form>
 	<script src="<c:url value='/resources/hiringviet/job/js/publish.js'/>"></script>
 	<script type="text/javascript">
 
@@ -472,6 +516,16 @@
 
 			$('ul.tabs').tabs('select_tab', 'tab_id');
 			CKEDITOR.replace("content");
+
+			$('.btnDeletePhoto').on('click', function() {
+				var parent = $(this).parent('li');
+				var photoId = $(parent).find("#companyPhotoId").val();
+				var photoKey = $(parent).find("#companyPhotoKey").val();
+				
+				$('#deletePhoto').find("#photoId").val(photoId);
+				$('#deletePhoto').find("#photoKey").val(photoKey);
+				$('#deletePhoto').submit();
+			})
 		});
 		
 		function showSettingEmailPanel() {

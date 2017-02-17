@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,9 +32,9 @@
 		<img class="profile-cover responsive-img img-full" src="/resources/images/company_background.jpg" alt="profile cover" />
 		<i class="avatar-img material-icons cl-white small-font cursor" onmouseover="bigImg(this)" onmouseout="smallImg(this)">photo_camera</i>
 		<div class="social-connect-box">
-			<span class="social-company-name">
+			<!-- <span class="social-company-name">
 				${member.firstName} ${member.lastName}
-			</span> 
+			</span>  -->
 			<a href="#">
 				<img src="/resources/images/facebook.png" />
 			</a> 
@@ -47,11 +48,13 @@
 		<div class="profile-logo">
 			<div class="position-relative" style="width: 140px; height: 140px;">
 				<img class="responsive-img img-full" src="${member.account.avatarImage}" alt="profile logo" />
-				<a class="wrap-avatar-img" href="#avatar-image-modal">
-					<i class="avatar-img material-icons cl-white small-font cursor" 
-					onmouseover="bigImg(this)" 
-					onmouseout="smallImg(this)">photo_camera</i>
-				</a>
+				<c:if test="${memberLogin.id == param.memberId}">
+					<a class="wrap-avatar-img" href="#avatar-image-modal">
+						<i class="avatar-img material-icons cl-white small-font cursor" 
+						onmouseover="bigImg(this)" 
+						onmouseout="smallImg(this)">photo_camera</i>
+					</a>
+				</c:if>
 			</div>
 		</div>
 	</div>

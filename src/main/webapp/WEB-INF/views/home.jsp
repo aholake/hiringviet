@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <html>
 <head>
 <title><spring:message code="label.home.title" /></title>
@@ -28,7 +28,9 @@
 	<input type="hidden" id="text_total_employee" value="<spring:message code="label.home.title.total_employee"/>" />
 	<input type="hidden" id="text_title_people" value="<spring:message code="label.home.title.people"/>" />
 	<input type="hidden" id="none_value" value="<spring:message code='label.default.dropdown.none_value'></spring:message>" />
-
+	<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
+		<input type="hidden" id="hasLogin" value="true" />
+	</sec:authorize>
 	<div class="row">
 		<div class="col m8 no-padding-on-med-and-down">
 			<div class="card-panel">
@@ -151,15 +153,15 @@
 											<h1 class="col m9 p-0 title block-with-text">
 												<c:choose>
 													<c:when test="${job.company.isVip == 1}">
-														<a class="job-title hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
+														<a class="job-title hot" target="_blank" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</c:when>
 													<c:otherwise>
-														<a class="job-title not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
+														<a class="job-title not-hot" target="_blank" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</c:otherwise>
 												</c:choose>
 											</h1>
 										</div>
-										<a href="/company?companyId=${job.company.id}" class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
+										<a target="_blank" href="/company?companyId=${job.company.id}" class="company-name company-${fn:replace(job.company.displayName, ' ','')}">${job.company.displayName}</a>
 										<p class="work-location">
 											<a href="#">${job.workAddress.district.province.provinceName}</a>
 										</p>
@@ -227,8 +229,10 @@
 										</div>
 									</div>
 									<i class="material-icons right icon-arrow margin-right-5 cursor mp0">keyboard_arrow_up</i>
-									<input type="checkbox" class="filled-in right note-job" id="filled-in-box-${job.id}"/>
-									<label for="filled-in-box-${job.id}" class="right"></label>
+									<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
+										<input type="checkbox" class="filled-in right note-job" id="filled-in-box-${job.id}"/>
+										<label for="filled-in-box-${job.id}" class="right"></label>
+									</sec:authorize>
 								</div>
 							</div>
 						</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,14 +29,14 @@
 	<div class="company-banner">
 		<img class="company-cover responsive-img img-full" src="/resources/images/company_background.jpg" alt="company cover" />
 		<div class="social-connect-box">
-			<span class="social-company-name">
+			<!-- <span class="social-company-name">
 				<c:if test="${company != null}">
 					${company.displayName}
 				</c:if>
 				<c:if test="${job != null}">
 					${job.company.displayName}
 				</c:if>
-			</span> 
+			</span>  -->
 			<a href="#">
 				<img src="/resources/images/facebook.png" />
 			</a> 
@@ -49,11 +50,13 @@
 		<div class="company-logo">
 			<div class="position-relative" style="width: 140px; height: 140px;">
 				<img class="responsive-img img-full" src="${company.account.avatarImage}" alt="company logo" />
-				<a class="wrap-avatar-img" href="#avatar-image-modal">
-					<i class="avatar-img material-icons cl-white small-font cursor" 
-					onmouseover="bigImg(this)" 
-					onmouseout="smallImg(this)">photo_camera</i>
-				</a>
+				<c:if test="${showUpdate == 1 || (companyLogin != null && param.companyId == companyLogin.id)}">
+					<a class="wrap-avatar-img" href="#avatar-image-modal">
+						<i class="avatar-img material-icons cl-white small-font cursor" 
+						onmouseover="bigImg(this)" 
+						onmouseout="smallImg(this)">photo_camera</i>
+					</a>
+				</c:if>
 			</div>
 		</div>
 	</div>

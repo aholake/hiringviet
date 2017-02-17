@@ -23,6 +23,8 @@ public class CompanyPhoto implements Serializable {
 
 	private String photo;
 
+	private String photoKey;
+
 	private String title;
 
 	private String description;
@@ -85,5 +87,14 @@ public class CompanyPhoto implements Serializable {
 
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
+	}
+
+	@Column(name = "photoKey")
+	public String getPhotoKey() {
+		return photoKey;
+	}
+
+	public void setPhotoKey(String photoKey) {
+		this.photoKey = photoKey;
 	}
 }

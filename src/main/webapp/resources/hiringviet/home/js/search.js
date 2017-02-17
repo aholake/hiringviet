@@ -1,4 +1,5 @@
-var VALUE_SEARCH = null;
+var VALUE_SEARCH = "";
+var CURRENT_VALUE_SEARCH = "";
 var MAX_RECORED = 10;
 var HEIGHT_LI_ITEM = 40;
 var COUNT_LI_ITEM = 1;
@@ -63,6 +64,7 @@ $(function() {
 				if (isEmpty) {
 					callSearchAPI($('#url_search').val(), "POST", data, "showResult", true);
 				}
+				CURRENT_VALUE_SEARCH = VALUE_SEARCH;
 			} else {
 				$('#suggestion-box').hide();
 			}
@@ -71,143 +73,148 @@ $(function() {
 });
 
 function filter(valueSearch) {
-	// enable progress
-	$('#suggestion-box').attr("style", "height: 50px !important");
-	$('#suggestion-box .search-progress').show();
-	$('#suggestion-box ul').hide();
-	$('#suggestion-box').show();
 
-	COUNT_LI_ITEM = 1;
-	$('#suggestion-box ul').html("");
-
-	addFirstItem();
 	isEmpty = true;
-	if (searchMemberFlag) {
-		if (cachedListMember.length > 0) {
-			$('#suggestion-box ul').append("<li class='disabled member-title'><strong><b>Member</b></strong></li>");
-			$('.member-title').show();
-			COUNT_LI_ITEM++;
-			var contain = false;
-			$.map(cachedListMember, function(elementOfArray, indexInArray) {
-				var fullName = elementOfArray.value.firstName + " " + elementOfArray.value.lastName;
-				if (fullName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
+
+	if (CURRENT_VALUE_SEARCH.length < valueSearch.length && valueSearch.indexOf(CURRENT_VALUE_SEARCH) > 0) {
+
+	// enable progress
+		$('#suggestion-box').attr("style", "height: 50px !important");
+		$('#suggestion-box .search-progress').show();
+		$('#suggestion-box ul').hide();
+		$('#suggestion-box').show();
+	
+		COUNT_LI_ITEM = 1;
+		$('#suggestion-box ul').html("");
+	
+		addFirstItem();
+		if (searchMemberFlag) {
+			if (cachedListMember.length > 0) {
+				$('#suggestion-box ul').append("<li class='disabled member-title'><strong><b>Member</b></strong></li>");
+				$('.member-title').show();
+				COUNT_LI_ITEM++;
+				var contain = false;
+				$.map(cachedListMember, function(elementOfArray, indexInArray) {
+					var fullName = elementOfArray.value.firstName + " " + elementOfArray.value.lastName;
+					if (fullName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
+						isEmpty = false;
+						contain = true;
+						var item = "<a href='/profile?memberId=" + elementOfArray.value.id + "'><li class='search-item'>\
+										<img src='" + elementOfArray.value.avatarImage + "' />\
+										<div class='wrapper'>\
+											<p>" + elementOfArray.value.firstName + " " + elementOfArray.value.lastName + "</p>\
+											<i>"
+												+ elementOfArray.value.district + ", "
+												+ elementOfArray.value.province + ",  "
+												+ elementOfArray.value.country +
+											"</i>\
+										</div>\
+									</li></a>";
+						$('#suggestion-box ul').append(item);
+						COUNT_LI_ITEM++;
+					}
+				});
+				if (!contain) {
+					$('.member-title').hide();
+				}
+			}
+		}
+	
+		if (searchCompanyFlag) {
+			if (cachedListCompany.length > 0) {
+				$('#suggestion-box ul').append("<li class='disabled company-title'><strong><b>Company</b></strong></li>");
+				COUNT_LI_ITEM++;
+				$('.company-title').show();
+				var contain = false;
+				$.map(cachedListCompany, function(elementOfArray, indexInArray) {
+					if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
+						isEmpty = false;
+						contain = true;
+						var item = "<a href='/company?companyId=" + elementOfArray.value.id + "&mode=HOME'><li class='search-item'>\
+										<img src='" + elementOfArray.value.avatarImage + "' />\
+										<div class='wrapper'>\
+											<p>" + elementOfArray.value.displayName + "</p>\
+											<i>"
+												+ elementOfArray.value.businessField + "; "
+												+ elementOfArray.value.companySize + "+ "
+												+ $('#title_employee').val()
+											+ "</i>\
+										</div>\
+									</li></a>";
+						$('#suggestion-box ul').append(item);
+						COUNT_LI_ITEM++;
+					}
+				});
+				if (!contain) {
+					$('.company-title').hide();
+				}
+			}
+		}
+	
+		if (searchJobFlag) {
+			if (cachedListJob.length > 0) {
+				$('#suggestion-box ul').append("<li class='disabled job-title'><strong><b>Job</b></strong></li>");
+				COUNT_LI_ITEM++;
+				$('.job-title').show();
+				var contain = false;
+				$.map(cachedListJob, function(elementOfArray, indexInArray) {
 					isEmpty = false;
 					contain = true;
-					var item = "<a href='/profile?memberId=" + elementOfArray.value.id + "'><li class='search-item'>\
-									<img src='" + elementOfArray.value.avatarImage + "' />\
-									<div class='wrapper'>\
-										<p>" + elementOfArray.value.firstName + " " + elementOfArray.value.lastName + "</p>\
-										<i>"
-											+ elementOfArray.value.district + ", "
-											+ elementOfArray.value.province + ",  "
-											+ elementOfArray.value.country +
-										"</i>\
-									</div>\
-								</li></a>";
-					$('#suggestion-box ul').append(item);
-					COUNT_LI_ITEM++;
+					if (elementOfArray.value.title.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) > -1) {
+						var item = "<a href='/company/careers?jobId=" + elementOfArray.key + "'><li class='search-item'>\
+										<i class='material-icons icon'>search</i>\
+										<div class='wrapper'>\
+											<p style='line-height: 50px;'>" + elementOfArray.value.title + "</p>\
+										</div>\
+									</li></a>";
+						$('#suggestion-box ul').append(item);
+						COUNT_LI_ITEM++;
+					}
+				});
+				if (!contain) {
+					$('.job-title').hide();
 				}
-			});
-			if (!contain) {
-				$('.member-title').hide();
 			}
 		}
-	}
-
-	if (searchCompanyFlag) {
-		if (cachedListCompany.length > 0) {
-			$('#suggestion-box ul').append("<li class='disabled company-title'><strong><b>Company</b></strong></li>");
-			COUNT_LI_ITEM++;
-			$('.company-title').show();
-			var contain = false;
-			$.map(cachedListCompany, function(elementOfArray, indexInArray) {
-				if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
-					isEmpty = false;
-					contain = true;
-					var item = "<a href='/company?companyId=" + elementOfArray.value.id + "&mode=HOME'><li class='search-item'>\
-									<img src='" + elementOfArray.value.avatarImage + "' />\
-									<div class='wrapper'>\
-										<p>" + elementOfArray.value.displayName + "</p>\
-										<i>"
-											+ elementOfArray.value.businessField + "; "
-											+ elementOfArray.value.companySize + "+ "
-											+ $('#title_employee').val()
-										+ "</i>\
-									</div>\
-								</li></a>";
-					$('#suggestion-box ul').append(item);
-					COUNT_LI_ITEM++;
+	
+		if (searchSkillFlag) {
+			if (cachedListSkill.length > 0) {
+				$('#suggestion-box ul').append("<li class='disabled skill-title'><strong><b>Skill</b></strong></li>");
+				COUNT_LI_ITEM++;
+				$('.skill-title').show();
+				var contain = false;
+				$.map(cachedListSkill, function(elementOfArray, indexInArray) {
+					if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
+						isEmpty = false;
+						contain = true;
+						var item = "<li class='search-item' onclick='searchBySkillId(" + elementOfArray.key + ")'>\
+										<i class='material-icons icon'>search</i>\
+										<div class='wrapper'>\
+											<p style='line-height: 50px;'>" + elementOfArray.value.displayName + "</p>\
+										</div>\
+									</li>";
+						$('#suggestion-box ul').append(item);
+						COUNT_LI_ITEM++;
+					}
+				});
+				if (!contain) {
+					$('.skill-title').hide();
 				}
-			});
-			if (!contain) {
-				$('.company-title').hide();
 			}
 		}
-	}
-
-	if (searchJobFlag) {
-		if (cachedListJob.length > 0) {
-			$('#suggestion-box ul').append("<li class='disabled job-title'><strong><b>Job</b></strong></li>");
-			COUNT_LI_ITEM++;
-			$('.job-title').show();
-			var contain = false;
-			$.map(cachedListJob, function(elementOfArray, indexInArray) {
-				isEmpty = false;
-				contain = true;
-				if (elementOfArray.value.title.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) > -1) {
-					var item = "<a href='/company/careers?jobId=" + elementOfArray.key + "'><li class='search-item'>\
-									<i class='material-icons icon'>search</i>\
-									<div class='wrapper'>\
-										<p style='line-height: 50px;'>" + elementOfArray.value.title + "</p>\
-									</div>\
-								</li></a>";
-					$('#suggestion-box ul').append(item);
-					COUNT_LI_ITEM++;
-				}
-			});
-			if (!contain) {
-				$('.job-title').hide();
-			}
+	
+		// set width
+		if (COUNT_LI_ITEM >= MAX_RECORED) {
+			$('#suggestion-box').attr("style", "height: " + (MAX_RECORED * HEIGHT_LI_ITEM + 20) + "px !important");
+		} else {
+			$('#suggestion-box').attr("style", "height: " + (COUNT_LI_ITEM * HEIGHT_LI_ITEM + 20) + "px !important");
 		}
+	
+		// disable progress
+		$('#suggestion-box .search-progress').hide();
+		$('#suggestion-box ul').show();
+		$('#suggestion-box').slideDown(50);
 	}
-
-	if (searchSkillFlag) {
-		if (cachedListSkill.length > 0) {
-			$('#suggestion-box ul').append("<li class='disabled skill-title'><strong><b>Skill</b></strong></li>");
-			COUNT_LI_ITEM++;
-			$('.skill-title').show();
-			var contain = false;
-			$.map(cachedListSkill, function(elementOfArray, indexInArray) {
-				if (elementOfArray.value.displayName.toUpperCase().indexOf(VALUE_SEARCH.toUpperCase()) == 0) {
-					isEmpty = false;
-					contain = true;
-					var item = "<li class='search-item' onclick='searchBySkillId(" + elementOfArray.key + ")'>\
-									<i class='material-icons icon'>search</i>\
-									<div class='wrapper'>\
-										<p style='line-height: 50px;'>" + elementOfArray.value.displayName + "</p>\
-									</div>\
-								</li>";
-					$('#suggestion-box ul').append(item);
-					COUNT_LI_ITEM++;
-				}
-			});
-			if (!contain) {
-				$('.skill-title').hide();
-			}
-		}
-	}
-
-	// set width
-	if (COUNT_LI_ITEM >= MAX_RECORED) {
-		$('#suggestion-box').attr("style", "height: " + (MAX_RECORED * HEIGHT_LI_ITEM + 20) + "px !important");
-	} else {
-		$('#suggestion-box').attr("style", "height: " + (COUNT_LI_ITEM * HEIGHT_LI_ITEM + 20) + "px !important");
-	}
-
-	// disable progress
-	$('#suggestion-box .search-progress').hide();
-	$('#suggestion-box ul').show();
-	$('#suggestion-box').slideDown(50);
 }
 
 /* Show search results */
@@ -374,21 +381,21 @@ function addFirstItem() {
 //	COUNT_LI_ITEM++;
 //	$('#suggestion-box ul').append(item);
 
-	var item = "<a href=''><li class='search-item' onclick='searchBySkill('" + VALUE_SEARCH + "')'>\
+	var item = "<li class='search-item' onclick='searchBySkill(&apos;" + VALUE_SEARCH.trim() + "&apos;)'>\
 				<i class='material-icons icon'>work</i>\
 				<div class='wrapper'>\
 					<p style='line-height: 50px;'><a>Jobs</a> requiring " + setTextColorBlue(VALUE_SEARCH)  + " skills</p>\
 				</div>\
-				</li></a>";
+				</li>";
 	COUNT_LI_ITEM++;
 	$('#suggestion-box ul').append(item);
 
-	var item = "<a href=''><li class='search-item' onclick='searchByJobTitle('" + VALUE_SEARCH + "')'>\
+	var item = "<li class='search-item' onclick='searchByJobTitle(&apos;" + VALUE_SEARCH.trim() + "&apos;)'>\
 		<i class='material-icons icon'>work</i>\
 		<div class='wrapper'>\
 			<p style='line-height: 50px;'><a>Jobs</a> for " + setTextColorBlue(VALUE_SEARCH)  + " titles</p>\
 		</div>\
-		</li></a>";
+		</li>";
 	COUNT_LI_ITEM++;
 	$('#suggestion-box ul').append(item);
 

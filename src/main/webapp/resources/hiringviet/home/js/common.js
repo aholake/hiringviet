@@ -115,7 +115,7 @@ $(function() {
 	});
 	
 	
-	$('#card-panel-add-skill').hide();
+	//$('#card-panel-add-skill').hide();
 	$('#card-panel-setting-email').hide();
 	$('#card-panel-setting-phone-number').hide();
 	$('#card-panel-setting-language').hide();
