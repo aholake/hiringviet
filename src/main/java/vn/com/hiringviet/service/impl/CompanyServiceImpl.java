@@ -94,8 +94,8 @@ public class CompanyServiceImpl implements CompanyService {
 						randomString);
 
 		LOGGER.info("active code: " + activeUrl);
-		// mailService.sendMail(account.getEmail(), "active account",
-		// activeUrl);
+		 mailService.sendMail(account.getEmail(), "active account",
+		 activeUrl);
 	}
 
 	@Override
