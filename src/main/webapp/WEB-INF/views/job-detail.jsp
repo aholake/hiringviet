@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,7 +47,7 @@
 							<div class="col m7 offset-m5 date-and-view right-align">
 								<span>
 									<i class="material-icons prefix-icon small-icon">date_range</i>
-									Đăng ngày: <fmt:formatDate pattern="yyyy-MM-dd, hh:mm:ss a" value="${job.postDate}" /> | 
+									Đăng ngày: <fmt:formatDate pattern="yyyy-MM-dd, HH:mm" value="${job.postDate}" /> | 
 								</span>
 								<span><i class="material-icons prefix-icon small-icon">visibility</i> Lượt xem: ${job.numberVisited}</span>
 							</div>
@@ -95,25 +96,27 @@
 										<button type="submit" class="waves-effect waves-light btn col m9 offset-m2 margin-top-10">
 										<i class="material-icons left white-text">note_add</i>Ứng tuyển</button>
 									</form>
-									<div class="col m9 offset-m2 margin-top-10">
-										<input type="hidden" value="${job.id}"/>
-										<c:choose>
-											<c:when test="${job.publish == true}">
-												<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}" checked="checked" />
-											</c:when>
-											<c:otherwise>
-												<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}"/>
-											</c:otherwise>
-										</c:choose>
-										<label for="publishJob${job.id}" style="margin-left: -12px;">Publish</label>
-									</div>
+									<c:if test="${showUpdate == 1}">
+										<div class="col m9 offset-m2 margin-top-10">
+											<input type="hidden" value="${job.id}"/>
+											<c:choose>
+												<c:when test="${job.publish == true}">
+													<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}" checked="checked" />
+												</c:when>
+												<c:otherwise>
+													<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}"/>
+												</c:otherwise>
+											</c:choose>
+											<label for="publishJob${job.id}" style="margin-left: -12px;">Publish</label>
+										</div>
+									</c:if>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="btn-add-footer margin-top-30" onclick="javascript:void(0);">
+					<!-- <div class="btn-add-footer margin-top-30" onclick="javascript:void(0);">
 						Update
-					</div>
+					</div> -->
 				</div>
 				<!-- JOB DESCRIBE -->
 				<div class="card-panel mp0 margin-top-30">
@@ -144,9 +147,11 @@
 							</form>
 						</div>
 					</div>
-					<div id="btnShowPopupUpdateDescription" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateDescription();">
-						Update
-					</div>
+					<c:if test="${showUpdate == 1}">
+						<div id="btnShowPopupUpdateDescription" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateDescription();">
+							Update
+						</div>
+					</c:if>
 				</div>
 				<div class="card-panel mp0 margin-top-30">
 					<div class="row" id="requirement">
@@ -176,9 +181,11 @@
 							</form>
 						</div>
 					</div>
-					<div id="btnShowPopupUpdateRequirement" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateRequirement();">
-						Update
-					</div>
+					<c:if test="${showUpdate == 1}">
+						<div id="btnShowPopupUpdateRequirement" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateRequirement();">
+							Update
+						</div>
+					</c:if>
 				</div>
 				<div class="card-panel mp0 margin-top-30">
 					<div class="row" id="companyPolicies">
@@ -208,9 +215,11 @@
 							</form>
 						</div>
 					</div>
-					<div id="btnShowPopupUpdateCompanyPolicies" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateCompanyPolicies();">
-						Update
-					</div>
+					<c:if test="${showUpdate == 1}">
+						<div id="btnShowPopupUpdateCompanyPolicies" class="btn-add-footer margin-top-30" onclick="javascript:showPopupUpdateCompanyPolicies();">
+							Update
+						</div>
+					</c:if>
 				</div>
 				<div class="card-panel">
 				<div class="row">

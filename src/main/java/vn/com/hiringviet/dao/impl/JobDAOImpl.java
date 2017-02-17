@@ -24,6 +24,7 @@ import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.dto.SearchDTO;
+import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.Utils;
@@ -178,7 +179,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		criteria.add(Restrictions.eq("job.publish", PublishResponseEnum.PUBLISH.getValue()));
 		criteria.setMaxResults(ConstantValues.MAX_RECORD_COUNT);
 		criteria.setResultTransformer(Transformers.aliasToBean(JobDTO.class));
-		criteria.addOrder(Order.desc("postDate"));
+		criteria.addOrder(Order.desc("changeLog.createdDate"));
 		List<JobDTO> skillDTOs = (List<JobDTO>) criteria.list();
 
 		return skillDTOs;
@@ -319,6 +320,25 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
 		List<Job> jobList = criteria.list();
 		return jobList;
+	}
+
+	@Override
+	public boolean insertJobSkill(Integer jobId, List<String> skills) {
+
+		Query query = null;
+		StringBuffer insertJobSkillSQL = null;
+		for(String skillId : skills) {
+			insertJobSkillSQL = new StringBuffer();
+			insertJobSkillSQL.append("INSERT INTO job_skill (job_id, skill_id) VALUES (:jobId, :skillId)");
+			query = getSession().createSQLQuery(insertJobSkillSQL.toString());
+			query.setParameter("jobId", jobId);
+			query.setParameter("skillId", Integer.parseInt(skillId));
+			if (query.executeUpdate() < 0) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 	
 	

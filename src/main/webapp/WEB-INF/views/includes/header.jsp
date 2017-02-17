@@ -196,7 +196,7 @@
 								<div id="profile">
 									<img src="${principal.avatarImage}" class="circle profile-photo">
 									<h5>
-										<a href="#">${principal.company.displayName}</a>
+										<a href="/company?companyId=${principal.company.id}">${principal.company.displayName}</a>
 									</h5>
 									<h6>
 										<a href="/job/create">
@@ -208,7 +208,7 @@
 							<ul class="menu-item">
 								<li>
 									<div class="menu-item-header">
-										<a href="/company/${principal.company.id}">
+										<a href="/company?companyId=${principal.company.id}">
 											<i class="material-icons prefix-icon">account_box</i>
 											Hồ sơ công ty
 										</a>

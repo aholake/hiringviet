@@ -35,7 +35,7 @@
 		<div class="row">
 			<div class="col m8">
 				<c:if test="${memberLogin.account.id == member.account.id}">
-					<div class="card-panel padding-10 light-blue darken-3 hoverable display-none" id="card-panel-add-skill">
+					<div class="card-panel padding-10 light-blue darken-3 hoverable" id="card-panel-add-skill">
 						<h1 class="title cl-white"><spring:message code="label.profile.title.addSkill"/></h1>
 						<p class="cl-white small-text"><spring:message code="label.profile.title.value_statement"/></p>
 						<div class="chip-inputs">

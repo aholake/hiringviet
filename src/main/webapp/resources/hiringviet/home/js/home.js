@@ -596,10 +596,12 @@ function showResultJobHot(response) {
 											</div>\
 										</div>\
 									</div>\
-									<i class="material-icons right icon-arrow margin-right-5 cursor mp0">keyboard_arrow_up</i>\
-									<input type="checkbox" class="filled-in right note-job" id="filled-in-box-' + jobListResponse[index].id + '"/>\
-									<label for="filled-in-box-' + jobListResponse[index].id + '" class="right"></label>\
-								</div>\
+									<i class="material-icons right icon-arrow margin-right-5 cursor mp0">keyboard_arrow_up</i>';
+			if ( $( "#hasLogin" ).length ) {
+				item += '<input type="checkbox" class="filled-in right note-job" id="filled-in-box-' + jobListResponse[index].id + '"/>\
+						<label for="filled-in-box-' + jobListResponse[index].id + '" class="right"></label>';
+			}
+			item += 	'</div>\
 							</div>\
 						</div>';
 			html += item;

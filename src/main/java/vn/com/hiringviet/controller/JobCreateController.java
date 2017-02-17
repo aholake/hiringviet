@@ -1,8 +1,10 @@
 package vn.com.hiringviet.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.service.CountryService;
 import vn.com.hiringviet.service.JobCategoryService;
 import vn.com.hiringviet.service.JobService;
+import vn.com.hiringviet.service.LoggerService;
 import vn.com.hiringviet.service.PositionService;
 import vn.com.hiringviet.service.SkillService;
 import vn.com.hiringviet.util.Utils;
@@ -41,6 +44,9 @@ public class JobCreateController {
 
 	@Autowired
 	private JobCategoryService jobCategoryService;
+
+	@Autowired
+	private LoggerService loggerService;
 
 	@RequestMapping("/job/create")
 	public String goToJobCreatePage(Model model) {
@@ -73,21 +79,22 @@ public class JobCreateController {
 		job.setSize(jobFormDTO.getSize());
 		job.setWorkAddress(jobFormDTO.getWorkAddress());
 		job.setExpiredDate(jobFormDTO.getExpiredDate());
-		job.setSkillSet(convertIdListToSkillList(jobFormDTO.getSkillListId()));
+//		job.setSkillSet(convertIdListToSkillList(jobFormDTO.getSkillListId()));
 		job.setPosition(positionService.findOne(jobFormDTO.getPosition().getPositionID()));
 		job.setNumberVisited(0);
-		jobService.addJob(job);
+		Integer jobId = jobService.addJob(job);
 
+		jobService.insertJobSkill(jobId, convertIdListToSkillList(jobFormDTO.getSkillListId()));
+//		loggerService.create(ownerAccountId, guestAccountId, image, info, isActivity)
 		return "redirect:/company?companyId=" + company.getId() + "&mode=CAREER";
 	}
 
-	private Set<Skill> convertIdListToSkillList(String skillListString) {
+	private List<String> convertIdListToSkillList(String skillListString) {
 		String[] idArr = skillListString.split(",");
-		System.out.println(idArr.toString());
-		Set<Skill> skills = new HashSet<Skill>();
+//		System.out.println(idArr.toString());
+		List<String> skills = new ArrayList<String>();
 		for (int i = 0; i < idArr.length; i++) {
-			Skill skill = skillService.getSkillById(Integer.parseInt(idArr[i]));
-			skills.add(skill);
+			skills.add(idArr[i]);
 		}
 		return skills;
 	}

@@ -219,7 +219,7 @@ function processSuggestSkill(responses) {
 }
 
 function processAddSkill(responses) {
-	console.log(responses);
+	location.reload();
 }
 function checkSkill(value) {
 	var result = true;
