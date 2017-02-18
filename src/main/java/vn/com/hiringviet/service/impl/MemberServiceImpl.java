@@ -62,34 +62,33 @@ public class MemberServiceImpl implements MemberService {
 		member.getAccount().setUserRole(AccountRoleEnum.USER);
 		member.getAccount().setLocale(ConstantValues.VN_LOCALE);
 		member.getAccount().setStatus(StatusEnum.INACTIVE);
+		
+		String activeCode = TextGenerator.generateRandomString(TextGenerator.RANDOM_ACTIVE_STRING_LENGTH);
 		member.getAccount()
-				.setActiveUrl(TextGenerator.generateRandomString(11));
+				.setActiveUrl(activeCode);
 		member.setResume(new Resume());
 		int memberId = memberDAO.create(member);
 		if (memberId > 0) {
 			final Account account = getMemberByID(memberId).getAccount();
-			sendActiveAccountEmail(account);
+			sendActiveAccountEmail(member.getLastName() + " "+member.getFirstName(), account.getEmail(), activeCode);
 			accountService.trackAccountAfterRegister(account);
 		}
 		LOGGER.info("insert new member successfully");
 		return memberId;
 	}
 
-	private void sendActiveAccountEmail(Account account) {
-		String randomString = account.getId()
-				+ TextGenerator
-						.generateRandomString(TextGenerator.RANDOM_ACTIVE_STRING_LENGTH);
-
+	private void sendActiveAccountEmail(String name, String email,
+			String activeCode) {
 		// Send email active account
-		String activeUrl = MessageFormat
-				.format(configProperties.getProperty("url.activeAccount"),
-						randomString);
+		String activeUrl = MessageFormat.format(
+				configProperties.getProperty("email.activeAccount"), name,
+				activeCode);
 
 		LOGGER.info("active code: " + activeUrl);
-		 mailService.sendMail(account.getEmail(), "active account",
-		 activeUrl);
+		mailService.sendMail(email,
+				"HiringViet - Active company account registration", activeUrl);
 	}
-
+	
 	@Override
 	public boolean deleteMember(int id) {
 		Member member = memberDAO.findOne(id);

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "apply")
 public class Apply implements Serializable {
@@ -64,7 +66,7 @@ public class Apply implements Serializable {
 		this.job = job;
 	}
 
-	@JoinColumn(name = "curriculum_vitae")
+	@Column(name = "curriculum_vitae")
 	public String getCurriculumVitae() {
 		return curriculumVitae;
 	}
@@ -73,7 +75,8 @@ public class Apply implements Serializable {
 		this.curriculumVitae = curriculumVitae;
 	}
 
-	@JoinColumn(name = "description")
+	@Column(name = "description")
+	@Type(type = "text")
 	public String getDisscription() {
 		return disscription;
 	}

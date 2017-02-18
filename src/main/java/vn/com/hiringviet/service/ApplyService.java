@@ -21,4 +21,6 @@ public interface ApplyService{
 	void update(Apply apply);
 
 	public List<ApplyDTO> getAllApplyByJobId(Integer jobId);
+
+	void sendDeniedApplyMessage(int applyId);
 }

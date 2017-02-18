@@ -31,4 +31,6 @@ public interface AccountService {
 	public boolean hasFollow(Integer fromAccountId, Integer toAccountId);
 
 	public List<LoggerDTO> getListLogger(Integer accountId);
+	
+	Account getAccountByActiveCode(String activeCode);
 }

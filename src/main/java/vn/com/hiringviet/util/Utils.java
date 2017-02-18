@@ -211,12 +211,6 @@ public class Utils {
 		return changeLog;
 	}
 
-	public static int getAccountIdFromActiveCode(String activeCode) {
-		int textLength = activeCode.length();
-		return Integer.parseInt(activeCode.substring(0, textLength
-				- TextGenerator.RANDOM_ACTIVE_STRING_LENGTH));
-	}
-
 	@SuppressWarnings("deprecation")
 	public static List<Integer> generatorListYear() {
 

@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -87,6 +89,7 @@ public class Message implements Serializable {
 	}
 
 	@Column(name = "content")
+	@Type(type = "text")
 	public String getContent() {
 		return content;
 	}

@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "education_history")
@@ -94,6 +95,7 @@ public class EducationHistory implements Serializable {
 	}
 
 	@Column(name = "social_activity")
+	@Type(type = "text")
 	public String getSocialActivity() {
 		return socialActivity;
 	}
@@ -114,6 +116,7 @@ public class EducationHistory implements Serializable {
 	}
 
 	@Column(name = "document")
+	@Type(type = "text")
 	public String getDocument() {
 		return document;
 	}

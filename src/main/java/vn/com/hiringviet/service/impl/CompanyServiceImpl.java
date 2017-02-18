@@ -66,8 +66,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 		company.getAccount().setUserRole(AccountRoleEnum.COMPANY);
 		company.getAccount().setLocale(ConstantValues.VN_LOCALE);
-		company.getAccount().setActiveUrl(
-				TextGenerator.generateRandomString(11));
+		
+		String activeCode = TextGenerator.generateRandomString(TextGenerator.RANDOM_ACTIVE_STRING_LENGTH);
+		company.getAccount().setActiveUrl(activeCode);
 
 		company.setAddress(addressService.getFullAddressBaseOnId(company
 				.getAddress()));
@@ -76,26 +77,23 @@ public class CompanyServiceImpl implements CompanyService {
 		int companyId = companyDAO.create(company);
 		if (companyId > 0) {
 			final Account account = getCompanyById(companyId).getAccount();
-			sendActiveAccountEmail(account);
+			sendActiveAccountEmail(company.getDisplayName(), account.getEmail(), account.getActiveUrl());
 			accountService.trackAccountAfterRegister(account);
 		}
 		LOGGER.info("insert company successfully");
 		return companyId;
 	}
 
-	private void sendActiveAccountEmail(Account account) {
-		String randomString = account.getId()
-				+ TextGenerator
-						.generateRandomString(TextGenerator.RANDOM_ACTIVE_STRING_LENGTH);
-
+	private void sendActiveAccountEmail(String name, String email,
+			String activeCode) {
 		// Send email active account
-		String activeUrl = MessageFormat
-				.format(configProperties.getProperty("url.activeAccount"),
-						randomString);
+		String activeUrl = MessageFormat.format(
+				configProperties.getProperty("email.activeAccount"), name,
+				activeCode);
 
 		LOGGER.info("active code: " + activeUrl);
-		 mailService.sendMail(account.getEmail(), "active account",
-		 activeUrl);
+		mailService.sendMail(email,
+				"HiringViet - Active company account registration", activeUrl);
 	}
 
 	@Override
