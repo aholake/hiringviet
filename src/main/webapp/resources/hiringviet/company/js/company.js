@@ -368,4 +368,5 @@ function commentShowResults(response) {
 	} else {
 		Materialize.toast($('#message_delete_success').val(), 4000);
 	}
+	setTimeout(function(){ location.reload(); }, 1000);
 }

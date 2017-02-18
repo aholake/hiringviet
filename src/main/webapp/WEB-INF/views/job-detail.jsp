@@ -35,6 +35,8 @@
 	<input type="hidden" id="id_of_account" value="${memberLogin.id}"/>
 	<input type="hidden" id="message_publish_success" value='<spring:message code="message.success.setting.job.publish"/>'/>
 	<input type="hidden" id="message_publish_fail" value='<spring:message code="message.fail.setting.job.publish"/>'/>
+	<input type="hidden" id="url_delete_reply_comment" value="<c:url value='/company/replyComment/delete' />" />
+	<input type="hidden" id="url_delete_comment" value="<c:url value='/company/comment/delete' />" />
 		<div class="row">
 			<div class="col m8">
 				<!--GENERAL JOB INFO-->

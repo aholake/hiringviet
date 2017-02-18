@@ -44,8 +44,13 @@ function showComments(response) {
 			}
 			html += '<li class="collection-item avatar comment-bg">\
 						<img src="' + commentDTOs[index].avatarImage + '" alt="" class="circle"> \
-						<p class="title"><a href="' + $('#url_redirect_member').val() + commentDTOs[index].memberId + '" onmouseenter="javascript:showMemberTooltip(this, 1);" onmouseout="javascript:hideMemberToolTip()">' + commentDTOs[index].firstName + ' ' + commentDTOs[index].lastName + '</a>\
-						<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(commentDTOs[index].changeLog.createdDate).toLocaleString() + '</span></p>\
+						<p class="title"><a href="' + $('#url_redirect_member').val() + commentDTOs[index].memberId + '" onmouseenter="javascript:showMemberTooltip(this, 1);" onmouseout="javascript:hideMemberToolTip()">' + commentDTOs[index].firstName + ' ' + commentDTOs[index].lastName + '</a>';
+			
+			if (!isNaN(loginMemberId) && commentDTOs[index].memberId == loginMemberId) {
+				html += '<i class="material-icons small-icon cursor right" onclick="javascript:removeComment(' + commentDTOs[index].commentId + ');" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>';
+			}
+			
+			html +=  '<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(commentDTOs[index].changeLog.createdDate).toLocaleString() + '</span></p>\
 						<p class="small-text">' + commentDTOs[index].comment + '</p> \
 						<p class="small-text display-inline-flex"><i class="material-icons small-icon">subdirectory_arrow_right</i>\
 							<a class="a-text-color reply-' + commentDTOs[index].commentId + '" \
@@ -85,7 +90,7 @@ function processAddComment(response) {
 		html += '<li class="collection-item avatar comment-bg">\
 					<img src="' + response.avatarImage + '" alt="" class="circle"> \
 					<p class="title"><a href="' + $('#url_redirect_member').val() + response.memberId + '">' + response.firstName + ' ' + response.lastName + '</a>\
-						<i class="material-icons small-icon cursor right" onclick="javascript:removeComment(this);" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>\
+						<i class="material-icons small-icon cursor right" onclick="javascript:void(0);" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>\
 						<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(response.now).toLocaleString() + '</span>\
 						</p>\
 					<p class="small-text">' + response.comment + '</p> \
@@ -165,8 +170,8 @@ function showJobReplyComments(response) {
 				html += '<li class="collection-item avatar comment-bg" style="padding-right: 0px;">\
 							<img src="' + replyCommentDTOs[index].avatarImage + '" alt="" class="circle"> \
 							<p class="title"><a href="' + $('#url_redirect_member').val() + replyCommentDTOs[index].memberId + '">' + replyCommentDTOs[index].firstName + ' ' + replyCommentDTOs[index].lastName + '</a>';
-				if (!isNaN(loginMemberId)) {
-					html += '<i class="material-icons small-icon cursor right" onclick="javascript:removeComment(' + replyCommentDTOs[index].replyCommentId + ');" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>';
+				if (!isNaN(loginMemberId) && replyCommentDTOs[index].memberId == loginMemberId) {
+					html += '<i class="material-icons small-icon cursor right" onclick="javascript:removeReplyComment(' + replyCommentDTOs[index].replyCommentId + ');" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>';
 				}
 				html += '<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(replyCommentDTOs[index].changeLog.createdDate).toLocaleString() + '</span></p>\
 							<p class="small-text">' + replyCommentDTOs[index].replyComment + '</p> \
@@ -216,7 +221,7 @@ function processAddReplyComment(response) {
 			html += '<li class="collection-item avatar comment-bg" style="padding-right: 0px;">\
 						<img src="' + response.avatarImage + '" alt="" class="circle"> \
 						<p class="title"><a href="' + $('#url_redirect_member').val() + response.memberId + '">' + response.firstName + ' ' + response.lastName + '</a>\
-						<i class="material-icons small-icon cursor right" onclick="javascript:removeComment(this);" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>\
+						<i class="material-icons small-icon cursor right" onclick="javascript:void(0);" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>\
 						<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(response.now).toLocaleString() + '</span></p>\
 						<p class="small-text">' + response.comment + '</p> \
 					</li>';
@@ -225,7 +230,7 @@ function processAddReplyComment(response) {
 			html += '<li class="collection-item avatar comment-bg" style="padding-right: 0px;">\
 						<img src="' + response.avatarImage + '" alt="" class="circle"> \
 						<p class="title"><a href="' + $('#url_redirect_member').val() + response.memberId + '">' + response.firstName + '</a>\
-						<i class="material-icons small-icon cursor right" onclick="javascript:removeComment(this);" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>\
+						<i class="material-icons small-icon cursor right" onclick="javascript:void(0);" style="border: 2px solid #b40000;border-radius: 50%;">delete_forever</i>\
 						<span class="small-text right display-inline-flex"><i class="material-icons small-icon">date_range</i>' + new Date(response.now).toLocaleString() + '</span></p>\
 						<p class="small-text">' + response.comment + '</p> \
 					</li>';
@@ -273,5 +278,33 @@ function checkReplyComment(event, value) {
 }
 
 function removeComment(commentId) {
-	alert("removeComment");
+
+	if (commentId != null) {
+
+		var data = {
+				commentId: commentId
+		}
+		callAPI($('#url_delete_comment').val(), 'POST', data, 'commentShowResults', true);
+	}
+}
+
+function removeReplyComment(replyCommentId) {
+
+	if (replyCommentId != null) {
+
+		var data = {
+				replyCommentId: replyCommentId
+		}
+		callAPI($('#url_delete_reply_comment').val(), 'POST', data, 'commentShowResults', true);
+	}
+}
+
+function commentShowResults(response) {
+
+	if (FAIL == response.result) {
+		Materialize.toast($('#message_delete_fail').val(), 4000);
+	} else {
+		Materialize.toast($('#message_delete_success').val(), 4000);
+	}
+	setTimeout(function(){ location.reload(); }, 1000);
 }
