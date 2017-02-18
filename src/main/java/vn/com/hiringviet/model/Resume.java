@@ -1,7 +1,9 @@
 package vn.com.hiringviet.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,9 +36,9 @@ public class Resume implements Serializable {
 
 	private Member member;
 
-	private Set<EducationHistory> educationHistorySet;
+	private Set<EducationHistory> educationHistorySet = new HashSet<>();
 
-	private Set<EmploymentHistory> employeeHistorySet;
+	private Set<EmploymentHistory> employeeHistorySet = new HashSet<>();
 
 	private String phoneNumber;
 
@@ -55,7 +58,7 @@ public class Resume implements Serializable {
 
 	private ChangeLog changeLog;
 
-	private Set<SkillResume> skillResumeSet;
+	private Set<SkillResume> skillResumeSet = new HashSet<>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -169,6 +172,7 @@ public class Resume implements Serializable {
 	}
 
 	@Column(name = "summary")
+	@Type(type = "text")
 	public String getSummary() {
 		return summary;
 	}
