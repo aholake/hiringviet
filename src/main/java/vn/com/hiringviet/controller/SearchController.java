@@ -1,5 +1,6 @@
 package vn.com.hiringviet.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -149,15 +150,11 @@ public class SearchController {
 
 	@RequestMapping(value = "/search/follow/list", method = RequestMethod.POST)
 	public @ResponseBody List<AccountDTO> getFollowList(@RequestBody AccountDTO accountDTO, HttpSession session) {
-
-		Account account = getLoggedAccount();
-		if (account != null) {
-		}
-
+		List<AccountDTO> accountDTOs = new ArrayList<AccountDTO>();
 		if (accountService.getFollowList(String.valueOf(accountDTO.getId())) != null) {
-			accountService.getFollowList(String.valueOf(accountDTO.getId()));
+			accountDTOs = accountService.getFollowList(String.valueOf(accountDTO.getId()));
 		}
-		return null;
+		return accountDTOs;
 	}
 
 	@RequestMapping(value = "/search/message/owner", method = RequestMethod.POST)

@@ -132,7 +132,7 @@
 								<div class="row none-margin-bottom">
 									<div class="col m3 center hide-on-med-and-down m3-div">
 										<a href="/company/${job.company.id}">
-											<img src="${job.company.avatar}" class="responsive-img company-logo">
+											<img src="${job.company.account.avatarImage}" class="responsive-img company-logo">
 										</a>
 										<c:if test="${account != null}">
 											<c:set var="contains" value="false" />
@@ -389,7 +389,7 @@
 									</div>
 								</div>
 								<div class="col m3 hide-on-med-and-down">
-									<img src="${company.avatar}"
+									<img src="${company.account.avatarImage}"
 										class="right responsive-img company-logo-1">
 								</div>
 							</div>

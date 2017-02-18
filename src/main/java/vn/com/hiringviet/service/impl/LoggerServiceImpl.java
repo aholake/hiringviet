@@ -45,4 +45,23 @@ public class LoggerServiceImpl implements LoggerService {
 		return false;
 	}
 
+	@Override
+	public boolean jobActivity(Account ownerAccount, Account guestAccount,
+			String image, String info, boolean isActivity) {
+
+		if (ownerAccount != null) {
+			Logger logger = new Logger();
+			logger.setAccount(guestAccount);
+			logger.setDateTime(DateUtil.now());
+			logger.setInfo(info);
+			logger.setImage(ownerAccount.getAvatarImage());
+			logger.setType(isActivity);
+			if (loggerDAO.create(logger) > 0) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 }

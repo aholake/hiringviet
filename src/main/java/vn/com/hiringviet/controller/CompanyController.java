@@ -3,6 +3,7 @@ package vn.com.hiringviet.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +42,7 @@ import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.CompanyPhoto;
+import vn.com.hiringviet.model.Follow;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
@@ -437,13 +438,18 @@ public class CompanyController {
 		Account account = getLoggedAccount();
 		model.addAttribute("showUpdate", 0);
 		if (account != null) {
-			memberLogin = account.getMember();
-			if(account.getCompany().getId() == job.getCompany().getId()) {
-				model.addAttribute("showUpdate", 1);
+			if (account.getMember() != null) {
+				memberLogin = account.getMember();
+			}
+			if (account.getCompany() != null) {
+				if(account.getCompany().getId() == job.getCompany().getId()) {
+					model.addAttribute("showUpdate", 1);
+				}
 			}
 		}
 		model.addAttribute("memberLogin", memberLogin);
-		
+		List<JobDTO> newJobs = jobService.getNewJobs(job.getCompany().getId());
+		model.addAttribute("newJobs", newJobs);
 		return "job-detail";
 	}
 
@@ -461,7 +467,13 @@ public class CompanyController {
 		
 		if (companyLogin != null) {
 			companyService.addPosts(postDTO, companyLogin);
-			
+			Set<Follow> follows = companyLogin.getAccount().getToFollows();
+			for (Follow follow : follows) {
+				loggerService.jobActivity(companyLogin.getAccount(), 
+						follow.getFromAccount(), 
+						companyLogin.getAccount().getAvatarImage(), 
+						Utils.genLogApply(companyLogin, null, false), true);
+			}
 			return goCompanyPage(companyLogin.getId(), ModeEnum.HOME.getValue(), model, session);
 		}
 		return "redirect:/login";
@@ -497,16 +509,22 @@ public class CompanyController {
 			@RequestParam("newEmail") String newEmail,
 			HttpSession session) {
 
-		accountService.updateEmail(accountId, newEmail);
-
-		Company companySession = (Company) session.getAttribute("companySession");
-
-		if (companySession != null) {
-			companySession.getAccount().setEmail(newEmail);
-			session.setAttribute("companySession", companySession);
+		Account account = getLoggedAccount();
+		if (account != null && account.getCompany() != null && account.getCompany().getId() == companyId) {
+	
+			accountService.updateEmail(accountId, newEmail);
+	
+			Company companySession = (Company) session.getAttribute("companySession");
+	
+			if (companySession != null) {
+				companySession.getAccount().setEmail(newEmail);
+				session.setAttribute("companySession", companySession);
+			}
+	
+			return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
+		} else {
+			return "redirect:/login";
 		}
-
-		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
 	}
 
 	@RequestMapping(value = "/company/settingLanguage", method = RequestMethod.POST)
@@ -516,23 +534,47 @@ public class CompanyController {
 			@RequestParam("locale") String locale,
 			HttpSession session) {
 
-		accountService.updateLocale(accountId, locale);
-
-		Company companySession = (Company) session.getAttribute("companySession");
-
-		if (companySession != null) {
-			companySession.getAccount().setLocale(locale);
-			session.setAttribute("companySession", companySession);
+		Account account = getLoggedAccount();
+		if (account != null && account.getCompany() != null && account.getCompany().getId() == companyId) {
+			accountService.updateLocale(accountId, locale);
+	
+			Company companySession = (Company) session.getAttribute("companySession");
+	
+			if (companySession != null) {
+				companySession.getAccount().setLocale(locale);
+				session.setAttribute("companySession", companySession);
+			}
+	
+			return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
+		} else {
+			return "redirect:/login";
 		}
-
-		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
 	}
 
-	@RequestMapping("/company/apply/{jobId}")
-	public String goToCompaniesApply(@PathVariable("jobId") int jobId, Model model) {
+	@RequestMapping(value = "/company/apply", method = RequestMethod.GET)
+	public String goToCompaniesApply(
+			@RequestParam("companyId") Integer companyId,
+			@RequestParam("jobId") Integer jobId,
+			Model model) {
+
+		Account accountLogin = getLoggedAccount();
+
+		if (accountLogin == null || accountLogin.getCompany() == null) {
+			return "redirect:/login";
+		}
+
 		List<Apply> applies = applyService.findApplies(jobId);
 		model.addAttribute("applies", applies);
 		model.addAttribute(new MessageDTO());
+		
+		Company company = companyService.getCompanyById(companyId);
+		model.addAttribute("company", company);
+		Long numberFollower = followService.countNumberOfFollower(accountLogin.getId());
+		model.addAttribute("numberFollower", numberFollower);
+
+		Job job = jobService.getJobById(jobId);
+		model.addAttribute("job", job);
+
 		return "company-applies";
 	}
 
@@ -542,6 +584,10 @@ public class CompanyController {
 			@RequestParam("accountId") Integer accountId) {
 
 		Account accountFrom = getLoggedAccount(); // member
+
+		if (accountFrom == null) {
+			return "redirect:/login";
+		}
 
 		Account accountTo = accountService.getAccountById(accountId); // company
 
@@ -617,5 +663,19 @@ public class CompanyController {
 		blobstoreService.delete(blobKeyDelete);
 
 		return "redirect:/company?companyId=" + companyLogin.getId() + "&mode=HOME";
+	}
+
+	@RequestMapping(value = "/company/apply/export", method = RequestMethod.GET)
+	public String exportApplyList(
+			@RequestParam("companyId") Integer companyId,
+			@RequestParam("jobId") Integer jobId) {
+
+		Account account = getLoggedAccount();
+		
+		if (account != null && account.getCompany() != null && account.getCompany().getId() == companyId) {
+			return "redirect:/export/applyList?companyId=" + companyId + "&jobId=" + jobId;
+		} else {
+			return "redirect:/login";
+		}
 	}
 }

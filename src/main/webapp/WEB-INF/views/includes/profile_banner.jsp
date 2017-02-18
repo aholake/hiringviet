@@ -31,7 +31,7 @@
 	<div class="profile-banner">
 		<img class="profile-cover responsive-img img-full" src="/resources/images/company_background.jpg" alt="profile cover" />
 		<i class="avatar-img material-icons cl-white small-font cursor" onmouseover="bigImg(this)" onmouseout="smallImg(this)">photo_camera</i>
-		<div class="social-connect-box">
+		<div class="social-connect-box" style="text-align: right;">
 			<!-- <span class="social-company-name">
 				${member.firstName} ${member.lastName}
 			</span>  -->
@@ -50,7 +50,7 @@
 				<img class="responsive-img img-full" src="${member.account.avatarImage}" alt="profile logo" />
 				<c:if test="${memberLogin.id == param.memberId}">
 					<a class="wrap-avatar-img" href="#avatar-image-modal">
-						<i class="avatar-img material-icons cl-white small-font cursor" 
+						<i class="avatar-img material-icons small-font cursor" 
 						onmouseover="bigImg(this)" 
 						onmouseout="smallImg(this)">photo_camera</i>
 					</a>

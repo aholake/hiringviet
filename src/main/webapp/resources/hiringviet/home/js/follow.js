@@ -1,9 +1,13 @@
 $(function() {
 
-	callAPI($('#url_search_follow_list').val(), 'POST', {id: $("#account_id").val()}, "showFollowList", false);
+	if ($("#account_id").val() != null && $("#account_id").val() != "") {
+		callAPI($('#url_search_follow_list').val(), 'POST', {id: $("#account_id").val()}, "showFollowList", false);
+	}
 
-	callAPI($('#url_search_follow_list').val(), 'POST', {id: $("#company_account_id").val()}, "showCompanyFollowList", false);
-})
+	if ($("#company_account_id").val() != null && $("#company_account_id").val() != "") {
+		callAPI($('#url_search_follow_list').val(), 'POST', {id: $("#company_account_id").val()}, "showCompanyFollowList", false);
+	}
+});
 
 function showFollowList(response) {
 

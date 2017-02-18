@@ -10,7 +10,12 @@
 <title>Company Header</title>
 </head>
 <body>
-	<input type="hidden" id="company_account_id" value="${company.account.id}" />
+	<c:if test="${param.companyId != null}">
+		<input type="hidden" id="company_account_id" value="${company.account.id}" />
+	</c:if>
+	<c:if test="${param.jobId != null}">
+		<input type="hidden" id="company_account_id" value="${job.company.account.id}" />
+	</c:if>
 	<input type="hidden" id="url_get_owner_message_list" value="/search/message/owner"/>
 	<sec:authorize access="hasAuthority('COMPANY') and isAuthenticated()">
 		<sec:authentication property="principal" var="principal" />
@@ -18,24 +23,24 @@
 	</sec:authorize>
 	<div class="row company-header">
 		<div class="col m6 offset-m2">
-			<c:if test="${company != null}">
-				<p class="company-name"><a href="<c:url value='/company?companyId=${company.id}&mode=HOME' />">${company.displayName}</a></p>
+			<c:if test="${param.companyId != null}">
+				<p class="company-name"><a href="/company?companyId=${company.id}&mode=HOME">${company.displayName}</a></p>
 			</c:if>
-			<c:if test="${job != null}">
-				<p class="company-name"><a href="<c:url value='/company?companyId=${company.id}&mode=HOME' />">${job.company.displayName}</a></p>
+			<c:if test="${param.jobId != null}">
+				<p class="company-name"><a href="/company?companyId=${job.company.id}&mode=HOME">${job.company.displayName}</a></p>
 			</c:if>
 			<span id="btn-follow-company"><a href="#followModal" class="followModal"><p>${numberFollower} <spring:message code="label.company.header.title.count_follow"/></p></a></span>
 			<ul class="menu-banner">
-				<c:if test="${company != null}">
+				<c:if test="${param.companyId != null}">
 					<li>
 						<c:choose>
 							<c:when test="${param.mode == 'HOME'}">
-								<a href="<c:url value='/company?companyId=${company.id}&mode=HOME' />" class="active">
+								<a href="/company?companyId=${company.id}&mode=HOME" class="active">
 									<spring:message code="label.company.title.home"/>
 								</a>
 							</c:when>
 							<c:otherwise>
-								<a href="<c:url value='/company?companyId=${company.id}&mode=HOME' />">
+								<a href="/company?companyId=${company.id}&mode=HOME">
 									<spring:message code="label.company.title.home"/>
 								</a>
 							</c:otherwise>
@@ -44,12 +49,12 @@
 					<li>
 						<c:choose>
 							<c:when test="${param.mode == 'CAREER'}">
-								<a href="<c:url value='/company?companyId=${company.id}&mode=CAREER' />" class="active">
+								<a href="/company?companyId=${company.id}&mode=CAREER" class="active">
 									<spring:message code="label.company.title.careers"/>
 								</a>
 							</c:when>
 							<c:otherwise>
-								<a href="<c:url value='/company?companyId=${company.id}&mode=CAREER' />">
+								<a href="/company?companyId=${company.id}&mode=CAREER">
 									<spring:message code="label.company.title.careers"/>
 								</a>
 							</c:otherwise>
@@ -57,14 +62,14 @@
 						
 					</li>
 				</c:if>
-				<c:if test="${job != null}">
+				<c:if test="${param.jobId != null}">
 					<li>
-						<a href="/company?companyId=${job.company.id}&mode=HOME'" class="active">
+						<a href="/company?companyId=${job.company.id}&mode=HOME">
 							<spring:message code="label.company.title.home"/>
 						</a>
 					</li>
 					<li>
-						<a href="/company?companyId=${job.company.id}&mode=CAREER'">
+						<a href="/company?companyId=${job.company.id}&mode=CAREER">
 							<spring:message code="label.company.title.careers"/>
 						</a>
 					</li>

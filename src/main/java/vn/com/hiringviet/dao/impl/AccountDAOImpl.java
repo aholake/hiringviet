@@ -151,6 +151,7 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<LoggerDTO> getListLogger(Integer accountId) {
 
@@ -161,9 +162,11 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		sb.append("image AS image, ");
 		sb.append("info AS info ");
 		sb.append("FROM logger ");
-		sb.append("WHERE account_id = :accountId AND type = 1");
+		sb.append("WHERE account_id = :accountId AND type = 1 ");
+		sb.append("ORDER BY date_time DESC");
 		Query query = getSession().createSQLQuery(sb.toString());
 		query.setParameter("accountId", accountId);
+		query.setMaxResults(10);
 		query.setResultTransformer(Transformers.aliasToBean(LoggerDTO.class));
 
 		List<LoggerDTO> loggerDTOs = query.list();

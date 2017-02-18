@@ -60,7 +60,7 @@
 						</div>
 						<div class="margin-top-5 p-0">
 							<a id="btn_save_skill_list" class="waves-effect waves-light cl-black opacity-7 lime accent-2 btn"><spring:message code="label.profile.title.add_skill.save"/> </a>
-							<a class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
+							<a id="btn_skill_skill_list" class="waves-effect waves-light cl-black opacity-7 grey lighten-2 btn"><spring:message code="label.profile.title.add_skill.skill"/></a>
 						</div>
 					</div>
 					<!-- Begin form setting -->
@@ -866,9 +866,9 @@
 									</div>
 									<div class="collapsible-body">
 										<div class="collection">
-											<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to PDF</a>
-											<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to Docx</a>
-											<a href="#" class="collection-item"><i class="material-icons prefix-icon">file_upload</i>Import resume</a>
+											<!-- <a href="#" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to PDF</a> -->
+											<a type="_blank" href="/export/CV?memberId=${param.memberId}" class="collection-item"><i class="material-icons prefix-icon">file_download</i>Save to Docx</a>
+											<!-- <a href="#" class="collection-item"><i class="material-icons prefix-icon">file_upload</i>Import resume</a> -->
 										</div>
 									</div>
 								</li>
@@ -901,16 +901,24 @@
 						</div>
 					</div>
 				</c:if>
-				<div class="card-panel">
-					<div class="panel-title">Profile Management</div>
-					<div class="panel-content">
-						<div class="row">
-							<div class="col m12">
-								
-							</div>
+				<c:if test="${not empty loggers}">
+					<div class="card-panel">
+						<div class="panel-title">HOẠT ĐỘNG</div>
+						<div class="panel-content">
+							<c:forEach items="${loggers}" var="logger">
+								<div class="activity-box">
+									${logger.info}
+									<div class="row none-margin-bottom margin-top-5">
+										<p class="right">
+											<i class="material-icons prefix-icon small-text">date_range</i> 
+											<span class="info small-text"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${logger.dateTime}" /></span>
+										</p>
+									</div>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
-				</div>
+				</c:if>
 			</div>
 		</div>
 	<!-- Modal Structure -->

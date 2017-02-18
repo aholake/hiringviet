@@ -39,4 +39,5 @@ public interface JobDAO extends CommonDAO<Job> {
 	boolean setPublish(Integer jobId, Integer isPublish);
 
 	public boolean insertJobSkill(Integer jobId, List<String> skills);
+
 }

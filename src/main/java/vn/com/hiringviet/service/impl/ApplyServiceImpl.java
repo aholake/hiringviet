@@ -62,4 +62,9 @@ public class ApplyServiceImpl implements ApplyService {
 	public void update(Apply apply) {
 		applyDao.update(apply);
 	}
+
+	@Override
+	public List<ApplyDTO> getAllApplyByJobId(Integer jobId) {
+		return applyDao.getAllApplyByJobId(jobId);
+	}
 }

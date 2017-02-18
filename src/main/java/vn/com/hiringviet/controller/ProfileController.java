@@ -30,6 +30,7 @@ import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
 import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.EndorseDTO;
+import vn.com.hiringviet.dto.LoggerDTO;
 import vn.com.hiringviet.dto.MemberDTO;
 import vn.com.hiringviet.dto.ResumeDTO;
 import vn.com.hiringviet.dto.SkillDTO;
@@ -148,6 +149,12 @@ public class ProfileController {
 		model.addAttribute("resume", new Resume());
 		model.addAttribute("degreeMap", Utils.generatorDegree());
 		model.addAttribute("fileUpload", blobstoreService.createUploadUrl("/profile/image"));
+
+		List<LoggerDTO> loggers = accountService.getListLogger(member.getAccount().getId());
+		if (loggers != null) {
+			model.addAttribute("loggers", loggers);
+		}
+
 		return "/profile";
 	}
 
@@ -392,5 +399,18 @@ public class ProfileController {
 		accountService.updateLocale(accountId, locale);
 
 		return "redirect:/profile?memberId=" + memberId;
+	}
+
+	@RequestMapping(value = "/profile/export", method = RequestMethod.GET)
+	public String exportApplyList(
+			@RequestParam("memberId") Integer memberId) {
+
+		Account account = getLoggedAccount();
+
+		if (account != null && account.getMember() != null && account.getMember().getId() == memberId) {
+			return "redirect:/export/CV?memberId=" + memberId;
+		} else {
+			return "redirect:/login";
+		}
 	}
 }

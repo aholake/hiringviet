@@ -395,23 +395,25 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-panel">
-				<div class="panel-title">HOẠT ĐỘNG</div>
-				<div class="panel-content">
-					<c:forEach items="${loggers}" var="logger">
-						<div class="activity-box">
-							${logger.info}
-							<div class="row none-margin-bottom margin-top-5">
-								<p class="right">
-									<i class="material-icons prefix-icon">date_range</i> 
-									<span class="info"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${logger.dateTime}" /></span>
-								</p>
+			<c:if test="${not empty loggers}">
+				<div class="card-panel">
+					<div class="panel-title">HOẠT ĐỘNG</div>
+					<div class="panel-content">
+						<c:forEach items="${loggers}" var="logger">
+							<div class="activity-box">
+								${logger.info}
+								<div class="row none-margin-bottom margin-top-5">
+									<p class="right">
+										<i class="material-icons prefix-icon small-text">date_range</i> 
+										<span class="info small-text"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${logger.dateTime}" /></span>
+									</p>
+								</div>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
+					<!-- <a class="btn waves-effect waves-light">Tải thêm</a> -->
 				</div>
-				<!-- <a class="btn waves-effect waves-light">Tải thêm</a> -->
-			</div>
+			</c:if>
 		</div>
 	</div>
 	<form id="applyForm" action="/job/apply" method="post">

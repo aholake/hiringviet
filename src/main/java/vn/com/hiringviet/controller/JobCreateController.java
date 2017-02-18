@@ -3,7 +3,6 @@ package vn.com.hiringviet.controller;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,13 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.dto.JobFormDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
+import vn.com.hiringviet.model.Follow;
 import vn.com.hiringviet.model.Job;
-import vn.com.hiringviet.model.Skill;
 import vn.com.hiringviet.service.CountryService;
 import vn.com.hiringviet.service.JobCategoryService;
 import vn.com.hiringviet.service.JobService;
@@ -84,8 +82,17 @@ public class JobCreateController {
 		job.setNumberVisited(0);
 		Integer jobId = jobService.addJob(job);
 
-		jobService.insertJobSkill(jobId, convertIdListToSkillList(jobFormDTO.getSkillListId()));
-//		loggerService.create(ownerAccountId, guestAccountId, image, info, isActivity)
+		if (jobFormDTO.getSkillListId().length() > 2) {
+			jobService.insertJobSkill(jobId, convertIdListToSkillList(jobFormDTO.getSkillListId()));
+		}
+		
+		Set<Follow> follows = company.getAccount().getToFollows();
+		for (Follow follow : follows) {
+			loggerService.jobActivity(company.getAccount(), 
+					follow.getFromAccount(), 
+					company.getAccount().getAvatarImage(), 
+					Utils.genLogApply(company, job, true), true);
+		}
 		return "redirect:/company?companyId=" + company.getId() + "&mode=CAREER";
 	}
 

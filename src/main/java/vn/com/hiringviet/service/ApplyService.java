@@ -19,4 +19,6 @@ public interface ApplyService{
 	public List<Apply> findApplies(int jobId);
 	
 	void update(Apply apply);
+
+	public List<ApplyDTO> getAllApplyByJobId(Integer jobId);
 }

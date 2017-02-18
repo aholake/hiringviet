@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,7 +23,7 @@
 	<div class="row profile-header">
 		<div class="col m6 offset-m2">
 			<p class="profile-name"><a href="<c:url value='/profile/${member.id}' />">${member.firstName}  ${member.lastName}</a></p>
-			<p>100 connect</p>
+			<p>${fn:length(member.toConnectSet)} friend</p>
 		</div>
 		<div class="col m4 margin-top-10 right-align">
 			<c:if test="${memberLogin.account.id == member.account.id}">

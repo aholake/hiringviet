@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import vn.com.hiringviet.dto.ApplyDTO;
 import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Job;
 
@@ -14,4 +15,6 @@ public interface ApplyDAO extends CommonDAO<Apply>{
 	List<Apply> getApplies(Job job);
 
 	void addApplyByNativeSQL(Apply apply);
+
+	List<ApplyDTO> getAllApplyByJobId(Integer jobId);
 }

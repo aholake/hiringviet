@@ -20,33 +20,102 @@
 	<div class="row">
 		<div class="col m8">
 			<div class="card-panel">
-				<div class="panel-title">Danh sách ứng tuyển cho vị trí này</div>
+				<div class="panel-title">Danh sách ứng tuyển</div>
 				<div id="jobWall" class="panel-content">
 					<c:if test="${empty applies }">
 						<h5 class="center">Chưa có đơn ứng tuyển cho công việc này</h5>
 					</c:if>
-					<c:forEach var="apply" items="${applies }">
-						<div class="apply-item card blue-grey darken-1">
-							<div class="card-content white-text">
-								<p class="card-title apply-card-title">
-									<a href="=/profile?memberId=${apply.member.id }"
-										class="applier-name">${apply.member.firstName }
-										${apply.member.lastName }</a> <span class="email small-text">&lt;${apply.member.account.email }&gt;</span>
-									<span class="timestamp small-text">Hôm qua</span>
+				</div>
+				<div class="panel-content">
+					<div class="job-box">
+						<div class="row none-margin-bottom">
+							<div class="col m12">
+								<div class="col m12 p-0">
+									<h1 class="col m9 p-0 title block-with-text">
+										<a class="not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
+									</h1>
+								</div>
+								<p class="work-location">
+									<a href="#">${job.company.address.district.province.provinceName}</a>
 								</p>
-								<p>${apply.disscription }</p>
-								<c:if test="${not empty apply.curriculumVitae }">
-									<a href="/file/download/${apply.curriculumVitae }" class="attachment-file white-text"><i class="material-icons">attach_file</i></a>
-								</c:if>
-							</div>
-							<div class="card-action">
-								<a href="#sendMessageModal" class="sendMessageModal" onclick="initSendMessageDialog('${apply.member.account.email}');">Đồng ý</a> 
-								<a href="#" onclick="sendDeniedMessage(${apply.applyID},'${apply.member.account.email}');return false;">Từ chối</a>
+								<div class="job-info">
+									<div class="row">
+										<div class="col m6 none-padding-left">
+											<p>
+												<i class="material-icons prefix-icon">attach_money</i>
+												<spring:message code="label.home.title.salary" />
+												: <span class="info">${job.minSalary} - ${job.maxSalary}</span>
+											</p>
+										</div>
+										<div class="col m6 none-padding-left">
+											<p class="right">
+												<i class="material-icons prefix-icon">date_range</i>
+												<spring:message code="label.home.title.post_date" />: 
+												<span class="info">${job.postDate}</span>
+											</p>
+										</div>
+										<div class="col m6 none-padding-left">
+											<p>
+												<i class="material-icons prefix-icon">loyalty</i>
+												<spring:message code="label.home.title.major" />
+												: <span class="info">${job.position.displayName}</span>
+											</p>
+										</div>
+										<div class="col m6 none-padding-left">
+											<p class="right">
+												<i class="material-icons prefix-icon">people</i>
+												<spring:message code="label.home.title.total_employee" />: 
+												<span class="info">${job.size} 
+												<spring:message code="label.home.title.people" /></span> 
+											</p>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col m12 none-padding-left text-justify block-with-text edit-text-ellipsis">
+											${job.description}
+										</div>
+										<div class="col m12 none-padding-left margin-top-5">
+											<c:forEach items="${job.skillSet}" var="skill">
+												<a class="chip">${skill.displayName}</a>
+											</c:forEach>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</c:forEach>
+					</div>
+					<c:if test="${not empty applies }">
+						<a target="_blank" href="/company/apply/export?companyId=${param.companyId}&jobId=${param.jobId}">
+							<div class="btn-add-footer margin-top-30">
+								Download List
+							</div>
+						</a>
+					</c:if>
 				</div>
 			</div>
+			<c:forEach var="apply" items="${applies }">
+				<div class="apply-item card">
+					<div class="card-content">
+						<p class="card-title apply-card-title">
+							<a href="/profile?memberId=${apply.member.id }"
+								class="applier-name">${apply.member.firstName }
+								${apply.member.lastName }</a> <span class="email small-text">&lt;${apply.member.account.email }&gt;</span>
+							<span class="timestamp small-text display-inline-flex">
+								<i class="material-icons small-icon">date_range</i>
+								<fmt:formatDate pattern="yyyy-MM-dd, HH:mm" value="${apply.changeLog.createdDate}" />
+							</span>
+						</p>
+						<p>${apply.disscription }</p>
+						<c:if test="${not empty apply.curriculumVitae }">
+							<a href="/file/download/${apply.curriculumVitae }" class="attachment-file"><i class="material-icons">attach_file</i></a>
+						</c:if>
+					</div>
+					<div class="card-action">
+						<a href="#sendMessageModal" class="sendMessageModal" onclick="initSendMessageDialog('${apply.member.account.email}');">Đồng ý</a> 
+						<a href="#" onclick="sendDeniedMessage(${apply.applyID},'${apply.member.account.email}');return false;">Từ chối</a>
+					</div>
+				</div>
+			</c:forEach>
 		</div>
 
 		<div class="col m4">

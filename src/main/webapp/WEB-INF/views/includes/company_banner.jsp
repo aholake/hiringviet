@@ -28,7 +28,7 @@
 <body>
 	<div class="company-banner">
 		<img class="company-cover responsive-img img-full" src="/resources/images/company_background.jpg" alt="company cover" />
-		<div class="social-connect-box">
+		<div class="social-connect-box" style="text-align: right;">
 			<!-- <span class="social-company-name">
 				<c:if test="${company != null}">
 					${company.displayName}
@@ -52,7 +52,7 @@
 				<img class="responsive-img img-full" src="${company.account.avatarImage}" alt="company logo" />
 				<c:if test="${showUpdate == 1 || (companyLogin != null && param.companyId == companyLogin.id)}">
 					<a class="wrap-avatar-img" href="#avatar-image-modal">
-						<i class="avatar-img material-icons cl-white small-font cursor" 
+						<i class="avatar-img material-icons small-font cursor" 
 						onmouseover="bigImg(this)" 
 						onmouseout="smallImg(this)">photo_camera</i>
 					</a>

@@ -87,15 +87,17 @@
 							</div>
 							<div class="col m4">
 								<div class="row">
-									<c:if test="${memberLogin != null}">
+									<!--<c:if test="${memberLogin != null}">
 										<a class="waves-effect waves-light btn col m9 offset-m2 favourite-btn red lighten-2">
 										<i class="material-icons left white-text">bookmark</i>Yêu thích</a>
-									</c:if>
-									<form action="/job/apply" method="post">
-										<input id="jobList" name="jobList" type="hidden" value="${job.id }">
-										<button type="submit" class="waves-effect waves-light btn col m9 offset-m2 margin-top-10">
-										<i class="material-icons left white-text">note_add</i>Ứng tuyển</button>
-									</form>
+									</c:if>-->
+									<sec:authorize access="hasAuthority('USER') and isAuthenticated()">
+										<form action="/job/apply" method="post">
+											<input id="jobList" name="jobList" type="hidden" value="${job.id }">
+											<button type="submit" class="waves-effect waves-light btn col m9 offset-m2 margin-top-10">
+											<i class="material-icons left white-text">note_add</i>Ứng tuyển</button>
+										</form>
+									</sec:authorize>
 									<c:if test="${showUpdate == 1}">
 										<div class="col m9 offset-m2 margin-top-10">
 											<input type="hidden" value="${job.id}"/>
@@ -283,22 +285,21 @@
 				</div>
 				<div class="card-panel">
 					<div class="panel-title">Công việc mới nhất</div>
-					<div class="panel-content">
-						<div class="new-job">
-							<a href="#">02 Senior QA/QC Needed!!!</a>
-							<p class="small-text">Quận 1, TP.HCM</p>
-							<p class="small-text">12-06-2016</p>
-						</div>
-						<div class="new-job">
-							<a href="#">02 Senior QA/QC Needed!!!</a>
-							<p class="small-text">Quận 1, TP.HCM</p>
-							<p class="small-text">12-06-2016</p>
-						</div>
-						<div class="new-job">
-							<a href="#">02 Senior QA/QC Needed!!!</a>
-							<p class="small-text">Quận 1, TP.HCM</p>
-							<p class="small-text">12-06-2016</p>
-						</div>
+					<div class="panel-content row">
+						<c:forEach items="${newJobs}" var="job">
+							<div class="new-job col m12">
+								<a target="_blank" href="/company/careers?jobId=${job.id}">${job.title}</a>
+								<p class="small-text">
+									${job.address.explicitAddress},&nbsp;
+									${job.address.district.type}&nbsp;${job.address.district.districtName},&nbsp;
+									${job.address.district.province.type}&nbsp;${job.address.district.province.provinceName},
+								</p>
+								<p class="small-text display-inline-flex right">
+									<i class="material-icons small-icon">date_range</i>
+									<fmt:formatDate pattern="yyyy-MM-dd, HH:mm" value="${job.postDate}" />
+								</p>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>

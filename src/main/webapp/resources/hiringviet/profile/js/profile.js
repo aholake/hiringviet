@@ -98,6 +98,10 @@ $(function() {
 		callAPI($('#url_add_skills').val(), 'POST', listSkillNew, 'processAddSkill', true);
 	});
 
+	$('#btn_skill_skill_list').on('click', function() {
+		$("#card-panel-add-skill").hide();
+	});
+
 	$( "#saveEducation" ).submit(function( event ) {
 
 		$('#universityName').val($('#txtUniversityName').val());

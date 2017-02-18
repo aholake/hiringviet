@@ -166,7 +166,7 @@
 												</div>
 											</div>
 										</div>
-										<a href="/company/apply/${job.id }" class="apply-number">
+										<a target="_blank" href="/company/apply?companyId=${param.companyId}&jobId=${job.id}" class="apply-number">
 											<span class="label">Applied people: </span>
 											<span class="value">${applyNumbers[job] } people</span>
 										</a>
@@ -337,7 +337,7 @@
 											</li>
 											<li class="feed-postDate small-text display-inline-flex"><i
 												class="material-icons small-icon">date_range</i>
-												<fmt:formatDate pattern="yyyy-MM-dd, hh:mm:ss a" value="${post.changeLog.createdDate}" />
+												<fmt:formatDate pattern="yyyy-MM-dd, HH:mm" value="${post.changeLog.createdDate}" />
 											</li>
 										</ul>
 									</div>
@@ -461,9 +461,9 @@
 									${job.address.district.type}&nbsp;${job.address.district.districtName},&nbsp;
 									${job.address.district.province.type}&nbsp;${job.address.district.province.provinceName},
 								</p>
-								<p class="small-text display-inline-flex">
-									<i class="material-icons small-icon">date_range</i>
-									<fmt:formatDate pattern="yyyy-MM-dd, HH:mm" value="${job.postDate}" />
+								<p class="small-text display-inline-flex right">
+									<i class="material-icons small-icon small-text">date_range</i>
+									<span class="small-text"><fmt:formatDate pattern="yyyy-MM-dd, HH:mm" value="${job.postDate}" /> </span>
 								</p>
 							</div>
 						</c:forEach>

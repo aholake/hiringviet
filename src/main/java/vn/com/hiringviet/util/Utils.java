@@ -287,11 +287,16 @@ public class Utils {
 		return null;
 	}
 
-	public static String genLogApply(Company company, Job job) {
+	public static String genLogApply(Company company, Job job, boolean isJob) {
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("<p><a href='/company?companyId=" + company.getId() + "'>" + company.getDisplayName() + "</a> vừa đăng 1 <b>công việc</b> mới</p>");
-		sb.append("<p class='small-text'>" + job.getDescription().substring(1, 100) + "...</p>");
+
+		if (isJob) {
+			sb.append("<p><a href='/company?companyId=" + company.getId() + "'>" + company.getDisplayName() + "</a> vừa đăng 1 <b>công việc</b> mới</p>");
+			sb.append("<p class='small-text'><b><a>" + job.getTitle() + "</a></b></p>");
+		} else {
+			sb.append("<p><a href='/company?companyId=" + company.getId() + "'>" + company.getDisplayName() + "</a> vừa đăng 1 <b>trạng thái</b> mới</p>");
+		}
 		return sb.toString();
 	}
 }
