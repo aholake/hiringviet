@@ -1,8 +1,11 @@
 package vn.com.hiringviet.service.impl;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.constant.ConstantValues;
@@ -14,15 +17,21 @@ public class MailServiceImpl implements MailService {
 	private JavaMailSender mailSender;
 
 	@Override
-	public void sendMail(String to, String subject, String msg) {
-		SimpleMailMessage message = new SimpleMailMessage();
-
-		message.setFrom(ConstantValues.CONFIG_PROPS
-				.getProperty("mail.username"));
-		message.setTo(to);
-		message.setSubject(subject);
-		message.setText(msg);
-		mailSender.send(message);
+	public void sendMail(String to, String subject, String msg){
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		MimeMessageHelper helper;
+		try {
+			helper = new MimeMessageHelper(mimeMessage, false,
+					"utf-8");
+			mimeMessage.setContent(msg, "text/html");
+			helper.setTo(to);
+			helper.setSubject(subject);
+			helper.setFrom(ConstantValues.CONFIG_PROPS.getProperty("mail.username"));
+			mailSender.send(mimeMessage);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -83,8 +83,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public void activeAccount(String activeCode) throws Exception {
-		Account account = accountDAO.findOne(Utils
-				.getAccountIdFromActiveCode(activeCode));
+		Account account = accountDAO.getAccountByActiveUrl(activeCode);
 		if (!account.getActiveUrl().isEmpty()
 				&& account.getStatus().equals(StatusEnum.INACTIVE)) {
 			account.setActiveUrl(null);
@@ -137,5 +136,10 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public List<LoggerDTO> getListLogger(Integer accountId) {
 		return accountDAO.getListLogger(accountId);
+	}
+	
+	@Override
+	public Account getAccountByActiveCode(String activeCode) {
+		return accountDAO.getAccountByActiveUrl(activeCode);
 	}
 }

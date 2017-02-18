@@ -280,7 +280,7 @@ public class Account implements Serializable {
 	}
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public Company getCompany() {
 		return company;
 	}

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Country;
 import vn.com.hiringviet.model.Member;
@@ -104,9 +105,8 @@ public class SignupController {
 	public String activeAccount(@PathVariable("code") String code, Model model)
 			throws Exception {
 		try {
-			int accountId = Utils.getAccountIdFromActiveCode(code);
-			model.addAttribute("email", accountService
-					.getAccountById(accountId).getEmail());
+			Account account = accountService.getAccountByActiveCode(code);
+			model.addAttribute("email", account.getEmail());
 			accountService.activeAccount(code);
 			return "active-success";
 		} catch (Exception e) {

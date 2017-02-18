@@ -147,8 +147,9 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 
 	@Override
 	public Account getAccountByActiveUrl(String activeCode) {
-		// TODO Auto-generated method stub
-		return null;
+		Criteria criteria = getSession().createCriteria(Account.class)
+				.add(Restrictions.eq("activeUrl", activeCode));
+		return (Account) criteria.uniqueResult();
 	}
 
 	@Override
