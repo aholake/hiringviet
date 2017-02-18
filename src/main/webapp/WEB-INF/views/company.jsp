@@ -18,7 +18,7 @@
 
 	<input type="hidden" id="url_get_comments" value="<c:url value='/company/post/comments' />" />
 	<input type="hidden" id="url_get_replyComments" value="<c:url value='/company/post/replyComments' />" />
-	<input type="hidden" id="url_redirect_member" value="<c:url value='/member/' />" />
+	<input type="hidden" id="url_redirect_member" value="<c:url value='/profile?memberId=' />" />
 	<input type="hidden" id="reply_comment" value='<spring:message code="label.company.title.reply_comment"/>' />
 	<input type="hidden" id="write_comment" value='<spring:message code="label.company.title.write_comment"/>' />
 	<input type="hidden" id="load_more_comment" value='<spring:message code="label.company.title.load_more_comment"/>' />
@@ -39,7 +39,7 @@
 			<c:choose>
 				<c:when test="${param.mode == 'CAREER'}">
 				<div class="col m8">
-					<c:if test="${param.companyId == companyLogin.id}">
+					<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
 					<!-- Begin form setting -->
 					<div class="card-panel padding-10 light-blue darken-3 hoverable display-none" id="card-panel-setting-email">
 						<form action="/company/settingEmail" method="POST">
@@ -103,18 +103,20 @@
 													<h1 class="col m9 p-0 title block-with-text">
 														<a class="not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</h1>
-													<div class="col m3" style="text-align: right;">
-														<input type="hidden" value="${job.id}"/>
-														<c:choose>
-															<c:when test="${job.publish == true}">
-																<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}" checked="checked" />
-															</c:when>
-															<c:otherwise>
-																<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}"/>
-															</c:otherwise>
-														</c:choose>
-														<label for="publishJob${job.id}" style="margin-left: -12px;">Publish</label>
-													</div>
+													<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
+														<div class="col m3" style="text-align: right;">
+															<input type="hidden" value="${job.id}"/>
+															<c:choose>
+																<c:when test="${job.publish == true}">
+																	<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}" checked="checked" />
+																</c:when>
+																<c:otherwise>
+																	<input type="checkbox" class="filled-in chkPublishJob" id="publishJob${job.id}"/>
+																</c:otherwise>
+															</c:choose>
+															<label for="publishJob${job.id}" style="margin-left: -12px;">Publish</label>
+														</div>
+													</c:if>
 												</div>
 												<!-- <a href="#" class="company-name">${job.company.displayName}</a> -->
 												<p class="work-location">
@@ -154,9 +156,11 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col m12 none-padding-left text-justify block-with-text edit-text-ellipsis">
-															${job.description}
-														</div>
+														<c:if test="${job.description != null && job.description != ''}">
+															<div class="col m12 none-padding-left text-justify block-with-text edit-text-ellipsis">
+																${job.description}
+															</div>
+														</c:if>
 														<div class="col m12 none-padding-left margin-top-5">
 															<c:forEach items="${job.skillSet}" var="skill">
 																<a class="chip">${skill.displayName}</a>
@@ -166,10 +170,12 @@
 												</div>
 											</div>
 										</div>
-										<a target="_blank" href="/company/apply?companyId=${param.companyId}&jobId=${job.id}" class="apply-number">
-											<span class="label">Applied people: </span>
-											<span class="value">${applyNumbers[job] } people</span>
-										</a>
+										<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
+											<a target="_blank" href="/company/apply?companyId=${param.companyId}&jobId=${job.id}" class="apply-number">
+												<span class="label">Applied people: </span>
+												<span class="value">${applyNumbers[job] } people</span>
+											</a>
+										</c:if>
 									</div>
 								</c:forEach>
 							</div>
@@ -184,7 +190,7 @@
 				</c:when>
 				<c:otherwise>
 				<div class="col m8">
-					<c:if test="${param.companyId == companyLogin.id}">
+					<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
 						<!-- Begin form setting -->
 						<div class="card-panel padding-10 light-blue darken-3 hoverable display-none" id="card-panel-setting-email">
 							<form action="/company/settingEmail" method="POST">
@@ -257,7 +263,7 @@
 							</ul>
 						</div>
 					</div>
-					<c:if test="${param.companyId == companyLogin.id}">
+					<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
 						<ul class="collapsible" data-collapsible="accordion">
 							<li>
 						 		<div class="collapsible-header"><i class="material-icons">filter_drama</i>Cập Nhật Slider</div>
@@ -362,7 +368,7 @@
 				</c:otherwise>
 			</c:choose>
 			<div class="col m4">
-				<c:if test="${param.companyId == companyLogin.id}">
+				<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
 					<div class="row">
 						<div class="col m12 mp0">
 							<ul class="collapsible" data-collapsible="accordion">

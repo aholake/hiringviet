@@ -361,7 +361,7 @@
 							</a>-->
 							<div class="row">
 								<div class="col m9">
-									<h1 class="title">${company.displayName}</h1>
+									<h1 class="title"><a href="/company?companyId=${company.id}&mode=HOME">${company.displayName}</a></h1>
 									<div class="small-text">
 										<p class="col s12 none-padding-left">
 											<i class="material-icons prefix-icon">flag</i>
@@ -389,8 +389,9 @@
 									</div>
 								</div>
 								<div class="col m3 hide-on-med-and-down">
-									<img src="${company.account.avatarImage}"
-										class="right responsive-img company-logo-1">
+									<a href="/company?companyId=${company.id}&mode=HOME">
+										<img src="${company.account.avatarImage}" class="right responsive-img company-logo-1">
+									</a>
 								</div>
 							</div>
 						</div>

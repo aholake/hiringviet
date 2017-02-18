@@ -286,7 +286,7 @@ public class Utils {
 		StringBuilder sb = new StringBuilder();
 
 		if (isJob) {
-			sb.append("<p><a href='/company?companyId=" + company.getId() + "'>" + company.getDisplayName() + "</a> vừa đăng 1 <b>công việc</b> mới</p>");
+			sb.append("<p><a href='/company?companyId=" + company.getId() + "&mode=HOME'>" + company.getDisplayName() + "</a> vừa đăng 1 <b>công việc</b> mới</p>");
 			sb.append("<p class='small-text'><b><a>" + job.getTitle() + "</a></b></p>");
 		} else {
 			sb.append("<p><a href='/company?companyId=" + company.getId() + "'>" + company.getDisplayName() + "</a> vừa đăng 1 <b>trạng thái</b> mới</p>");
