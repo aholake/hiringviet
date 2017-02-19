@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -65,10 +66,10 @@
 		<form action="${fileUpload}" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="mode" value="${mode}"/>
 			<div class="modal-content">
-				<h4>Update Avatar Image</h4>
+				<h4><spring:message code="label.company.upload.avatar_image"/></h4>
 				<div class="row">
 					<div class="col m8 mp0">
-						<p>Upload a picture from your computer</p>
+						<p><spring:message code="label.company.upload.avatar_image.info"></spring:message> </p>
 						<div class="file-field input-field">
 							<div class="file-field input-field">
 								<input type="hidden" name="mode" value="AI"/>
@@ -76,11 +77,11 @@
 									<span>File</span> <input id="new-avatar-image" type="file" name="multipartFile" />
 								</div>
 								<div class="file-path-wrapper">
-									<input class="file-path validate" type="text" placeholder="Upload one or more files" />
+									<input class="file-path validate" type="text" placeholder="File upload" />
 								</div>
 							</div>
 						</div>
-						<p class="color-red">Chọn file có dung lượng nhỏ hơn 10MB!</p>
+						<p class="color-red"><spring:message code="label.company.upload.avatar_image.condition"></spring:message></p>
 					</div>
 					<div class="col m4">
 						<div class="wrap-new-avatar-img text-align-center" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -90,8 +91,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" onclick="javascript:void(0);" class="modal-action modal-close waves-effect waves-green btn-flat">Close</button>
-				<button type="submit" class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
+				<button type="button" onclick="javascript:void(0);" class="modal-action modal-close waves-effect waves-green btn-flat"><spring:message code="label.common.cancel"></spring:message> </button>
+				<button type="submit" class=" modal-action modal-close waves-effect waves-green btn-flat"><spring:message code="label.common.save"></spring:message> </button>
 			</div>
 		</form>
 	</div>

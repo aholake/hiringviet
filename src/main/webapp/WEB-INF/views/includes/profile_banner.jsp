@@ -62,10 +62,10 @@
 	<div id="avatar-image-modal" class="modal modal-fixed-footer">
 		<form id="uploadAvatar" action="${fileUpload}" method="post" enctype="multipart/form-data">
 			<div class="modal-content">
-				<h4>Update Avatar Image</h4>
+				<h4><spring:message code="label.company.upload.avatar_image"></spring:message></h4>
 				<div class="row">
 					<div class="col m8 mp0">
-						<p>Upload a picture from your computer</p>
+						<p><spring:message code="label.company.upload.avatar_image.info"></spring:message></p>
 						<div class="file-field input-field">
 							<div class="file-field input-field">
 								<input type="hidden" name="mode" value="AI"/>
@@ -78,7 +78,7 @@
 								</div>
 							</div>
 						</div>
-						<p class="color-red">Chọn file có dung lượng nhỏ hơn 10MB!</p>
+						<p class="color-red"><spring:message code="label.company.upload.avatar_image.condition"></spring:message></p>
 					</div>
 					<div class="col m4">
 						<div class="wrap-new-avatar-img text-align-center" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -88,8 +88,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" onclick="javascript:void(0);" class="modal-action modal-close waves-effect waves-green btn-flat">Close</button>
-				<button type="submit" id="btnUploadAvatar" class=" modal-action modal-close waves-effect waves-green btn-flat">Submit</button>
+				<button type="button" onclick="javascript:void(0);" class="modal-action modal-close waves-effect waves-green btn-flat"><spring:message code="label.common.cancel"></spring:message></button>
+				<button type="submit" id="btnUploadAvatar" class=" modal-action modal-close waves-effect waves-green btn-flat"><spring:message code="label.common.save"></spring:message></button>
 			</div>
 		</form>
 	</div>

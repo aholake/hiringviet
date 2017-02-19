@@ -4,12 +4,12 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Header</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/hiringviet/home/css/navbar.css'/>">
 <script type="text/javascript"src="<c:url value='/resources/hiringviet/login/js/login.js'/>"></script>
 </head>
@@ -204,7 +204,7 @@
 									</h5>
 									<h6>
 										<a href="/job/create">
-											Đăng tuyển
+											<spring:message code="label.company.job.create"></spring:message>
 										</a>
 									</h6>
 								</div>
@@ -266,7 +266,7 @@
 <c:url value="/login" var="loginUrl"></c:url>
 <div id="loginModal" class="modal">
 	<div class="modal-content">
-		<h5 class="center-align">Đăng nhập</h5>
+		<h5 class="center-align"><spring:message code="label.login.title"></spring:message></h5>
 		<p id="login-error" class="center-align red-text bold-text"></p>
 		<div class="row">
 			<form id="loginForm" class="col s6" action="${loginUrl}"
@@ -275,20 +275,20 @@
 					<div class="input-field col s12 p-0">
 						<input id="email" type="email" name="email" value=""
 							class="validate" required="required" /> <label for="email"
-							data-error="Sai định dạng">Email</label>
+							data-error='<spring:message code="label.login.email.wrong_format"></spring:message>'>Email</label>
 					</div>
 					<div class="input-field col s12 p-0">
 						<input id="password" type="password" name="password" value=""
 							minlength="6" class="validate" required="required" /> <label
-							for="password" data-error="Mật khẩu quá ngắn">Password</label>
+							for="password" data-error="Mật khẩu quá ngắn"><spring:message code="label.login.password.title"></spring:message></label>
 					</div>
 					<div class="col s12 p-0">
-						<input type="checkbox" id="remember" /> <label for="remember">Remember
-							me</label>
+						<input type="checkbox" id="remember" />
+						<label for="remember"><spring:message code="label.login.remember.title"></spring:message></label>
 					</div>
 					<div class="col s12 p-0">
 						<button id="submitBtn" type="submit"
-							class="waves-effect waves-light btn long-btn">Đăng nhập</button>
+							class="waves-effect waves-light btn long-btn"><spring:message code="label.login.titl"></spring:message></button>
 					</div>
 				</div>
 			</form>

@@ -96,15 +96,15 @@
 	<!-- Modal Structure -->
 	<div id="messageModal" class="modal modal-fixed-footer">
 		<div class="modal-content">
-			<h4>Message Management</h4>
+			<h4><spring:message code="label.company.message.title"></spring:message> </h4>
 			<div class="row">
 				<div class="col m12 mp0">
 					<table class="bordered messageTable">
 						<thead>
 							<tr>
-								<th width="5%" data-field="stt">STT</th>
-								<th width="70%" data-field="title">Title</th>
-								<th width="25%" data-field="dateTime">Date Time</th>
+								<th width="5%" data-field="stt"><spring:message code="label.company.message.no"></spring:message> </th>
+								<th width="70%" data-field="title"><spring:message code="label.company.message.title"></spring:message> </th>
+								<th width="25%" data-field="dateTime"><spring:message code="label.company.message.date_time"></spring:message> </th>
 							</tr>
 						</thead>
 						<tbody class="body">
@@ -124,16 +124,16 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat "><spring:message code="label.common.cancel"></spring:message> </a>
 		</div>
 	</div>
 	<div id="messageDetailModal" class="modal modal-fixed-footer">
 		<div class="modal-content">
-			<h4>Message Detail</h4>
+			<h4><spring:message code="label.company.message.detail.title"></spring:message> </h4>
 			<div class="row">
 				<div class="col m12 mp0">
-					<p>From: <b class="messateSender"></b></p>
-					<p>Date time: <b class="dateTime"></b></p>
+					<p><spring:message code="label.company.message.detail.from"></spring:message>: <b class="messateSender"></b></p>
+					<p><spring:message code="label.company.message.date_time"></spring:message>: <b class="dateTime"></b></p>
 					<h6 class="messateTitle"></h6>
 					<div class="messateContent">
 					</div>
@@ -141,23 +141,23 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<a href="#sendMessageModal" class="modal-action modal-close waves-effect waves-green btn-flat sendMessageModal">Reply</a>
-			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+			<a href="#sendMessageModal" class="modal-action modal-close waves-effect waves-green btn-flat sendMessageModal"><spring:message code="label.company.message.detail.reply"></spring:message></a>
+			<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat "><spring:message code="label.common.cancel"></spring:message></a>
 		</div>
 	</div>
 	
 	<form action="/api/message/send" method="post" id="sendMessageModal" class="modal modal-fixed-footer">
 			<div class="modal-content">
-				<h4>Send Message</h4>
+				<h4><spring:message code="label.company.message.send.title"></spring:message></h4>
 				<div class="row">
 					<div class="col m12 mp0">
 						<div class="input-field col m12 p-0">
 							<input id="toAccount" type="text" class="validate" name="emailReceiver"> <label
-								for="toAccount">To</label>
+								for="toAccount"><spring:message code="label.company.message.send.to"></spring:message></label>
 						</div>
 						<div class="input-field col m12 p-0">
 							<input id="title" type="text" class="validate" name="title"> <label
-								for="title">Title</label>
+								for="title"><spring:message code="label.company.message.title"></spring:message></label>
 						</div>
 						<div class="input-field col m12 p-0">
 							<textarea id="txtContent" class="materialize-textarea" name="content"></textarea>
@@ -167,16 +167,16 @@
 			</div>
 			<div class="modal-footer">
 				<button type="submit"
-					class="modal-action waves-effect waves-green btn-flat">Send</button>
+					class="modal-action waves-effect waves-green btn-flat"><spring:message code="label.company.message.send.submit"></spring:message></button>
 				<a href="#!"
-					class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+					class="modal-action modal-close waves-effect waves-green btn-flat "><spring:message code="label.common.cancel"></spring:message></a>
 			</div>
 	</form>
 
 	<form action="/apply/sendApprovalMessage" method="post"
 		id="sendApprovalMessageModal" class="modal modal-fixed-footer">
 		<div class="modal-content">
-			<h4>Send Message</h4>
+			<h4><spring:message code="label.company.message.send.title"></spring:message></h4>
 			<div class="row">
 				<input id="approvalApplyId" type="hidden" name="applyId">
 				<input id="approvalJobId" type="hidden" name="jobId">
@@ -184,20 +184,19 @@
 				<div class="col m12 mp0">
 					<div class="input-field col m12 p-0">
 						<input id="confirmTitle" type="text" class="validate" name="title" value="XÁC NHẬN HỒ SƠ ỨNG TUYỂN" required>
-						<label for="title">Title</label>
+						<label for="title"><spring:message code="label.company.message.title "></spring:message></label>
 					</div>
 					<div class="input-field col m12 p-0">
-						<textarea id="approvalContent" class="materialize-textarea"
-							name="content" required></textarea>
+						<textarea id="approvalContent" class="materialize-textarea" name="content" required></textarea>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
 			<button type="submit"
-				class="modal-action waves-effect waves-green btn-flat">Send</button>
+				class="modal-action waves-effect waves-green btn-flat"><spring:message code="label.company.message.send.submit"></spring:message></button>
 			<a href="#!"
-				class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+				class="modal-action modal-close waves-effect waves-green btn-flat "><spring:message code="label.common.cancel"></spring:message></a>
 		</div>
 	</form>
 
@@ -208,27 +207,27 @@
 			<input type="hidden" name="mode" value="${param.mode}"/>
 			<input type="hidden" name="accountId" value="${company.account.id}"/>
 			<div class="modal-content">
-				<h4>Subscribe</h4>
-				<p>Sau khi Subscribebạn sẽ nhận đc thông báo toàn bộ hoạt động của công ty đã Subscribe.</p>
+				<h4><spring:message code="label.company.subscribe.title"></spring:message></h4>
+				<p>Sau khi Subscribe bạn sẽ nhận đc thông báo toàn bộ hoạt động của công ty đã Subscribe.</p>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</button>
-				<a href="javascript:void();" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+				<button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat"><spring:message code="label.common.agree"></spring:message></button>
+				<a href="javascript:void();" class="modal-action modal-close waves-effect waves-green btn-flat"><spring:message code="label.common.cancel"></spring:message></a>
 			</div>
 		</form>
 	</div>
 	<!-- Modal Structure -->
 	<div id="followModal" class="modal modal-fixed-footer">
 		<div class="modal-content">
-			<h4>Follow List</h4>
-			<p>${numberFollower} follow</p>
+			<h4><spring:message code="label.company.follow.title"></spring:message></h4>
+			<p>${numberFollower} <spring:message code="label.company.follow.info"></spring:message></p>
 			<div class="row">
 				<div class="col m12 mp0" id="company_follow_list">
 				</div>
 			</div>
 		</div>
 		<div class="modal-footer">
-			<a href="javascript:void()" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+			<a href="javascript:void()" class="modal-action modal-close waves-effect waves-green btn-flat "><spring:message code="label.common.cancel"></spring:message></a>
 		</div>
 	</div>
 	<script type="text/javascript" src="<c:url value='/resources/hiringviet/profile/js/message.js'/>"></script>
