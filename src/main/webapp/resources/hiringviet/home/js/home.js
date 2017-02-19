@@ -248,7 +248,48 @@ $(function() {
 
 	});
 
-	caller();
+	$(document).on('click', '.icon-arrow', function(event) {
+		var iconArrowText = $(this).text();
+		var jobBox = $(this).parents('.job-box');
+		if (ICON_ARROW_DOWN === iconArrowText) {
+			showJobBox(jobBox);
+		} else {
+			hideJobBox(jobBox);
+		}
+	});
+
+	$(document).on('click', '.note-job', function(event) {
+		$('.float-table-wrapper').show();
+		var jobBox = $(this).parents('.job-box');
+		var rowCount = $('.selected-job-table >tbody >tr').length;
+		if (rowCount < 2) {
+			rowCount = 1;
+		}
+		if ($(this).is(':checked')) {
+			var html = '<tr class="apply-job-item ' + jobBox.attr('id') + '">\
+							<input type="hidden" class="job-id" value="' + jobBox.attr('id') + '" />\
+							<td>\
+								<span class="order">' + rowCount +  '</span>\
+							</td>\
+							<td class="mp0">\
+								<a class="job-title" href="#" target="_blank">' + jobBox.find('.job-title').text() + '</a>\
+							</td>\
+							<td>\
+								<i class="material-icons cursor" onclick="removeJob(' + jobBox.attr('id') + ');">close</i>\
+							</td>\
+						</tr>';
+			
+			$('.selected-job-table tbody').append(html);
+			getJobList();
+		} else {
+			$('.selected-job-table .' + jobBox.attr('id')).remove();
+			$('.selected-job-table >tbody >tr').each(function() {
+				var row = $(this).index();
+				$(this).find('.order').html(row);
+			});
+			getJobList();
+		}
+	});
 });
 
 function showSelectedJobTable() {
@@ -619,7 +660,7 @@ function showResultJobHot(response) {
 		showProvinceList(provinceList);
 		showCategoryList(categoryList)
 
-		caller();
+		//caller();
 	}
 }
 
@@ -1014,51 +1055,6 @@ function days_between(date1, date2) {
 
     // Convert back to days and return
     return Math.round(difference_ms/ONE_DAY);
-}
-
-function caller() {
-	$('.job-box').on('click', '.icon-arrow', function(event) {
-		var iconArrowText = $(this).text();
-		var jobBox = $(this).parents('.job-box');
-		if (ICON_ARROW_DOWN === iconArrowText) {
-			showJobBox(jobBox);
-		} else {
-			hideJobBox(jobBox);
-		}
-	});
-
-	$('.job-box').on('click', '.note-job', function(event) {
-		$('.float-table-wrapper').show();
-		var jobBox = $(this).parents('.job-box');
-		var rowCount = $('.selected-job-table >tbody >tr').length;
-		if (rowCount < 2) {
-			rowCount = 1;
-		}
-		if ($(this).is(':checked')) {
-			var html = '<tr class="apply-job-item ' + jobBox.attr('id') + '">\
-							<input type="hidden" class="job-id" value="' + jobBox.attr('id') + '" />\
-							<td>\
-								<span class="order">' + rowCount +  '</span>\
-							</td>\
-							<td class="mp0">\
-								<a class="job-title" href="#" target="_blank">' + jobBox.find('.job-title').text() + '</a>\
-							</td>\
-							<td>\
-								<i class="material-icons cursor" onclick="removeJob(' + jobBox.attr('id') + ');">close</i>\
-							</td>\
-						</tr>';
-			
-			$('.selected-job-table tbody').append(html);
-			getJobList();
-		} else {
-			$('.selected-job-table .' + jobBox.attr('id')).remove();
-			$('.selected-job-table >tbody >tr').each(function() {
-				var row = $(this).index();
-				$(this).find('.order').html(row);
-			});
-			getJobList();
-		}
-	});
 }
 
 function getJobList() {

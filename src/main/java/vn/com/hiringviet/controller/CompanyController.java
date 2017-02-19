@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.api.dto.request.CommentRequestDTO;
+import vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO;
 import vn.com.hiringviet.api.dto.request.ReplyCommentRequestDTO;
 import vn.com.hiringviet.api.dto.response.AccountDTO;
 import vn.com.hiringviet.api.dto.response.CommentResponseDTO;
 import vn.com.hiringviet.api.dto.response.CommonResponseDTO;
+import vn.com.hiringviet.api.dto.response.JobResponseDTO;
 import vn.com.hiringviet.api.dto.response.ReplyCommentResponseDTO;
 import vn.com.hiringviet.common.AccountRoleEnum;
 import vn.com.hiringviet.common.CommonEnum;
@@ -125,16 +127,18 @@ public class CompanyController {
 		Company companyLogin = null;
 
 		Account account = getLoggedAccount();
+
+		boolean isAll = false;
 		if (account != null) {
 			memberLogin = account.getMember();
 			companyLogin = account.getCompany();
 
-			if (companyLogin != null && company != null) {
-				if (companyLogin.getId() == company.getId()) {
-					model.addAttribute("isOwner", 1);
-				}
+			if (account.getCompany() != null && account.getCompany().getId() == companyId) {
+				model.addAttribute("isOwner", 1);
+				isAll = true;
 			}
 		}
+
 		model.addAttribute("memberLogin", memberLogin);
 
 		Company companySession = (Company) session.getAttribute("companySession");
@@ -151,25 +155,31 @@ public class CompanyController {
 
 		if (ModeEnum.CAREER.getValue().equals(mode)) {
 
-			List<Job> jobList = companyService.getListJob(0, ConstantValues.MAX_RECORD_COUNT, companyId, true);
+			List<Job> jobList = companyService.getListJob(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, companyId, isAll);
 
 			if (ConstantValues.MAX_RECORD_COUNT > jobList.size()) {
 				model.addAttribute("isDisabledLoadJob", true);
 			}
 
 			model.addAttribute("jobList", jobList);
-			
+
 			Map<Job, Long> applyNumbers = new HashMap<>();
-			
+
 			for (Job job : jobList) {
 				applyNumbers.put(job, jobService.countApplies(job));
 			}
 			model.addAttribute("applyNumbers", applyNumbers);
 
+			model.addAttribute("firstItem", 0);
+			model.addAttribute("maxItem", ConstantValues.MAX_RECORD_COUNT);
+			model.addAttribute("currentPage", ConstantValues.CURRENT_PAGE);
+			if (ConstantValues.MAX_RECORD_COUNT > jobList.size()) {
+				model.addAttribute("isDisabledLoadJob", true);
+			}
+
 		} else {
 
-			List<PostDTO> postList = companyService.getListPosts(ConstantValues.FIRST_RECORD,
-					ConstantValues.MAX_RECORD_COUNT, companyId);
+			List<PostDTO> postList = companyService.getListPosts(ConstantValues.FIRST_RECORD, ConstantValues.MAX_RECORD_COUNT, companyId);
 
 			if (ConstantValues.MAX_RECORD_COUNT > postList.size()) {
 				model.addAttribute("isDisabledLoadPosts", true);
@@ -677,5 +687,39 @@ public class CompanyController {
 		} else {
 			return "redirect:/login";
 		}
+	}
+
+	@RequestMapping(value = "/company/job/loadMore", method = RequestMethod.POST)
+	public @ResponseBody JobResponseDTO getJobHot(
+			@RequestBody LoadMoreRequestDTO loadMoreRequestDTO) {
+
+		Account account = getLoggedAccount();
+		boolean isAll = false;
+		if (account != null && account.getCompany() != null && account.getCompany().getId() == loadMoreRequestDTO.getCompanyId()) {
+			isAll = true;
+		}
+
+		JobResponseDTO jobResponseDTO = new JobResponseDTO();
+
+		PagingDTO pgDTO = Utils.calculatorPaging(loadMoreRequestDTO.getPagingDTO(), false);
+
+		List<Job> jobList = companyService.getListJob(pgDTO.getFirstItem(), ConstantValues.MAX_RECORD_COUNT, loadMoreRequestDTO.getCompanyId(), isAll);
+
+		if (Utils.isEmptyList(jobList)) {
+			jobResponseDTO.setResult(StatusResponseEnum.FAIL.getStatus());
+		}
+		jobResponseDTO.setResult(StatusResponseEnum.SUCCESS.getStatus());
+
+		jobResponseDTO.setJobDTOList(jobList);
+
+		Map<Integer, Long> applyNumbers = new HashMap<>();
+
+		for (Job job : jobList) {
+			applyNumbers.put(job.getId(), jobService.countApplies(job));
+		}
+
+		jobResponseDTO.setApplyNumbers(applyNumbers);
+
+		return jobResponseDTO;
 	}
 }

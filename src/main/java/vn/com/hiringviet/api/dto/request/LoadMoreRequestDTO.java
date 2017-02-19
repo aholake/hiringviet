@@ -39,6 +39,8 @@ public class LoadMoreRequestDTO implements Serializable {
 	/** The max salary. */
 	private Integer maxSalary;
 
+	private Integer companyId;
+
 	/**
 	 * Gets the paging dto.
 	 *
@@ -169,6 +171,14 @@ public class LoadMoreRequestDTO implements Serializable {
 
 	public void setMaxSalary(Integer maxSalary) {
 		this.maxSalary = maxSalary;
+	}
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
 	}
 
 }

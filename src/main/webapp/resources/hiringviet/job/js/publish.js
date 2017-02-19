@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$('.chkPublishJob').on('change', function(event) {
+	$(document).on('change','.chkPublishJob', function(event) {
 		var jobId = parseInt($(this).parent('div').find('input[type=hidden]').val());
 		var isPublish = 0;
 		if ($(this).is( ":checked" )) {
