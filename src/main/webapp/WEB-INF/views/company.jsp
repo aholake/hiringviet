@@ -15,6 +15,16 @@
 <script src="<c:url value='/resources/hiringviet/company/js/company.js'/>"></script>
 </head>
 <body>
+	<input type="hidden" id="url_load_more_job" value="<c:url value='/company/job/loadMore' />" />
+	<input type="hidden" id="first_item" value="${firstItem}" />
+	<input type="hidden" id="max_item" value="${maxItem}" />
+	<input type="hidden" id="current_page" value="${currentPage}" />
+	<input type="hidden" id="text_company_follow" value="<spring:message code="label.home.button.follow_company" />" />
+	<input type="hidden" id="text_title_salary" value="<spring:message code="label.home.title.salary" />" />
+	<input type="hidden" id="text_title_post_date" value="<spring:message code="label.home.title.post_date"/>" />
+	<input type="hidden" id="text_title_major" value="<spring:message code="label.home.title.major"/>" />
+	<input type="hidden" id="text_total_employee" value="<spring:message code="label.home.title.total_employee"/>" />
+	<input type="hidden" id="text_title_people" value="<spring:message code="label.home.title.people"/>" />
 
 	<input type="hidden" id="url_get_comments" value="<c:url value='/company/post/comments' />" />
 	<input type="hidden" id="url_get_replyComments" value="<c:url value='/company/post/replyComments' />" />
@@ -35,6 +45,12 @@
 	<input type="hidden" id="message_delete_fail" value='<spring:message code="message.fail.setting.delete"/>'/>
 	<input type="hidden" id="id_of_account" value="${memberLogin.id}"/>
 	<input type="hidden" id="is_owner" value="${isOwner}"/>
+	<input type="hidden" id="company-id" value="${param.companyId}"/>
+	
+	<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
+		<input type="hidden" id="isOwner" value="true"/>
+	</c:if>
+	
 		<div class="row">
 			<c:choose>
 				<c:when test="${param.mode == 'CAREER'}">
@@ -92,7 +108,7 @@
 					<!-- End form setting -->
 				</c:if>
 					<div class="card-panel">
-						<div class="panel-title"><spring:message code="label.company.title.active"/></div>
+						<div class="panel-title">Công Việc</div>
 							<div class="panel-content">
 								<div id="job-list">
 								<c:forEach items="${jobList}" var="job">
@@ -101,7 +117,7 @@
 											<div class="col m12">
 												<div class="col m12 p-0">
 													<h1 class="col m9 p-0 title block-with-text">
-														<a class="not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
+														<a class="job-title not-hot" href="<c:url value='/company/careers?jobId=${job.id}' />">${job.title}</a>
 													</h1>
 													<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
 														<div class="col m3" style="text-align: right;">
@@ -169,21 +185,33 @@
 													</div>
 												</div>
 											</div>
+											<i class="material-icons right icon-arrow margin-right-5 cursor mp0">keyboard_arrow_up</i>
+											<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
+												<a target="_blank" href="/company/apply?companyId=${param.companyId}&jobId=${job.id}" class="right margin-right-10">
+													<span class="label">Applied people: </span>
+													<span class="value">${applyNumbers[job] } people</span>
+												</a>
+											</c:if>
 										</div>
-										<c:if test="${companyLogin != null && param.companyId == companyLogin.id}">
-											<a target="_blank" href="/company/apply?companyId=${param.companyId}&jobId=${job.id}" class="apply-number">
-												<span class="label">Applied people: </span>
-												<span class="value">${applyNumbers[job] } people</span>
-											</a>
-										</c:if>
 									</div>
 								</c:forEach>
 							</div>
 						</div>
 						<div class="text-align-center margin-top-10">
-							<a id="btn-load-more" class="btn-floating btn-large waves-effect waves-light red">
-								<i class="material-icons">add</i>
-							</a>
+							<c:choose>
+								<c:when test="${isDisabledLoadJob == true}">
+									<a id="btn-load-more-job"
+										class="btn-floating btn-large waves-effect waves-light red disabled"
+										disabled="disabled"> <i class="material-icons">add</i>
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a id="btn-load-more-job"
+										class="btn-floating btn-large waves-effect waves-light red">
+										<i class="material-icons">add</i>
+									</a>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>	

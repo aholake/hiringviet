@@ -27,7 +27,33 @@ $(function() {
 		} // Callback for Modal close
 	});
 
+	$('#btn-load-more-job').on('click', function() {
+
+		var firstItem = $('#first_item').val();
+		var currentPage = $('#current_page').val();
+
+		var url = $('#url_load_more_job').val();
+
+		var data = {
+			pagingDTO: {"firstItem" : firstItem,
+						"currentPage" : currentPage
+			},
+			companyId: $("#company-id").val()
+		}
+		callAPI(url, 'POST', data, "showResultLoadMore", true);
+	});
+
+	$(document).on('click', '.icon-arrow', function(event) {
+		var iconArrowText = $(this).text();
+		var jobBox = $(this).parents('.job-box');
+		if (ICON_ARROW_DOWN === iconArrowText) {
+			showJobBox(jobBox);
+		} else {
+			hideJobBox(jobBox);
+		}
+	});
 });
+
 var currentPostId = 0;
 function showComment(postId) {
 
@@ -369,4 +395,120 @@ function commentShowResults(response) {
 		Materialize.toast($('#message_delete_success').val(), 4000);
 	}
 	setTimeout(function(){ location.reload(); }, 1000);
+}
+
+function showResultLoadMore(response) {
+
+	if (FAIL == response.result) {
+		alert(response.message);
+	} else {
+
+		hideJobBox('.job-box');
+
+		var jobListDiv = $('#job-list');
+		var jobListResponse = response.jobList;
+		if (MAX_RECORD_COUNT > jobListResponse.length) {
+			$('#first_item').val(parseInt($('#first_item').val()) + jobListResponse.length);
+		} else {
+			$('#first_item').val(parseInt($('#first_item').val()) + MAX_RECORD_COUNT);
+		}
+		$('#current_page').val(parseInt($('#current_page').val()) + 1);
+		var html = "";
+
+		for (var index = 0; index < jobListResponse.length; index++) {
+
+			var tempItem = "";
+			var skills = jobListResponse[index].skillSet;
+			for (var i = 0; i < skills.length; i++) {
+				tempItem += '<a class="chip skill-' + skills[i].displayName.replace(' ', '') + '">' + skills[i].displayName + '</a>';
+			}
+
+			var nameClass = "";
+			if (jobListResponse[index].company.isVip == VIP) {
+				nameClass = HOT;
+			} else {
+				nameClass = NOT_HOT;
+			}
+
+			
+
+			var publishHtml = "";
+			var applyHtml = "";
+			if ($("#isOwner").length > 0) {
+				publishHtml += '<div class="col m3" style="text-align: right;">\
+									<input type="hidden" value="' + jobListResponse[index].id + '"/>';
+				if (jobListResponse[index].publish == 1) {
+
+					publishHtml += '<input type="checkbox" class="filled-in chkPublishJob" id="publishJob' + jobListResponse[index].id + '" checked="checked" />';
+				} else {
+
+					publishHtml += '<input type="checkbox" class="filled-in chkPublishJob" id="publishJob' + jobListResponse[index].id + '"/>';
+				}
+
+				publishHtml += '<label for="publishJob' + jobListResponse[index].id + '" style="margin-left: -12px;">Publish</label>\
+								</div>';
+
+				applyHtml += '<a target="_blank" href="/company/apply?companyId=' + $("#company-id").val() + '&jobId=' + jobListResponse[index].id + '" class="right margin-right-10">\
+								<span class="label">Applied people: </span>\
+								<span class="value">' + response.applyNumbers[jobListResponse[index].id] + ' people</span>\
+							</a>';
+			}
+			
+			var item = '<div class="job-item">\
+							<div class="job-box" id="' + jobListResponse[index].id + '">\
+								<!--<div class="location-sticky orange darken-1 position-' + jobListResponse[index].workAddress.district.province.provinceName.replace(' ', '') + '">' + jobListResponse[index].workAddress.district.province.provinceName + '</div>-->\
+									<div class="row none-margin-bottom">\
+										<div class="col m12">\
+											<h1 class="col m9 p-0 title block-with-text">\
+												<a class="job-title not-hot" href="/company/careers?jobId=' + jobListResponse[index].id + '">' + jobListResponse[index].title + '</a>\
+											</h1>\
+											' + publishHtml + '\
+											<!--<a href="#" class="company-name company-' + jobListResponse[index].company.displayName.replace(' ', '') + '">' + jobListResponse[index].company.displayName + '</a>-->\
+											<!--<p class="work-location"><a href="#">' + jobListResponse[index].workAddress.district.province.provinceName + '</a></p>-->\
+											<div class="job-info">\
+												<div class="row">\
+													<div class="col m6 none-padding-left">\
+														<p><i class="material-icons prefix-icon">attach_money</i>' + $('#text_title_salary').val() + ': \
+															<span class="info">' + jobListResponse[index].minSalary + ' - ' + jobListResponse[index].maxSalary + '</span>\
+														</p>\
+													</div>\
+													<div class="col m6 none-padding-left">\
+														<p class="right"><i class="material-icons prefix-icon">date_range</i>' + $('#text_title_post_date').val() + ': \
+															<span class="info datePost">' + jobListResponse[index].postDate + '</span>\
+														</p>\
+													</div>\
+													<div class="col m6 none-padding-left">\
+														<p><i class="material-icons prefix-icon">loyalty</i>' + $('#text_title_major').val() + ': \
+															<span class="info position-' + jobListResponse[index].position.displayName.replace(' ', '') + '">' + jobListResponse[index].position.displayName + '</span>\
+														</p>\
+													</div>\
+													<div class="col m6 none-padding-left">\
+														<p class="right"><i class="material-icons prefix-icon">people</i>' + $('#text_total_employee').val() + ': \
+															<span class="info">' + jobListResponse[index].size + $('#text_title_people').val() + '</span>\
+														</p>\
+													</div>\
+												</div>\
+												<div class="row">\
+													<div class="col m12 none-padding-left text-justify block-with-text edit-text-ellipsis">' + jobListResponse[index].description + '\
+													</div>\
+													<div class="col m12 none-padding-left margin-top-5">' + tempItem + '</div>\
+												</div>\
+											</div>\
+											<i class="material-icons right icon-arrow margin-right-5 cursor mp0">keyboard_arrow_up</i>\
+											' + applyHtml + '\
+										</div>\
+									</div>\
+								</div>\
+							</div>\
+						</div>';
+			html += item;
+		}
+		jobListDiv.append(html);
+
+		if (parseInt($('#max_item').val()) > jobListResponse.length) {
+			$('#btn-load-more-job').prop('disabled', true);
+			$('#btn-load-more-job').addClass('disabled');
+		}
+		caller();
+	}
 }

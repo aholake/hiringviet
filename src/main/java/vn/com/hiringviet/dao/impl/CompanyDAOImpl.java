@@ -11,7 +11,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
-import org.hibernate.type.LongType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,12 +19,10 @@ import vn.com.hiringviet.common.PublishResponseEnum;
 import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.CompanyDAO;
-import vn.com.hiringviet.dto.AccountDTO;
 import vn.com.hiringviet.dto.CompanyDTO;
 import vn.com.hiringviet.dto.PostDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Company;
-import vn.com.hiringviet.model.Follow;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Post;
 
@@ -114,6 +111,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		Criteria criteria = session.createCriteria(Job.class, "job");
 		criteria.createAlias("job.company", "company");
 		criteria.createAlias("job.changeLog", "changeLog");
+
 		criteria.add(Restrictions.eq("company.id", companyId));
 		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 
@@ -123,7 +121,7 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 
 		criteria.setFirstResult(first);
 		criteria.setMaxResults(max);
-		criteria.addOrder(Order.desc("changeLog.updatedDate"));
+		criteria.addOrder(Order.desc("changeLog.createdDate"));
 
 		List<Job> result = (List<Job>) criteria.list();
 		return result;
