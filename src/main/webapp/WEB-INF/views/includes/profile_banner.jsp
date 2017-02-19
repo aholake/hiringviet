@@ -47,7 +47,7 @@
 		</div>
 		<div class="profile-logo">
 			<div class="position-relative" style="width: 140px; height: 140px;">
-				<img class="responsive-img img-full" src="${member.account.avatarImage}" alt="profile logo" />
+				<img class="responsive-img img-full" src="${empty member.account.avatarImage ? defaultMemberAvatar : member.account.avatarImage}" alt="profile logo" />
 				<c:if test="${memberLogin.id == param.memberId}">
 					<a class="wrap-avatar-img" href="#avatar-image-modal">
 						<i class="avatar-img material-icons small-font cursor" 
@@ -82,7 +82,7 @@
 					</div>
 					<div class="col m4">
 						<div class="wrap-new-avatar-img text-align-center" ondrop="drop(event)" ondragover="allowDrop(event)">
-							<img id="current-avatar-image" class="responsive-img new-avatar-img" src="${member.account.avatarImage}" alt="profile logo" />
+							<img id="current-avatar-image" class="responsive-img new-avatar-img" src="${empty member.account.avatarImage ? defaultMemberAvatar : member.account.avatarImage}" alt="profile logo" />
 						</div>
 					</div>
 				</div>

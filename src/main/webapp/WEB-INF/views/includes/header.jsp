@@ -14,6 +14,9 @@
 <script type="text/javascript"src="<c:url value='/resources/hiringviet/login/js/login.js'/>"></script>
 </head>
 <body>
+	<c:set var="defaultCompanyAvatar" value="/resources/images/default_company_ic.png" scope="session"></c:set>
+	<c:set var="defaultMemberAvatar" value="/resources/images/person-icon-ic.png" scope="session"></c:set>
+
 	<input type="hidden" id="url_redirect_page" value="<c:url value='/home' />" />
 	<input type="hidden" id="url_check_account" value="<c:url value='/account/checkAccount' />" />
 	<input type="hidden" id="url_search" value="<c:url value='/search/suggest' />" />
@@ -109,7 +112,7 @@
 						<div id="dropdown-menu" class="z-depth-1">
 							<div class="top-menu-box">
 								<div id="profile">
-									<img src="${principal.avatarImage}" class="circle profile-photo">
+									<img src="${empty principal.avatarImage ? defaultMemberAvatar : principal.avatarImage}" class="circle profile-photo">
 									<h5>
 										<a href="#">${principal.member.firstName} ${principal.member.lastName}</a>
 									</h5>
@@ -195,7 +198,7 @@
 						<div id="dropdown-menu" class="z-depth-1">
 							<div class="top-menu-box">
 								<div id="profile">
-									<img src="${principal.avatarImage}" class="circle profile-photo">
+									<img src="${empty principal.avatarImage ? defaultCompanyAvatar : principal.avatarImage}" class="circle profile-photo">
 									<h5>
 										<a href="/company?companyId=${principal.company.id}&mode=HOME">${principal.company.displayName}</a>
 									</h5>
