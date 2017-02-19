@@ -110,20 +110,20 @@
 							<a href="/file/download/${apply.curriculumVitae }" class="attachment-file"><i class="material-icons">attach_file</i></a>
 						</c:if>
 						<span class="apply-status"> <c:choose>
-								<c:when test="${apply.accepted }">
+								<c:when test="${apply.accepted == true}">
 									<i class="material-icons green-text">check_circle</i>
 								</c:when>
-								<c:when test="${!apply.accepted }">
+								<c:when test="${apply.accepted == false}">
 									<i class="material-icons red-text">cancel</i>
 								</c:when>
 							</c:choose>
 						</span>
 					</div>
-					<div class="card-action">
+					<div class="card-action" style="text-align: right;">
 						<a href="#sendApprovalMessageModal"
-							class="sendApprovalMessageModal"
-							onclick="initSendMessageDialog('${apply.applyID}', '${job.id }', '${company.id }');">Đồng ý</a> <a
-							href="/apply/sendDeniedMessage?applyId=${apply.applyID }&companyId=${company.id}&jobId=${job.id}">Từ
+							class="btn waves-effect waves-light orange lighten-1 sendApprovalMessageModal ${apply.accepted == null? '' : 'disabled' }"
+							onclick="initSendMessageDialog('${apply.applyID}', '${job.id }', '${company.id }');">Đồng ý<i class="material-icons right">send</i></a> 
+							<a class="btn waves-effect waves-light grey ${apply.accepted == null? '' : 'disabled' }" href="/apply/sendDeniedMessage?applyId=${apply.applyID }&companyId=${company.id}&jobId=${job.id}">Từ
 							chối</a>
 					</div>
 				</div>
