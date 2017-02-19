@@ -164,3 +164,9 @@
     right: 5px;
     bottom: 5px;
 }
+
+.apply-item .apply-status {
+	position: absolute;
+	right: 0;
+	top: 0;
+}

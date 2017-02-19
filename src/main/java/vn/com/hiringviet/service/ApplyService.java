@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import vn.com.hiringviet.dto.ApplyDTO;
 import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Member;
+import vn.com.hiringviet.model.Message;
 
 @Service("applyService")
 public interface ApplyService{
@@ -21,6 +22,8 @@ public interface ApplyService{
 	void update(Apply apply);
 
 	public List<ApplyDTO> getAllApplyByJobId(Integer jobId);
-
+	
+	void sendApprovedApplyMessage(int applyId, Message message);
+	
 	void sendDeniedApplyMessage(int applyId);
 }

@@ -50,13 +50,12 @@ public class ApplyDAOImpl extends CommonDAOImpl<Apply> implements ApplyDAO {
 
 		Session session = getSession();
 		SQLQuery sqlQuery = session
-				.createSQLQuery("INSERT INTO apply (change_log_id, curriculumVitae, disscription, job_id, member_id, accepted) VALUES (?,?,?,?,?,?)");
+				.createSQLQuery("INSERT INTO apply (change_log_id, curriculum_vitae, description, job_id, member_id) VALUES (?,?,?,?,?)");
 		Query hibernateQuery = sqlQuery.setParameter(0, apply.getCurriculumVitae())
 				.setParameter(1, clId)
 				.setParameter(2, apply.getDisscription())
 				.setParameter(3, apply.getJob().getId())
-				.setParameter(4, apply.getMember().getId())
-				.setParameter(5, apply.isAccepted());
+				.setParameter(4, apply.getMember().getId());
 		hibernateQuery.executeUpdate();
 	}
 
@@ -69,7 +68,7 @@ public class ApplyDAOImpl extends CommonDAOImpl<Apply> implements ApplyDAO {
 		sql.append("CONCAT(mb.first_name, ' ', mb.last_name) as memberName, ");
 		sql.append("ac.email as memberEmail, ");
 		sql.append("re.phone_number as memberPhoneNumber, ");
-		sql.append("ap.curriculumVitae as curriculumVitae ");
+		sql.append("ap.curriculum_vitae as curriculumVitae ");
 		sql.append("FROM apply ap ");
 		sql.append("LEFT JOIN member mb ON ap.member_id = mb.id ");
 		sql.append("LEFT JOIN account ac ON mb.account_id = ac.id ");

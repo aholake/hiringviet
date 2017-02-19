@@ -19,6 +19,12 @@ public class MessageDTO implements Serializable {
 	private String content;
 
 	private String dateTime;
+	
+	private int jobId;
+	
+	private int applyId;
+	
+	private int companyId;
 
 	public Integer getId() {
 		return id;
@@ -74,5 +80,29 @@ public class MessageDTO implements Serializable {
 
 	public void setEmailReceiver(String emailReceiver) {
 		this.emailReceiver = emailReceiver;
+	}
+
+	public int getApplyId() {
+		return applyId;
+	}
+
+	public void setApplyId(int applyId) {
+		this.applyId = applyId;
+	}
+
+	public int getJobId() {
+		return jobId;
+	}
+
+	public void setJobId(int jobId) {
+		this.jobId = jobId;
+	}
+
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
 	}
 }

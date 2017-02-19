@@ -25,6 +25,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -124,6 +125,7 @@ public class Job implements Serializable {
 	}
 
 	@Column(name = "description")
+	@Type(type = "text")
 	public String getDescription() {
 		return description;
 	}
@@ -171,6 +173,7 @@ public class Job implements Serializable {
 	}
 
 	@Column(name = "requirement")
+	@Type(type = "text")
 	public String getRequirement() {
 		return requirement;
 	}

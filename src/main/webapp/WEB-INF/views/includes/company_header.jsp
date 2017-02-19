@@ -10,10 +10,10 @@
 <title>Company Header</title>
 </head>
 <body>
-	<c:if test="${param.companyId != null}">
+	<c:if test="${company != null}">
 		<input type="hidden" id="company_account_id" value="${company.account.id}" />
 	</c:if>
-	<c:if test="${param.jobId != null}">
+	<c:if test="${job != null}">
 		<input type="hidden" id="company_account_id" value="${job.company.account.id}" />
 	</c:if>
 	<input type="hidden" id="url_get_owner_message_list" value="/search/message/owner"/>
@@ -23,15 +23,15 @@
 	</sec:authorize>
 	<div class="row company-header">
 		<div class="col m6 offset-m2">
-			<c:if test="${param.companyId != null}">
+			<c:if test="${company != null}">
 				<p class="company-name"><a href="/company?companyId=${company.id}&mode=HOME">${company.displayName}</a></p>
 			</c:if>
-			<c:if test="${param.jobId != null}">
+			<c:if test="${job != null && company == null}">
 				<p class="company-name"><a href="/company?companyId=${job.company.id}&mode=HOME">${job.company.displayName}</a></p>
 			</c:if>
 			<span id="btn-follow-company"><a href="#followModal" class="followModal"><p>${numberFollower} <spring:message code="label.company.header.title.count_follow"/></p></a></span>
 			<ul class="menu-banner">
-				<c:if test="${param.companyId != null}">
+				<c:if test="${company != null}">
 					<li>
 						<c:choose>
 							<c:when test="${param.mode == 'HOME'}">
@@ -62,7 +62,7 @@
 						
 					</li>
 				</c:if>
-				<c:if test="${param.jobId != null}">
+				<c:if test="${job != null && company == null}">
 					<li>
 						<a href="/company?companyId=${job.company.id}&mode=HOME">
 							<spring:message code="label.company.title.home"/>
@@ -171,7 +171,36 @@
 				<a href="#!"
 					class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
 			</div>
-		</form>
+	</form>
+
+	<form action="/apply/sendApprovalMessage" method="post"
+		id="sendApprovalMessageModal" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>Send Message</h4>
+			<div class="row">
+				<input id="approvalApplyId" type="hidden" name="applyId">
+				<input id="approvalJobId" type="hidden" name="jobId">
+				<input id="approvalCompanyId" type="hidden" name="companyId">
+				<div class="col m12 mp0">
+					<div class="input-field col m12 p-0">
+						<input id="confirmTitle" type="text" class="validate" name="title" value="XÁC NHẬN HỒ SƠ ỨNG TUYỂN" required>
+						<label for="title">Title</label>
+					</div>
+					<div class="input-field col m12 p-0">
+						<textarea id="approvalContent" class="materialize-textarea"
+							name="content" required></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="submit"
+				class="modal-action waves-effect waves-green btn-flat">Send</button>
+			<a href="#!"
+				class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
+		</div>
+	</form>
+
 	<!-- Modal Structure -->
 	<div id="subscribeModal" class="modal">
 		<form action="/company/subscribe" method="POST">
@@ -211,7 +240,9 @@
 			$('.messageDetailModal').leanModal();
 			$('.sendMessageModal').leanModal();
 			$('.subscribeModal').leanModal();
+			$(".sendApprovalMessageModal").leanModal();
 			CKEDITOR.replace("txtContent");
+			CKEDITOR.replace("approvalContent");
 		})
 	</script>
 </body>

@@ -30,18 +30,6 @@ public class MessageController {
 	private ApplyService applyService;
 
 	@ResponseBody
-	@RequestMapping(value = "/deniedMessage", method = RequestMethod.POST)
-	public StatusResponseEnum sendDeniedMessage(@RequestParam("applyId") int applyId,
-			@RequestParam("receiver") String receiverEmail) {
-		try {
-			mailBoxService.sendDeniedApplyMessage(applyId, receiverEmail);
-			return StatusResponseEnum.SUCCESS;
-		} catch (Exception e) {
-			return StatusResponseEnum.FAIL;
-		}
-	}
-	
-	@ResponseBody
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	public String sendMessage(@ModelAttribute MessageDTO message) {
 		mailBoxService.sendMessageViaDto(message);

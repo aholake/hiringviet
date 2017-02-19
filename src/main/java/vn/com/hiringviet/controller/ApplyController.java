@@ -9,14 +9,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import vn.com.hiringviet.auth.AuthenticationUtil;
+import vn.com.hiringviet.common.StatusResponseEnum;
 import vn.com.hiringviet.dto.ApplyDTO;
+import vn.com.hiringviet.dto.MessageDTO;
+import vn.com.hiringviet.model.Apply;
 import vn.com.hiringviet.model.Member;
+import vn.com.hiringviet.model.Message;
 import vn.com.hiringviet.service.ApplyService;
 
 import com.google.appengine.api.blobstore.BlobKey;
@@ -61,5 +67,25 @@ public class ApplyController {
         BlobKey blobKey = new BlobKey(fileKey);
         blobStoreService.serve(blobKey, response);
 
+	}
+	
+	@RequestMapping(value = "/apply/sendApprovalMessage", method = RequestMethod.POST)
+	public void approveApply(@ModelAttribute MessageDTO messageDTO,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		Message message = new Message();
+		message.setTitle(messageDTO.getTitle());
+		message.setContent(messageDTO.getContent());
+		applyService.sendApprovedApplyMessage(messageDTO.getApplyId(), message);
+
+		response.sendRedirect("/company/apply?companyId="
+				+ messageDTO.getCompanyId() + "&jobId=" + messageDTO.getJobId());
+	}
+
+	@RequestMapping(value = "/apply/sendDeniedMessage", method = RequestMethod.GET)
+	public void sendDeniedMessage(@RequestParam("applyId") int applyId, @RequestParam("companyId") int companyId, @RequestParam("jobId") int jobId, HttpServletResponse response) throws IOException {
+		applyService.sendDeniedApplyMessage(applyId);
+		response.sendRedirect("/company/apply?companyId="
+				+ companyId + "&jobId=" + jobId);
 	}
 }

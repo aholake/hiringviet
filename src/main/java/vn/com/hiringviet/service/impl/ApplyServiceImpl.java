@@ -61,7 +61,7 @@ public class ApplyServiceImpl implements ApplyService {
 			apply.setDisscription(description);
 			apply.setCurriculumVitae(applyDTO.getCurriculumVitae());
 			apply.setChangeLog(Utils.createDefaultChangeLog());
-			apply.setAccepted(false);
+			apply.setAccepted(null);
 			applyDao.addApplyByNativeSQL(apply);
 		}
 
@@ -100,7 +100,7 @@ public class ApplyServiceImpl implements ApplyService {
 			apply.setAccepted(true);
 			this.update(apply);
 			
-			mailBoxService.sendMessageNativeSQL(approveMessage);
+			mailBoxService.createMessageNativeSQL(approveMessage);
 			
 			sendEmailConfirmApply(receiverAcc, apply, true, approveMessage.getContent());
 		} else {
@@ -132,12 +132,12 @@ public class ApplyServiceImpl implements ApplyService {
 
 		if (receiverAcc != null && company != null && apply != null) {
 			Member receiverMember = receiverAcc.getMember();
-			title = MessageFormat.format(title, apply.getApplyID());
+			title = MessageFormat.format(title, apply.getApplyID(),company.getCompany().getDisplayName());
 			
 			content = MessageFormat.format(
 					content,
 					receiverMember.getFirstName()
-							+ receiverMember.getLastName());
+							+ receiverMember.getLastName(), company.getCompany().getDisplayName());
 			Message message = new Message();
 			message.setOwnerAccount(receiverAcc);
 			message.setSenderAccount(company);
@@ -147,9 +147,9 @@ public class ApplyServiceImpl implements ApplyService {
 			apply.setAccepted(false);
 			this.update(apply);
 			
-			mailBoxService.sendMessageNativeSQL(message);
+			mailBoxService.createMessageNativeSQL(message);
 			
-			sendEmailConfirmApply(receiverAcc, apply, true, content);
+			sendEmailConfirmApply(receiverAcc, apply, false, content);
 		} else {
 			throw new RuntimeException("Internal Error");
 		}
