@@ -12,11 +12,7 @@ public interface MailboxService {
 
 	List<MessageDTO> getOwnerMailList(Integer accountId);
 	
-	void sendMessageNativeSQL(Message message);
-	
-	void sendDeniedApplyMessage(int applyId, String receiverEmail);
-	
-	void sendApprovalApplyMessage(int applyId, String receiverEmail);
+	void createMessageNativeSQL(Message message);
 	
 	void sendMessageViaDto(MessageDTO messageDTO);
 }

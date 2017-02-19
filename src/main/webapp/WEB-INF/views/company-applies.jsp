@@ -109,10 +109,22 @@
 						<c:if test="${not empty apply.curriculumVitae }">
 							<a href="/file/download/${apply.curriculumVitae }" class="attachment-file"><i class="material-icons">attach_file</i></a>
 						</c:if>
+						<span class="apply-status"> <c:choose>
+								<c:when test="${apply.accepted }">
+									<i class="material-icons green-text">check_circle</i>
+								</c:when>
+								<c:when test="${!apply.accepted }">
+									<i class="material-icons red-text">cancel</i>
+								</c:when>
+							</c:choose>
+						</span>
 					</div>
 					<div class="card-action">
-						<a href="#sendMessageModal" class="sendMessageModal" onclick="initSendMessageDialog('${apply.member.account.email}');">Đồng ý</a> 
-						<a href="#" onclick="sendDeniedMessage(${apply.applyID},'${apply.member.account.email}');return false;">Từ chối</a>
+						<a href="#sendApprovalMessageModal"
+							class="sendApprovalMessageModal"
+							onclick="initSendMessageDialog('${apply.applyID}', '${job.id }', '${company.id }');">Đồng ý</a> <a
+							href="/apply/sendDeniedMessage?applyId=${apply.applyID }&companyId=${company.id}&jobId=${job.id}">Từ
+							chối</a>
 					</div>
 				</div>
 			</c:forEach>
@@ -263,14 +275,6 @@
 		src="/resources/common/js/ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="/resources/common/js/freewall.js"></script>
 	<script type="text/javascript">
-		function sendDeniedMessage(applyId, receiverEmail) {
-			console.log('Apply ID: '+applyId);
-			console.log('Receiver email: '+receiverEmail);
-			var deniedMessageUrl = '/api/message/deniedMessage?applyId=' + applyId + '&receiver=' + receiverEmail;
-			
-			callAPI(deniedMessageUrl, 'POST', '', 'showStatusMessage');
-		}
-		
 		function showStatusMessage(response) {
 			console.log('Denied Response: '+ response);
 			if(response == 'FAIL') {
@@ -281,9 +285,10 @@
 			Materialize.toast($toastContent, 5000);
 		}
 		
-		function initSendMessageDialog(receiver) {
-			$("#toAccount").val(receiver);
-			$("#title").val("ĐƠN ỨNG TUYỂN");
+		function initSendMessageDialog(applyId, jobId, companyId) {
+			$("#sendApprovalMessageModal #approvalApplyId").val(applyId);
+			$("#sendApprovalMessageModal #approvalJobId").val(jobId);
+			$("#sendApprovalMessageModal #approvalCompanyId").val(companyId);
 		}
 	</script>
 </body>

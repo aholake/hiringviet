@@ -58,8 +58,8 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		criteria.createAlias("job.changeLog", "changeLog");
 		criteria.createAlias("job.company", "company");
 		criteria.createAlias("job.jobCategory", "jobCategory");
-		criteria.createAlias("job.position", "position");
-		criteria.createAlias("job.workAddress", "address");
+		criteria.createAlias("job.position", "position", JoinType.LEFT_OUTER_JOIN);
+		criteria.createAlias("job.workAddress", "address", JoinType.LEFT_OUTER_JOIN);
 		criteria.createAlias("address.district", "district", JoinType.LEFT_OUTER_JOIN);
 		criteria.createAlias("district.province", "province", JoinType.LEFT_OUTER_JOIN);
 
@@ -67,7 +67,7 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 				&& (Utils.isEmptyString(mode)
 						|| SearchEnum.ALL.getStatus().equals(mode) || SearchEnum.SKILL
 						.getStatus().equals(mode))) {
-			criteria.createAlias("job.skillSet", "skillSet");
+			criteria.createAlias("job.skillSet", "skillSet", JoinType.LEFT_OUTER_JOIN);
 		}
 
 		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));

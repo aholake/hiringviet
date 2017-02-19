@@ -66,7 +66,11 @@ public class MemberServiceImpl implements MemberService {
 		String activeCode = TextGenerator.generateRandomString(TextGenerator.RANDOM_ACTIVE_STRING_LENGTH);
 		member.getAccount()
 				.setActiveUrl(activeCode);
-		member.setResume(new Resume());
+		
+		Resume resume = new Resume();
+		resume.setMember(member);
+		resume.setChangeLog(Utils.createDefaultChangeLog());
+		member.setResume(resume);
 		int memberId = memberDAO.create(member);
 		if (memberId > 0) {
 			final Account account = getMemberByID(memberId).getAccount();
