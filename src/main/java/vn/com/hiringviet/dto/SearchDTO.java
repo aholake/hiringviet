@@ -12,6 +12,8 @@ public class SearchDTO implements Serializable {
 
 	private String jobTitle;
 
+	private String companyName;
+
 	public Integer getSkillId() {
 		return skillId;
 	}
@@ -34,6 +36,14 @@ public class SearchDTO implements Serializable {
 
 	public void setJobTitle(String jobTitle) {
 		this.jobTitle = jobTitle;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 }

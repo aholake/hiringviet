@@ -306,6 +306,10 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 			criteria.add(Restrictions.like("skillSet.displayName", searchDTO.getSkill(), MatchMode.ANYWHERE));
 		}
 
+		if (!StringUtils.isEmpty(searchDTO.getCompanyName())) {
+			criteria.add(Restrictions.like("company.displayName", searchDTO.getCompanyName(), MatchMode.ANYWHERE));
+		}
+
 		criteria.add(Restrictions.eq("changeLog.status", StatusEnum.ACTIVE));
 		criteria.add(Restrictions.eq("job.publish", PublishResponseEnum.PUBLISH.getValue()));
 		criteria.add(Restrictions.gt("job.expiredDate", DateUtil.now()));

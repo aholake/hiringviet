@@ -288,7 +288,7 @@
 					</div>
 					<div class="col s12 p-0">
 						<button id="submitBtn" type="submit"
-							class="waves-effect waves-light btn long-btn"><spring:message code="label.login.titl"></spring:message></button>
+							class="waves-effect waves-light btn long-btn"><spring:message code="label.login.title"></spring:message></button>
 					</div>
 				</div>
 			</form>
@@ -365,6 +365,7 @@
 		</div>
 	</div>
 	<form id="search-event" action="/home" method="post">
+		<input type="hidden" id="companyName" name="companyName"/>
 		<input type="hidden" id="skillId" name="skillId"/>
 		<input type="hidden" id="skill" name="skill"/>
 		<input type="hidden" id="jobTitle" name="jobTitle"/>

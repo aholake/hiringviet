@@ -184,7 +184,7 @@
 				<div class="col m12 mp0">
 					<div class="input-field col m12 p-0">
 						<input id="confirmTitle" type="text" class="validate" name="title" value="XÁC NHẬN HỒ SƠ ỨNG TUYỂN" required>
-						<label for="title"><spring:message code="label.company.message.title "></spring:message></label>
+						<label for="title"><spring:message code="label.company.message.title"></spring:message></label>
 					</div>
 					<div class="input-field col m12 p-0">
 						<textarea id="approvalContent" class="materialize-textarea" name="content" required></textarea>

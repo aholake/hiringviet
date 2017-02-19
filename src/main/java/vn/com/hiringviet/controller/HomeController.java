@@ -75,7 +75,7 @@ public class HomeController {
 	 *            the session
 	 * @return home page
 	 */
-	@RequestMapping(value = { "/", "home"})
+	@RequestMapping(value = { "/", "/home"})
 	public String goHomePage(Model model, 
 			@RequestParam(value = "mode", required = false) String mode, 
 			@RequestParam(value = "keyValue", required = false) String keyValue) {
@@ -126,7 +126,7 @@ public class HomeController {
 		return result;
 	}
 
-	@RequestMapping(value = { "/", "home"}, params = "search")
+	@RequestMapping(value = { "/", "/home"}, params = "search")
 	public String search(Model model,
 			@ModelAttribute SearchDTO searchDTO) {
 

@@ -267,7 +267,7 @@ function hideIconEdit(select) {
 }
 
 
-function showMemberTooltip(event, accountId) {
+function showMemberTooltip(event, accountId, memberId) {
 	if (checkMemberTooltip) {
 		var bodyRect = document.body.getBoundingClientRect(),
 	    elemRect = event.getBoundingClientRect(),
@@ -276,9 +276,9 @@ function showMemberTooltip(event, accountId) {
 	
 		$('.tooltil-show-member').css('top', (offsetX - 112));
 		$('.tooltil-show-member').css('left', (offsetY - 113));
-		$('.tooltil-show-member .btn-connect').prop('href', $('#redirect_member_page').val() + accountId);
-		$('.tooltil-show-member .btn-profile').prop('href', $('#redirect_member_page').val() + accountId);
-		$('.tooltil-show-member .endorse-item-name-text').prop('href', $('#redirect_member_page').val() + accountId);
+		$('.tooltil-show-member .btn-connect').prop('href', $('#redirect_member_page').val() + memberId);
+		$('.tooltil-show-member .btn-profile').prop('href', $('#redirect_member_page').val() + memberId);
+		$('.tooltil-show-member .endorse-item-name-text').prop('href', $('#redirect_member_page').val() + memberId);
 		callAPI($('#url_count_member_of_follwer').val(), 'POST', accountId, 'processCountNumberOfFollower', false);
 		checkMemberTooltip = false;
 	}

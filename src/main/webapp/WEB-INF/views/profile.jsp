@@ -29,7 +29,7 @@
 	<input type="hidden" id="id_of_account" value="${memberLogin.account.id}"/>
 	<input type="hidden" id="url_remove_endorse" value="<c:url value='/profile/endorse/remove'/>"/>
 	<input type="hidden" id="url_count_member_of_follwer" value="<c:url value='/profile/countNumberOfFollower'/>"/>
-	<input type="hidden" id="redirect_member_page" value="<c:url value='/profile?accountId='/>"/>
+	<input type="hidden" id="redirect_member_page" value="<c:url value='/profile?memberId='/>"/>
 	<input type="hidden" id="url_add_connect" value="<c:url value='/profile/addConnect'/>"/>
 	<input type="hidden" id="paramMemberId" value="${param.memberId}"/>
 		<div class="row">
@@ -708,9 +708,10 @@
 					    						<c:choose>
 					    							<c:when test="${not empty memberLogin.account && memberLogin.account.id == endorse.account.id && checkConnect == true}">
 														<li class="special endorse_${endorse.id} endorse_account_${endorse.account.id}_${skillResume.skill.id}"
-															onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
+															onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id}, ${endorse.account.member.id});"
 															onmouseout="javascript:hideMemberToolTip()">
-														<a href="/profile?memberId=${endorse.account.id}">
+														<a href="/profile?memberId=${endorse.account.member.id}">
+															<input type="hidden" class="member_id" value="${endorse.account.member.id}"/>
 															<input type="hidden" class="avatar_image" value="${endorse.account.avatarImage}"/>
 															<img class="img-full" src="${endorse.account.avatarImage}">
 														</a>
@@ -728,9 +729,10 @@
 					    							<c:otherwise>
 					    								<c:if test="${theCount.count <= 9}">
 						    								<li class="endorse_${endorse.id}" 
-						    									onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id});"
+						    									onmouseenter="javascript:showMemberTooltip(this, ${endorse.account.id}, ${endorse.account.member.id});"
 						    									onmouseout="javascript:hideMemberToolTip()">
-								    							<a href="#">
+								    							<a href="/profile?memberId=${endorse.account.member.id}">
+								    								<input type="hidden" class="member_id" value="${endorse.account.member.id}"/>
 								    								<input type="hidden" class="avatar_image" value="${endorse.account.avatarImage}"/>
 								    								<img class="img-full" src="${endorse.account.avatarImage}">
 								    							</a>

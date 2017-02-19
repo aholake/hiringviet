@@ -372,14 +372,15 @@ function showResult(result) {
 }
 
 function addFirstItem() {
-//	var item = "<a href=''><li class='search-item'>\
-//		<i class='material-icons icon'>work</i>\
-//		<div class='wrapper'>\
-//			<p style='line-height: 50px;'><a>Jobs</a> requiring " + setTextColorBlue(VALUE_SEARCH)  + " skills</p>\
-//		</div>\
-//		</li></a>";
-//	COUNT_LI_ITEM++;
-//	$('#suggestion-box ul').append(item);
+
+	var item = "<li class='search-item' onclick='searchByCompanyName(&apos;" + VALUE_SEARCH.trim() + "&apos;)'>\
+		<i class='material-icons icon'>work</i>\
+		<div class='wrapper'>\
+			<p style='line-height: 50px;'><a>Companies</a> requiring " + setTextColorBlue(VALUE_SEARCH)  + " name</p>\
+		</div>\
+		</li>";
+	COUNT_LI_ITEM++;
+	$('#suggestion-box ul').append(item);
 
 	var item = "<li class='search-item' onclick='searchBySkill(&apos;" + VALUE_SEARCH.trim() + "&apos;)'>\
 				<i class='material-icons icon'>work</i>\
@@ -456,20 +457,26 @@ function addFirstItem() {
 	 return "<a>" + value + "</a>";
  }
 
- function searchByJobTitle(jobTitle) {
-	 $("#search-event #jobTitle").val(jobTitle);
+ function searchByCompanyName(companyName) {
+	$("#search-event #companyName").val(companyName);
 
-	 $("#search-event").submit();
- }
+	$("#search-event").submit();
+}
 
- function searchBySkill(skill) {
-	 $("#search-event #skill").val(skill);
+function searchByJobTitle(jobTitle) {
+	$("#search-event #jobTitle").val(jobTitle);
 
-	 $("#search-event").submit();
- }
+	$("#search-event").submit();
+}
 
- function searchBySkillId(skillId) {
-	 $("#search-event #skillId").val(skillId);
+function searchBySkill(skill) {
+	$("#search-event #skill").val(skill);
 
-	 $("#search-event").submit();
- }
+	$("#search-event").submit();
+}
+
+function searchBySkillId(skillId) {
+	$("#search-event #skillId").val(skillId);
+
+	$("#search-event").submit();
+}

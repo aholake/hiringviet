@@ -12,7 +12,7 @@ $(function() {
 
 		var html = "";
 		$(parent).find('.avatar_image').each(function() {
-			html += '<img width="50px" height="50px" class="margin-right-5" alt="" src="' + $(this).val() + '" />';
+			html += '<a href="/profile?memberId=' + $(this).parent().find('.member_id').val() + '"><img width="50px" height="50px" class="margin-right-5" alt="" src="' + $(this).val() + '" /></a>';
 		});
 		$('#list-member-endorse').append(html);
 		$('#endorseModal').openModal();
