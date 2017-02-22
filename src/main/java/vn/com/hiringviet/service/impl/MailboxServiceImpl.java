@@ -60,6 +60,6 @@ public class MailboxServiceImpl implements MailboxService {
 	}
 	
 	private void triggerLogger(Message message) {
-		logger.create( message.getSenderAccount().getId(), message.getOwnerAccount().getId(), message.getSenderAccount().getAvatarImage(), "You have received a message", true);
+		logger.create( message.getSenderAccount().getId(), message.getOwnerAccount().getId(), "You have received a message", true);
 	}
 }

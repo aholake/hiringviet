@@ -463,7 +463,7 @@
 									</div>
 								</div>
 								<div class="col m3 hide-on-med-and-down">
-									<img src="${company.avatar}" class="right responsive-img img-full">
+									<img src="${company.account.avatarImage}" class="right responsive-img img-full">
 								</div>
 								<div class="small-text col m12">
 									<p class="none-padding-left">

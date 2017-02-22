@@ -19,6 +19,7 @@ import vn.com.hiringviet.model.Message;
 import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.ApplyService;
 import vn.com.hiringviet.service.JobService;
+import vn.com.hiringviet.service.LoggerService;
 import vn.com.hiringviet.service.MailService;
 import vn.com.hiringviet.service.MailboxService;
 import vn.com.hiringviet.util.FileUtil;
@@ -43,7 +44,10 @@ public class ApplyServiceImpl implements ApplyService {
 	
 	@Autowired
 	private AccountService accountService;
-	
+
+	@Autowired
+	private LoggerService loggerService;
+
 	@Override
 	public void addApply(Apply apply) {
 		applyDao.create(apply);
@@ -63,6 +67,9 @@ public class ApplyServiceImpl implements ApplyService {
 			apply.setChangeLog(Utils.createDefaultChangeLog());
 			apply.setAccepted(null);
 			applyDao.addApplyByNativeSQL(apply);
+			String info = "<p><b>" + member.getFirstName() + " " + member.getLastName() + "<b> vừa apply vào công việc \"" + job.getTitle() + "\"</p>";
+			info += "</p><a href=\"/company/apply?companyId=" + job.getCompany().getId() + "&jobId=" + job.getId() + "\">Xác thực ngay!</a><p>";
+			loggerService.create(member.getAccount().getId(), job.getCompany().getAccount().getId(), info, false);
 		}
 
 	}

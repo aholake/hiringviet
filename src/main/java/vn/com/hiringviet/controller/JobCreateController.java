@@ -91,7 +91,7 @@ public class JobCreateController {
 			loggerService.jobActivity(company.getAccount(), 
 					follow.getFromAccount(), 
 					company.getAccount().getAvatarImage(), 
-					Utils.genLogApply(company, job, true), true);
+					Utils.genLogFollow(company, job, true), true);
 		}
 		return "redirect:/company?companyId=" + company.getId() + "&mode=CAREER";
 	}

@@ -309,7 +309,7 @@ function cancelEducationDocument(value) {
 
 function processAddConnect(response) {
 	if (SUCCESS == response.result) {
-		
+		location.reload();
 	} else {
 		alert('Please login to continue!');
 	}

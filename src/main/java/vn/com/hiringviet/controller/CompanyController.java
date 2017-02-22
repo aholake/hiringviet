@@ -482,7 +482,7 @@ public class CompanyController {
 				loggerService.jobActivity(companyLogin.getAccount(), 
 						follow.getFromAccount(), 
 						companyLogin.getAccount().getAvatarImage(), 
-						Utils.genLogApply(companyLogin, null, false), true);
+						Utils.genLogFollow(companyLogin, null, false), true);
 			}
 			return goCompanyPage(companyLogin.getId(), ModeEnum.HOME.getValue(), model, session);
 		}
@@ -603,7 +603,7 @@ public class CompanyController {
 
 		followService.create(accountFrom, accountTo);
 
-		loggerService.create(accountTo.getId(), accountFrom.getId(), accountFrom.getAvatarImage(), CommonEnum.FOLLOW.getStatus(), false);
+		loggerService.create(accountTo.getId(), accountFrom.getId(), CommonEnum.FOLLOW.getStatus(), false);
 
 		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
 	}

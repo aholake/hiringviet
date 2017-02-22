@@ -73,6 +73,8 @@ public class Job implements Serializable {
 
 	private Set<Comment> commentSet;
 
+	private String cultureDescription;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
@@ -256,4 +258,14 @@ public class Job implements Serializable {
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
+	@Column(name = "culture_description")
+	public String getCultureDescription() {
+		return cultureDescription;
+	}
+
+	public void setCultureDescription(String cultureDescription) {
+		this.cultureDescription = cultureDescription;
+	}
+
 }

@@ -208,7 +208,7 @@
 							<form action="/job/settingCompanyPolicies" method="POST">
 								<input type="hidden" name="jobId" value="${param.jobId}" />
 								<div class="input-field col m12 p-0">
-									<textarea rows="10" cols="80" id="txtCompanyPolicies" name="companyPolicies">${job.company.companyPolicies}</textarea>
+									<textarea rows="10" cols="80" id="txtCompanyPolicies" name="companyPolicies">${job.cultureDescription}</textarea>
 								</div>
 								<div class="text-right">
 									<button class="btn waves-effect waves-light margin-top-10" type="submit" name="action">Submit</button>
@@ -279,7 +279,7 @@
 									</div>
 								</div>
 								<div class="col m3 hide-on-med-and-down">
-									<img src="${job.company.avatar}" class="right responsive-img">
+									<img src="${job.company.account.avatarImage}" class="right responsive-img">
 								</div>
 							</div>
 						</div>

@@ -9,7 +9,7 @@ import vn.com.hiringviet.model.Account;
 @Transactional
 public interface LoggerService {
 
-	public boolean create(Integer ownerAccountId, Integer guestAccountId, String image, String info, boolean isActivity);
+	public boolean create(Integer ownerAccountId, Integer guestAccountId, String info, boolean isActivity);
 
 	public boolean jobActivity(Account ownerAccount, Account guestAccount, String image, String info, boolean isActivity);
 }

@@ -26,7 +26,7 @@ public class LoggerServiceImpl implements LoggerService {
 	private MemberDAO memberDAO;
 
 	@Override
-	public boolean create(Integer ownerAccountId, Integer guestAccountId, String image, String info, boolean isActivity) {
+	public boolean create(Integer ownerAccountId, Integer guestAccountId, String info, boolean isActivity) {
 
 		MemberDTO member = memberDAO.getMemberByAccountId(guestAccountId);
 		Account account = accountDAO.findOne(ownerAccountId);

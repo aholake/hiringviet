@@ -278,10 +278,10 @@ public class Utils {
 			return name + " vừa trả lời comment của bạn";
 		}
 
-		return null;
+		return commonStatus;
 	}
 
-	public static String genLogApply(Company company, Job job, boolean isJob) {
+	public static String genLogFollow(Company company, Job job, boolean isJob) {
 
 		StringBuilder sb = new StringBuilder();
 
