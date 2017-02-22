@@ -241,7 +241,7 @@
 								<input type="hidden" id="phoneNumberIsEmpty" value='<spring:message code="message.error.profile.summary.phoneNumber.is_empty"></spring:message>'/>
 								<input type="hidden" id="notionalityIsEmpty" value='<spring:message code="message.error.profile.summary.notionality.is_empty"></spring:message>'/>
 								<div class="input-field col m5 p-0">
-									<form:input type="date" class="display-none" id="birthDate" path="birthDate" cssClass="datepicker"/>
+									<form:input type="date" class="display-none" id="birthDate" path="birthDate" cssClass="birthdate"/>
 									<label><spring:message code="label.profile.title.summary.birth_date"/></label>
 								</div>
 								<div class="input-field col m5 p-0 offset-m2">

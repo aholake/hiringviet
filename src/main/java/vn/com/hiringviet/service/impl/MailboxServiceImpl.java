@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.auth.AuthenticationUtil;
+import vn.com.hiringviet.common.CommonEnum;
 import vn.com.hiringviet.dao.MailboxDAO;
 import vn.com.hiringviet.dto.MessageDTO;
 import vn.com.hiringviet.model.Account;
@@ -59,6 +60,6 @@ public class MailboxServiceImpl implements MailboxService {
 	}
 	
 	private void triggerLogger(Message message) {
-		logger.create(message.getSenderAccount().getId(), message.getOwnerAccount().getId(), null, "You have received a message", true);
+		logger.create( message.getSenderAccount().getId(), message.getOwnerAccount().getId(), message.getSenderAccount().getAvatarImage(), "You have received a message", true);
 	}
 }

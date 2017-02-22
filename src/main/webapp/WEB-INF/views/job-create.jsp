@@ -112,7 +112,7 @@
 					</div>
 
 					<div class="input-field col m3 p-0">
-						<form:input path="expiredDate" type="date" class="datepicker" />
+						<form:input path="expiredDate" type="date" class="expired-date" />
 						<label for="expiredDate">Ngày hết hạn</label>
 					</div>
 
@@ -138,6 +138,14 @@
 	<script type="text/javascript" src="/resources/common/js/nouislider.min.js"></script>
 	<script type="text/javascript" src="/resources/common/js/wNumb.js"></script>
 	<script type="text/javascript" src="/resources/hiringviet/jobcreate/jobcreate.js"></script>
-	<script type="text/javascript" src="/resources/common/js/initDatePicker.js"></script>
+	<script>
+	$('.expired-date').pickadate({
+		selectMonths : true, // Creates a dropdown to control month
+		selectYears : 15,
+		min: new Date(),
+		format : 'dd/mm/yyyy',
+		formatSubmit : 'dd/mm/yyyy'
+	});
+	</script>
 </body>
 </html>

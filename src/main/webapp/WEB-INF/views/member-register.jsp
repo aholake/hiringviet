@@ -37,7 +37,7 @@
 						</div>
 						<div class="input-field">
 							<form:input id="birthDate" path="birthDate" type="date"
-								class="datepicker" required="required" />
+								class="birthdate" required="required" />
 							<label for="birthDate">Birth Date</label>
 						</div>
 						<div class="input-field">
