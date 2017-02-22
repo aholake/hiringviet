@@ -67,9 +67,9 @@ public class ApplyServiceImpl implements ApplyService {
 			apply.setChangeLog(Utils.createDefaultChangeLog());
 			apply.setAccepted(null);
 			applyDao.addApplyByNativeSQL(apply);
-			String info = "<p><b>" + member.getFirstName() + " " + member.getLastName() + "<b> vừa apply vào công việc \"" + job.getTitle() + "\"</p>";
+			String info = "<p><b>" + member.getFirstName() + " " + member.getLastName() + "</b> vừa apply vào công việc \"" + job.getTitle() + "\"</p>";
 			info += "</p><a href=\"/company/apply?companyId=" + job.getCompany().getId() + "&jobId=" + job.getId() + "\">Xác thực ngay!</a><p>";
-			loggerService.create(member.getAccount().getId(), job.getCompany().getAccount().getId(), info, false);
+			loggerService.create(job.getCompany().getAccount().getId(), member.getAccount().getId(), info, false);
 		}
 
 	}
