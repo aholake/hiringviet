@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.dao.JobCategoryDAO;
 import vn.com.hiringviet.model.JobCategory;
 
+/**
+ * The Class JobCategoryDAOImpl.
+ */
 @Repository
 @Transactional
 public class JobCategoryDAOImpl extends CommonDAOImpl<JobCategory> implements

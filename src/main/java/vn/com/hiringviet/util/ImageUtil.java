@@ -1,19 +1,11 @@
 package vn.com.hiringviet.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,8 +13,6 @@ import vn.com.hiringviet.api.dto.response.AccountDTO;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.CompanyPhoto;
 
-import com.google.appengine.api.blobstore.BlobInfo;
-import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.images.ImagesService;
@@ -30,14 +20,23 @@ import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ImageUtil.
+ */
 public class ImageUtil {
 
-	/** Constant for base64 string */
+	/**  Constant for base64 string. */
 	private static final String JPEG_PREFIX = "data:image/jpeg;base64,";
+	
+	/** The Constant PNG_PREFIX. */
 	private static final String PNG_PREFIX = "data:image/png;base64,";
 
 	/**
-	 * Convert image data to byte[] 
+	 * Convert image data to byte[].
+	 *
+	 * @param imgFile the img file
+	 * @return the byte[]
 	 */
 	public static byte[] convertImageToByte(MultipartFile imgFile) {
 
@@ -55,7 +54,10 @@ public class ImageUtil {
 	}
 
 	/**
-	 * Convert image data to byte[] 
+	 * Convert image data to byte[].
+	 *
+	 * @param base64Str the base64 str
+	 * @return the byte[]
 	 */
 	public static byte[] convertImageToByte(String base64Str) {
 
@@ -70,7 +72,10 @@ public class ImageUtil {
 	}
 
 	/**
-	 * Convert byte[] to image data
+	 * Convert byte[] to image data.
+	 *
+	 * @param imgBytes the img bytes
+	 * @return the string
 	 */
 	public static String convertByteToImage(byte[] imgBytes) {
 
@@ -83,6 +88,14 @@ public class ImageUtil {
 		return strImage;
 	}
 
+	/**
+	 * Convert image to byte.
+	 *
+	 * @param blobstoreService the blobstore service
+	 * @param request the request
+	 * @param account the account
+	 * @return the account dto
+	 */
 	public static AccountDTO convertImageToByte(BlobstoreService blobstoreService, HttpServletRequest request, Account account) {
 
 		AccountDTO accountDTO = new AccountDTO();
@@ -110,6 +123,14 @@ public class ImageUtil {
 		return accountDTO;
 	}
 
+	/**
+	 * Convert image to byte.
+	 *
+	 * @param blobstoreService the blobstore service
+	 * @param request the request
+	 * @param companyPhoto the company photo
+	 * @return the company photo
+	 */
 	public static CompanyPhoto convertImageToByte(BlobstoreService blobstoreService, HttpServletRequest request, CompanyPhoto companyPhoto) {
 
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);

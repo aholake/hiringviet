@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.dao.CountryDAO;
 import vn.com.hiringviet.model.Country;
 
+/**
+ * The Class CountryDAOImpl.
+ */
 @Repository
 @Transactional
 public class CountryDAOImpl extends CommonDAOImpl<Country> implements CountryDAO{

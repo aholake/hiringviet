@@ -3,7 +3,6 @@ package vn.com.hiringviet.dao.impl;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -17,17 +16,30 @@ import vn.com.hiringviet.dao.ReplyCommentDAO;
 import vn.com.hiringviet.dto.ReplyCommentDTO;
 import vn.com.hiringviet.model.ReplyComment;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ReplyCommentDAOImpl.
+ */
 @Repository
 @Transactional
 public class ReplyCommentDAOImpl extends CommonDAOImpl<ReplyComment> implements ReplyCommentDAO {
 
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * Sets the session factory.
+	 *
+	 * @param sessionFactory the new session factory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.ReplyCommentDAO#getListCommentByPostId(java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ReplyCommentDTO> getListCommentByPostId(Integer first, Integer max, Integer commentId) {
@@ -52,6 +64,9 @@ public class ReplyCommentDAOImpl extends CommonDAOImpl<ReplyComment> implements 
 		return resulCommentDTOs;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.ReplyCommentDAO#delete(java.lang.Integer)
+	 */
 	@Override
 	public boolean delete(Integer replyCommentId) {
 

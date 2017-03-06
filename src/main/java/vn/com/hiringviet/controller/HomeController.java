@@ -1,4 +1,3 @@
-
 package vn.com.hiringviet.controller;
 
 import java.util.HashMap;
@@ -60,19 +59,20 @@ public class HomeController {
 	@Autowired
 	private ResumeService resumeService;
 
+	/** The country service. */
 	@Autowired
 	private CountryService countryService;
 
+	/** The account service. */
 	@Autowired
 	private AccountService accountService;
 
 	/**
 	 * Go home page.
 	 *
-	 * @param model
-	 *            the model
-	 * @param session
-	 *            the session
+	 * @param model            the model
+	 * @param mode the mode
+	 * @param keyValue the key value
 	 * @return home page
 	 */
 	@RequestMapping(value = { "/", "/home"})
@@ -126,6 +126,13 @@ public class HomeController {
 		return result;
 	}
 
+	/**
+	 * Search.
+	 *
+	 * @param model the model
+	 * @param searchDTO the search dto
+	 * @return the string
+	 */
 	@RequestMapping(value = { "/", "/home"}, params = "search")
 	public String search(Model model,
 			@ModelAttribute SearchDTO searchDTO) {
@@ -147,6 +154,12 @@ public class HomeController {
 		return "home";
 	}
 
+	/**
+	 * Sets the apply map.
+	 *
+	 * @param applyList the apply list
+	 * @return the map
+	 */
 	private Map<Integer, Apply> setApplyMap(Set<Apply> applyList) {
 		Map<Integer, Apply> result = new HashMap<>();
 		for (Apply apply : applyList) {
@@ -155,6 +168,11 @@ public class HomeController {
 		return result;
 	}
 	
+	/**
+	 * Gets the logged account.
+	 *
+	 * @return the logged account
+	 */
 	private Account getLoggedAccount() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof Account) {
@@ -164,6 +182,12 @@ public class HomeController {
 		return null;
 	}
 
+	/**
+	 * Go error page.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@RequestMapping(value = {"error/500"})
 	public String goErrorPage(Model model) {
 		return "500";

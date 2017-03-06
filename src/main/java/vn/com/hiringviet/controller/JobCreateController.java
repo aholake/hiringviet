@@ -26,26 +26,43 @@ import vn.com.hiringviet.service.PositionService;
 import vn.com.hiringviet.service.SkillService;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JobCreateController.
+ */
 @Controller
 public class JobCreateController {
+	
+	/** The job service. */
 	@Autowired
 	private JobService jobService;
 
+	/** The country service. */
 	@Autowired
 	private CountryService countryService;
 
+	/** The position service. */
 	@Autowired
 	private PositionService positionService;
 
+	/** The skill service. */
 	@Autowired
 	private SkillService skillService;
 
+	/** The job category service. */
 	@Autowired
 	private JobCategoryService jobCategoryService;
 
+	/** The logger service. */
 	@Autowired
 	private LoggerService loggerService;
 
+	/**
+	 * Go to job create page.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@RequestMapping("/job/create")
 	public String goToJobCreatePage(Model model) {
 
@@ -56,6 +73,13 @@ public class JobCreateController {
 		return "job-create";
 	}
 
+	/**
+	 * Adds the new job.
+	 *
+	 * @param jobFormDTO the job form dto
+	 * @return the string
+	 * @throws ParseException the parse exception
+	 */
 	@RequestMapping("/rest/job/add")
 	public String addNewJob(@ModelAttribute("newJob") JobFormDTO jobFormDTO) throws ParseException {
 
@@ -96,6 +120,12 @@ public class JobCreateController {
 		return "redirect:/company?companyId=" + company.getId() + "&mode=CAREER";
 	}
 
+	/**
+	 * Convert id list to skill list.
+	 *
+	 * @param skillListString the skill list string
+	 * @return the list
+	 */
 	private List<String> convertIdListToSkillList(String skillListString) {
 		String[] idArr = skillListString.split(",");
 //		System.out.println(idArr.toString());
@@ -106,6 +136,11 @@ public class JobCreateController {
 		return skills;
 	}
 
+	/**
+	 * Gets the logged account.
+	 *
+	 * @return the logged account
+	 */
 	private Account getLoggedAccount() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof Account) {

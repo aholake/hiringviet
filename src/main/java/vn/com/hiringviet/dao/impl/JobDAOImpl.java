@@ -24,15 +24,21 @@ import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.dao.JobDAO;
 import vn.com.hiringviet.dto.JobDTO;
 import vn.com.hiringviet.dto.SearchDTO;
-import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.util.DateUtil;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class JobDAOImpl.
+ */
 @Repository
 @Transactional
 public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#getJobByID(java.lang.Integer)
+	 */
 	@Override
 	public Job getJobByID(Integer jobId) {
 
@@ -47,6 +53,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return job;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#getListJob(vn.com.hiringviet.api.dto.request.LoadMoreRequestDTO, java.lang.Integer, java.lang.Integer, java.util.List, boolean, java.lang.String, java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Job> getListJob(LoadMoreRequestDTO loadMoreRequestDTO,
@@ -139,6 +148,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return jobList;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#searchJobByKeyWord(java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<JobDTO> searchJobByKeyWord(String keyWord) {
@@ -160,6 +172,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return skillDTOs;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#getNewJobs(java.lang.Integer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<JobDTO> getNewJobs(Integer companyId) {
@@ -185,6 +200,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return skillDTOs;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#updateDescription(java.lang.Integer, java.lang.String)
+	 */
 	@Override
 	public boolean updateDescription(Integer jobId, String description) {
 		StringBuffer sb = new StringBuffer();
@@ -203,6 +221,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#updateRequirement(java.lang.Integer, java.lang.String)
+	 */
 	@Override
 	public boolean updateRequirement(Integer jobId, String requirement) {
 
@@ -222,6 +243,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#updateCompanyPolicies(java.lang.Integer, java.lang.String)
+	 */
 	@Override
 	public boolean updateCompanyPolicies(Integer jobId, String cultureDescription) {
 
@@ -241,6 +265,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#countApplies(vn.com.hiringviet.model.Job)
+	 */
 	@Override
 	public long countApplies(Job job) {
 		Session session = getSession();
@@ -249,6 +276,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return (long) query.uniqueResult();
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#updateVisited(java.lang.Integer)
+	 */
 	@Override
 	public boolean updateVisited(Integer jobId) {
 
@@ -264,6 +294,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#setPublish(java.lang.Integer, java.lang.Integer)
+	 */
 	@Override
 	public boolean setPublish(Integer jobId, Integer isPublish) {
 
@@ -280,6 +313,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#searchJob(java.lang.Integer, java.lang.Integer, vn.com.hiringviet.dto.SearchDTO)
+	 */
 	@Override
 	public List<Job> searchJob(Integer first, Integer max, SearchDTO searchDTO) {
 
@@ -326,6 +362,9 @@ public class JobDAOImpl extends CommonDAOImpl<Job> implements JobDAO {
 		return jobList;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.JobDAO#insertJobSkill(java.lang.Integer, java.util.List)
+	 */
 	@Override
 	public boolean insertJobSkill(Integer jobId, List<String> skills) {
 

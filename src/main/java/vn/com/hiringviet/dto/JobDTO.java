@@ -5,6 +5,7 @@ import java.util.Date;
 
 import vn.com.hiringviet.model.Address;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class JobDTO.
  */
@@ -25,8 +26,10 @@ public class JobDTO implements Serializable {
 	/** The address. */
 	private Address address;
 
+	/** The job id. */
 	private Integer jobId;
 
+	/** The is publish. */
 	private Integer isPublish;
 
 	/**
@@ -101,18 +104,38 @@ public class JobDTO implements Serializable {
 		this.address = address;
 	}
 
+	/**
+	 * Gets the job id.
+	 *
+	 * @return the job id
+	 */
 	public Integer getJobId() {
 		return jobId;
 	}
 
+	/**
+	 * Sets the job id.
+	 *
+	 * @param jobId the new job id
+	 */
 	public void setJobId(Integer jobId) {
 		this.jobId = jobId;
 	}
 
+	/**
+	 * Gets the checks if is publish.
+	 *
+	 * @return the checks if is publish
+	 */
 	public Integer getIsPublish() {
 		return isPublish;
 	}
 
+	/**
+	 * Sets the checks if is publish.
+	 *
+	 * @param isPublish the new checks if is publish
+	 */
 	public void setIsPublish(Integer isPublish) {
 		this.isPublish = isPublish;
 	}

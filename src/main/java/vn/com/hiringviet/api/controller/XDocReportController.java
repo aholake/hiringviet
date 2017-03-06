@@ -40,18 +40,31 @@ import fr.opensagres.xdocreport.template.IContext;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
+/**
+ * The Class XDocReportController.
+ */
 @Controller
 public class XDocReportController {
 
+	/** The message source. */
 	@Autowired
 	private MessageSource messageSource;
 
+	/** The apply service. */
 	@Autowired
 	private ApplyService applyService;
 
+	/** The member service. */
 	@Autowired
 	private MemberService memberService;
 
+	/**
+	 * Export docx.
+	 *
+	 * @param jobId the job id
+	 * @param companyId the company id
+	 * @param response the response
+	 */
 	@RequestMapping(value = "/export/applyList")
 	public void exportDocx(@RequestParam("jobId") Integer jobId,
 			@RequestParam("companyId") Integer companyId,
@@ -134,6 +147,12 @@ public class XDocReportController {
 		}
 	}
 
+	/**
+	 * Export cv docx.
+	 *
+	 * @param memberId the member id
+	 * @param response the response
+	 */
 	@RequestMapping(value = "/export/CV")
 	public void exportCVDocx(@RequestParam("memberId") Integer memberId,
 			HttpServletResponse response) {
@@ -257,6 +276,11 @@ public class XDocReportController {
 
 	}
 
+	/**
+	 * Gets the logged account.
+	 *
+	 * @return the logged account
+	 */
 	private Account getLoggedAccount() {
 		Object principal = SecurityContextHolder.getContext()
 				.getAuthentication().getPrincipal();

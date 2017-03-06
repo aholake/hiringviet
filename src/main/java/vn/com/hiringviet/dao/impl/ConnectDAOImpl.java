@@ -10,17 +10,30 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.dao.ConnectDAO;
 import vn.com.hiringviet.model.Connect;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ConnectDAOImpl.
+ */
 @Repository
 @Transactional
 public class ConnectDAOImpl extends CommonDAOImpl<Connect> implements ConnectDAO {
 
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * Sets the session factory.
+	 *
+	 * @param sessionFactory the new session factory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.ConnectDAO#getConnectByMemberId(java.lang.Integer, java.lang.Integer)
+	 */
 	@Override
 	public Connect getConnectByMemberId(Integer formMemberId, Integer toMemberId) {
 

@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.dao.SkillResumeDAO;
 import vn.com.hiringviet.model.SkillResume;
 
+/**
+ * The Class SkillResumeDAOImpl.
+ */
 @Repository
 @Transactional
 public class SkillResumeDAOImpl extends CommonDAOImpl<SkillResume> implements SkillResumeDAO {

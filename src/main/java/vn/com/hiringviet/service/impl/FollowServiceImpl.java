@@ -9,6 +9,7 @@ import vn.com.hiringviet.model.Follow;
 import vn.com.hiringviet.service.FollowService;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class FolllowServiceImpl.
  */
@@ -28,6 +29,9 @@ public class FollowServiceImpl implements FollowService {
 		return followDAO.countNumberOfFollower(accountId);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.FollowService#create(vn.com.hiringviet.model.Account, vn.com.hiringviet.model.Account)
+	 */
 	@Override
 	public boolean create(Account accountFrom, Account accountTo) {
 

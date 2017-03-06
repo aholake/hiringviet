@@ -22,17 +22,30 @@ import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.Connect;
 import vn.com.hiringviet.model.Member;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MemberDAOImpl.
+ */
 @Repository
 @Transactional
 public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * Sets the session factory.
+	 *
+	 * @param sessionFactory the new session factory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.MemberDAO#getMemberByAccount(vn.com.hiringviet.model.Account)
+	 */
 	@Override
 	public Member getMemberByAccount(Account account) {
 
@@ -49,6 +62,9 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.MemberDAO#getMemberByAccountId(java.lang.Integer)
+	 */
 	@Override
 	public MemberDTO getMemberByAccountId(Integer accountId) {
 
@@ -71,6 +87,9 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 		return memberDTO;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.MemberDAO#getListMemberSuggest(java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MemberDTO> getListMemberSuggest(String keywork) {
@@ -117,6 +136,9 @@ public class MemberDAOImpl extends CommonDAOImpl<Member> implements MemberDAO {
 		return memberDTOs;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.MemberDAO#addConnect(vn.com.hiringviet.model.Connect)
+	 */
 	@Override
 	public void addConnect(Connect connect) {
 

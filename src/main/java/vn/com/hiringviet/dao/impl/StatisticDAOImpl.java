@@ -9,11 +9,20 @@ import org.springframework.stereotype.Repository;
 import vn.com.hiringviet.dao.StatisticDAO;
 import vn.com.hiringviet.dto.StatisticDTO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StatisticDAOImpl.
+ */
 @Repository
 public class StatisticDAOImpl implements StatisticDAO{
+	
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 	
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.StatisticDAO#getStatistic()
+	 */
 	@Override
 	public StatisticDTO getStatistic() {
 		Session session = sessionFactory.getCurrentSession();

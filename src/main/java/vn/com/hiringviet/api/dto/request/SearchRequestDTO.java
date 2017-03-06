@@ -2,7 +2,6 @@ package vn.com.hiringviet.api.dto.request;
 
 import java.io.Serializable;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SearchRequestDTO.
  */

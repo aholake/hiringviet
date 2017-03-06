@@ -1,7 +1,5 @@
 package vn.com.hiringviet.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,30 +15,44 @@ import org.springframework.web.servlet.ModelAndView;
 
 import vn.com.hiringviet.auth.CustomAuthenticationProvider;
 import vn.com.hiringviet.common.StatusResponseEnum;
-import vn.com.hiringviet.model.Account;
-import vn.com.hiringviet.model.Company;
-import vn.com.hiringviet.model.Member;
 import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.MemberService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LoginController.
+ */
 @Controller
 public class LoginController {
+	
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = Logger
 			.getLogger(LoginController.class);
 
+	/** The account service. */
 	@Autowired
 	private AccountService accountService;
 
+	/** The member service. */
 	@Autowired
 	private MemberService memberService;
 
+	/** The company service. */
 	@Autowired
 	private CompanyService companyService;
 
+	/** The custom authentication provider. */
 	@Autowired
 	private CustomAuthenticationProvider customAuthenticationProvider;
 
+	/**
+	 * Login.
+	 *
+	 * @param error the error
+	 * @param logout the logout
+	 * @return the model and view
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(
 			@RequestParam(value = "error", required = false) String error,
@@ -59,11 +71,23 @@ public class LoginController {
 
 	}
 
+	/**
+	 * Access denied.
+	 *
+	 * @return the string
+	 */
 	@RequestMapping("/access-denied")
 	public String accessDenied() {
 		return "access_denied";
 	}
 
+	/**
+	 * Login ajax.
+	 *
+	 * @param email the email
+	 * @param password the password
+	 * @return the status response enum
+	 */
 	@RequestMapping(value = "/action/login", method = RequestMethod.POST)
 	@ResponseBody
 	public StatusResponseEnum loginAjax(

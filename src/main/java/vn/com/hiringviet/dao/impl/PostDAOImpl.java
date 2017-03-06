@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.dao.PostDAO;
 import vn.com.hiringviet.model.Post;
 
+/**
+ * The Class PostDAOImpl.
+ */
 @Repository
 @Transactional
 public class PostDAOImpl extends CommonDAOImpl<Post> implements PostDAO {

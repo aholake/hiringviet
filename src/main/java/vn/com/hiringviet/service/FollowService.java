@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import vn.com.hiringviet.model.Account;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface FollowService.
  */
@@ -18,5 +19,12 @@ public interface FollowService {
 	 */
 	public Long countNumberOfFollower(Integer accountId);
 
+	/**
+	 * Creates the.
+	 *
+	 * @param accountFrom the account from
+	 * @param accountTo the account to
+	 * @return true, if successful
+	 */
 	public boolean create(Account accountFrom, Account accountTo);
 }

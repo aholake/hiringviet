@@ -9,10 +9,17 @@ import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.CompanyPhoto;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CompanyPhotoDAOImpl.
+ */
 @Repository
 @Transactional
 public class CompanyPhotoDAOImpl extends CommonDAOImpl<CompanyPhoto> implements CompanyPhotoDAO {
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CompanyPhotoDAO#createPhotoBanner(java.lang.Integer, vn.com.hiringviet.model.CompanyPhoto)
+	 */
 	@Override
 	public boolean createPhotoBanner(Integer companyId,
 			CompanyPhoto companyPhoto) {
@@ -56,6 +63,9 @@ public class CompanyPhotoDAOImpl extends CommonDAOImpl<CompanyPhoto> implements 
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CompanyPhotoDAO#deletePhotoBanner(java.lang.Integer)
+	 */
 	@Override
 	public boolean deletePhotoBanner(Integer id) {
 

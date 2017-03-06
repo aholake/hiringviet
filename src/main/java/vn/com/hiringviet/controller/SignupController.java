@@ -27,29 +27,49 @@ import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.service.CompanyService;
 import vn.com.hiringviet.service.CountryService;
 import vn.com.hiringviet.service.MemberService;
-import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SignupController.
+ */
 @Controller
 public class SignupController {
+	
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = Logger
 			.getLogger(SignupController.class);
+	
+	/** The account service. */
 	@Autowired
 	private AccountService accountService;
 
+	/** The member service. */
 	@Autowired
 	private MemberService memberService;
 
+	/** The company service. */
 	@Autowired
 	private CompanyService companyService;
 
+	/** The country service. */
 	@Autowired
 	private CountryService countryService;
 
+	/**
+	 * Go to register option.
+	 *
+	 * @return the string
+	 */
 	@RequestMapping(value = "/register")
 	public String goToRegisterOption() {
 		return "register-option";
 	}
 
+	/**
+	 * Data binding.
+	 *
+	 * @param binder the binder
+	 */
 	@InitBinder
 	public void dataBinding(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -58,6 +78,13 @@ public class SignupController {
 				dateFormat, true));
 	}
 
+	/**
+	 * Go to register page.
+	 *
+	 * @param type the type
+	 * @param model the model
+	 * @return the model and view
+	 */
 	@RequestMapping(value = "/register/{type}")
 	public ModelAndView goToRegisterPage(@PathVariable("type") String type,
 			Model model) {
@@ -74,11 +101,24 @@ public class SignupController {
 		return null;
 	}
 
+	/**
+	 * Check existed email.
+	 *
+	 * @param email the email
+	 * @return true, if successful
+	 */
 	@RequestMapping(value = "/rest/checkExistedEmail", method = RequestMethod.POST)
 	public @ResponseBody boolean checkExistedEmail(@RequestBody String email) {
 		return accountService.isExistedAccount(email);
 	}
 
+	/**
+	 * Adds the new member.
+	 *
+	 * @param member the member
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	@RequestMapping(value = "/rest/addNewMember", method = RequestMethod.POST)
 	public String addNewMember(@ModelAttribute("newMember") Member member)
 			throws Exception {
@@ -90,6 +130,13 @@ public class SignupController {
 		}
 	}
 
+	/**
+	 * Adds the new company.
+	 *
+	 * @param company the company
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	@RequestMapping(value = "/rest/addNewCompany")
 	public String addNewCompany(@ModelAttribute("newCompany") Company company)
 			throws Exception {
@@ -101,6 +148,14 @@ public class SignupController {
 		}
 	}
 
+	/**
+	 * Active account.
+	 *
+	 * @param code the code
+	 * @param model the model
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	@RequestMapping("/active/{code}")
 	public String activeAccount(@PathVariable("code") String code, Model model)
 			throws Exception {
@@ -115,6 +170,11 @@ public class SignupController {
 		}
 	}
 
+	/**
+	 * Go to sign up success page.
+	 *
+	 * @return the string
+	 */
 	@RequestMapping("/signup-success")
 	public String goToSignUpSuccessPage() {
 		return "signup-success";

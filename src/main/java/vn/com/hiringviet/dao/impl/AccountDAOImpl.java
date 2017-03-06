@@ -17,10 +17,17 @@ import vn.com.hiringviet.dto.AccountDTO;
 import vn.com.hiringviet.dto.LoggerDTO;
 import vn.com.hiringviet.model.Account;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AccountDAOImpl.
+ */
 @Repository
 @Transactional
 public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO {
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.AccountDAO#checkLogin(java.lang.String, java.lang.String)
+	 */
 	@Override
 	public Account checkLogin(String email, String password) {
 		Session session = getSession();
@@ -34,6 +41,9 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		return account;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.AccountDAO#isExistedAccount(java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public boolean isExistedAccount(String email) {
@@ -51,6 +61,9 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.AccountDAO#getAccountByEmail(java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Account getAccountByEmail(String email) {
@@ -64,6 +77,9 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		return accounts.get(0);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.AccountDAO#getFollowList(java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AccountDTO> getFollowList(String accountId) {
@@ -87,6 +103,9 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		return accountDTOs;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.AccountDAO#updateEmail(java.lang.Integer, java.lang.String)
+	 */
 	@Override
 	public boolean updateEmail(Integer accountId, String email) {
 
@@ -106,6 +125,9 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.AccountDAO#updateLocale(java.lang.Integer, java.lang.String)
+	 */
 	@Override
 	public boolean updateLocale(Integer accountId, String locale) {
 
@@ -125,6 +147,9 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.AccountDAO#hasFollow(java.lang.Integer, java.lang.Integer)
+	 */
 	@Override
 	public boolean hasFollow(Integer fromAccountId, Integer toAccountId) {
 
@@ -145,6 +170,9 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.AccountDAO#getAccountByActiveUrl(java.lang.String)
+	 */
 	@Override
 	public Account getAccountByActiveUrl(String activeCode) {
 		Criteria criteria = getSession().createCriteria(Account.class)
@@ -152,6 +180,9 @@ public class AccountDAOImpl extends CommonDAOImpl<Account> implements AccountDAO
 		return (Account) criteria.uniqueResult();
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.AccountDAO#getListLogger(java.lang.Integer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<LoggerDTO> getListLogger(Integer accountId) {

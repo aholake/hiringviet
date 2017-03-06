@@ -26,18 +26,31 @@ import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Post;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CompanyDAOImpl.
+ */
 @Repository
 @Transactional
 public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		CompanyDAO {
 
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * Sets the session factory.
+	 *
+	 * @param sessionFactory the new session factory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CompanyDAO#getListCompanyHot(java.lang.Integer, java.lang.Integer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Company> getListCompanyHot(Integer first, Integer max) {
@@ -58,6 +71,9 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		return companyList;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CompanyDAO#getListCompanySuggest(java.lang.Integer, java.lang.Integer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Company> getListCompanySuggest(Integer first, Integer max) {
@@ -77,6 +93,9 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		return companyList;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CompanyDAO#getListPosts(java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PostDTO> getListPosts(Integer first, Integer max, Integer companyId) {
@@ -103,6 +122,9 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CompanyDAO#getListJob(java.lang.Integer, java.lang.Integer, java.lang.Integer, boolean)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Job> getListJob(Integer first, Integer max, Integer companyId, boolean getAll) {
@@ -127,6 +149,9 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CompanyDAO#getCompanyByAccount(vn.com.hiringviet.model.Account)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public Company getCompanyByAccount(Account account) {
@@ -138,6 +163,9 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		return list.isEmpty() ? null : list.get(0);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CompanyDAO#getListCompanySuggest(java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CompanyDTO> getListCompanySuggest(String keywork) {
@@ -164,6 +192,9 @@ public class CompanyDAOImpl extends CommonDAOImpl<Company> implements
 		return companyDTOs;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CompanyDAO#getListCompanyFollow(java.lang.Integer)
+	 */
 	@Override
 	public List<CompanyDTO> getListCompanyFollow(Integer accountId) {
 

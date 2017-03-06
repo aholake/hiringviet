@@ -17,35 +17,63 @@ import org.hibernate.annotations.Cascade;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Position.
+ */
 @Entity
 @Table(name = "position")
 public class Position implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -45982404463146068L;
 
+	/** The position id. */
 	private Integer positionID;
 
+	/** The display name. */
 	private String displayName;
 
 //	private Set<Job> jobSet;
 
-	private ChangeLog changeLog;
+	/** The change log. */
+private ChangeLog changeLog;
 
+	/**
+	 * Gets the position id.
+	 *
+	 * @return the position id
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getPositionID() {
 		return positionID;
 	}
 
+	/**
+	 * Sets the position id.
+	 *
+	 * @param positionID the new position id
+	 */
 	public void setPositionID(Integer positionID) {
 		this.positionID = positionID;
 	}
 
+	/**
+	 * Gets the display name.
+	 *
+	 * @return the display name
+	 */
 	@Column(name = "display_name")
 	public String getDisplayName() {
 		return displayName;
 	}
 
+	/**
+	 * Sets the display name.
+	 *
+	 * @param displayName the new display name
+	 */
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
@@ -60,7 +88,12 @@ public class Position implements Serializable {
 //		this.jobSet = jobSet;
 //	}
 
-	@JsonIgnore
+	/**
+ * Gets the change log.
+ *
+ * @return the change log
+ */
+@JsonIgnore
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "change_log_id")
 	@Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE })
@@ -68,6 +101,11 @@ public class Position implements Serializable {
 		return changeLog;
 	}
 
+	/**
+	 * Sets the change log.
+	 *
+	 * @param changeLog the new change log
+	 */
 	public void setChangeLog(ChangeLog changeLog) {
 		this.changeLog = changeLog;
 	}

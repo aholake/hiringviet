@@ -10,17 +10,30 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.dao.EndorseDAO;
 import vn.com.hiringviet.model.Endorse;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class EndorseDAOImpl.
+ */
 @Repository
 @Transactional
 public class EndorseDAOImpl extends CommonDAOImpl<Endorse> implements EndorseDAO {
 
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * Sets the session factory.
+	 *
+	 * @param sessionFactory the new session factory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.EndorseDAO#deleteByAccountId(java.lang.Integer, java.lang.Integer)
+	 */
 	@Override
 	public boolean deleteByAccountId(Integer accountId, Integer skillResumeId) {
 

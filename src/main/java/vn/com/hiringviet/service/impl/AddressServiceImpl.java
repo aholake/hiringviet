@@ -10,17 +10,28 @@ import vn.com.hiringviet.service.CountryService;
 import vn.com.hiringviet.service.DistrictService;
 import vn.com.hiringviet.service.ProvinceService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AddressServiceImpl.
+ */
 @Service
 public class AddressServiceImpl implements AddressService {
+	
+	/** The district service. */
 	@Autowired
 	private DistrictService districtService;
 
+	/** The province service. */
 	@Autowired
 	private ProvinceService provinceService;
 
+	/** The country service. */
 	@Autowired
 	private CountryService countryService;
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.AddressService#getFullAddressBaseOnId(vn.com.hiringviet.model.Address)
+	 */
 	@Override
 	public Address getFullAddressBaseOnId(Address pureAddress) {
 		Address address = new Address();

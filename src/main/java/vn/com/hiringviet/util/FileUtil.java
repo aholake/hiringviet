@@ -7,10 +7,16 @@ import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FileUtil.
+ */
 public class FileUtil {
 
 	/**
-	 * Get properties from message properties file
+	 * Get properties from message properties file.
+	 *
+	 * @return the config properties
 	 */
 	public static Properties getConfigProperties() {
 
@@ -25,6 +31,11 @@ public class FileUtil {
 		return props;
 	}
 	
+	/**
+	 * Gets the message properties.
+	 *
+	 * @return the message properties
+	 */
 	public static Properties getMessageProperties() {
 
 		// read properites file:
@@ -38,6 +49,14 @@ public class FileUtil {
 		return props;
 	}
 
+	/**
+	 * Copy file on server.
+	 *
+	 * @param des the des
+	 * @param source the source
+	 * @return true, if successful
+	 * @throws Exception the exception
+	 */
 	public static boolean copyFileOnServer(String des, String source) throws Exception {
 
 		File fileDes = new File(des);
@@ -53,6 +72,11 @@ public class FileUtil {
 		return true;
 	}
 
+	/**
+	 * Delete list file.
+	 *
+	 * @param lstFile the lst file
+	 */
 	public static void deleteListFile(List<File> lstFile) {
 
 		for (File file : lstFile) {

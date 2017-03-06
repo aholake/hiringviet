@@ -13,6 +13,7 @@ import vn.com.hiringviet.common.StatusEnum;
 import vn.com.hiringviet.dao.FollowDAO;
 import vn.com.hiringviet.model.Follow;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class FollowDAOImpl.
  */

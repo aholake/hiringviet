@@ -10,10 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.dao.ProvinceDAO;
 import vn.com.hiringviet.model.Province;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProvinceDAOImpl.
+ */
 @Repository
 public class ProvinceDAOImpl extends CommonDAOImpl<Province> implements
 		ProvinceDAO {
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.ProvinceDAO#getProvinceListByCountry(int)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional

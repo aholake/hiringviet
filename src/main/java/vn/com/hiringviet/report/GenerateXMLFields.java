@@ -13,8 +13,20 @@ import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GenerateXMLFields.
+ */
 public class GenerateXMLFields {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws XDocReportException the x doc report exception
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void main(String[] args) throws XDocReportException,
 			FileNotFoundException, IOException {
 

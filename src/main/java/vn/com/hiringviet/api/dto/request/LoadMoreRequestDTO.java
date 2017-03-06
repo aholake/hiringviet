@@ -10,6 +10,7 @@ import vn.com.hiringviet.dto.PagingDTO;
  */
 public class LoadMoreRequestDTO implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8295826163922637493L;
 
 	/** The paging dto. */
@@ -39,6 +40,7 @@ public class LoadMoreRequestDTO implements Serializable {
 	/** The max salary. */
 	private Integer maxSalary;
 
+	/** The company id. */
 	private Integer companyId;
 
 	/**
@@ -149,34 +151,74 @@ public class LoadMoreRequestDTO implements Serializable {
 		this.categoryNameList = categoryNameList;
 	}
 
+	/**
+	 * Gets the date ago.
+	 *
+	 * @return the date ago
+	 */
 	public Integer getDateAgo() {
 		return dateAgo;
 	}
 
+	/**
+	 * Sets the date ago.
+	 *
+	 * @param dateAgo the new date ago
+	 */
 	public void setDateAgo(Integer dateAgo) {
 		this.dateAgo = dateAgo;
 	}
 
+	/**
+	 * Gets the min salary.
+	 *
+	 * @return the min salary
+	 */
 	public Integer getMinSalary() {
 		return minSalary;
 	}
 
+	/**
+	 * Sets the min salary.
+	 *
+	 * @param minSalary the new min salary
+	 */
 	public void setMinSalary(Integer minSalary) {
 		this.minSalary = minSalary;
 	}
 
+	/**
+	 * Gets the max salary.
+	 *
+	 * @return the max salary
+	 */
 	public Integer getMaxSalary() {
 		return maxSalary;
 	}
 
+	/**
+	 * Sets the max salary.
+	 *
+	 * @param maxSalary the new max salary
+	 */
 	public void setMaxSalary(Integer maxSalary) {
 		this.maxSalary = maxSalary;
 	}
 
+	/**
+	 * Gets the company id.
+	 *
+	 * @return the company id
+	 */
 	public Integer getCompanyId() {
 		return companyId;
 	}
 
+	/**
+	 * Sets the company id.
+	 *
+	 * @param companyId the new company id
+	 */
 	public void setCompanyId(Integer companyId) {
 		this.companyId = companyId;
 	}

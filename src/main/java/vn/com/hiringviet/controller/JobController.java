@@ -47,14 +47,22 @@ public class JobController {
 	@Autowired
 	private JobService jobService;
 
+	/** The follow service. */
 	@Autowired
 	private FollowService followService;
 
+	/** The resume service. */
 	@Autowired
 	private ResumeService resumeService;
 
+	/** The blob store service. */
 	private BlobstoreService blobStoreService = BlobstoreServiceFactory.getBlobstoreService();
 
+	/**
+	 * Gets the all jobs.
+	 *
+	 * @return the all jobs
+	 */
 	@RequestMapping(value = "/admin/api/jobs", method = RequestMethod.GET)
 	public @ResponseBody List<JobAdminTableDTO> getAllJobs() {
 		return jobService.getJobsForAdminTable();
@@ -76,8 +84,7 @@ public class JobController {
 	/**
 	 * Gets the job hot.
 	 *
-	 * @param pagingDTO
-	 *            the paging dto
+	 * @param loadMoreRequestDTO the load more request dto
 	 * @return the job hot
 	 */
 	@RequestMapping(value = "/job/hot", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -103,6 +110,12 @@ public class JobController {
 		return jobResponseDTO;
 	}
 
+	/**
+	 * Gets the job suggest.
+	 *
+	 * @param loadMoreRequestDTO the load more request dto
+	 * @return the job suggest
+	 */
 	@RequestMapping(value = "/job/suggest", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody JobResponseDTO getJobSuggest(
 			@RequestBody LoadMoreRequestDTO loadMoreRequestDTO) {
@@ -134,10 +147,8 @@ public class JobController {
 	/**
 	 * Go job detail page.
 	 *
-	 * @param model
-	 *            the model
-	 * @param session
-	 *            the session
+	 * @param jobList the job list
+	 * @param model            the model
 	 * @return the string
 	 */
 	// @RequestMapping(value = "/company/careers", method = RequestMethod.GET)
@@ -164,6 +175,13 @@ public class JobController {
 		return "apply";
 	}
 
+	/**
+	 * Setting description.
+	 *
+	 * @param jobId the job id
+	 * @param description the description
+	 * @return the string
+	 */
 	@RequestMapping(value = "/job/settingDescription", method = RequestMethod.POST)
 	public String settingDescription(@RequestParam("jobId") Integer jobId,
 			@RequestParam("description") String description) {
@@ -173,6 +191,13 @@ public class JobController {
 		return "redirect:/company/careers?jobId=" + jobId;
 	}
 
+	/**
+	 * Setting requirement.
+	 *
+	 * @param jobId the job id
+	 * @param requirement the requirement
+	 * @return the string
+	 */
 	@RequestMapping(value = "/job/settingRequirement", method = RequestMethod.POST)
 	public String settingRequirement(@RequestParam("jobId") Integer jobId,
 			@RequestParam("requirement") String requirement) {
@@ -182,6 +207,13 @@ public class JobController {
 		return "redirect:/company/careers?jobId=" + jobId;
 	}
 
+	/**
+	 * Setting company policies.
+	 *
+	 * @param jobId the job id
+	 * @param cultureDescription the culture description
+	 * @return the string
+	 */
 	@RequestMapping(value = "/job/settingCompanyPolicies", method = RequestMethod.POST)
 	public String settingCompanyPolicies(@RequestParam("jobId") Integer jobId,
 			@RequestParam("companyPolicies") String cultureDescription) {
@@ -191,6 +223,12 @@ public class JobController {
 		return "redirect:/company/careers?jobId=" + jobId;
 	}
 
+	/**
+	 * Setting publish.
+	 *
+	 * @param jobDTO the job dto
+	 * @return the common response dto
+	 */
 	@RequestMapping(value = "/job/settingPublish", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO settingPublish(@RequestBody JobDTO jobDTO) {
 

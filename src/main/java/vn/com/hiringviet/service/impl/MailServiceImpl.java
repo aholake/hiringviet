@@ -11,11 +11,20 @@ import org.springframework.stereotype.Service;
 import vn.com.hiringviet.constant.ConstantValues;
 import vn.com.hiringviet.service.MailService;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MailServiceImpl.
+ */
 @Service
 public class MailServiceImpl implements MailService {
+	
+	/** The mail sender. */
 	@Autowired
 	private JavaMailSender mailSender;
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.MailService#sendMail(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void sendMail(String to, String subject, String msg){
 		MimeMessage mimeMessage = mailSender.createMimeMessage();

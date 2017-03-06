@@ -6,6 +6,7 @@ import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Member;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class CommentDTO.
  */
@@ -50,6 +51,7 @@ public class CommentDTO implements Serializable {
 	/** The number reply comment. */
 	private Long numberReplyComment;
 
+	/** The account id. */
 	private Integer accountId;
 
 	/**
@@ -278,10 +280,20 @@ public class CommentDTO implements Serializable {
 		this.numberReplyComment = numberReplyComment;
 	}
 
+	/**
+	 * Gets the account id.
+	 *
+	 * @return the account id
+	 */
 	public Integer getAccountId() {
 		return accountId;
 	}
 
+	/**
+	 * Sets the account id.
+	 *
+	 * @param accountId the new account id
+	 */
 	public void setAccountId(Integer accountId) {
 		this.accountId = accountId;
 	}

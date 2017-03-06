@@ -33,29 +33,44 @@ import vn.com.hiringviet.util.SecurityUtil;
 import vn.com.hiringviet.util.TextGenerator;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CompanyServiceImpl.
+ */
 @Service("companyService")
 @Transactional
 public class CompanyServiceImpl implements CompanyService {
+	
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = Logger
 			.getLogger(CompanyServiceImpl.class);
 
+	/** The company dao. */
 	@Autowired
 	private CompanyDAO companyDAO;
 
+	/** The account service. */
 	@Autowired
 	private AccountService accountService;
 
+	/** The mail service. */
 	@Autowired
 	private MailService mailService;
 
+	/** The address service. */
 	@Autowired
 	private AddressService addressService;
 
+	/** The config properties. */
 	private Properties configProperties = FileUtil.getConfigProperties();
 
+	/** The post dao. */
 	@Autowired
 	private PostDAO postDAO;
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#addCompany(vn.com.hiringviet.model.Company)
+	 */
 	@Override
 	public int addCompany(Company company) {
 		String encryptPassword = SecurityUtil.encodeStringToBase64(company
@@ -84,6 +99,13 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyId;
 	}
 
+	/**
+	 * Send active account email.
+	 *
+	 * @param name the name
+	 * @param email the email
+	 * @param activeCode the active code
+	 */
 	private void sendActiveAccountEmail(String name, String email,
 			String activeCode) {
 		// Send email active account
@@ -96,6 +118,9 @@ public class CompanyServiceImpl implements CompanyService {
 				"HiringViet - Active company account registration", activeUrl);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#deleteCompany(int)
+	 */
 	@Override
 	public boolean deleteCompany(int id) {
 		Company company = companyDAO.findOne(id);
@@ -105,18 +130,27 @@ public class CompanyServiceImpl implements CompanyService {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#updateCompany(vn.com.hiringviet.model.Company)
+	 */
 	@Override
 	public boolean updateCompany(Company company) {
 
 		return companyDAO.update(company);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#getCompanyList()
+	 */
 	@Override
 	public List<Company> getCompanyList() {
 
 		return companyDAO.findAll();
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#getListCompany(java.lang.Integer, java.lang.Integer, boolean)
+	 */
 	@Override
 	public List<Company> getListCompany(Integer first, Integer max,
 			boolean isCompanyHot) {
@@ -128,6 +162,9 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#getListPosts(java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 */
 	@Override
 	public List<PostDTO> getListPosts(Integer first, Integer max,
 			Integer companyId) {
@@ -135,26 +172,41 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyDAO.getListPosts(first, max, companyId);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#getListJob(java.lang.Integer, java.lang.Integer, java.lang.Integer, boolean)
+	 */
 	@Override
 	public List<Job> getListJob(Integer first, Integer max, Integer companyId, boolean getAll) {
 		return companyDAO.getListJob(first, max, companyId, getAll);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#getCompanyByAccount(vn.com.hiringviet.model.Account)
+	 */
 	@Override
 	public Company getCompanyByAccount(Account account) {
 		return companyDAO.getCompanyByAccount(account);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#getListCompanySuggest(java.lang.String)
+	 */
 	@Override
 	public List<CompanyDTO> getListCompanySuggest(String keywork) {
 		return companyDAO.getListCompanySuggest(keywork);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#getCompanyById(int)
+	 */
 	@Override
 	public Company getCompanyById(int id) {
 		return companyDAO.findOne(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#addPosts(vn.com.hiringviet.dto.PostDTO, vn.com.hiringviet.model.Company)
+	 */
 	@Override
 	public boolean addPosts(PostDTO postDTO, Company company) {
 		
@@ -171,6 +223,9 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#getAllCompaniesForAdminTable()
+	 */
 	@Override
 	public List<CompanyAdminTableDTO> getAllCompaniesForAdminTable() {
 		List<Company> companies = companyDAO.findAll();
@@ -185,6 +240,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.CompanyService#getListCompanyFollow(java.lang.Integer)
+	 */
 	@Override
 	public List<CompanyDTO> getListCompanyFollow(Integer accountId) {
 		return companyDAO.getListCompanyFollow(accountId);

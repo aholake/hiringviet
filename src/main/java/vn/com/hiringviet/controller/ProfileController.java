@@ -55,47 +55,82 @@ import vn.com.hiringviet.util.Utils;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProfileController.
+ */
 @Controller
 public class ProfileController {
 
+	/** The account service. */
 	@Autowired
 	private AccountService accountService;
 
+	/** The member service. */
 	@Autowired
 	private MemberService memberService;
 
+	/** The resume service. */
 	@Autowired
 	private ResumeService resumeService;
 
+	/** The endorse service. */
 	@Autowired
 	private EndorseService endorseService;
 
+	/** The follow service. */
 	@Autowired
 	private FollowService followService;
 
+	/** The connect service. */
 	@Autowired
 	private ConnectService connectService;
 
+	/** The position service. */
 	@Autowired
 	private PositionService positionService;
 
+	/** The company service. */
 	@Autowired
 	private CompanyService companyService;
 
+	/** The blobstore service. */
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
+	/**
+	 * Go profile banner.
+	 *
+	 * @param model the model
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/layouts/profileBanner", method = RequestMethod.GET)
 	public String goProfileBanner(Model model, HttpSession session) {
 
 		return "/layouts/profile_banner";
 	}
 
+	/**
+	 * Go profile header.
+	 *
+	 * @param model the model
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/layouts/profileHeader", method = RequestMethod.GET)
 	public String goProfileHeader(Model model, HttpSession session) {
 
 		return "/layouts/profile_header";
 	}
 
+	/**
+	 * Go profile page.
+	 *
+	 * @param memberId the member id
+	 * @param model the model
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String goProfilePage(@RequestParam("memberId") Integer memberId,
 			Model model, HttpSession session) {
@@ -158,6 +193,12 @@ public class ProfileController {
 		return "/profile";
 	}
 
+	/**
+	 * Adds the skills.
+	 *
+	 * @param skillDTOs the skill dt os
+	 * @return the common response dto
+	 */
 	@RequestMapping(value = "/profile/addSkills", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO addSkills(@RequestBody Set<SkillDTO> skillDTOs) {
 
@@ -171,6 +212,12 @@ public class ProfileController {
 		return commonResponseDTO;
 	}
 
+	/**
+	 * Delete skill of profile.
+	 *
+	 * @param resumeDTO the resume dto
+	 * @return the common response dto
+	 */
 	@RequestMapping(value = "/profile/deleteSkillOfProfile", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO deleteSkillOfProfile(@RequestBody ResumeDTO resumeDTO) {
 
@@ -188,11 +235,23 @@ public class ProfileController {
 		return commonResponseDTO;
 	}
 
+	/**
+	 * Adds the skills.
+	 *
+	 * @param id the id
+	 * @return the member
+	 */
 	@RequestMapping(value = "/profile/get/{id}", method = RequestMethod.GET)
 	public @ResponseBody Member addSkills(@PathVariable("id") Integer id) {
 		return memberService.getMemberByID(id);
 	}
 
+	/**
+	 * Adds the endorse.
+	 *
+	 * @param skillResumeId the skill resume id
+	 * @return the common response dto
+	 */
 	@RequestMapping(value = "/profile/endorse/add", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO addEndorse(@RequestBody Integer skillResumeId) {
 
@@ -218,6 +277,12 @@ public class ProfileController {
 		return commonResponseDTO;
 	}
 
+	/**
+	 * Removes the endorse.
+	 *
+	 * @param skillResumeId the skill resume id
+	 * @return the common response dto
+	 */
 	@RequestMapping(value = "/profile/endorse/remove", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO removeEndorse(@RequestBody Integer skillResumeId) {
 
@@ -239,6 +304,12 @@ public class ProfileController {
 		return commonResponseDTO;
 	}
 
+	/**
+	 * Count number of follower.
+	 *
+	 * @param accountId the account id
+	 * @return the member dto
+	 */
 	@RequestMapping(value = "/profile/countNumberOfFollower", method = RequestMethod.POST)
 	public @ResponseBody MemberDTO countNumberOfFollower(@RequestBody Integer accountId) {
 
@@ -255,6 +326,14 @@ public class ProfileController {
 		return memberDTO;
 	}
 
+	/**
+	 * Creates the education.
+	 *
+	 * @param model the model
+	 * @param educationHistory the education history
+	 * @param filterMemberId the filter member id
+	 * @return the string
+	 */
 	@RequestMapping(value = "/profile/createEducation", method = RequestMethod.POST)
 	public String createEducation(Model model,
 			@ModelAttribute("educationHistory") EducationHistory educationHistory,
@@ -275,6 +354,11 @@ public class ProfileController {
 		return "redirect:/profile?memberId=" + filterMemberId;
 	}
 
+	/**
+	 * Gets the logged account.
+	 *
+	 * @return the logged account
+	 */
 	private Account getLoggedAccount() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof Account) {
@@ -284,6 +368,14 @@ public class ProfileController {
 		return null;
 	}
 
+	/**
+	 * Save summary.
+	 *
+	 * @param model the model
+	 * @param resume the resume
+	 * @param filterMemberId the filter member id
+	 * @return the string
+	 */
 	@RequestMapping(value = "/profile/saveSummary", method = RequestMethod.POST)
 	public String saveSummary(Model model,
 			@ModelAttribute("educationHistory") Resume resume,
@@ -303,6 +395,12 @@ public class ProfileController {
 		return "redirect:/profile?memberId=" + filterMemberId;
 	}
 
+	/**
+	 * Adds the connect.
+	 *
+	 * @param toMemberId the to member id
+	 * @return the common response dto
+	 */
 	@RequestMapping(value = "/profile/addConnect", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO addConnect(@RequestBody Integer toMemberId) {
 
@@ -319,6 +417,16 @@ public class ProfileController {
 		return commonResponseDTO;
 	}
 
+	/**
+	 * Creates the employee.
+	 *
+	 * @param model the model
+	 * @param employeeHistory the employee history
+	 * @param filterMemberId the filter member id
+	 * @param positionId the position id
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/profile/createEmployee", method = RequestMethod.POST)
 	public String createEmployee(
 			Model model,
@@ -341,6 +449,14 @@ public class ProfileController {
 		return "redirect:/profile?memberId=" + filterMemberId;
 	}
 
+	/**
+	 * Upload avatar image.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/profile/image", method = RequestMethod.POST)
 	public String uploadAvatarImage(
 			HttpServletRequest request, 
@@ -363,6 +479,11 @@ public class ProfileController {
 		return "redirect:/profile?memberId=" + memberLogin.getId();
 	}
 
+	/**
+	 * Data binding.
+	 *
+	 * @param binder the binder
+	 */
 	@InitBinder
 	public void dataBinding(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -371,6 +492,14 @@ public class ProfileController {
 				dateFormat, true));
 	}
 
+	/**
+	 * Setting phone number.
+	 *
+	 * @param memberId the member id
+	 * @param resumeId the resume id
+	 * @param newPhoneNumber the new phone number
+	 * @return the string
+	 */
 	@RequestMapping(value = "/profile/settingPhoneNumber", method = RequestMethod.POST)
 	public String settingPhoneNumber(@RequestParam("memberId") Integer memberId,
 			@RequestParam("resumeId") Integer resumeId,
@@ -381,6 +510,14 @@ public class ProfileController {
 		return "redirect:/profile?memberId=" + memberId;
 	}
 
+	/**
+	 * Setting email.
+	 *
+	 * @param memberId the member id
+	 * @param accountId the account id
+	 * @param newEmail the new email
+	 * @return the string
+	 */
 	@RequestMapping(value = "/profile/settingEmail", method = RequestMethod.POST)
 	public String settingEmail(@RequestParam("memberId") Integer memberId,
 			@RequestParam("accountId") Integer accountId,
@@ -391,6 +528,14 @@ public class ProfileController {
 		return "redirect:/profile?memberId=" + memberId;
 	}
 
+	/**
+	 * Setting locale.
+	 *
+	 * @param memberId the member id
+	 * @param accountId the account id
+	 * @param locale the locale
+	 * @return the string
+	 */
 	@RequestMapping(value = "/profile/settingLanguage", method = RequestMethod.POST)
 	public String settingLocale(@RequestParam("memberId") Integer memberId,
 			@RequestParam("accountId") Integer accountId,
@@ -401,6 +546,12 @@ public class ProfileController {
 		return "redirect:/profile?memberId=" + memberId;
 	}
 
+	/**
+	 * Export apply list.
+	 *
+	 * @param memberId the member id
+	 * @return the string
+	 */
 	@RequestMapping(value = "/profile/export", method = RequestMethod.GET)
 	public String exportApplyList(
 			@RequestParam("memberId") Integer memberId) {

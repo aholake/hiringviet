@@ -17,20 +17,34 @@ import vn.com.hiringviet.dao.ResumeDAO;
 import vn.com.hiringviet.dao.SkillDAO;
 import vn.com.hiringviet.model.Resume;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ResumeDAOImpl.
+ */
 @Repository
 @Transactional
 public class ResumeDAOImpl extends CommonDAOImpl<Resume> implements ResumeDAO {
 
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/** The Skill dao. */
 	@Autowired
 	private SkillDAO SkillDAO;
 
+	/**
+	 * Sets the session factory.
+	 *
+	 * @param sessionFactory the new session factory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.ResumeDAO#getListSkillByMemberId(java.lang.Integer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Integer> getListSkillByMemberId(Integer memberId) {
@@ -49,6 +63,9 @@ public class ResumeDAOImpl extends CommonDAOImpl<Resume> implements ResumeDAO {
 		return skills;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.ResumeDAO#updatePhoneNumber(java.lang.Integer, java.lang.String)
+	 */
 	@Override
 	public boolean updatePhoneNumber(Integer resumeId, String phoneNumber) {
 

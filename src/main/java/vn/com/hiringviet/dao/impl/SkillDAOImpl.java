@@ -19,17 +19,30 @@ import vn.com.hiringviet.dao.SkillDAO;
 import vn.com.hiringviet.dto.SkillDTO;
 import vn.com.hiringviet.model.Skill;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SkillDAOImpl.
+ */
 @Repository
 @Transactional
 public class SkillDAOImpl extends CommonDAOImpl<Skill> implements SkillDAO {
 
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * Sets the session factory.
+	 *
+	 * @param sessionFactory the new session factory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.SkillDAO#searchSkillByKeyWord(java.lang.String)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<SkillDTO> searchSkillByKeyWord(String keyWord) {
@@ -51,6 +64,9 @@ public class SkillDAOImpl extends CommonDAOImpl<Skill> implements SkillDAO {
 		return skillDTOs;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.SkillDAO#subAddingNumber(java.lang.Integer)
+	 */
 	@Override
 	public boolean subAddingNumber(Integer skillId) {
 
@@ -68,6 +84,9 @@ public class SkillDAOImpl extends CommonDAOImpl<Skill> implements SkillDAO {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.SkillDAO#getSkillByDisplayName(java.lang.String)
+	 */
 	@Override
 	public Skill getSkillByDisplayName(String displayName) {
 

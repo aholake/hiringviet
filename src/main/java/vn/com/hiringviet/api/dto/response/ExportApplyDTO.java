@@ -1,5 +1,6 @@
 package vn.com.hiringviet.api.dto.response;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ExportApplyDTO.
  */

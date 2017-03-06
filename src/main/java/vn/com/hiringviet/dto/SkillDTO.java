@@ -2,6 +2,7 @@ package vn.com.hiringviet.dto;
 
 import java.io.Serializable;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SkillDTO.
  */
@@ -16,6 +17,7 @@ public class SkillDTO implements Serializable {
 	/** The display name. */
 	private String displayName;
 
+	/** The adding number. */
 	private Integer addingNumber;
 
 	/**
@@ -56,10 +58,20 @@ public class SkillDTO implements Serializable {
 		this.displayName = displayName;
 	}
 
+	/**
+	 * Gets the adding number.
+	 *
+	 * @return the adding number
+	 */
 	public Integer getAddingNumber() {
 		return addingNumber;
 	}
 
+	/**
+	 * Sets the adding number.
+	 *
+	 * @param addingNumber the new adding number
+	 */
 	public void setAddingNumber(Integer addingNumber) {
 		this.addingNumber = addingNumber;
 	}

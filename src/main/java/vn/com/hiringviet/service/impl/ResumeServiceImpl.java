@@ -17,30 +17,46 @@ import vn.com.hiringviet.model.Resume;
 import vn.com.hiringviet.service.ResumeService;
 import vn.com.hiringviet.util.DateUtil;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ResumeServiceImpl.
+ */
 @Service("resumeService")
 public class ResumeServiceImpl implements ResumeService {
 
+	/** The resume dao. */
 	@Autowired
 	private ResumeDAO resumeDAO;
 
+	/** The skill resume dao. */
 	@Autowired
 	private SkillResumeDAO skillResumeDAO;
 
+	/** The position dao. */
 	@Autowired
 	private PositionDAO positionDAO;
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.ResumeService#getListSkillByMemberId(java.lang.Integer)
+	 */
 	@Override
 	public List<Integer> getListSkillByMemberId(Integer memberId) {
 
 		return resumeDAO.getListSkillByMemberId(memberId);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.ResumeService#deleteSkillOfProfile(vn.com.hiringviet.dto.ResumeDTO)
+	 */
 	@Override
 	public boolean deleteSkillOfProfile(ResumeDTO resumeDTO) {
 
 		return skillResumeDAO.deleteById(resumeDTO.getResumeSkillId());
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.ResumeService#saveEducation(vn.com.hiringviet.model.Resume, vn.com.hiringviet.model.EducationHistory)
+	 */
 	@Override
 	public boolean saveEducation(Resume resume, EducationHistory educationHistory) {
 
@@ -63,6 +79,9 @@ public class ResumeServiceImpl implements ResumeService {
 		return resumeDAO.update(resume);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.ResumeService#saveEmployee(vn.com.hiringviet.model.Resume, vn.com.hiringviet.model.EmploymentHistory, java.lang.Integer)
+	 */
 	@Override
 	public boolean saveEmployee(Resume resume, EmploymentHistory employmentHistory, Integer positionId) {
 
@@ -97,6 +116,9 @@ public class ResumeServiceImpl implements ResumeService {
 		return resumeDAO.update(resume);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.ResumeService#update(vn.com.hiringviet.model.Resume, vn.com.hiringviet.model.Resume)
+	 */
 	@Override
 	public boolean update(Resume currentResume, Resume newResume) {
 
@@ -109,6 +131,9 @@ public class ResumeServiceImpl implements ResumeService {
 		return resumeDAO.update(currentResume);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.ResumeService#updatePhoneNumber(java.lang.Integer, java.lang.String)
+	 */
 	@Override
 	public boolean updatePhoneNumber(Integer resumeId, String phoneNumber) {
 

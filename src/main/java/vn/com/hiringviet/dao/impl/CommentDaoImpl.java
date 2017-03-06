@@ -21,17 +21,30 @@ import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Comment;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CommentDaoImpl.
+ */
 @Repository
 @Transactional
 public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO {
 
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * Sets the session factory.
+	 *
+	 * @param sessionFactory the new session factory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CommentDAO#getListComment(java.lang.Integer, java.lang.Integer, java.lang.Integer, boolean)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<CommentDTO> getListComment(Integer first, Integer max, Integer id, boolean isPost) {
@@ -77,6 +90,9 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 		return comments;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CommentDAO#create(vn.com.hiringviet.dto.CommentDTO)
+	 */
 	@Override
 	public Integer create(CommentDTO commentDTO) {
 
@@ -117,6 +133,9 @@ public class CommentDaoImpl extends CommonDAOImpl<Comment> implements CommentDAO
 
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CommentDAO#delete(java.lang.Integer)
+	 */
 	@Override
 	public boolean delete(Integer commentId) {
 

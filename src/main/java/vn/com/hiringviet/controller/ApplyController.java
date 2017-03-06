@@ -29,14 +29,29 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplyController.
+ */
 @Controller
 public class ApplyController {
+	
+	/** The apply service. */
 	@Autowired
 	private ApplyService applyService;
 
+	/** The blob store service. */
 	private BlobstoreService blobStoreService = BlobstoreServiceFactory
 			.getBlobstoreService();
 
+	/**
+	 * Do apply.
+	 *
+	 * @param jobList the job list
+	 * @param description the description
+	 * @param request the request
+	 * @return the string
+	 */
 	@RequestMapping(value = "/doApply", method = RequestMethod.POST)
 	public String doApply(@RequestParam("jobList") String jobList,
 			@RequestParam("description") String description,
@@ -57,11 +72,23 @@ public class ApplyController {
 		return "redirect:/applySuccess";
 	}
 
+	/**
+	 * Go to apply success.
+	 *
+	 * @return the string
+	 */
 	@RequestMapping(value = "/applySuccess", method = RequestMethod.GET)
 	public String goToApplySuccess() {
 		return "apply-success";
 	}
 	
+	/**
+	 * Download cv.
+	 *
+	 * @param fileKey the file key
+	 * @param response the response
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@RequestMapping(value = "/file/download/{fileKey}", method = RequestMethod.GET)
 	public void downloadCV(@PathVariable("fileKey") String fileKey, HttpServletResponse response) throws IOException {
         BlobKey blobKey = new BlobKey(fileKey);
@@ -69,6 +96,14 @@ public class ApplyController {
 
 	}
 	
+	/**
+	 * Approve apply.
+	 *
+	 * @param messageDTO the message dto
+	 * @param request the request
+	 * @param response the response
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@RequestMapping(value = "/apply/sendApprovalMessage", method = RequestMethod.POST)
 	public void approveApply(@ModelAttribute MessageDTO messageDTO,
 			HttpServletRequest request, HttpServletResponse response)
@@ -82,6 +117,15 @@ public class ApplyController {
 				+ messageDTO.getCompanyId() + "&jobId=" + messageDTO.getJobId());
 	}
 
+	/**
+	 * Send denied message.
+	 *
+	 * @param applyId the apply id
+	 * @param companyId the company id
+	 * @param jobId the job id
+	 * @param response the response
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@RequestMapping(value = "/apply/sendDeniedMessage", method = RequestMethod.GET)
 	public void sendDeniedMessage(@RequestParam("applyId") int applyId, @RequestParam("companyId") int companyId, @RequestParam("jobId") int jobId, HttpServletResponse response) throws IOException {
 		applyService.sendDeniedApplyMessage(applyId);

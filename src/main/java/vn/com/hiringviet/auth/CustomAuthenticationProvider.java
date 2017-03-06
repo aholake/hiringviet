@@ -20,20 +20,28 @@ import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.service.AccountService;
 import vn.com.hiringviet.util.SecurityUtil;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CustomAuthenticationProvider.
+ */
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider,
 		Serializable {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The Constant LOGGER. */
 	private static final Logger LOGGER = Logger
 			.getLogger(CustomAuthenticationProvider.class);
 
+	/** The account service. */
 	@Autowired
 	private AccountService accountService;
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.authentication.AuthenticationProvider#authenticate(org.springframework.security.core.Authentication)
+	 */
 	@Override
 	public Authentication authenticate(Authentication auth)
 			throws AuthenticationException {
@@ -57,6 +65,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider,
 				buildAuthorities(account.getUserRole()));
 	}
 
+	/**
+	 * Builds the authorities.
+	 *
+	 * @param role the role
+	 * @return the list
+	 */
 	public List<GrantedAuthority> buildAuthorities(AccountRoleEnum role) {
 		List<GrantedAuthority> roles = new ArrayList<>();
 		roles.add(new SimpleGrantedAuthority(role.name()));
@@ -64,6 +78,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider,
 		return roles;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.authentication.AuthenticationProvider#supports(java.lang.Class)
+	 */
 	@Override
 	public boolean supports(Class<?> arg0) {
 		return true;

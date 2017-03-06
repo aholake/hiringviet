@@ -20,14 +20,18 @@ import vn.com.hiringviet.model.ChangeLog;
 import vn.com.hiringviet.model.Company;
 import vn.com.hiringviet.model.Job;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Utils.
+ */
 public class Utils {
 
 	/**
-	 * function check string empty or not
-	 * 
-	 * @param str
-	 * @return status string
+	 * function check string empty or not.
+	 *
 	 * @author AnhNT
+	 * @param str the str
+	 * @return status string
 	 */
 	public static String getStringValue(String str) {
 
@@ -38,11 +42,11 @@ public class Utils {
 	}
 
 	/**
-	 * function check string empty or not
-	 * 
-	 * @param str
-	 * @return status string
+	 * function check string empty or not.
+	 *
 	 * @author AnhNT
+	 * @param str the str
+	 * @return status string
 	 */
 	public static boolean isEmptyString(String str) {
 		boolean isEmpty = true;
@@ -56,11 +60,11 @@ public class Utils {
 	}
 
 	/**
-	 * function check list object empty
-	 * 
-	 * @param list
-	 * @return status list
+	 * function check list object empty.
+	 *
 	 * @author AnhNT
+	 * @param list the list
+	 * @return status list
 	 */
 	public static boolean isEmptyList(List<?> list) {
 		boolean isEmpty = true;
@@ -92,11 +96,11 @@ public class Utils {
 	}
 
 	/**
-	 * function check number empty
-	 * 
-	 * @param numner
-	 * @return status number
+	 * function check number empty.
+	 *
 	 * @author AnhNT
+	 * @param number the number
+	 * @return status number
 	 */
 	public static boolean isEmptyNumber(Integer number) {
 		boolean isEmpty = true;
@@ -110,9 +114,9 @@ public class Utils {
 	}
 
 	/**
-	 * init value for integer if its value is null
-	 * 
-	 * @param value
+	 * init value for integer if its value is null.
+	 *
+	 * @param value the value
 	 * @return its value
 	 */
 	public static int intValue(Integer value) {
@@ -123,13 +127,13 @@ public class Utils {
 	}
 
 	/**
-	 * function get page current
-	 * 
-	 * @param totalRecord
-	 * @param numberRecordInpage
-	 * @param pageCurrent
-	 * @return page current
+	 * function get page current.
+	 *
 	 * @author AnhNT
+	 * @param totalRecord the total record
+	 * @param numberRecordInpage the number record inpage
+	 * @param pageCurrent the page current
+	 * @return page current
 	 */
 	public static int getPageCurrent(int totalRecord, int numberRecordInpage,
 			int pageCurrent) {
@@ -148,6 +152,13 @@ public class Utils {
 		return pageCurrent;
 	}
 
+	/**
+	 * Gets the first result.
+	 *
+	 * @param page the page
+	 * @param maxItem the max item
+	 * @return the first result
+	 */
 	public static int getFirstResult(int page, int maxItem) {
 
 		if (page > 0) {
@@ -157,6 +168,13 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Gets the total page.
+	 *
+	 * @param maxItem the max item
+	 * @param maxRecord the max record
+	 * @return the total page
+	 */
 	public static int getTotalPage(long maxItem, int maxRecord) {
 
 		if (maxItem > 0) {
@@ -166,6 +184,12 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Checks if is empty object.
+	 *
+	 * @param object the object
+	 * @return true, if is empty object
+	 */
 	public static boolean isEmptyObject(Object object) {
 		boolean isEmpty = true;
 
@@ -177,6 +201,12 @@ public class Utils {
 		return isEmpty;
 	}
 
+	/**
+	 * Copy properties.
+	 *
+	 * @param source the source
+	 * @param target the target
+	 */
 	public static void copyProperties(Object source, Object target) {
 		try {
 			BeanUtils.copyProperties(source, target);
@@ -185,6 +215,13 @@ public class Utils {
 		}
 	}
 
+	/**
+	 * Calculator paging.
+	 *
+	 * @param pagingDTO the paging dto
+	 * @param fromStart the from start
+	 * @return the paging dto
+	 */
 	public static PagingDTO calculatorPaging(PagingDTO pagingDTO,
 			boolean fromStart) {
 
@@ -199,10 +236,22 @@ public class Utils {
 		return pagingDTO;
 	}
 
+	/**
+	 * Contains.
+	 *
+	 * @param list the list
+	 * @param sublist the sublist
+	 * @return true, if successful
+	 */
 	public static boolean contains(List<?> list, List<?> sublist) {
 		return Collections.indexOfSubList(list, sublist) != -1;
 	}
 
+	/**
+	 * Creates the default change log.
+	 *
+	 * @return the change log
+	 */
 	public static ChangeLog createDefaultChangeLog() {
 		ChangeLog changeLog = new ChangeLog();
 		changeLog.setStatus(StatusEnum.ACTIVE);
@@ -211,6 +260,11 @@ public class Utils {
 		return changeLog;
 	}
 
+	/**
+	 * Generator list year.
+	 *
+	 * @return the list
+	 */
 	@SuppressWarnings("deprecation")
 	public static List<Integer> generatorListYear() {
 
@@ -226,6 +280,11 @@ public class Utils {
 		return list;
 	}
 
+	/**
+	 * Generator change log.
+	 *
+	 * @return the change log
+	 */
 	public static ChangeLog generatorChangeLog() {
 		ChangeLog changeLog = new ChangeLog();
 		changeLog.setCreatedDate(DateUtil.now());
@@ -234,6 +293,11 @@ public class Utils {
 		return changeLog;
 	}
 
+	/**
+	 * Generator degree.
+	 *
+	 * @return the hash map
+	 */
 	public static HashMap<String, String> generatorDegree() {
 		HashMap<String, String> maps = new HashMap<String, String>();
 		maps.put(DegreeEnum.D1.getStatus(), DegreeEnum.D1.getValue());
@@ -244,6 +308,13 @@ public class Utils {
 		return maps;
 	}
 
+	/**
+	 * Export odt.
+	 *
+	 * @param response the response
+	 * @param fileName the file name
+	 * @return the http servlet response
+	 */
 	public static HttpServletResponse exportODT(HttpServletResponse response,
 			String fileName) {
 		response.setContentType("application/msword");
@@ -252,6 +323,13 @@ public class Utils {
 		return response;
 	}
 
+	/**
+	 * Export pdf.
+	 *
+	 * @param response the response
+	 * @param fileName the file name
+	 * @return the http servlet response
+	 */
 	public static HttpServletResponse exportPDF(HttpServletResponse response,
 			String fileName) {
 		response.setContentType("application/x-pdf");
@@ -260,6 +338,13 @@ public class Utils {
 		return response;
 	}
 
+	/**
+	 * Export docx.
+	 *
+	 * @param response the response
+	 * @param fileName the file name
+	 * @return the http servlet response
+	 */
 	public static HttpServletResponse exportDocx(HttpServletResponse response,
 			String fileName) {
 		response.setContentType("application/msword");
@@ -268,6 +353,13 @@ public class Utils {
 		return response;
 	}
 
+	/**
+	 * Gets the message.
+	 *
+	 * @param commonStatus the common status
+	 * @param name the name
+	 * @return the message
+	 */
 	public static String getMessage(String commonStatus, String name) {
 
 		if (CommonEnum.FOLLOW.getStatus().equalsIgnoreCase(commonStatus)) {
@@ -281,6 +373,14 @@ public class Utils {
 		return commonStatus;
 	}
 
+	/**
+	 * Gen log follow.
+	 *
+	 * @param company the company
+	 * @param job the job
+	 * @param isJob the is job
+	 * @return the string
+	 */
 	public static String genLogFollow(Company company, Job job, boolean isJob) {
 
 		StringBuilder sb = new StringBuilder();

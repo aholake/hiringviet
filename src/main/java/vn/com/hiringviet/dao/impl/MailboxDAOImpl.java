@@ -12,10 +12,17 @@ import vn.com.hiringviet.dao.MailboxDAO;
 import vn.com.hiringviet.dto.MessageDTO;
 import vn.com.hiringviet.model.Message;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MailboxDAOImpl.
+ */
 @Repository
 @Transactional
 public class MailboxDAOImpl extends CommonDAOImpl<Message> implements MailboxDAO {
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.MailboxDAO#getOwnerMailList(java.lang.Integer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<MessageDTO> getOwnerMailList(Integer accountId) {
@@ -42,6 +49,9 @@ public class MailboxDAOImpl extends CommonDAOImpl<Message> implements MailboxDAO
 		return messageDTOs;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.MailboxDAO#createMessageByNativeSQL(vn.com.hiringviet.model.Message)
+	 */
 	@Override
 	public void createMessageByNativeSQL(Message message) {
 		StringBuilder query = new StringBuilder();

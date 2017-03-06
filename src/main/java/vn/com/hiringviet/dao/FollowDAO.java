@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.model.Follow;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface FollowDAO.
  */

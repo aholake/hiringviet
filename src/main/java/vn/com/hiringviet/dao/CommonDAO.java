@@ -3,6 +3,7 @@ package vn.com.hiringviet.dao;
 import java.io.Serializable;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface CommonDAO.
  *

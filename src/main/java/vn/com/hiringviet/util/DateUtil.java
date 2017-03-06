@@ -5,17 +5,26 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DateUtil.
+ */
 public class DateUtil {
 
 	/**
-	 * Get now time
+	 * Get now time.
+	 *
+	 * @return the date
 	 */
 	public static Date now() {
 		return Calendar.getInstance().getTime();
 	}
 
 	/**
-	 * Get year of date input
+	 * Get year of date input.
+	 *
+	 * @param time the time
+	 * @return the year
 	 */
 	public static int getYear(Date time) {
 
@@ -31,7 +40,12 @@ public class DateUtil {
 	}
 
 	/**
-	 * Format date to String
+	 * Format date to String.
+	 *
+	 * @param date the date
+	 * @param format the format
+	 * @param locale the locale
+	 * @return the string
 	 */
 	public static String format(Date date, String format, Locale locale) {
 
@@ -41,6 +55,13 @@ public class DateUtil {
 		return null;
 	}
 
+	/**
+	 * Gets the time.
+	 *
+	 * @param millisecond the millisecond
+	 * @return the time
+	 * @throws Exception the exception
+	 */
 	public static Date getTime(Long millisecond) throws Exception {
 
 		Date time = null;
@@ -54,6 +75,12 @@ public class DateUtil {
 		return time;
 	}
 
+	/**
+	 * Gets the date ago.
+	 *
+	 * @param value the value
+	 * @return the date ago
+	 */
 	@SuppressWarnings("deprecation")
 	public static Date getDateAgo(Integer value) {
 		Calendar calendar = Calendar.getInstance();

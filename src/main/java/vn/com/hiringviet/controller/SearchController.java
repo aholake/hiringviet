@@ -41,21 +41,30 @@ import vn.com.hiringviet.service.ResumeService;
 import vn.com.hiringviet.service.SkillService;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SearchController.
+ */
 @Controller
 public class SearchController {
 
+	/** The mailbox service. */
 	@Autowired
 	private MailboxService mailboxService;
 	
+	/** The account service. */
 	@Autowired
 	private AccountService accountService;
 	
+	/** The skill service. */
 	@Autowired
 	private SkillService skillService;
 
+	/** The member service. */
 	@Autowired
 	private MemberService memberService;
 
+	/** The company service. */
 	@Autowired
 	private CompanyService companyService;
 
@@ -67,9 +76,16 @@ public class SearchController {
 	@Autowired
 	private ResumeService resumeService;
 
+	/** The country service. */
 	@Autowired
 	private CountryService countryService;
 
+	/**
+	 * Go search.
+	 *
+	 * @param model the model
+	 * @return the string
+	 */
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String goSearch(Model model) {
 
@@ -108,6 +124,13 @@ public class SearchController {
 		return "/search";
 	}
 
+	/**
+	 * Gets the suggest.
+	 *
+	 * @param searchRequestDTO the search request dto
+	 * @param session the session
+	 * @return the suggest
+	 */
 	@RequestMapping(value = "/search/suggest", method = RequestMethod.POST)
 	public @ResponseBody SearchSuggestResponseDTO getSuggest(@RequestBody SearchRequestDTO searchRequestDTO, HttpSession session) {
 
@@ -142,12 +165,26 @@ public class SearchController {
 		return response;
 	}
 
+	/**
+	 * Suggest skill.
+	 *
+	 * @param keyWord the key word
+	 * @param session the session
+	 * @return the list
+	 */
 	@RequestMapping(value = "/search/suggestSkill", method = RequestMethod.POST)
 	public @ResponseBody List<SkillDTO> suggestSkill(@RequestBody String keyWord, HttpSession session) {
 
 		return skillService.searchSkillByKeyWord(keyWord);
 	}
 
+	/**
+	 * Gets the follow list.
+	 *
+	 * @param accountDTO the account dto
+	 * @param session the session
+	 * @return the follow list
+	 */
 	@RequestMapping(value = "/search/follow/list", method = RequestMethod.POST)
 	public @ResponseBody List<AccountDTO> getFollowList(@RequestBody AccountDTO accountDTO, HttpSession session) {
 		List<AccountDTO> accountDTOs = new ArrayList<AccountDTO>();
@@ -157,6 +194,13 @@ public class SearchController {
 		return accountDTOs;
 	}
 
+	/**
+	 * Gets the owner message list.
+	 *
+	 * @param accountDTO the account dto
+	 * @param session the session
+	 * @return the owner message list
+	 */
 	@RequestMapping(value = "/search/message/owner", method = RequestMethod.POST)
 	public @ResponseBody List<MessageDTO> getOwnerMessageList(@RequestBody AccountDTO accountDTO, HttpSession session) {
 
@@ -167,6 +211,11 @@ public class SearchController {
 		return mailboxService.getOwnerMailList(accountDTO.getId());
 	}
 	
+	/**
+	 * Gets the logged account.
+	 *
+	 * @return the logged account
+	 */
 	private Account getLoggedAccount() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof Account) {

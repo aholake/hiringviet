@@ -64,17 +64,21 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class CompanyController.
  */
 @Controller
 public class CompanyController {
 
+	/** The Constant LAZY_LOAD_COMPANY_NUMBER. */
 	private static final int LAZY_LOAD_COMPANY_NUMBER = 10;
 
+	/** The logger service. */
 	@Autowired
 	private LoggerService loggerService;
 
+	/** The account service. */
 	@Autowired
 	private AccountService accountService;
 
@@ -86,32 +90,36 @@ public class CompanyController {
 	@Autowired
 	private FollowService followService;
 
+	/** The comment service. */
 	@Autowired
 	private CommentService commentService;
 
+	/** The reply comment service. */
 	@Autowired
 	private ReplyCommentService replyCommentService;
 
+	/** The job service. */
 	@Autowired
 	private JobService jobService;
 	
+	/** The apply service. */
 	@Autowired
 	private ApplyService applyService;
 
+	/** The company photo service. */
 	@Autowired
 	private CompanyPhotoService companyPhotoService;
 
+	/** The blobstore service. */
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 
 	/**
 	 * Go company page.
 	 *
-	 * @param companyId
-	 *            the company id
-	 * @param model
-	 *            the model
-	 * @param session
-	 *            the session
+	 * @param companyId            the company id
+	 * @param mode the mode
+	 * @param model            the model
+	 * @param session            the session
 	 * @return the string
 	 */
 	@RequestMapping(value = "/company", method = RequestMethod.GET)
@@ -215,8 +223,6 @@ public class CompanyController {
 	/**
 	 * Go company banner.
 	 *
-	 * @param model the model
-	 * @param session the session
 	 * @return the string
 	 */
 	@RequestMapping(value = "/layouts/companyBanner", method = RequestMethod.GET)
@@ -228,8 +234,6 @@ public class CompanyController {
 	/**
 	 * Go company header.
 	 *
-	 * @param model the model
-	 * @param session the session
 	 * @return the string
 	 */
 	@RequestMapping(value = "/layouts/companyHeader", method = RequestMethod.GET)
@@ -238,6 +242,12 @@ public class CompanyController {
 		return "/layouts/company_header";
 	}
 
+	/**
+	 * Gets the comment.
+	 *
+	 * @param commentRequestDTO the comment request dto
+	 * @return the comment
+	 */
 	@RequestMapping(value = {"/company/post/comments", "/company/careers/comments"}, method = RequestMethod.POST)
 	public @ResponseBody CommentResponseDTO getComment(@RequestBody CommentRequestDTO commentRequestDTO) {
 
@@ -282,6 +292,12 @@ public class CompanyController {
 		return commentResponseDTO;
 	}
 
+	/**
+	 * Gets the reply comment.
+	 *
+	 * @param replyCommentRequestDTO the reply comment request dto
+	 * @return the reply comment
+	 */
 	@RequestMapping(value = "/company/post/replyComments", method = RequestMethod.POST)
 	public @ResponseBody ReplyCommentResponseDTO getReplyComment(
 			@RequestBody ReplyCommentRequestDTO replyCommentRequestDTO) {
@@ -321,6 +337,12 @@ public class CompanyController {
 		return replyCommentResponseDTO;
 	}
 
+	/**
+	 * Adds the comment.
+	 *
+	 * @param commentDTO the comment dto
+	 * @return the comment response dto
+	 */
 	@RequestMapping(value = "/company/addComment", method = RequestMethod.POST)
 	public @ResponseBody CommentResponseDTO addComment(@RequestBody CommentDTO commentDTO) {
 
@@ -354,6 +376,12 @@ public class CompanyController {
 		return commentResponseDTO;
 	}
 
+	/**
+	 * Adds the reply comment.
+	 *
+	 * @param replyCommentDTO the reply comment dto
+	 * @return the comment response dto
+	 */
 	@RequestMapping(value = "/company/addReplyComment", method = RequestMethod.POST)
 	public @ResponseBody CommentResponseDTO addReplyComment(@RequestBody ReplyCommentDTO replyCommentDTO) {
 
@@ -410,6 +438,12 @@ public class CompanyController {
 		return commentResponseDTO;
 	}
 
+	/**
+	 * Gets the hot companies.
+	 *
+	 * @param scrollTime the scroll time
+	 * @return the hot companies
+	 */
 	@RequestMapping(value = "/company/getCompanyHot")
 	@ResponseBody
 	public List<Company> getHotCompanies(@RequestBody int scrollTime) {
@@ -419,6 +453,11 @@ public class CompanyController {
 		return companies;
 	}
 	
+	/**
+	 * Gets the logged account.
+	 *
+	 * @return the logged account
+	 */
 	private Account getLoggedAccount() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		if (principal instanceof Account) {
@@ -431,6 +470,7 @@ public class CompanyController {
 	/**
 	 * Go job detail page.
 	 *
+	 * @param jobId the job id
 	 * @param model the model
 	 * @param session the session
 	 * @return the string
@@ -463,6 +503,14 @@ public class CompanyController {
 		return "job-detail";
 	}
 
+	/**
+	 * Adds the posts.
+	 *
+	 * @param postDTO the post dto
+	 * @param model the model
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/company/addPosts", method = RequestMethod.POST)
 	public String addPosts(@ModelAttribute PostDTO postDTO, Model model, HttpSession session) {
 		
@@ -489,6 +537,15 @@ public class CompanyController {
 		return "redirect:/login";
 	}
 
+	/**
+	 * Upload avatar image.
+	 *
+	 * @param mode the mode
+	 * @param request the request
+	 * @param response the response
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/company/image", method = RequestMethod.POST)
 	public String uploadAvatarImage(
 			@RequestParam("mode") String mode,
@@ -512,6 +569,16 @@ public class CompanyController {
 		return "redirect:/company?companyId=" + companyLogin.getId() + "&mode=" + mode;
 	}
 
+	/**
+	 * Setting email.
+	 *
+	 * @param companyId the company id
+	 * @param mode the mode
+	 * @param accountId the account id
+	 * @param newEmail the new email
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/company/settingEmail", method = RequestMethod.POST)
 	public String settingEmail(@RequestParam("companyId") Integer companyId,
 			@RequestParam("mode") String mode,
@@ -537,6 +604,16 @@ public class CompanyController {
 		}
 	}
 
+	/**
+	 * Setting locale.
+	 *
+	 * @param companyId the company id
+	 * @param mode the mode
+	 * @param accountId the account id
+	 * @param locale the locale
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/company/settingLanguage", method = RequestMethod.POST)
 	public String settingLocale(@RequestParam("companyId") Integer companyId,
 			@RequestParam("mode") String mode,
@@ -561,6 +638,14 @@ public class CompanyController {
 		}
 	}
 
+	/**
+	 * Go to companies apply.
+	 *
+	 * @param companyId the company id
+	 * @param jobId the job id
+	 * @param model the model
+	 * @return the string
+	 */
 	@RequestMapping(value = "/company/apply", method = RequestMethod.GET)
 	public String goToCompaniesApply(
 			@RequestParam("companyId") Integer companyId,
@@ -588,6 +673,14 @@ public class CompanyController {
 		return "company-applies";
 	}
 
+	/**
+	 * Setting follow.
+	 *
+	 * @param companyId the company id
+	 * @param mode the mode
+	 * @param accountId the account id
+	 * @return the string
+	 */
 	@RequestMapping(value = "/company/subscribe", method = RequestMethod.POST)
 	public String settingFollow(@RequestParam("companyId") Integer companyId,
 			@RequestParam("mode") String mode,
@@ -608,6 +701,12 @@ public class CompanyController {
 		return "redirect:/company?companyId=" + companyId + "&mode=" + mode;
 	}
 
+	/**
+	 * Delete comment.
+	 *
+	 * @param commentDTO the comment dto
+	 * @return the common response dto
+	 */
 	@RequestMapping(value = "/company/comment/delete", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO deleteComment(@RequestBody CommentDTO commentDTO) {
 
@@ -620,6 +719,12 @@ public class CompanyController {
 		return response;
 	}
 
+	/**
+	 * Delete reply comment.
+	 *
+	 * @param replyCommentDTO the reply comment dto
+	 * @return the common response dto
+	 */
 	@RequestMapping(value = "/company/replyComment/delete", method = RequestMethod.POST)
 	public @ResponseBody CommonResponseDTO deleteReplyComment(@RequestBody ReplyCommentDTO replyCommentDTO) {
 
@@ -632,6 +737,16 @@ public class CompanyController {
 		return response;
 	}
 
+	/**
+	 * Upload banner.
+	 *
+	 * @param title the title
+	 * @param description the description
+	 * @param request the request
+	 * @param response the response
+	 * @param session the session
+	 * @return the string
+	 */
 	@RequestMapping(value = "/company/photo/add", method = RequestMethod.POST)
 	public String uploadBanner(
 			@RequestParam("title") String title,
@@ -657,6 +772,13 @@ public class CompanyController {
 		return "redirect:/company?companyId=" + companyLogin.getId() + "&mode=HOME";
 	}
 
+	/**
+	 * Upload banner.
+	 *
+	 * @param photoId the photo id
+	 * @param photoKey the photo key
+	 * @return the string
+	 */
 	@RequestMapping(value = "/company/photo/delete", method = RequestMethod.POST)
 	public String uploadBanner(@RequestParam("photoId") Integer photoId, @RequestParam("photoKey") String photoKey) {
 
@@ -675,6 +797,13 @@ public class CompanyController {
 		return "redirect:/company?companyId=" + companyLogin.getId() + "&mode=HOME";
 	}
 
+	/**
+	 * Export apply list.
+	 *
+	 * @param companyId the company id
+	 * @param jobId the job id
+	 * @return the string
+	 */
 	@RequestMapping(value = "/company/apply/export", method = RequestMethod.GET)
 	public String exportApplyList(
 			@RequestParam("companyId") Integer companyId,
@@ -689,6 +818,12 @@ public class CompanyController {
 		}
 	}
 
+	/**
+	 * Gets the job hot.
+	 *
+	 * @param loadMoreRequestDTO the load more request dto
+	 * @return the job hot
+	 */
 	@RequestMapping(value = "/company/job/loadMore", method = RequestMethod.POST)
 	public @ResponseBody JobResponseDTO getJobHot(
 			@RequestBody LoadMoreRequestDTO loadMoreRequestDTO) {

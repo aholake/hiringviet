@@ -8,10 +8,22 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Hex;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AESUtil.
+ */
 public class AESUtil {
 
+	/** The props. */
 	private static Properties props = FileUtil.getConfigProperties();
 
+	/**
+	 * Generate my sqlaes key.
+	 *
+	 * @param key the key
+	 * @param encoding the encoding
+	 * @return the secret key spec
+	 */
 	private static SecretKeySpec generateMySQLAESKey(final String key,
 			final String encoding) {
 		try {
@@ -26,6 +38,13 @@ public class AESUtil {
 		}
 	}
 
+	/**
+	 * Encrypt.
+	 *
+	 * @param value the value
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	public static String encrypt(String value) throws Exception {
 
 		if (!Utils.isEmptyString(value)) {
@@ -37,6 +56,13 @@ public class AESUtil {
 		return null;
 	}
 
+	/**
+	 * Decrypt.
+	 *
+	 * @param value the value
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	public static String decrypt(String value) throws Exception {
 		if (!Utils.isEmptyString(value)) {
 			final Cipher decryptCipher = Cipher.getInstance("AES");

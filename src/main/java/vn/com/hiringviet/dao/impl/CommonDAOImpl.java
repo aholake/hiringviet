@@ -12,20 +12,36 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.dao.CommonDAO;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CommonDAOImpl.
+ *
+ * @param <T> the generic type
+ */
 public abstract class CommonDAOImpl<T extends Serializable> implements
 		CommonDAO<T> {
 
+	/** The entity class. */
 	private Class<T> entityClass;
 
+	/** The session factory. */
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	/**
+	 * Instantiates a new common dao impl.
+	 */
 	@SuppressWarnings("unchecked")
 	public CommonDAOImpl() {
 		entityClass = (Class<T>) ((ParameterizedType) getClass()
 				.getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
+	/**
+	 * Gets the session.
+	 *
+	 * @return the session
+	 */
 	public Session getSession() {
 		Session session = this.sessionFactory.getCurrentSession();
 		if (session == null) {
@@ -34,6 +50,9 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 		return session;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CommonDAO#findOne(int)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -46,6 +65,9 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CommonDAO#findAll()
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
@@ -60,6 +82,9 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CommonDAO#create(java.io.Serializable)
+	 */
 	@Override
 	@Transactional
 	public int create(T entity) {
@@ -73,6 +98,9 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CommonDAO#update(java.io.Serializable)
+	 */
 	@Override
 	@Transactional
 	public boolean update(T entity) {
@@ -87,6 +115,9 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CommonDAO#delete(java.io.Serializable)
+	 */
 	@Override
 	@Transactional
 	public boolean delete(T entity) {
@@ -99,6 +130,9 @@ public abstract class CommonDAOImpl<T extends Serializable> implements
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.CommonDAO#deleteById(int)
+	 */
 	@Override
 	@Transactional
 	public boolean deleteById(int id) {

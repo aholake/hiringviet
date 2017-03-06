@@ -10,9 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.dao.DistrictDAO;
 import vn.com.hiringviet.model.District;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DistrictDAOImpl.
+ */
 @Repository
 public class DistrictDAOImpl extends CommonDAOImpl<District> implements DistrictDAO{
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.DistrictDAO#getDistrictByProvince(int)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional

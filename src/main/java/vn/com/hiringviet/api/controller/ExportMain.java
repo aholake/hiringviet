@@ -11,8 +11,18 @@ import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
 import fr.opensagres.xdocreport.template.formatter.FieldsMetadata;
 
+/**
+ * The Class ExportMain.
+ */
 public class ExportMain {
 
+	/**
+	 * Gen export apply.
+	 *
+	 * @throws XDocReportException the x doc report exception
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void genExportApply() throws XDocReportException,
 			FileNotFoundException, IOException {
 		// 1) Create FieldsMetadata by setting Velocity as template engine
@@ -33,6 +43,14 @@ public class ExportMain {
 		System.out.println("DONE");
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws XDocReportException the x doc report exception
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void main(String[] args) throws XDocReportException,
 			FileNotFoundException, IOException {
 	}

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import vn.com.hiringviet.model.Account;
 import vn.com.hiringviet.model.ChangeLog;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ReplyCommentDTO.
  */
@@ -43,6 +44,7 @@ public class ReplyCommentDTO implements Serializable {
 	/** The display name. */
 	private String displayName;
 
+	/** The account id. */
 	private Integer accountId;
 
 	/**
@@ -225,10 +227,20 @@ public class ReplyCommentDTO implements Serializable {
 		this.displayName = displayName;
 	}
 
+	/**
+	 * Gets the account id.
+	 *
+	 * @return the account id
+	 */
 	public Integer getAccountId() {
 		return accountId;
 	}
 
+	/**
+	 * Sets the account id.
+	 *
+	 * @param accountId the new account id
+	 */
 	public void setAccountId(Integer accountId) {
 		this.accountId = accountId;
 	}

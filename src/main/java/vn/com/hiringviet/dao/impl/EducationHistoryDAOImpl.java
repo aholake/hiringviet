@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import vn.com.hiringviet.dao.EducationHistoryDAO;
 import vn.com.hiringviet.model.EducationHistory;
 
+/**
+ * The Class EducationHistoryDAOImpl.
+ */
 @Repository
 @Transactional
 public class EducationHistoryDAOImpl extends CommonDAOImpl<EducationHistory> implements EducationHistoryDAO {

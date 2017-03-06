@@ -19,10 +19,17 @@ import vn.com.hiringviet.model.Job;
 import vn.com.hiringviet.model.Message;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplyDAOImpl.
+ */
 @Repository
 @Transactional
 public class ApplyDAOImpl extends CommonDAOImpl<Apply> implements ApplyDAO {
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.ApplyDAO#getApplies(vn.com.hiringviet.model.Job)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Apply> getApplies(Job job) {
@@ -32,6 +39,9 @@ public class ApplyDAOImpl extends CommonDAOImpl<Apply> implements ApplyDAO {
 		return criteria.list();
 	}
 	
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.ApplyDAO#addApplyByNativeSQL(vn.com.hiringviet.model.Apply)
+	 */
 	@Override
 	public void addApplyByNativeSQL(Apply apply) {
 		Query query = null;
@@ -60,6 +70,9 @@ public class ApplyDAOImpl extends CommonDAOImpl<Apply> implements ApplyDAO {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.dao.ApplyDAO#getAllApplyByJobId(java.lang.Integer)
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ApplyDTO> getAllApplyByJobId(Integer jobId) {

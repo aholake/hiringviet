@@ -16,18 +16,28 @@ import vn.com.hiringviet.model.ReplyComment;
 import vn.com.hiringviet.service.ReplyCommentService;
 import vn.com.hiringviet.util.Utils;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ReplyCommentServiceImpl.
+ */
 @Service("replyCommentService")
 public class ReplyCommentServiceImpl implements ReplyCommentService{
 
+	/** The reply comment dao. */
 	@Autowired
 	private ReplyCommentDAO replyCommentDAO;
 
+	/** The member dao. */
 	@Autowired
 	private MemberDAO memberDAO;
 
+	/** The comment dao. */
 	@Autowired
 	private CommentDAO commentDAO;
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.ReplyCommentService#getListCommentByPostId(java.lang.Integer, java.lang.Integer, java.lang.Integer)
+	 */
 	@Override
 	public List<ReplyCommentDTO> getListCommentByPostId(Integer first, Integer max, Integer commentId) {
 
@@ -49,6 +59,9 @@ public class ReplyCommentServiceImpl implements ReplyCommentService{
 		return replyCommentDTOs;
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.ReplyCommentService#createReplyComment(vn.com.hiringviet.dto.ReplyCommentDTO)
+	 */
 	@Override
 	public Integer createReplyComment(ReplyCommentDTO replyCommentDTO) {
 
@@ -63,6 +76,9 @@ public class ReplyCommentServiceImpl implements ReplyCommentService{
 		return replyCommentDAO.create(replyComment);
 	}
 
+	/* (non-Javadoc)
+	 * @see vn.com.hiringviet.service.ReplyCommentService#delete(java.lang.Integer)
+	 */
 	@Override
 	public boolean delete(Integer replyCommentId) {
 

@@ -5,6 +5,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import vn.com.hiringviet.model.EducationHistory;
 
+/**
+ * The Interface EducationHistoryDAO.
+ */
 @Repository
 @Transactional
 public interface EducationHistoryDAO extends CommonDAO<EducationHistory> {
